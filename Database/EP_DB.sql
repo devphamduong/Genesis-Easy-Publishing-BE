@@ -316,26 +316,6 @@ CREATE TABLE [dbo].[Story_Issue](
 ) ON [PRIMARY]
 GO
 
--- table Story_Issue
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Story_Issue](
-	[issue_id] [int] IDENTITY(1,1) NOT NULL,
-	[user_id] [int] NOT NULL,
-	[story_id] [int] NOT NULL,
-	[issue_title] [nvarchar](100) NULL,
-	[issue_content] [nvarchar](500) NOT NULL,
-	[issue_date] [date] NOT NULL,
-  CONSTRAINT [PK_story_issue] PRIMARY KEY CLUSTERED 
-(
-	[issue_id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-
 -- table Report
 SET ANSI_NULLS ON
 GO
