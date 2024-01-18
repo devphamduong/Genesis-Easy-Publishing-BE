@@ -99,7 +99,7 @@ CREATE TABLE [dbo].[User](
 	[address] [nvarchar](200) NULL,
 	[username] [nvarchar](50) NOT NULL,
 	[password] [nvarchar](50) NOT NULL,
-	[user_image] [nvarchar](4000) NOT NULL,
+	[user_image] [nvarchar](4000) NULL,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 
 (
 	[user_id] ASC
@@ -147,19 +147,19 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Transaction](
-	[transactionId] [bigint] IDENTITY(3000000,1) NOT NULL,
+	[transaction_id] [bigint] IDENTITY(3000000,1) NOT NULL,
 	[wallet_id] [int] NOT NULL,
 	[amount] [decimal](10, 2) NOT NULL,
 	[fund_before] [decimal](10, 2) NOT NULL,
 	[fund_after] [decimal](10, 2) NOT NULL,
 	[refund_before] [decimal](10, 2) NOT NULL,
 	[refund_after] [decimal](10, 2) NOT NULL,
-	[transaction_time] [datetime] NULL,
+	[transaction_time] [datetime] NOT NULL,
 	[status] [bit] NULL,
 	[description] [nvarchar](500) NULL,
  CONSTRAINT [PK_Transaction] PRIMARY KEY CLUSTERED 
 (
-	[transactionId] ASC
+	[transaction_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -201,9 +201,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Story](
 	[story_id] [int] IDENTITY(1,1) NOT NULL,
-	[title] [nvarchar](100) NULL,
-	[author_id] [int] NULL,
-	[story_price] [decimal](10, 2) NULL,
+	[title] [nvarchar](100) NOT NULL,
+	[author_id] [int] NOT NULL,
+	[story_price] [decimal](10, 2) NOT NULL,
 	[story_sale] [decimal] NULL,
 	[story_image] [varchar](4000) NULL,
 	[story_description] [nvarchar](4000) NULL,
@@ -271,7 +271,7 @@ GO
 CREATE TABLE [dbo].[Chapter](
 	[chapter_id] [int] IDENTITY(1,1) NOT NULL,
 	[story_id] [int] NOT NULL,
-	[chapter_title] [nvarchar](100) NULL,
+	[chapter_title] [nvarchar](100) NOT NULL,
 	[chapter_content] [ntext] NOT NULL,
 	[chapter_price] [decimal](10, 2) NULL,
 	[status] [bit] NULL,
@@ -305,13 +305,33 @@ GO
 CREATE TABLE [dbo].[Story_Issue](
 	[issue_id] [int] IDENTITY(1,1) NOT NULL,
 	[user_id] [int] NOT NULL,
-	[story_id] [int] NOT NULL,
-	[issue_title] [nvarchar](100) NULL,
+	[story_id] [int] NULL,
+	[issue_title] [nvarchar](100) NOT NULL,
 	[issue_content] [nvarchar](500) NOT NULL,
 	[issue_date] [date] NOT NULL,
   CONSTRAINT [PK_story_issue] PRIMARY KEY CLUSTERED 
 (
 	[issue_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- table Comment
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Comment](
+	[comment_id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[story_id] [int] NULL,
+	[chapter_id] [int] NULL,
+	[issue_id] [int] NULL,
+	[comment_content] [nvarchar](2000) NOT NULL,
+	[comment_date] [date] NOT NULL,
+ CONSTRAINT [PK_comment] PRIMARY KEY CLUSTERED 
+(
+	[comment_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -324,15 +344,14 @@ GO
 CREATE TABLE [dbo].[Report](
 	[report_id] [int] IDENTITY(1,1) NOT NULL,
 	[user_id] [int] NOT NULL,
-	[story_id] [int] NOT NULL,
-	[chapter_id] [int] NOT NULL,
-	[issue_id] [int] NOT NULL,
-	[transaction_id] [int] NOT NULL,
-	[comment_id] [int] NOT NULL,
+	[story_id] [int] NULL,
+	[chapter_id] [int] NULL,
+	[issue_id] [int] NULL,
+	[transaction_id] [bigint] NULL,
+	[comment_id] [int] NULL,
 	[report_content] [nvarchar](2000) NOT NULL,
 	[report_date] [date] NOT NULL,
 	[status] [bit] NULL,
-	[title] [nvarchar](100) NOT NULL,
  CONSTRAINT [PK_report] PRIMARY KEY CLUSTERED 
 (
 	[report_id] ASC
@@ -367,6 +386,81 @@ GO
 ALTER TABLE [dbo].[Story_Owned]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO
+
+ALTER TABLE [dbo].[Story_Category]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Story_Category]  WITH CHECK ADD FOREIGN KEY([category_id])
+REFERENCES [dbo].[Category] ([category_id])
+GO
+
+ALTER TABLE [dbo].[Story_Interaction]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Chapter]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Chapter_Owned]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[Chapter_Owned]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
+GO
+
+ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
+GO
+
+ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([issue_id])
+REFERENCES [dbo].[Story_Issue] ([issue_id])
+GO
+
+
+ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
+GO
+
+ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([issue_id])
+REFERENCES [dbo].[Story_Issue] ([issue_id])
+GO
+
+ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([transaction_id])
+REFERENCES [dbo].[Transaction] ([transaction_id])
+GO
+
+ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([comment_id])
+REFERENCES [dbo].[Comment] ([comment_id])
+GO
+
+
 
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 mean Fail, 1 mean Pending, 2 mean Successful' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Transaction', @level2type=N'COLUMN',@level2name=N'status'
 GO
