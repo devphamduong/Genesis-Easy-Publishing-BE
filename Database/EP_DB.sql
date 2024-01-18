@@ -359,6 +359,17 @@ CREATE TABLE [dbo].[Report](
 ) ON [PRIMARY]
 GO
 
+SET IDENTITY_INSERT [dbo].[User] ON 
+GO
+
+INSERT INTO [dbo].[User] ([user_id],[user_name],[gender],[dob],[email],[phone],[address],[username],[password],[user_image])
+     VALUES (1, N'Duy Pham', 1, CAST(N'2002-12-25' AS Date), N'duypd@fpt.edu.vn', N'0382132025', N'FBT University ', N'duypd', N'123', N'123')
+GO
+
+SET IDENTITY_INSERT [dbo].[User] OFF
+GO
+
+
 ALTER TABLE [dbo].[Token]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO
