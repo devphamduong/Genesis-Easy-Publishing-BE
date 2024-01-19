@@ -107,23 +107,6 @@ CREATE TABLE [dbo].[User](
 ) ON [PRIMARY]
 GO
 
--- table Token
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Token](
-	[token] [varchar](20) NOT NULL,
-	[user_id] [int] NOT NULL,
-	[refresh_token] [varchar](20) NOT NULL,
-	[expiredDate] [datetime] NOT NULL
- CONSTRAINT [PK_token] PRIMARY KEY CLUSTERED 
-(
-	[token] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 -- table Wallet
 SET ANSI_NULLS ON
 GO
@@ -369,10 +352,6 @@ GO
 SET IDENTITY_INSERT [dbo].[User] OFF
 GO
 
-
-ALTER TABLE [dbo].[Token]  WITH CHECK ADD FOREIGN KEY([user_id])
-REFERENCES [dbo].[User] ([user_id])
-GO
 
 ALTER TABLE [dbo].[Wallet]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
