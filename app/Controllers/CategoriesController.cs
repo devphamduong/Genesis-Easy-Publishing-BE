@@ -23,7 +23,7 @@ namespace app.Controllers
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult> GetCategories()
         {
             var cate = await _context.Categories.ToListAsync();
             return new JsonResult(new
