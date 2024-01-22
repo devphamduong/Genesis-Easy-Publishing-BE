@@ -11,7 +11,7 @@ public partial class Comment
 
     public int? StoryId { get; set; }
 
-    public int? ChapterId { get; set; }
+    public long? ChapterId { get; set; }
 
     public int? IssueId { get; set; }
 

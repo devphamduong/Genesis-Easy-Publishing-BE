@@ -7,7 +7,7 @@ public partial class Story
 {
     public int StoryId { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string StoryTitle { get; set; } = null!;
 
     public int AuthorId { get; set; }
 
@@ -21,19 +21,23 @@ public partial class Story
 
     public bool? Status { get; set; }
 
+    public virtual User Author { get; set; } = null!;
+
     public virtual ICollection<Chapter> Chapters { get; set; } = new List<Chapter>();
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 
+    public virtual ICollection<StoryFollowLike> StoryFollowLikes { get; set; } = new List<StoryFollowLike>();
+
     public virtual StoryInteraction? StoryInteraction { get; set; }
 
     public virtual ICollection<StoryIssue> StoryIssues { get; set; } = new List<StoryIssue>();
 
+    public virtual ICollection<Volume> Volumes { get; set; } = new List<Volume>();
+
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
-
-    public virtual ICollection<User> UsersNavigation { get; set; } = new List<User>();
 }

@@ -1,9 +1,0 @@
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.csproj.AssemblyReference.cache
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.GeneratedMSBuildEditorConfig.editorconfig
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.AssemblyInfoInputs.cache
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.AssemblyInfo.cs
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.csproj.CoreCompileInputs.cache
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.MvcApplicationPartsAssemblyInfo.cs
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.MvcApplicationPartsAssemblyInfo.cache
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.RazorAssemblyInfo.cache
-D:\code\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.RazorAssemblyInfo.cs

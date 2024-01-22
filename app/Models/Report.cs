@@ -11,13 +11,15 @@ public partial class Report
 
     public int? StoryId { get; set; }
 
-    public int? ChapterId { get; set; }
+    public long? ChapterId { get; set; }
 
     public int? IssueId { get; set; }
 
     public long? TransactionId { get; set; }
 
     public int? CommentId { get; set; }
+
+    public string ReportTitle { get; set; } = null!;
 
     public string ReportContent { get; set; } = null!;
 
