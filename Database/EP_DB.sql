@@ -878,7 +878,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 
 		DECLARE @Counter_Story INT = 2; -- Start with the next number after the existing data
 		DECLARE @Counter_Chapter INT = 7;
-		WHILE @Counter_Story <= 10 -- Set the end condition
+		WHILE @Counter_Story <= 12 -- Set the end condition
 		BEGIN
 			INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title] ,[status],[chapter_content]) 
 				VALUES
@@ -931,9 +931,9 @@ GO
 
 INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 	VALUES 
-		(1 ,52 ,24 ,123 ,98),
-		(2 ,43 ,34 ,83 ,58),
-		(3 ,23 ,14 ,23 ,38),
+		(1 ,100 ,24 ,123 ,198),
+		(2 ,43 ,34 ,83 ,158),
+		(3 ,23 ,14 ,23 ,238),
 		(4 ,43 ,24 ,33 ,48),
 		(5 ,23 ,24 ,123 ,98),
 		(6 ,53 ,24 ,123 ,98),
