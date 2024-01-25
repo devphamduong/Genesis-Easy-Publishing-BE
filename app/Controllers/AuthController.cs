@@ -138,7 +138,7 @@ namespace app.Controllers
             {
                 Email = data.email,
                 Password = data.password,
-                UserName = data.username,
+                Username = data.username,
                 //FullName = !string.IsNullOrEmpty(data.fullName) ? data.fullName : null,
                 //RoleId = 1,
                 Gender = true

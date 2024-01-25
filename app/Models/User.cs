@@ -7,7 +7,7 @@ public partial class User
 {
     public int UserId { get; set; }
 
-    public string? UserName { get; set; }
+    public string? UserFullname { get; set; }
 
     public bool? Gender { get; set; }
 
@@ -19,7 +19,7 @@ public partial class User
 
     public string? Address { get; set; }
 
-    public string Username1 { get; set; } = null!;
+    public string Username { get; set; } = null!;
 
     public string Password { get; set; } = null!;
 
