@@ -10,5 +10,6 @@
     <WebStackScaffolding_DbContextTypeFullName>app.Models.EasyPublishingContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
+    <NameOfLastUsedPublishProfile>D:\code\Genesis-Easy-Publishing-BE\app\Properties\PublishProfiles\epstory - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
