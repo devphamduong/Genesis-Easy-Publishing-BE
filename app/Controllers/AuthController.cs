@@ -1,8 +1,7 @@
 ﻿using app.Models;
-using Microsoft.AspNetCore.Http;
+using app.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,6 +14,8 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private readonly IConfiguration _configuration;
+        private HashPassword hashPassword = new HashPassword();
+        private SendMail sendMail = new SendMail();
 
         public AuthController(EasyPublishingContext context, IConfiguration configuration)
         {
@@ -22,10 +23,10 @@ namespace app.Controllers
             _configuration = configuration;
         }
 
-      
+
         public class LoginModal
         {
-            public string email { get; set; }
+            public string username { get; set; }
             public string password { get; set; }
         }
 
@@ -45,7 +46,12 @@ namespace app.Controllers
 
             public DateTime? Dob { get; set; }
 
-            public string? Role { get; set; }
+            public string? Phone { get; set; }
+
+            public string? UserImage { get; set; }
+
+            public int? Status { get; set; }
+            //public string? Role { get; set; }
         }
 
         public class RegisterModal
@@ -55,11 +61,16 @@ namespace app.Controllers
             public string username { get; set; }
             public string fullName { get; set; }
         }
+        public class ResetPasswordModal
+        {
+            public string password { get; set; }
+            public string confirmPassword { get; set; }
+        }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModal data)
         {
-            if (string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
+            if (string.IsNullOrEmpty(data.username) || string.IsNullOrEmpty(data.password))
             {
                 return new JsonResult(new
                 {
@@ -67,18 +78,21 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            var user = _context.Users.Where(u => u.Email.Equals(data.email) && u.Password.Equals(data.password)).Select(u => new
+            var user = _context.Users.Where(u => u.Username.Equals(data.username)).Select(u => new
             {
-                //id = u.Id,
-                //email = u.Email,
-                //username = u.Username,
-                //fullName = u.FullName,
-                //gender = u.Gender == true ? "Male" : "Female",
-                //dob = u.Dob,
-                //address = u.Address,
-                //role = u.Role.Name,
+                id = u.UserId,
+                email = u.Email,
+                username = u.Username,
+                password = u.Password,
+                fullName = u.UserFullname,
+                gender = u.Gender == true ? "Male" : "Female",
+                dob = u.Dob,
+                address = u.Address,
+                phone = u.Phone,
+                status = u.Status == true ? 1 : 0,
+                userImage = u.UserImage
             }).FirstOrDefault();
-            if (user == null)
+            if (user == null || !hashPassword.Verify(user.password, data.password))
             {
                 return new JsonResult(new
                 {
@@ -88,14 +102,16 @@ namespace app.Controllers
             }
             UserDTO userDTO = new UserDTO
             {
-                //Id = user.id,
-                //Email = user.email,
-                //Username = user.username,
-                //FullName = user.fullName,
-                //Gender = user.gender,
-                //Dob = user.dob,
-                //Address = user.address,
-                //Role = user.role,
+                Id = user.id,
+                Email = user.email,
+                Username = user.username,
+                FullName = user.fullName,
+                Gender = user.gender,
+                Dob = user.dob,
+                Address = user.address,
+                Phone = user.phone,
+                Status = user.status,
+                UserImage = user.userImage
             };
             var token = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
@@ -134,13 +150,13 @@ namespace app.Controllers
                     EM = "This email is already in use by another account",
                 });
             }
+            string passwordHash = hashPassword.Hash(data.password);
             _context.Users.Add(new User
             {
                 Email = data.email,
-                Password = data.password,
+                Password = passwordHash,
                 Username = data.username,
-                //FullName = !string.IsNullOrEmpty(data.fullName) ? data.fullName : null,
-                //RoleId = 1,
+                UserFullname = !string.IsNullOrEmpty(data.fullName) ? data.fullName : null,
                 Gender = true
             });
             _context.SaveChanges();
@@ -174,13 +190,13 @@ namespace app.Controllers
                 new Claim("fullName", user.FullName),
                 new Claim("userName", user.Username),
                 new Claim("gender", user.Gender),
-                new Claim("dob", user.Dob.ToString()),
-                new Claim("address", user.Address),
-                new Claim("role", user.Role),
-    }),
+                new Claim("dob", !string.IsNullOrEmpty(user.Dob.ToString()) ? user.Dob.ToString() : ""),
+                new Claim("address", !string.IsNullOrEmpty(user.Address) ? user.Address : ""),
+                new Claim("phone", !string.IsNullOrEmpty(user.Phone) ? user.Phone : ""),
+                }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddHours(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
+                Expires = DateTime.UtcNow.AddDays(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
                 SigningCredentials = new SigningCredentials(
     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
     SecurityAlgorithms.HmacSha256)
@@ -226,7 +242,10 @@ namespace app.Controllers
                     Gender = jwtSecurityToken.Claims.First(c => c.Type == "gender").Value,
                     Dob = DateTime.Parse(jwtSecurityToken.Claims.First(c => c.Type == "dob").Value),
                     Address = jwtSecurityToken.Claims.First(c => c.Type == "address").Value,
-                    Role = jwtSecurityToken.Claims.First(c => c.Type == "role").Value,
+                    Phone = jwtSecurityToken.Claims.First(c => c.Type == "phone").Value,
+                    Status = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "status").Value),
+                    UserImage = jwtSecurityToken.Claims.First(c => c.Type == "userImage").Value,
+                    //Role = jwtSecurityToken.Claims.First(c => c.Type == "role").Value,
                 };
             }
             catch (Exception)
@@ -246,6 +265,37 @@ namespace app.Controllers
                     user = userDTO,
                     access_token = Request.Cookies["access_token"],
                 },
+            });
+        }
+
+        [HttpPost("forgot_password")]
+        public IActionResult SendMailConfirm(string email)
+        {
+            var user = _context.Users.Where(u => u.Email.Equals(email)).FirstOrDefault();
+            if (user == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "This email is not registered",
+                });
+            }
+            try
+            {
+                sendMail.Send(email, "Easy Publishing: Reset password", "<p>Click on the link below to reset your password:</p>\r\n<a href=\"#\">Reset password</a>");
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Error: " + ex.Message,
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "We have sent an email to your registered email address, Please follow the instructions to reset your password",
             });
         }
     }
