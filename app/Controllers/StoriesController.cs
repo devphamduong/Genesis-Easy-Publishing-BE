@@ -53,7 +53,7 @@ namespace app.Controllers
                 .ThenByDescending(s => s.UserPurchaseChapter)
                 .ThenByDescending(s => s.Read).ThenByDescending(s => s.Follow).ThenByDescending(s => s.Like)
                 .ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", new { stories_list = stories });
+            return _msgService.MsgReturn("Stories successfully", stories);
         }
 
         // GET: api/Stories : top latest story by chapter
@@ -81,7 +81,7 @@ namespace app.Controllers
                     StoryChapterNumber = group.Count(),
                     StoryLatestChapter = new { group.First().ChapterId, group.First().ChapterTitle, }
                 }).ToList();
-            return _msgService.MsgReturn("Stories successfully", new { stories_list = stories_list });
+            return _msgService.MsgReturn("Stories successfully", stories_list);
         }
 
         // GET: api/Stories : top 6 purchase story
@@ -105,7 +105,7 @@ namespace app.Controllers
                 })
                 .OrderByDescending(s => s.UserCount)
                 .ThenByDescending(s => s.UserPurchaseChapter).Take(6).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", new { stories_list = stories });
+            return _msgService.MsgReturn("Stories successfully", stories);
         }
 
         // GET: api/Stories : top read story
@@ -134,7 +134,7 @@ namespace app.Controllers
                     },
                     s.Read
                 }).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", new { stories_list = stories });
+            return _msgService.MsgReturn("Stories successfully", stories);
         }
 
         // GET: api/Stories : top price decend story 
@@ -164,7 +164,7 @@ namespace app.Controllers
                     ChaptersPrice = s.Chapters.Select(c => c.ChapterPrice).Sum(),
                 }).OrderBy(c => c.StoryPrice)
                 .ThenBy(c => c.ChaptersPrice).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", new { stories_list = stories });
+            return _msgService.MsgReturn("Stories successfully", stories);
         }
 
         // GET: api/Stories : top latest story
@@ -190,7 +190,7 @@ namespace app.Controllers
                         c.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle
                     },
                 }).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", new { stories_list = stories });
+            return _msgService.MsgReturn("Stories successfully", stories);
         }
 
         // GET: api/Stories : stories of each cate
@@ -208,10 +208,10 @@ namespace app.Controllers
                         s.StoryId,
                         s.StoryTitle,
                         s.StoryInteraction.Read
-                    }).OrderByDescending(s =>s.Read).ToList(),
+                    }).OrderByDescending(s => s.Read).ToList(),
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", new { stories_list = stories });
+            return _msgService.MsgReturn("Stories successfully", stories);
         }
     }
 }
