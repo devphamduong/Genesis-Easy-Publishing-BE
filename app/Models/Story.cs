@@ -19,7 +19,11 @@ public partial class Story
 
     public string? StoryDescription { get; set; }
 
-    public bool? Status { get; set; }
+    public DateTime CreateTime { get; set; }
+
+    public DateTime? UpdateTime { get; set; }
+
+    public int Status { get; set; }
 
     public virtual User Author { get; set; } = null!;
 

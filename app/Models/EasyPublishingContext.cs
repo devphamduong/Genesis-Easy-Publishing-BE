@@ -49,6 +49,7 @@ public partial class EasyPublishingContext : DbContext
             optionsBuilder.UseSqlServer(conf.GetConnectionString("MyCnn"));
         }
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
@@ -98,8 +99,14 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.ChapterTitle)
                 .HasMaxLength(100)
                 .HasColumnName("chapter_title");
+            entity.Property(e => e.CreateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("create_time");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.UpdateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("update_time");
             entity.Property(e => e.VolumeId).HasColumnName("volume_id");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Chapters)
@@ -207,6 +214,9 @@ public partial class EasyPublishingContext : DbContext
 
             entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.AuthorId).HasColumnName("author_id");
+            entity.Property(e => e.CreateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("create_time");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.StoryDescription)
                 .HasMaxLength(4000)
@@ -224,6 +234,9 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.StoryTitle)
                 .HasMaxLength(100)
                 .HasColumnName("story_title");
+            entity.Property(e => e.UpdateTime)
+                .HasColumnType("datetime")
+                .HasColumnName("update_time");
 
             entity.HasOne(d => d.Author).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.AuthorId)
@@ -357,6 +370,7 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnName("email");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.Password)
+                .HasMaxLength(50)
                 .HasColumnName("password");
             entity.Property(e => e.Phone)
                 .HasMaxLength(11)

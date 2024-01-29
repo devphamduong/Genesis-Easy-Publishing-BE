@@ -192,7 +192,9 @@ CREATE TABLE [dbo].[Story](
 	[story_sale] [decimal] NULL,
 	[story_image] [varchar](4000) NULL,
 	[story_description] [nvarchar](4000) NULL,
-	[status] [bit] NULL,
+	[create_time] [datetime] NOT NULL,
+	[update_time] [datetime] NULL,
+	[status] [int] NOT NULL,
  CONSTRAINT [PK_story] PRIMARY KEY CLUSTERED 
 (
 	[story_id] ASC
@@ -278,7 +280,9 @@ CREATE TABLE [dbo].[Chapter](
 	[chapter_title] [nvarchar](100) NOT NULL,
 	[chapter_content] [ntext] NOT NULL,
 	[chapter_price] [decimal](10, 2) NULL,
-	[status] [bit] NULL,
+	[create_time] [datetime] NOT NULL,
+	[update_time] [datetime] NULL,
+	[status] [int] NOT NULL,
   CONSTRAINT [PK_chapter] PRIMARY KEY CLUSTERED 
 (
 	[chapter_id] ASC
@@ -504,48 +508,69 @@ END;
 SET IDENTITY_INSERT [dbo].[Wallet] OFF
 GO
 
-
 SET IDENTITY_INSERT [dbo].[Story] ON 
 GO
 
-INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [story_sale], [story_image], [story_description], [status])
+INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [story_sale], [story_image], [story_description], [create_time], [update_time], [status])
 	VALUES 
 		( 1,N'Gone Girl ',1, CAST(11.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.<br>
 		On a warm summer morning in North Carthage, Missouri, it is Nick and Amy Dunne’s fifth wedding anniversary. Presents are being wrapped and reservations are being made when Nick’s clever and beautiful wife disappears from their rented McMansion on the Mississippi River. Husband-of-the-Year Nick isn’t doing himself any favors with cringe-worthy daydreams about the slope and shape of his wife’s head, but passages from Amy''s diary reveal the alpha-girl perfectionist could have put anyone dangerously on edge. Under mounting pressure from the police and the media—as well as Amy’s fiercely doting parents—the town golden boy parades an endless series of lies, deceits, and inappropriate behavior. Nick is oddly evasive, and he’s definitely bitter—but is he really a killer?<br>
-		As the cops close in, every couple in town is soon wondering how well they know the one that they love. With his twin sister, Margo, at his side, Nick stands by his innocence. Trouble is, if Nick didn’t do it, where is that beautiful wife? And what was in that silvery gift box hidden in the back of her bedroom closet?',1),
+		As the cops close in, every couple in town is soon wondering how well they know the one that they love. With his twin sister, Margo, at his side, Nick stands by his innocence. Trouble is, if Nick didn’t do it, where is that beautiful wife? And what was in that silvery gift box hidden in the back of her bedroom closet?',
+		CAST(N'2022-01-01T05:52:10.323' AS DateTime), null, 1),
 		(2, N'And Then There Were None', 2, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1638425885l/16299._SY475_.jpg', N'First, there were ten—a curious assortment of strangers summoned as weekend guests to a little private island off the coast of Devon. Their host, an eccentric millionaire unknown to all of them, is nowhere to be found. All that the guests have in common is a wicked past they''re unwilling to reveal—and a secret that will seal their fate. For each has been marked for murder. A famous nursery rhyme is framed and hung in every room of the mansion:<br>
 		"Ten little boys went out to dine; One choked his little self and then there were nine. Nine little boys sat up very late; One overslept himself and then there were eight. Eight little boys traveling in Devon; One said he''d stay there then there were seven. Seven little boys chopping up sticks; One chopped himself in half and then there were six. Six little boys playing with a hive; A bumblebee stung one and then there were five. Five little boys going in for law; One got in Chancery and then there were four. Four little boys going out to sea; A red herring swallowed one and then there were three. Three little boys walking in the zoo; A big bear hugged one and then there were two. Two little boys sitting in the sun; One got frizzled up and then there was one. One little boy left all alone; He went out and hanged himself and then there were none."<br>
-		When they realize that murders are occurring as described in the rhyme, terror mounts. One by one they fall prey. Before the weekend is out, there will be none. Who has choreographed this dastardly scheme? And who will be left to tell the tale? Only the dead are above suspicion.',  1),
+		When they realize that murders are occurring as described in the rhyme, terror mounts. One by one they fall prey. Before the weekend is out, there will be none. Who has choreographed this dastardly scheme? And who will be left to tell the tale? Only the dead are above suspicion.',  
+		CAST(N'2022-02-01T05:52:10.323' AS DateTime), null, 1),
 		(3, N'The Silent Patient', 3, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1582759969l/40097951._SX318_.jpg', N'Alicia Berenson’s life is seemingly perfect. A famous painter married to an in-demand fashion photographer, she lives in a grand house with big windows overlooking a park in one of London’s most desirable areas. One evening her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in the face, and then never speaks another word.<br>
 		Alicia’s refusal to talk, or give any kind of explanation, turns a domestic tragedy into something far grander, a mystery that captures the public imagination and casts Alicia into notoriety. The price of her art skyrockets, and she, the silent patient, is hidden away from the tabloids and spotlight at the Grove, a secure forensic unit in North London.<br>
-		Theo Faber is a criminal psychotherapist who has waited a long time for the opportunity to work with Alicia. His determination to get her to talk and unravel the mystery of why she shot her husband takes him down a twisting path into his own motivations—a search for the truth that threatens to consume him....', 1),
-		(4, N'The Girl on the Train',4, CAST(13.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1574805682l/22557272.jpg', N'Rachel catches the same commuter train every morning. She knows it will wait at the same signal each time, overlooking a row of back gardens. She’s even started to feel like she knows the people who live in one of the houses. “Jess and Jason,” she calls them. Their life—as she sees it—is perfect. If only Rachel could be that happy. And then she sees something shocking. It’s only a minute until the train moves on, but it’s enough. Now everything’s changed. Now Rachel has a chance to become a part of the lives she’s only watched from afar. Now they’ll see; she’s much more than just the girl on the train...', 1),
-		(5, N'Lord of the Mysteries',5, CAST(11.99 AS Decimal(10, 2)), CAST(10 AS Decimal(10, 2)), N'https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg', N'Waking up to be faced with a string of mysteries, Zhou Mingrui finds himself reincarnated as Klein Moretti in an alternate Victorian era world where he sees a world filled with machinery, cannons, dreadnoughts, airships, difference machines, as well as Potions, Divination, Hexes, Tarot Cards, Sealed Artifacts… The Light continues to shine but the mystery has never gone far. Follow Klein as he finds himself entangled with the Churches of the world—both orthodox and unorthodox—while he slowly develops newfound powers thanks to the Beyonder potions.',  1),
-		(6, N'The Shining',6, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1353277730l/11588.jpg', N'Jack Torrance''s new job at the Overlook Hotel is the perfect chance for a fresh start. As the off-season caretaker at the atmospheric old hotel, he''ll have plenty of time to spend reconnecting with his family and working on his writing. But as the harsh winter weather sets in, the idyllic location feels ever more remote...and more sinister. And the only one to notice the strange and terrible forces gathering around the Overlook is Danny Torrance, a uniquely gifted five-year-old.',  1),
+		Theo Faber is a criminal psychotherapist who has waited a long time for the opportunity to work with Alicia. His determination to get her to talk and unravel the mystery of why she shot her husband takes him down a twisting path into his own motivations—a search for the truth that threatens to consume him....',
+		CAST(N'2022-03-01T05:52:10.323' AS DateTime), null, 1),
+		(4, N'The Girl on the Train',4, CAST(13.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1574805682l/22557272.jpg', N'Rachel catches the same commuter train every morning. She knows it will wait at the same signal each time, overlooking a row of back gardens. She’s even started to feel like she knows the people who live in one of the houses. “Jess and Jason,” she calls them. Their life—as she sees it—is perfect. If only Rachel could be that happy. And then she sees something shocking. It’s only a minute until the train moves on, but it’s enough. Now everything’s changed. Now Rachel has a chance to become a part of the lives she’s only watched from afar. Now they’ll see; she’s much more than just the girl on the train...',
+		CAST(N'2022-04-01T05:52:10.323' AS DateTime), null, 1),
+		(5, N'Lord of the Mysteries',5, CAST(11.99 AS Decimal(10, 2)), CAST(10 AS Decimal(10, 2)), N'https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg', N'Waking up to be faced with a string of mysteries, Zhou Mingrui finds himself reincarnated as Klein Moretti in an alternate Victorian era world where he sees a world filled with machinery, cannons, dreadnoughts, airships, difference machines, as well as Potions, Divination, Hexes, Tarot Cards, Sealed Artifacts… The Light continues to shine but the mystery has never gone far. Follow Klein as he finds himself entangled with the Churches of the world—both orthodox and unorthodox—while he slowly develops newfound powers thanks to the Beyonder potions.',
+		CAST(N'2022-05-01T05:52:10.323' AS DateTime), null,  1),
+		(6, N'The Shining',6, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1353277730l/11588.jpg', N'Jack Torrance''s new job at the Overlook Hotel is the perfect chance for a fresh start. As the off-season caretaker at the atmospheric old hotel, he''ll have plenty of time to spend reconnecting with his family and working on his writing. But as the harsh winter weather sets in, the idyllic location feels ever more remote...and more sinister. And the only one to notice the strange and terrible forces gathering around the Overlook is Danny Torrance, a uniquely gifted five-year-old.',  
+		CAST(N'2022-06-01T05:52:10.323' AS DateTime), null, 1),
 		(7, N'It',6, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1334416842l/830502.jpg', N'Welcome to Derry, Maine ...<br>
 		It’s a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real ...<br>
-		They were seven teenagers when they first stumbled upon the horror. Now they are grown-up men and women who have gone out into the big world to gain success and happiness. But none of them can withstand the force that has drawn them back to Derry to face the nightmare without an end, and the evil without a name.',  1),
+		They were seven teenagers when they first stumbled upon the horror. Now they are grown-up men and women who have gone out into the big world to gain success and happiness. But none of them can withstand the force that has drawn them back to Derry to face the nightmare without an end, and the evil without a name.',  
+		CAST(N'2022-07-01T05:52:10.323' AS DateTime), null, 1),
 		(8, N'A Game Of Thrones: A Song of Ice and Fire', 7, CAST(13.99 AS Decimal(10, 2)), 0, N'https://m.media-amazon.com/images/P/0553386794.01._SCLZZZZZZZ_SX500_.jpg', N'Long ago, in a time forgotten, a preternatural event threw the seasons out of balance. In a land where summers can last decades and winters a lifetime, trouble is brewing. The cold is returning, and in the frozen wastes to the north of Winterfell, sinister and supernatural forces are massing beyond the kingdom’s protective Wall. At the center of the conflict lie the Starks of Winterfell, a family as harsh and unyielding as the land they were born to. Sweeping from a land of brutal cold to a distant summertime kingdom of epicurean plenty, here is a tale of lords and ladies, soldiers and sorcerers, assassins and bastards, who come together in a time of grim omens.
 		<br>
-		Here an enigmatic band of warriors bear swords of no human metal; a tribe of fierce wildlings carry men off into madness; a cruel young dragon prince barters his sister to win back his throne; and a determined woman undertakes the most treacherous of journeys. Amid plots and counterplots, tragedy and betrayal, victory and terror, the fate of the Starks, their allies, and their enemies hangs perilously in the balance, as each endeavors to win that deadliest of conflicts: the game of thrones.',  1),
+		Here an enigmatic band of warriors bear swords of no human metal; a tribe of fierce wildlings carry men off into madness; a cruel young dragon prince barters his sister to win back his throne; and a determined woman undertakes the most treacherous of journeys. Amid plots and counterplots, tragedy and betrayal, victory and terror, the fate of the Starks, their allies, and their enemies hangs perilously in the balance, as each endeavors to win that deadliest of conflicts: the game of thrones.', 
+		CAST(N'2022-08-01T05:52:10.323' AS DateTime), null, 1),
 		(9, N'The Hunger Games',8, CAST(15.00 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1586722975l/2767052.jpg', N'Could you survive on your own in the wild, with every one out to make sure you don''t live to see the morning?
 		<br>
 		In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.
 		<br>
-		Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she steps forward to take her sister''s place in the Games. But Katniss has been close to dead before—and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weight survival against humanity and life against love.',  1),
+		Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she steps forward to take her sister''s place in the Games. But Katniss has been close to dead before—and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weight survival against humanity and life against love.',
+		CAST(N'2022-09-01T05:52:10.323' AS DateTime), null,  1),
 		(10,N'The Time Machine',9, CAST(12.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg', N'“I’ve had a most amazing time....”<br>
-		So begins the Time Traveller’s astonishing firsthand account of his journey 800,000 years beyond his own era—and the story that launched H.G. Wells’s successful career and earned him his reputation as the father of science fiction. With a speculative leap that still fires the imagination, Wells sends his brave explorer to face a future burdened with our greatest hopes...and our darkest fears. A pull of the Time Machine’s lever propels him to the age of a slowly dying Earth.  There he discovers two bizarre races—the ethereal Eloi and the subterranean Morlocks—who not only symbolize the duality of human nature, but offer a terrifying portrait of the men of tomorrow as well.  Published in 1895, this masterpiece of invention captivated readers on the threshold of a new century.',  1),
+		So begins the Time Traveller’s astonishing firsthand account of his journey 800,000 years beyond his own era—and the story that launched H.G. Wells’s successful career and earned him his reputation as the father of science fiction. With a speculative leap that still fires the imagination, Wells sends his brave explorer to face a future burdened with our greatest hopes...and our darkest fears. A pull of the Time Machine’s lever propels him to the age of a slowly dying Earth.  There he discovers two bizarre races—the ethereal Eloi and the subterranean Morlocks—who not only symbolize the duality of human nature, but offer a terrifying portrait of the men of tomorrow as well.  Published in 1895, this masterpiece of invention captivated readers on the threshold of a new century.', 
+		CAST(N'2022-09-02T05:52:10.323' AS DateTime), null, 1),
 		(11, N'Outlander', 10, CAST(13.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1529065012l/10964._SY475_.jpg', N'The year is 1945. Claire Randall, a former combat nurse, is just back from the war and reunited with her husband on a second honeymoon when she walks through a standing stone in one of the ancient circles that dot the British Isles. Suddenly she is a Sassenach—an “outlander”—in a Scotland torn by war and raiding border clans in the year of Our Lord...1743.
 		<br>
-		Hurled back in time by forces she cannot understand, Claire is catapulted into the intrigues of lairds and spies that may threaten her life, and shatter her heart. For here James Fraser, a gallant young Scots warrior, shows her a love so absolute that Claire becomes a woman torn between fidelity and desire—and between two vastly different men in two irreconcilable lives.',  1),
+		Hurled back in time by forces she cannot understand, Claire is catapulted into the intrigues of lairds and spies that may threaten her life, and shatter her heart. For here James Fraser, a gallant young Scots warrior, shows her a love so absolute that Claire becomes a woman torn between fidelity and desire—and between two vastly different men in two irreconcilable lives.', 
+		CAST(N'2022-09-03T05:52:10.323' AS DateTime), null, 1),
 		(12, N'All the Light We Cannot See', 11, CAST(10.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451445646l/18143977.jpg', N'Marie-Laure lives in Paris near the Museum of Natural History, where her father works. When she is twelve, the Nazis occupy Paris and father and daughter flee to the walled citadel of Saint-Malo, where Marie-Laure’s reclusive great uncle lives in a tall house by the sea. With them they carry what might be the museum’s most valuable and dangerous jewel.
-		<br>In a mining town in Germany, Werner Pfennig, an orphan, grows up with his younger sister, enchanted by a crude radio they find that brings them news and stories from places they have never seen or imagined. Werner becomes an expert at building and fixing these crucial new instruments and is enlisted to use his talent to track down the resistance. Deftly interweaving the lives of Marie-Laure and Werner, Doerr illuminates the ways, against all odds, people try to be good to one another.', 1),
+		<br>In a mining town in Germany, Werner Pfennig, an orphan, grows up with his younger sister, enchanted by a crude radio they find that brings them news and stories from places they have never seen or imagined. Werner becomes an expert at building and fixing these crucial new instruments and is enlisted to use his talent to track down the resistance. Deftly interweaving the lives of Marie-Laure and Werner, Doerr illuminates the ways, against all odds, people try to be good to one another.',
+		CAST(N'2022-09-03T05:52:10.323' AS DateTime), null, 1),
 		(13, N'Fullmetal Alchemist, Vol. 1', 12 , CAST(9.35 AS Decimal(10, 2)), CAST(30 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388179331l/870.jpg', N'Breaking the laws of nature is a serious crime!
 		<br>In an alchemical ritual gone wrong, Edward Elric lost his arm and his leg, and his brother Alphonse became nothing but a soul in a suit of armor. Equipped with mechanical “auto-mail” limbs, Edward becomes a state alchemist, seeking the one thing that can restore his and his brother’s bodies...the legendary Philosopher’s Stone.
-		<br>Alchemy: the mystical power to alter the natural world; something between magic, art and science. When two brothers, Edward and Alphonse Elric, dabbled in this power to grant their dearest wish, one of them lost an arm and a leg…and the other became nothing but a soul locked into a body of living steel. Now Edward is an agent of the government, a slave of the military-alchemical complex, using his unique powers to obey orders…even to kill. Except his powers aren''t unique. The world has been ravaged by the abuse of alchemy. And in pursuit of the ultimate alchemical treasure, the Philosopher''s Stone, their enemies are even more ruthless than they are…',  1),
-		(14,N'Death Note, Vol. 1: Boredom',13, CAST(10.40 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1419952134l/13615.jpg', N'Light Yagami is an ace student with great prospects - and he''s bored out of his mind. But all that changes when he finds the Death Note, a notebook dropped by a rogue Shinigami, a death god. Any human whose name is written in the notebook dies, and now Light has vowed to use the power of the Death Note to rid the world of evil. But when criminals begin dropping dead, the authorities send the legendary detective L to track down the killer. With L hot on his heels, will Light lose sight of his noble goal... or his life?',  1),
-		(15, N'One Piece, Volume 1: Romance Dawn',14, CAST(11.00 AS Decimal(10, 2)), CAST(10 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1318523719l/1237398.jpg', N'A new shonen sensation in Japan, this series features Monkey D. Luffy, whose main ambition is to become a pirate. Eating the Gum-Gum Fruit gives him strange powers but also invokes the fruit''s curse: anybody who consumes it can never learn to swim. Nevertheless, Monkey and his crewmate Roronoa Zoro, master of the three-sword fighting style, sail the Seven Seas of swashbuckling adventure in search of the elusive treasure "One Piece."',  1),
-		(16, N'Classroom of the Elite Vol. 1', 15, CAST(9.69 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1540974678l/41085104.jpg', N'Students of the prestigious Tokyo Metropolitan Advanced Nurturing High School are given remarkable freedom—if they can win, barter, or save enough points to work their way up the ranks! Ayanokoji Kiyotaka has landed at the bottom in the scorned Class D, where he meets Horikita Suzune, who’s determined to rise up the ladder to Class A. Can they beat the system in a school where cutthroat competition is the name of the game?', 1)
+		<br>Alchemy: the mystical power to alter the natural world; something between magic, art and science. When two brothers, Edward and Alphonse Elric, dabbled in this power to grant their dearest wish, one of them lost an arm and a leg…and the other became nothing but a soul locked into a body of living steel. Now Edward is an agent of the government, a slave of the military-alchemical complex, using his unique powers to obey orders…even to kill. Except his powers aren''t unique. The world has been ravaged by the abuse of alchemy. And in pursuit of the ultimate alchemical treasure, the Philosopher''s Stone, their enemies are even more ruthless than they are…', 
+		CAST(N'2022-09-04T05:52:10.323' AS DateTime), null, 1),
+		(14,N'Death Note, Vol. 1: Boredom',13, CAST(10.40 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1419952134l/13615.jpg', N'Light Yagami is an ace student with great prospects - and he''s bored out of his mind. But all that changes when he finds the Death Note, a notebook dropped by a rogue Shinigami, a death god. Any human whose name is written in the notebook dies, and now Light has vowed to use the power of the Death Note to rid the world of evil. But when criminals begin dropping dead, the authorities send the legendary detective L to track down the killer. With L hot on his heels, will Light lose sight of his noble goal... or his life?', 
+		CAST(N'2022-09-05T05:52:10.323' AS DateTime), null, 1),
+		(15, N'One Piece, Volume 1: Romance Dawn',14, CAST(11.00 AS Decimal(10, 2)), CAST(10 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1318523719l/1237398.jpg', N'A new shonen sensation in Japan, this series features Monkey D. Luffy, whose main ambition is to become a pirate. Eating the Gum-Gum Fruit gives him strange powers but also invokes the fruit''s curse: anybody who consumes it can never learn to swim. Nevertheless, Monkey and his crewmate Roronoa Zoro, master of the three-sword fighting style, sail the Seven Seas of swashbuckling adventure in search of the elusive treasure "One Piece."', 
+		CAST(N'2022-09-06T05:52:10.323' AS DateTime), null, 1),
+		(16, N'Classroom of the Elite Vol. 1', 15, CAST(9.69 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1540974678l/41085104.jpg', N'Students of the prestigious Tokyo Metropolitan Advanced Nurturing High School are given remarkable freedom—if they can win, barter, or save enough points to work their way up the ranks! Ayanokoji Kiyotaka has landed at the bottom in the scorned Class D, where he meets Horikita Suzune, who’s determined to rise up the ladder to Class A. Can they beat the system in a school where cutthroat competition is the name of the game?',
+		CAST(N'2022-09-09T05:52:10.323' AS DateTime), null, 1),
+		(17, N'Dị Thế Tà Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyento.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
+		<br>Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		<br>Trong một lần tranh đoạt cổ vật với những phe cánh hắc đạo, tính mạng của y gặp phải nguy hiểm tột cùng khi rơi vào vòng vây phục kích. Trong cái rủi lại có cái may, chính lúc này, những món bảo vật huyền bí mà hắn tranh đoạt đã phát tỏa huyền năng đưa hắn trở về thế giới cổ đại, nơi mà pháp luật chỉ mang tính tượng trưng và chân lý chỉ thuộc về kẻ mạnh.
+		<br>Sống trong thế giới nhiễu nhương này, liệu rằng những kỹ năng của một sát thủ có giúp hắn yên ổn tồn tại…?
+		<br>Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 1)
 
 SET IDENTITY_INSERT [dbo].[Story] OFF
 GO
@@ -558,19 +583,22 @@ INSERT [dbo].[Volume] ([volume_id] ,[story_id], [volume_title])
 		(1, 1, N'Marriage can be a real killer.'),
 		(2, 1, N'Twin sister'),
 		(3, 1, N'Turns a domestic'),
-		(4, 2, N'Nine little boys'),
-		(5, 2, N' One chopped'),
-		(6, 3, N' A famous painter'),
-		(7, 4, N' Commuter train'),
-		(9, 5, N' Waking up'),
-		(10, 6, N' One chopped'),
-		(11, 7, N' One chopped'),
-		(12, 8, N' One chopped'),
-		(13, 9, N' One chopped'),
-		(14, 10, N' One chopped'),
-		(15, 11, N' One chopped'),
-		(16, 12, N' One chopped'),
-		(17, 13, N' One chopped')
+		(4, 17, N'Tà quân Quân Tà'),
+		(5, 17, N'Quân Mạc Tà'),
+		(6, 17, N'Quân Vô Ý'),
+		(7, 2, N'Nine little boys'),
+		(8, 3, N' A famous painter'),
+		(9, 4, N' Commuter train'),
+		(10, 5, N' Waking up'),
+		(11, 6, N' One chopped'),
+		(12, 7, N' One chopped'),
+		(13, 8, N' One chopped'),
+		(14, 9, N' One chopped'),
+		(15, 10, N' One chopped'),
+		(16, 11, N' One chopped'),
+		(17, 12, N' One chopped'),
+		(18, 13, N' One chopped')
+		
 		
 SET IDENTITY_INSERT [dbo].[Volume] OFF
 GO
@@ -592,11 +620,9 @@ INSERT [dbo].[Category] ([category_id],[category_name])
 		(10, N'Romance'), 
 		(11, N'Fantasy'), 
 		(12, N'Mystery'), 
-		(13, N'Science Fiction')
-		-- (1, N'Crime, Thriller & Mystery')
-		-- ,(2, N'Fantasy, Horror')
-		-- ,(3, N'Science/Historical Fiction')
-		-- ,(4, N'Manga&LN')
+		(13, N'Science Fiction'),
+		(14, N'English'), 
+		(15, N'Vietnamese')
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
@@ -604,9 +630,9 @@ GO
 SET IDENTITY_INSERT [dbo].[Chapter] ON 
 GO
 
-INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title] ,[status],[chapter_content]) 
+INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
 	VALUES
-		(1, 1, 1, 5, N'NICK DUNNE', 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+		(1, 1, 1, 5, N'NICK DUNNE',CAST(N'2022-01-01T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 		I’d know her head anywhere.
 		And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
 		My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.
@@ -645,7 +671,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		The river wasn’t swollen now, but it was running urgently, in strong ropy currents. Moving apace with the river was a long single-file line of men, eyes aimed at their feet, shoulders tense, walking steadfastly nowhere. As I watched them, one suddenly looked up at me, his face in shadow, an oval blackness. I turned away.
 		I felt an immediate, intense need to get inside. By the time I’d gone twenty feet, my neck bubbled with sweat. The sun was still an angry eye in the sky. You have been seen.
 		My gut twisted, and I moved quicker. I needed a drink.'),
-		(2, 1, 1, 5, N'AMY ELLIOTT JANUARY 8, 2005', 1, N'– Diary entry –
+		(2, 1, 1, 5, N'AMY ELLIOTT JANUARY 8, 2005',CAST(N'2022-01-02T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
 		Tra and la! I am smiling a big adopted-orphan smile as I write this. I am embarrassed at how happy I am, like some Technicolor comic of a teenage girl talking on the phone with my hair in a ponytail, the bubble above my head saying: I met a boy!
 		But I did. This is a technical, empirical truth. I met a boy, a great, gorgeous dude, a funny, cool-ass guy. Let me set the scene, because it deserves setting for posterity (no, please, I’m not that far gone, posterity! feh). But still. It’s not New Year’s, but still very much the new year. It’s winter: early dark, freezing cold.
 		Carmen, a newish friend – semi-friend, barely friend, the kind of friend you can’t cancel on – has talked me into going out to Brooklyn, to one of her writers’ parties. Now, I like a writer party, I like writers, I am the child of writers, I am a writer. I still love scribbling that word – WRITER – any time a form, questionnaire, document asks for my occupation. Fine, I write personality quizzes, I don’t write about the Great Issues of the Day, but I think it’s fair to say I am a writer. I’m using this journal to get better: to hone my skills, to collect details and observations. To show don’t tell and all that other writery crap. (Adopted-orphan smile, I mean, that’s not bad, come on.) But really, I do think my quizzes alone qualify me on at least an honorary basis. Right?
@@ -668,7 +694,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		He doesn’t act that way, though. His name is Nick. I love it. It makes him seem nice, and regular, which he is. When he tells me his name, I say, ‘Now, that’s a real name.’ He brightens and reels off some line: ‘Nick’s the kind of guy you can drink a beer with, the kind of guy who doesn’t mind if you puke in his car. Nick!’
 		He makes a series of awful puns. I catch three fourths of his movie references. Two thirds, maybe. (Note to self: Rent The Sure Thing.) He refills my drink without me having to ask, somehow ferreting out one last cup of the good stuff. He has claimed me, placed a flag in me: I was here first, she’s mine, mine. It feels nice, after my recent series of nervous, respectful post-feminist men, to be a territory. He has a great smile, a cat’s smile. He should cough out yellow Tweety Bird feathers, the way he smiles at me. He doesn’t ask what I do for a living, which is fine, which is a change. (I’m a writer, did I mention?) He talks to me in his river-wavy Missouri accent; he was born and raised outside of Hannibal, the boyhood home of Mark Twain, the inspiration for Tom Sawyer. He tells me he worked on a steamboat when he was a teenager, dinner and jazz for the tourists. And when I laugh (bratty, bratty New York girl who has never ventured to those big unwieldy middle states, those States Where Many Other People Live), he informs me that Missoura is a magical place, the most beautiful in the world, no state more glorious. His eyes are mischievous, his lashes are long. I can see what he looked like as a boy.
 		We share a taxi home, the streetlights making dizzy shadows and the car speeding as if we’re being chased. It is one a.m. when we hit one of New York’s unexplained deadlocks twelve blocks from my apartment, so we slide out of the taxi into the cold, into the great What Next? and Nick starts walking me home, his hand on the small of my back, our faces stunned by the chill. As we turn the corner, the local bakery is getting its powdered sugar delivered, funneled into the cellar by the barrelful as if it were cement, and we can see nothing but the shadows of the deliverymen in the white, sweet cloud. The street is billowing, and Nick pulls me close and smiles that smile again, and he takes a single lock of my hair between two fingers and runs them all the way to the end, tugging twice, like he’s ringing a bell. His eyelashes are trimmed with powder, and before he leans in, he brushes the sugar from my lips so he can taste me.')
-		,(3, 1, 1, 5, N'NICK DUNNE', 1, N'I swung wide the door of my bar, slipped into the darkness, and took my first real deep breath of the day, took in the smell of cigarettes and beer, the spice of a dribbled bourbon, the tang of old popcorn. There was only one customer in the bar, sitting by herself at the far, far end: an older woman named Sue who had come in every Thursday with her husband until he died three months back. Now she came alone every Thursday, never much for conversation, just sitting with a beer and a crossword, preserving a ritual.
+		,(3, 1, 2, 5, N'NICK DUNNE',CAST(N'2022-01-03T05:52:10.323' AS DateTime),null, 1, N'I swung wide the door of my bar, slipped into the darkness, and took my first real deep breath of the day, took in the smell of cigarettes and beer, the spice of a dribbled bourbon, the tang of old popcorn. There was only one customer in the bar, sitting by herself at the far, far end: an older woman named Sue who had come in every Thursday with her husband until he died three months back. Now she came alone every Thursday, never much for conversation, just sitting with a beer and a crossword, preserving a ritual.
 		My sister was at work behind the bar, her hair pulled back in nerdy-girl barrettes, her arms pink as she dipped the beer glasses in and out of hot suds. Go is slender and strange-faced, which is not to say unattractive. Her features just take a moment to make sense: the broad jaw; the pinched, pretty nose; the dark globe eyes. If this were a period movie, a man would tilt back his fedora, whistle at the sight of her, and say, ‘Now, there’s a helluva broad!’ The face of a ’30s screwball-movie queen doesn’t always translate in our pixie-princess times, but I know from our years together that men like my sister, a lot, which puts me in that strange brotherly realm of being both proud and wary.
 		‘Do they still make pimento loaf?’ she said by way of greeting, not looking up, just knowing it was me, and I felt the relief I usually felt when I saw her: Things might not be great, but things would be okay.
 		My twin, Go. I’ve said this phrase so many times, it has become a reassuring mantra instead of actual words: Mytwingo. We were born in the ’70s, back when twins were rare, a bit magical: cousins of the unicorn, siblings of the elves. We even have a dash of twin telepathy. Go is truly the one person in the entire world I am totally myself with. I don’t feel the need to explain my actions to her. I don’t clarify, I don’t doubt, I don’t worry. I don’t tell her everything, not anymore, but I tell her more than anyone else, by far. I tell her as much as I can. We spent nine months back to back, covering each other. It became a lifelong habit. It never mattered to me that she was a girl, strange for a deeply self-conscious kid. What can I say? She was always just cool.
@@ -757,7 +783,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		‘Amy!’
 		She wasn’t on the water, she wasn’t in the house. Amy was not there.
 		Amy was gone.'),
-		(4, 1, 2, 5, N'Amy Elliott September 18, 2005', 1, N'– Diary entry –
+		(4, 1, 2, 5, N'Amy Elliott September 18, 2005',CAST(N'2022-01-05T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
 		Well, well, well. Guess who’s back? Nick Dunne, Brooklyn party boy, sugar-cloud kisser, disappearing act. Eight months, two weeks, couple of days, no word, and then he resurfaces, like it was all part of the plan. Turns out, he’d lost my phone number. His cell was out of juice, so he’d written it on a stickie. Then he’d tucked the stickie into his jeans pocket and put the jeans in the washer, and it turned the stickie into a piece of cyclone-shaped pulp. He tried to unravel it but could only see a 3 and an 8. (He said.)
 		And then work clobbered him and suddenly it was March and too embarrassingly late to try to find me. (He said.)
 		Of course I was angry. I had been angry. But now I’m not. Let me set the scene. (She said.) Today. Gusty September winds. I’m walking along Seventh Avenue, making a lunchtime contemplation of the sidewalk bodega bins – endless plastic containers of cantaloupe and honeydew and melon perched on ice like the day’s catch – and I could feel a man barnacling himself to my side as I sailed along, and I corner-eyed the intruder and realized who it was. It was him. The boy in ‘I met a boy!’
@@ -802,7 +828,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		So I know I am right not to settle, but it doesn’t make me feel better as my friends pair off and I stay home on Friday night with a bottle of wine and make myself an extravagant meal and tell myself, This is perfect, as if I’m the one dating me. As I go to endless rounds of parties and bar nights, perfumed and sprayed and hopeful, rotating myself around the room like some dubious dessert. I go on dates with men who are nice and good-looking and smart – perfect-on-paper men who make me feel like I’m in a foreign land, trying to explain myself, trying to make myself known. Because isn’t that the point of every relationship: to be known by someone else, to be understood? He gets me. She gets me. Isn’t that the simple magic phrase?
 		So you suffer through the night with the perfect-on-paper man – the stutter of jokes misunderstood, the witty remarks lobbed and missed. Or maybe he understands that you’ve made a witty remark but, unsure of what to do with it, he holds it in his hand like some bit of conversational phlegm he will wipe away later. You spend another hour trying to find each other, to recognise each other, and you drink a little too much and try a little too hard. And you go home to a cold bed and think, That was fine. And your life is a long line of fine.
 		And then you run into Nick Dunne on Seventh Avenue as you’re buying diced cantaloupe, and pow, you are known, you are recognised, the both of you. You both find the exact same things worth remembering. (Just one olive, though). You have the same rhythm. Click. You just know each other. All of a sudden you see reading in bed and waffles on Sunday and laughing at nothing and his mouth on yours. And it’s so far beyond fine that you know you can never go back to fine. That fast. You think: Oh, here is the rest of my life. It’s finally arrived.')
-		,(5, 1, 2, 0, N'Nick Dunne', 0, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
+		,(5, 1, 3, 0, N'Nick Dunne',CAST(N'2022-01-06T05:52:10.323' AS DateTime),null, 0, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
 		I didn’t expect her to. I’d tell the police: Amy would never have left the house with the teakettle on. Or the door open. Or anything waiting to be ironed. The woman got shit done, and she was not one to abandon a project (say, her fixer-upper husband, for instance), even if she decided she didn’t like it. She’d made a grim figure on the Fiji beach during our two-week honeymoon, battling her way through a million mystical pages of The Wind-Up Bird Chronicle, casting pissy glances at me as I devoured thriller after thriller. Since our move back to Missouri, the loss of her job, her life had revolved (devolved?) around the completion of endless tiny, inconsequential projects. The dress would have been ironed.
 		And there was the living room, signs pointing to a struggle. I already knew Amy wasn’t phoning back. I wanted the next part to start.
 		It was the best time of day, the July sky cloudless, the slowly setting sun a spotlight on the east, turning everything golden and lush, a Flemish painting. The police rolled up. It felt casual, me sitting on the steps, an evening bird singing in the tree, these two cops getting out of their car at a leisurely pace, as if they were dropping by a neighborhood picnic. Kid cops, mid-twenties, confident and uninspired, accustomed to soothing worried parents of curfew-busting teens. A Hispanic girl, her hair in a long dark braid, and a black guy with a marine’s stance. Carthage had become a bit (a very tiny bit) less Caucasian while I was away, but it was still so severely segregated that the only people of color I saw in my daily routine tended to be occupational roamers: delivery men, medics, postal workers. Cops. (‘This place is so white, it’s disturbing,’ said Amy, who, back in the melting pot of Manhattan, counted a single African-American among her friends. I accused her of craving ethnic window dressing, minorities as backdrops. It did not go well.)
@@ -875,14 +901,573 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		‘Five, big one. Let me guess, reservations at Houston’s?’ Gilpin asked. It was the only upscale restaurant in town. You all really need to try Houston’s, my mom had said when we moved back, thinking it was Carthage’s unique little secret, hoping it might please my wife.
 		‘Of course, Houston’s.’
 		It was my fifth lie to the police. I was just starting.')
+		,(6, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
+			N'Hắn thậm chí còn chưa kịp mở mắt nhưng tay phải theo bản năng vỗ một cái xuống
+			đất nhảy lên. Đây là một nơi phức tạp, sự sống và cái chết luôn cận kề nhau,
+			vì vậy không thể ở lâu!
+			Đây là suy nghĩ đầu tiên của hắn khi tỉnh lại, là cảm giác gần như đã trở
+			thành bản năng của một sát thủ vĩ đại!
+			Cơ thể thuận thế định bật lên nhưng bỗng nhiên cánh tay của hắn lại trở nên
+			mềm nhũn, hoàn toàn không còn khả năng chống đỡ nổi sức nặng của thân thể nên
+			"bịch" một tiếng, hắn lại nặng nề ngã trở lại.
+			Sau một thời gian định thần, Quân Tà vô cùng kinh hãi. Chuyện này rốt cuộc là
+			chuyện gì? Ngay sau đó hắn đột nhiên phát hiện phía dưới mình là một chiếc
+			giường mềm mại.! Đưa mắt nhìn xung quanh, thì ra mình đang nằm trong một gian
+			phòng được trang trí lộng lẫy. Chỉ có điều gian phòng này chẳng có một cái gì
+			ngoại trừ một chiếc bàn bốn cạnh cùng một cái giường lớn mà mình đang nằm trên
+			đó. Thực ra chiếc giường lớn này ít nhất phải ngủ được tới bảy tám người, thậm
+			chí bảy tám người nằm trên đó còn không có cảm giác chật chội.
+			“ Chuyện này là sao? Ta không phải vẫn còn đang chiến đấu với người ta sao?
+			Tại sao giờ lại ở trên giường thế này?”
+			Giờ phút này, suy nghĩ của Quân Tà vẫn còn đang lưu lại trước khi ngủ say,
+			hoặc phải nói là...tạm thời còn đang suy nghĩ về thời khắc cuối cùng ở kiếp
+			trước.
+			.................................................. .....
+			Quân Tà là một sát thủ, hơn nữa là một kim bài sát thủ vô cùng vĩ đại. Từ khi
+			hắn xuất đạo tới nay đã được năm năm nhưng mỗi lần ra tay mọi việc đều rất
+			thuận lợi và có xác xuất thành công đạt tới trăm phần trăm. Một thành tích mà
+			người xưa chưa từng có. Bởi vậy mà hắn đã trở thành sát thủ đứng đầu trong Sát
+			Thủ bảng. Mà cái tên "Tà Quân" này cũng vì thế mà đứng vị trí hàng đầu trong
+			giới hắc đạo. Mà hắn còn có một vinh quang khác nữa, chính là được đứng thứ
+			nhất trong suốt ba năm ròng của Huyền Thưởng bảng, một bảng danh sách liệt kê
+			những nhân vật bị đuổi giết được treo giải thưởng trên toàn thế giới.
+			Nhưng ở đó cũng không phải là không có người dám tiếp nhận mà là không có
+			người có khả năng tiếp nhận vụ đó. Bởi vì không ai có bản lĩnh để giết chết vị
+			sát thủ gần như đã trở thành truyền thuyết này.
+			Đã từng có rất nhiều sát thủ hạng nhất tiếp nhận nhiệm vụ kia, nhưng mà bọn họ
+			đều đã chết, còn Tà quân lại vẫn còn sống phây phây.
+			Ở nước Y có một ông trùm đã treo giải một trăm triệu đô la Mỹ để mua lấy tính
+			mạng của Tà quân. Mà hai sát thủ tiếp nhận vụ mua bán này thì cả hai đều là
+			những sát thủ hàng đầu cùng nổi danh với Tà quân trên thế giới. Nhưng sau ba
+			ngày, cả hai người này đều chuyển nghề đi bán muối và uống trà với các cụ cao
+			tằng cố tổ. Và cũng vì đó mà sau đó không còn người nào đồng ý nhận cái nhiệm
+			vụ tử vong này, bọn họ mỗi người đều kính nhi viễn chi, cho dù giải thưởng có
+			tiếp tục tăng hết lần này tới lần khác nhưng từ đầu đến cuối không người nào
+			dám nhận.
+			Tiền tuy có nhiều nhưng không còn mạng để hưởng thì còn ý nghĩa gì nữa chứ!
+			Cái tên Tà quân trở thành cấm kỵ trên Huyền Thưởng bảng của hắc đạo.
+			Mà cái tên Tà quân cũng uy hiếp đến hắc đạo của các quốc gia. Có rất nhiều
+			người biết tới kỳ nhân Tà quân nhưng không có một ai hiểu rõ vị Vua sát thủ Tà
+			quân này rốt cuộc là có dáng vẻ như thế nào cả, và chung quy hắn là loại người
+			ra sao đây?
+			Tính cách của Quân Tà, đúng là người cũng như tên. Một chữ: Tà! Hai chữ: Rất
+			Tà! Ba chữ: Vô cùng Tà!
+			Hắn cho tới bây giờ đều chuyên quyền độc đoán, không hề liên thủ với bất cứ kẻ
+			nào, lại càng không có một nửa người bạn. Hơn nữa, hắn nhận một vụ làm ăn thì
+			không chỉ muốn xem xét người mua mà còn muốn chọn cả mục tiêu nữa.
+			Hắn nếu nhìn người thuê mà không vừa mắt, cho dù tiền có nhiều hơn đi nữa thì
+			có mới hắn đi giết một tên ăn mày không có năng lực phản kháng, hắn cũng sẽ
+			không chút do dự cự tuyệt. Nhưng hắn nếu thấy một người nào đó đáng chết thì
+			hắn lại tự động xuống tay rồi sau đó tìm nhà đối thủ của kẻ đó đòi thù lao. Mà
+			thường thường những nhà đó cũng chưa từng thuê hắn ta, thậm chí ngay cả nghe
+			tới tên của hắn còn chưa từng nghe qua.
+			Tương truyền.... có một lần, hắn giết một tên buôn người tội ác tày trời nhưng
+			lại không tìm thấy khổ chủ. Không còn cách nào khác hắn đành đòi một tiểu cô
+			nương bị lừa bán được một vài cắc tiền xu, còn nói một cách hùng hồn rằng, tôi
+			cho tới giờ chưa từng làm một vụ mua bán nào mà không có thù lao cả, tuyệt đối
+			không có cái gì ngoại lệ................
+			Tính cách này của hắn cũng khiến những người hiểu hắn như sư phụ cùng các sư
+			huynh đệ cũng không biết phải nói gì hơn....
+			Tương truyền............ có một lần, khi sư phụ của hắn ta đi giải quyết nỗi
+			buồn bị hắn chôm giấy trong WC đi. Không có giấy, sự phụ hắn liền gọi hắn mang
+			tới chút giấy vệ sinh. Kết quả hắn nhân cơ hội đòi năm trăm nghìn đô phí dịch
+			vụ, khiến sư phụ hắn biết thế nào là gian xảo
+			Còn tại sao sư phụ hắn lại phải chịu quả đắng.....
+			Đó là bởi vì ngày đó hắn gọi tất cả sư huynh muội tới cửa WC, còn mới cả mấy
+			vị mỹ nữ tới tham quan nữa...............')
+			,(7, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
+			N'Nhưng mà hắn cho rằng thiếu sót lớn nhất của bản thân chính là hắn thật sự rất
+			có lòng thương yêu. Làm một sát thủ, hơn nữa là một sát thủ hàng đầu hai tay
+			dính đầy máu tươi nên những lời này từng khiến vô số người khịt mũi khinh bỉ.
+			Chẳng qua gia hỏa này tự xưng có lòng thương yêu kỳ thật cũng có chút căn cứ.
+			Trong nước, hắn rất không thích nhìn cảnh người giàu chèn ép người nghèo, và
+			nhất là trông thấy cảnh quan lại hà hiếp dân chúng. Ở nước ngoài, hắn không
+			nhìn nổi cảnh có người ức hiếp người nước mình. Vì tính cách của hắn là một
+			người "Yêu nước", và cũng vì thế mà hắn không biết đã gặp phải bao nhiêu tai
+			họa ngập trời.
+			Nhưng một người như vậy vẫn có vô số người đổ xô đi thuê hắn. Đó là bởi vì kỹ
+			thuật bắn súng của hắn chẳng những siêu quần, bách phát bách trúng mà còn có
+			một thân võ nghệ quỷ thần khó lường. Bất luận tu vi quyền chưởng hay đao kiếm
+			đều không tầm thường. Đó mới là nguyên nhân lớn nhất giúp tỉ lệ thành công
+			trong các nhiệm vụ của hắn trước sau vẫn là trăm phần trăm. Thành tích này mặc
+			dù chưa chắc sau này sẽ không có, nhưng tuyệt đối là chưa từng có từ trước tới
+			giờ.
+			Hắn hoàn toàn xứng đáng là chung cực sát thủ trong giới sát thủ!
+			Cũng là một cường giả đỉnh phong trong giới sát thủ, là người duy nhất chưa
+			bao giờ bị thất thủ trên toàn thế giới từ trước tới giờ!
+			Nhưng vị sát thủ kim bài này từ trong cốt tủy lại là một thanh niên có khuynh
+			hướng dân tộc chủ nghĩa cực đoan.
+			Hắn nghe nói gián điệp nước M khai quật được một bí bảo vô giá tại núi Côn Lôn
+			Trung Quốc. Tin tức này lộ ra khiến một người có khuynh hướng dân tộc chủ
+			nghĩa cực đoan như Quân Tà nổi giận.
+			Bảo vật của Trung Quốc rộng lớn sao có thể rơi vào tay người nước M được cơ
+			chứ?!
+			Quân Tà đơn thương độc mã giết tới. Hắn một mình cuồng ngạo tới cùng cực chọi
+			với cả gần một trăm đặc công của nước M, thi triển hết mọi thủ đoạn từ ám sát,
+			cuối cùng là tới đánh chính diện. Sau khi giết chết hơn bảy mươi tên, hắn cuối
+			cùng cũng cướp được bí bảo kia vào tay. Mà lúc đó đám đặc công của nước M đều
+			bị giết tới vỡ gan vỡ mật nên nếu hắn muốn bỏ chạy thì nhất định có thể ung
+			dung mà rời khỏi đi. Mà trong lòng Quân Tà cũng tuyệt đối nắm chắc được điều
+			này.
+			Nhưng sau khi tay hắn tiếp xúc với kiện bí bảo kia- một pho Lung Linh bảo tháp
+			lớn bằng một bàn tay thì một việc thần kỳ ngoài ý muốn tới cực điểm liền xuất
+			hiện. Bàn tay hắn bị thương cầm tiểu tháp kia thì đột nhiên toàn thân bỗng
+			dưng cảm thấy tê liệt, đến cả cử động cũng không thể cử động được, thậm chí
+			cho dù là nháy mắt cũng không thể làm được.
+			Hắn không hề chú ý tới một việc, máu tươi từ miệng vết thương của mình đang
+			không ngừng chảy ra rồi nhập vào bên trong tiểu tháp trông rất tinh xảo, rất
+			lung linh và cũng rất tà môn kia.
+			Kí ức cuối cùng của hắn chính là, không dưới năm mươi quả lựu đạn loại mini
+			đang bay về phía hắn, đồng thời hơn hai mươi nòng súng các loại cũng hướng về
+			phía hắn mà bắt đâu khạc lửa. Mà uổng cho một thân bản lĩnh của hắn, một thân
+			bản lĩnh có thể trong một lần giết chết được những kẻ này nhưng thật là bi ai,
+			bi ai tới cùng cực, bi ai vì hắn muốn động của không thể động được.
+			Cảm giác này thật khiến người ta nổi điên!
+			“Không thể tưởng được Quân Tà ta tung hoành một đời, không có địch thủ là lại
+			chết oan chết uổng trong tay những tên này. Chỉ có điều, ông đây có chết cũng
+			không tính là bị lỗ. Cả đời này, những tên tham quan ô lại, cường hào ác bá
+			rồi đặc công của các quốc gia, chết dưới tay ta tổng cộng có tới hơn một ngàn
+			tên. Thế cũng coi như là hoà vốn rồi! Đáng! Rất đáng!”
+			“Người khác thì mỉm cười dưới cửu tuyền thì ông đây cũng cười hô hố mà xuống
+			địa ngục!”
+			“Một đời này ta sống oanh oanh liệt liệt! Vô cùng tiêu sái! Không thẹn với
+			lương tâm!”
+			“Mặc dù ta giết không ít người nhưng những người đó tuyệt đối không có một tên
+			nào là không đáng giết cả! Nếu đã như vậy thì có giết, cũng không hối hận! Cho
+			dù có vì thế mà xuống địa ngục thì có làm sao?!”
+			“Giết giết giết giết giết giết! Giết hết mọi thứ dơ bẩn thối nát! Gột rửa tất
+			cả mọi tội ác! Ngay cả ta có làm một sát thủ bị người ta khinh miệt thì có làm
+			sao?!!”
+			“Ung dung sống trên thế gian thì liệu có thể sống một cách phóng khoáng như ta
+			không? Quả là vô cùng sảng khoái?!”
+			- Ha ha ha...........
+			Quân Tà nghĩ tới đây mà không khỏi cười cả ra tiếng.
+			- Thiếu gia, người... người làm sao vậy?
+			Một giọng nói rụt rè vang lên bên cạnh, hình như là bị hành động vừa rồi của
+			hắn làm cho sợ hãi mà đang có xu hướng muốn khóc. Tiếp theo đó, một bàn tay
+			nhỏ bé lạnh giá sờ lên trán hắn.
+			" Thiếu gia? Ta hiện tại không phải đang nằm mơ chứ? Không phải tới địa ngục
+			rồi à?!"
+			Quân Tà giật mình rồi đột ngột mở mắt. Tiếp đó, một ký ức lạ lẫm đột nhiên
+			dâng lên từ đáy lòng hắn! Ký ức lạ lẫm đó như thủy triều tiến vào trong đầu
+			hắn. Mà Quân Tà giống như bị sét đánh, giật mình ngơ ngác!
+			“ Mình đang... đang ở trong một thân thể khác sao? Đầu thai chuyển thế ư?
+			Nhưng trí nhớ kiếp trước sao vẫn còn rõ ràng vậy? Chẳng lẽ mình chưa uống canh
+			Mạnh bà?! Hay là mượn xác hoàn hồn?!”
+			Một là xuyên việt?
+			Hai là phụ thể sống lại?!
+			Quân Tà trừng mắt sững sờ tới nửa ngày cũng không hiểu chuyện gì đang xảy ra.
+			Cả nửa ngày hắn cũng chẳng buồn nhúc nhích.
+			Chỉ khi bàn tay nhỏ bé đang kinh hãi kia quơ quơ vài cái trước mặt hắn thì
+			đúng lúc đó Quân Tà đột nhiên hớn hở kêu:
+			- Con mẹ nó! Quả nhiên người tốt tất có báo đáp! Bất kể là chuyện gì đang
+			diễn ra nhưng dù thế nào đi nữa ông đây vẫn chưa chết. Không ngờ lại có chuyện
+			tốt như vậy. Xem ra kiếp trước bổn đại gia nhất định đã tích lũy được vô số
+			công đức, chắc chắn là vô số công đức? ! Ha ha ha.....
+			Một tiếng kêu sợ hãi vâng lên. Một tiểu cô nương chừng mười tuổi đang run run
+			rẩy rẩy đứng ở bên cạnh. Đôi mắt to tròn xinh đẹp kinh hoảng nhìn chằm chằm
+			vào vị "thiếu gia" đang gặp ác mộng trước mặt. Thân thể nhỏ nhắn xinh xắn
+			không ngừng run rẩy, sắc mặt tái nhợt, tựa như một con chim cút đang vô cùng
+			sợ hãi.
+			Lại một tiếng kêu sợ hãi nữa vang lên. Một tiếng kêu nghe thật là thê lương.
+			Và tiếng kêu sợ hãi đó chính là từ miệng Quân Tà phát ra. Bởi vì hắn đột nhiên
+			phát hiện giọng nói vừa rồi của mình lại the thé giống như giọng của một nữ
+			hài tử vậy. Chẳng lẻ cái kia của mình mất rồi. Không phải chứ! Phản ứng đầu
+			tiên của Quân Tà đó là không thèm để ý tới hình tượng, không quả tới có một
+			tiểu muội muội đang đứng bên người, một trảo chụp vào đũng quần của mình.
+			Cuối cùng khi đã nắm được cái khối thịt quen thuộc kia Quân Tà mới thở dài một
+			hơi. Ông trời đối xử với ta thật không tệ! Vẫn có cái thứ này! Haizzz!
+			Vừa rồi làm ta sợ muốn chết. Ông đây còn muốn xuyên vào cái đó đó...... Quân
+			Tà lau mồ hôi lạnh.
+			Lấy lại bình tĩnh, Quân Tà bắt đầu xem xét thân thể mới của mình.
+			Kinh mạch ứ đọng. Cơ thể nhão nhoẹt. Các đốt ngón tay cứng ngắc.....
+			" Cái thân thể này sao hỗn tạp vậy? Cơ thể lại yếu đuối nữa? Không xong rồi!"
+			Quân Tà thầm thì.
+			" Nhưng không sao, chỉ cần kinh mạch không bị vỡ thì chỉ cần ba tới bảy năm,
+			bổn đại gia lại đứng trên đỉnh của thế giới!”
+			Sau khi quyết định xong, Quân Tà lúc này mới để ý tới mình giờ đang ở một thế
+			giới có vẻ hoàn toàn xa lạ!')
+			,(8, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-07T05:52:10.323' AS DateTime),null, 1, 
+			N'Ở đây sao lại không giống địa cầu mà mình quen thuộc vậy? Mình ở đây thực sự
+			không quen, cái gì cũng không biết, cái gì cũng không hiểu. Với cả phép tắc
+			của thế giới này là gì? Và thế giới này có những cái gì?
+			Thoáng suy nghĩ qua mấy vấn đề đó, với tố chất tâm lý cả vị sát thủ lãnh huyết
+			vốn được gọi là Tà quân này không ngờ cũng có chút chán nản.
+			Nhìn đồ dùng cũng chiếc gường có phong cách cổ xưa, cả bộ quần áo đặc thù của
+			thời đại này trên người lập tức niềm vui sướng khi biết được mình vẫn chưa
+			chết, hơn nữa còn xuyên việt dần dần trở nên bình tĩnh rồi tiếp đó tâm tư hắn
+			bỗng rối loạn.......
+			Thì ra....... thì ra thực sự là mình có thể sống lại..............
+			Ban đầu điều này sẽ khiến hắn vô cùng phấn chấn nhưng về sau từ đáy lòng hắn
+			lại dâng lên nỗi niềm mất mát cùng sự thống khổ tới vô cùng. Đó là một cảm
+			giác vi diệu dập dềnh không ổn định, khiến mũi hắn hơi cảm thấy chua xót,
+			khiến mắt hắn cũng có chút gì đó cay cay, khiến lòng người có chút buồn phiền.
+			Quân Tà tự giễu một câu, khóa miệng khẽ nhếch lên. Cả đời hắn gần như chưa bao
+			giờ rơi lệ mà vừa rồi suýt nữa là hắn đã rơi lệ.
+			Cố quốc xa xôi, cố hương cách trở! Ta vốn tưởng rằng mình có thể rất tiêu sái,
+			vốn tưởng rằng mình có thể dễ dàng buông bỏ. Nhưng khi mọi việc xảy ra ở trước
+			mắt và tất cả đều rất chân thực thì ta mới đột nhiên phát hiện ra rằng, ta
+			không buông được. Ta thực sự không buông bỏ được!
+			Vốn tưởng rằng trên đời này sớm đã không còn gì liên quan, không còn gì để
+			mình mình phải vướng bận. Nhưng giờ mình mới phát hiện ra, những thứ mà mình
+			quan tâm lại nhiều vô kể! Mà quan trọng nhất chính là tại đây, một nơi lạ lẫm
+			này mình không thể tìm thấy những cái, những phần thuộc về chính mình! thuộc
+			về chính mình.........
+			Từ trong cốt tủy, ta vĩnh viễn từ đầu tới cuối chỉ là một người
+			ngoài............
+			Quân Tà lẳng lặng nhắm hai mắt lại, nhẹ nhàng nghiêng đầu và khi không còn ai
+			có thể nhìn thấy được, một giọt nước mắt nhẹ nhàng, không một tiếng động chảy
+			xuống...........
+			Đây là giọt nước mắt đầu tiên của hai kiếp làm người!
+			Nam nhi không rơi lệ chỉ vì chưa tới lúc đau lòng!
+			<hr>
+			Kinh ngạc nhìn khuôn mặt trẻ tuổi có chút non nớt, gầy yếu với đôi môi mỏng,
+			cặp lông mi nghiêng dài, đôi mắt hơi chút dài nhỏ đầy vẻ sắc bén bên trong
+			chiếc gương đồng trước mặt mà Quân Tà chỉ biết cười khổ một tiếng, thì thào
+			nói:
+			- Không thể không nói bộ dạng của tên gia hỏa này cũng không tệ, rất thanh tú
+			đó! Chỉ là có chút gì đó yếu đuối, ẻo lả, lại hơi mặt trắng!
+			Nhớ lại kiếp trước, mình thật uy phong biết bao, dữ tợn tới mức nào? Mặc dù bề
+			ngoài cũng không có gì đặc biết khiến người ta yêu thích, mắt có nhỏ, mũi có
+			thấp một chút, về tổng thể thì có chút đại chúng nhưng bản thân mình chính là
+			một nam nhân tiêu chuẩn! Tiểu bạch kiểm này tuy rằng là nam nhân, là đại
+			trượng phu nhưng mình lại khinh thường những kẻ như vậy. Song không thể tưởng
+			được rằng khi xuyên việt mình lại xuyên tới một tên tiểu bạch kiểm tiêu chuẩn
+			như thế này, nhất là tiểu bạch kiểm này lại còn rất là xinh đẹp nữa...........
+			" Anh bạn, là anh mang ta tới đây sao? "
+			Tay phải nhẹ nhàng vuốt ve hoa văn hình tháp nhỏ trên cổ tay trái mà hoa văn
+			bảo tháp kia rất giống một hình xăm. Trên khuôn mặt Quân Tà lộ vẻ kiêu ngạo.
+			Ngay cả khi ta xuyên việt thì thứ này vẫn ở trong tay người Trung Quốc mà
+			không bị rơi vào tay bọn Dương quỷ tử.
+			Hoa văn bảo tháp này giống y hệt cái Linh Lung tiểu tháp mà Quân Tà đã liều
+			mạng cướp đoạt! Mặc dù nó đã biến thành một hoa văn nhỏ bé trên tay mình nhưng
+			Quân Tà có thể khẳng định rằng đây chính là cái tiểu tháp kia! Chính hắn cũng
+			không biết vì sao trong lòng lại có cảm giác này, rất chân thực, mà cũng rất
+			huyền diệu.
+			Thấy hoa văn tiểu tháp, niềm an ủi duy nhất có thể được mình mang từ kiếp
+			trước đến này mà trong lòng Quân Tà bỗng nổi sóng dữ dội, tới chính hắn cũng
+			không hiểu đây là cảm giác gì nữa. Chỉ là do tâm tính của hắn luôn trầm ổn nên
+			trên khuôn mặt không để lộ ra bất cứ một cái gì cả.
+			Vẫn lãnh đạm, vẫn trầm tĩnh như xưa!
+			Đột nhiên, hoa văn tiểu tháp đang bị hắn nhẹ nhàng vuốt ve bỗng phát ra một
+			hồi ánh sáng màu vàng, sau đó Quân Tà đột nhiên cảm thấy nặng đầu, tiếp theo
+			trong đầu hắn hình như có thêm một cái gì đó, mà hoa văn trên tay kia cũng đột
+			nhiên biến mất!
+			" Chuyện lạ!"
+			Lắc lắc đầu, Quân Tà cảm thấy kỳ quái. Trò này đúng thật là kỳ quái. Trước
+			tiên một tiểu tháp lớn bằng bàn tay biến thành một hình xăm trên người mình,
+			tiếp theo lại biến mất một cách thần kỳ. Chẳng lẻ đồ chơi này lại là bảo bối
+			gì gì đó của thần tiên trong truyền thuyết ư?
+			- Thiếu gia, lão thái gia mời người qua đó.
+			Khi Quân Tà đang định xem xét xem trong đầu mình rốt cuộc có thêm cái gì thì
+			đột nhiên một giọng nói vang lên.
+			- Mời ta qua ư?
+			Quân Tà nhíu mày.
+			- Để làm gì?
+			Bằng vào cái gì mà lão già kia bảo ta qua bên đó là ta phải qua chứ? Ta là
+			chàu của lão à?! Nhưng những lời này còn chưa thốt ra khỏi mồm thì lúc này hắn
+			mới chợt nhớ ra, có vẻ như lão già kia quả đúng là gia gia của mình. Ít nhất
+			là gia gia của thân thể này.
+			- Điều này..... nô tỳ không biết.
+			Tiểu cô nương hoảng sợ nhìn hắn một cái rồi cúi đầu. Đôi hàng lông mi dài dài
+			bối rối nháy nháy liên tục. Hai chân một trước một sau, thân thể nhỏ nhắn hơi
+			nghiêng nghiêng, bộ dáng chuẩn bị để bất cứ lúc nào cũng có thể co chân chạy
+			trốn.')
+			,(9, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-19T05:52:10.323' AS DateTime),null, 1, 
+			N'Trách không được tại sao ngươi bị xuyên việt. Ngoại hiệu trước kia của ta là
+			Tà Quân tên là Quân Tà mà ngươi được gọi là Mạc Tà. Điều này không phải là
+			xung khắc trời sinh sao? Ngươi không oan nha.
+			Trong đầu xem lại một chút hành vi thường ngày của tên này mà Quân Tà thở dài.
+			Nếu đổi lại kiếp trước thì hắn chính là đối tượng mình muốn giết. Mà chính
+			mình cũng đâu có tệ sao lại dính ngay cái thân rác rưởi này? Thiên ý sao?
+			Người ta thường nói nhân quả phật gia. Một đời này giết heo thì kiếp sau sẽ
+			trở thành con heo. Lời này xem ra cũng có đạo lý. Chính mình kiếp trước giết
+			không ít tên hoàn khố đó chứ…
+			Tổ phụ của tên tiểu tử hoàn khố này là Quân Chiến Thiên, là Huyết Lan Hoa đại
+			công tước cũng là nhân vật nắm quyền quân đội. Phụ thân chính là Quân Vô Hối.
+			Từng là đại tướng của đế quốc, mười năm trước chết trận trên chiến trường. Mẫu
+			thân thì chín năm trước do buồn bực quá độ nên đã đi đoàn tụ với cha hắn dưới
+			suối vàng. Hai vị ca ca là Quân Mạc Sầu, Quân Mạc Ưu đã chết trận trong đại
+			chiến lừng lẫy trước kia.
+			Còn có một vị thúc thúc gọi là Quân Vô Ý cũng bị thương trong chiến trận ở
+			mười năm trước. Tuy rằng giữ được cái mệnh nhưng nửa phần dưới eo bị tê liệt…
+			Một gia tộc khổng lồ như thế có thể được nói là cả nhà trung liệt. Đáng tiếc
+			đã rơi vào tình trạng xuống dốc trầm trọng. Còn lại một cây nối dõi Quân Mạc
+			Tà bị Quân Tà xuyên việt. Nếu sau này Quân Tà có con thì trên lý luận cũng
+			chính là huyết mạch của Quân gia. Xem như trời cao đã ban ân với Quân gia rồi…
+			Nếu như ông trời quyết định như vậy cũng xem trên quân tích của gia tộc. Bổn
+			đại sát thủ này đành phải thay ngươi sống một đời thật tốt đi a. Quân Tà nhếch
+			miệng cười nhún nhún vai. Thật ra lão tử cũng không muốn phá thanh danh để cho
+			lão tử bị mắng làm chi.
+			Đẩy cửa phòng, Quân Tà cất bước đi ra, ánh mặt trời chiếu sáng khắp nơi. Nhìn
+			ánh sáng mặt trời một lúc lâu, Quân Tà thở dài. Mặt trời kia chính là mặt trời
+			a… Mà ta cũng không phải là ta. Quân Mạc Tà không phải là Quân Tà.
+			Tâm của ta chính là tâm của Tà Quân? Dị thế là như thế nào?
+			Bên ngoài cửa có hai tên người hầu khom người nói: “Thiếu gia mạnh giỏi…”
+			Quân Tà nhàn nhạt gật đầu. Nhìn bốn tên hạ nhân đang bận rộn cách đó không xa
+			lại nhìn lại bên người liền lắc lắc đầu.
+			Nhìn một cái những hạ nhân bên cạnh. Các công tử khác đều có mỹ nữ thiên kiều
+			bách mỵ hầu hạ. Mà người hầu trẻ nhất của chính mình chỉ có một đứa hầu gái
+			tên là La Lỵ mười hai tuổi. Trong ấn tượng thì đây là do gia gia cường thế của
+			mình an bài. Những hạ nhân của mình đều có một đặc điểm, đó chính là rất khỏe
+			mạnh và cường tráng.
+			- Bọn họ đang làm gì?
+			Ngẩng đầu nhìn mấy đầy tớ già kia Quân Tà hỏi.
+			- Bọn họ... Đang giúp những con chim và chó đấu thú của thiếu gia.
+			Một người đầy tớ già cúi đầu trả lời.
+			- Ồ?
+			Quân Tà thong thả đi qua. Ừ, đúng là "rực rỡ vô cùng". Bảy tám lồng sắt đặt
+			chỉnh tề, bên trong đó có mấy con chim bất đồng nhan sắc bay đến bay lui trông
+			rất hoạt bát. Cách đó không xa có mấy con chó lớn đang le lưỡi nằm trên đất.
+			Xa hơn là có mấy ống trúc nhỏ phát ra tiếng kêu của dế mèn. Xem ra là những
+			con rất chuyên đấu thú...
+			Ừa. Xem ra vị công tử này có sở thích rộng rãi đó chứ. Bên cạnh có hai lồng
+			sắt nuôi hai con độc xà đầy màu sắc đang le lưỡi vào ra...
+			Nhìn những cái này đầy chán nghét, Quân Tà nhíu mày nói:
+			- Gọi người đến đưa bọn chúng bán đi. Nếu bán không được thì làm thịt. Đừng
+			đặt chổ này làm gì. Đây là nơi dành cho người chứ không phải là vườn thú.
+			Hả?
+			Vừa nghe những lời này thì sáu người hầu già và La lỵ đi theo sau lưng Quân Tà
+			đều trợn mắt lên. Không nhịn được nhìn thiếu gia mình. Một khắc sau, trong đầu
+			bảy người đều xuất hiện một ý nghĩ giống nhau: "Vị thiếu gia này hôm nay bị
+			điên rồi sao? Những cái này đều là do ngài tìm mua với giá cao đó. Trước giờ
+			vẫn là bảo bối mà? Hôm nay ném đi mai lại mua tiếp?"
+			- Ách! Hai con rắn kia đừng bán! Chờ ta quay lại nấu canh uống.
+			Đi được hai bước thì Quân Tà không quay đầu lại nói tiếp.
+			Cả đám ngẩn tò te không biết phải nói gì.
+			Đi xuyên qua một hoa viên, mấy tòa lầu các, một thao trường lại đi đến một hồ
+			cá thật lớn. Dọc theo hàng cây bờ hồ đi thêm nửa canh giờ mới đến chỗ Quân lão
+			gia tử. Lúc này Quân Tà mới phát hiện khu vực mình ở và nơi của Quân lão gia
+			tử đúng là một nam một bắc. Nếu tính khoảng cách theo đường chim bay chắc cũng
+			được năm sáu dặm đường. Xem ra gia tộc này của mình thật lớn. Nếu mình nhớ
+			không lầm thì nơi đây chính là kinh thành của một quốc gia. Có thể ở trong
+			kinh thành xây dựng gia viên lớn hơn mười mẫu thì ngoại trừ hoàng cung ra chỉ
+			sợ không được mấy nhà.
+			Quân lão gia tử ngồi phía sau bàn, mặc dù tuổi đã qua lục tuần nhưng râu tóc
+			vẫn đen mượt, mới nhìn như người chỉ bốn mươi tuổi. Khuôn mặt uy nghiêm lộ ra
+			vẻ bất đắc dĩ. Nhìn đứa cháu lười biếng hữu khí vô lực tiến vào mà không nhịn
+			được tức giận.
+			Lão gia tử Quân Chiến Thiên có xuất thân từ nghèo khổ, thời trẻ làm tướng tung
+			hoành thiên hạ khiến cho quân địch mỗi nước đều kinh sợ. Không chỉ văn thao vũ
+			lược vô cùng cao minh mà cũng chính là một trong những Huyền cấp cao thủ tại
+			Thiên Hương Quốc. Tính cách trầm ổn kiên nghị, buồn vui không biểu lộ ra
+			ngoài.')
+			,(10, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-20T05:52:10.323' AS DateTime),null, 1, 
+			N'Chỉ cần một câu "xuất thân nghèo khổ, thiếu niên làm tướng" có thể nhìn ra
+			được một hài tử nghèo khổ như nhau thì mấy ai làm được vị trí tướng quân này?
+			Càng huống chi làm tướng từ khi trẻ...
+			Quân Chiến Thiên từ một người dân nghèo khổ trở thành Huyết Hoa Lan đại công
+			tước trong vòng không đến bốn mươi năm. Mặc dù nói thời thế tạo anh hùng nhưng
+			xem lại lịch sử cũng không có mấy người làm được như vậy. Chỉ với điều đó thôi
+			cũng đủ để kiêu ngạo. Nhưng bây giờ nhìn thấy đứa cháu còn lại duy nhất của
+			mình trong lòng bất đắc dĩ không thôi. Trong lòng ''Hận sắt không thành thép"
+			Lão gia tử thật sự không nghĩ rằng với huyết thống của gia tộc và sự quản lý
+			chặt chẽ vậy mà vẫn sinh ra một nghiệt chướng! Tiểu tử này văn không tốt võ
+			không hay. Cầm sách liền ngủ gục, nghe luyện công liền bỏ chạy nhanh hơn thỏ.
+			Con cháu nhà người ta trên ngực đã có cẩm tú, có chút danh vọng; đều đã tu
+			luyện huyền khí nhập quỹ đạo cũng đạt ít nhất là ngũ phẩm. Mà bảo bối của mình
+			trước sau thay đổi năm vị thư sinh dạy cho, huyền khí tu luyện đến nay chỉ
+			được tam phẩm.
+			Một người như vậy không làm nên thể thống gì nhưng ăn uống chơi bời đúng là
+			"vô sự tự thông". Mấy phương diện này có thể nói là thiên tài. Một đời anh
+			hùng mình mình lại có đứa cháu "tốt" như vậy...
+			Thở dài vô lực, Quân lão gia tử nhịn không được nhớ lại con mình và hai đứa
+			cháu kia. Nghĩ đến đây liền cười tự giễu một chút: "Đem đứa cháu duy nhất
+			nuông chiều thành như vậy? Năm đó khi Vô Hối con mình tử trận, bản thân cố
+			gắng không rơi lệ. Tự xưng là con trai của lão tử chính là anh hùng. Sau khi
+			hai đứa cháu Mạc Ưu Mạc Sầu chết nơi xa trường cũng mạnh mẽ nhịn đau không rơi
+			nước mắt. Cháu mình là anh hùng hảo hán. Nhưng sau khi Vô Ý bị tàn phế thân
+			thể thì bản thân cũng là lần đầu tiên rơi nước mắt từ sau khi chào đời. Nhưng
+			trong lòng còn một tia may mắn, mình vẫn còn một đứa cháu. Hương khói của Quân
+			gia có thể duy trì. Nhưng hôm nay thấy cháu mình là một tiểu hỗn đản, một tên
+			bại hoại không ra gì. Phải làm gì bây giờ?"
+			- Nghe nói đêm qua ngươi té từ giường xuống nhưng lại hôn mê bất tỉnh đúng
+			không?
+			Thu lại lòng cảm khái trong lòng, Quân Chiến Thiên thản nhiên hỏi.
+			- Ách?
+			Quân Tà ngẩng đầu, trong lòng có chút nghi hoặc cũng có chút thoải mái. Nếu là
+			hỏi chuyện của hắn thì có thể dựa theo trí nhớ trong đầu để trả lời. Nhưng
+			chuyện này hắn lại không hề biết gì. Còn có chuyện này thật kỳ lạ, trong lòng
+			Quân Tà nghi hoặc: sáng nay ngủ dậy liền thấy thân thể này không có gì bất
+			thường thì mình xuyên việt bằng cách nào? Lúc này lão gia tử hỏi mới biết được
+			là do tên này té giường chết.
+			Thật sự là hoàn khố mà. Ngủ rớt giường cũng có thể chết sao =))
+			Trong lòng Quân Tà âm thầm hâm mộ không thôi. Một nhân vật cao nhân như vậy
+			thật đáng ngưỡng mộ mà.
+			- Ách gì mà ách?
+			Quân lão gia tử vỗ bàn, thổi ria mép trừng mắt. Nhìn bộ dáng lười biếng của
+			hắn muốn đánh cho một cái:
+			- Hỗn trướng. Ngươi bị người khác hạ độc thủ mà cũng không biết? Nếu không
+			phải lão phu đã sớm đề phòng thì ngươi sớm đã đi gặp diêm vương rồi. Nói xem
+			ngươi có tiền đồ không hả?
+			Thì ra là tiểu tử kia bị hạ độc thủ mà chết. Trong lòng Quân Tà âm thầm bĩu
+			môi, thầm nghĩ lão sớm đã đề phòng cũng không tốt gì. Cháu của lão vì sự đề
+			phòng mà đã đi đầu thai rồi.
+			Thấy hắn không nói gì khiến cho Quân lão gia tử cảm thấy kinh ngạc. Với tính
+			tình ngu ngốc của hắn thì sao có thể an tĩnh như vậy được? Nếu là trước kia
+			nghe được người khác hạ độc thủ thì sớm đã nhảy dựng lên. Bây giờ lại thản
+			nhiên lơ đễnh như đã đoán trước rồi. Mơ hồ có thái độ lạnh lùng.
+			Ta không nhìn lầm chứ? Quân lão gia tử không thể tin được đứa cháu yếu kém của
+			mình có thái độ như vậy.')
+			,(11, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-21T05:52:10.323' AS DateTime),null, 1, 
+			N'Quân Chiến Thiên nhìn Quân Tà thật sâu, giọng nói mang vẻ bi thương nhàn nhạt.
+			Dù tên tiểu tử này có quậy phá, có là một tên bất thành khí đi chăng nữa, hắn
+			vẫn là con cháu của lão, hơn nữa còn là huyết mạch duy nhất của gia tộc. Mặc
+			dù lúc này mọi việc đều trôi đi lặng lẽ, có vẻ sóng lặng gió yên, nhưng mấy vị
+			hoàng tử đều đang dần trưởng thành, cơn sóng ngầm dữ dội trong triều không
+			biết lúc nào sẽ cuộn trào sôi sục, thân là người đứng đầu quân đội, nắm trong
+			tay binh quyền, Quân Chiến Thiên lão chẳng khác nào một quả núi yên ổn mà ai
+			cũng muốn dựa vào, nếu không thì cũng muốn ngấm ngầm mượn tay lão để tiêu diệt
+			kẻ đối nghịch. Tá đao sát nhân, còn gì tuyệt hơn, còn gì hoàn hảo hơn là xuống
+			tay với huyết mạch duy nhất của gia tộc lão rồi vu oan giá họa cho kẻ thù? Lão
+			không thể yên tâm khi Quân Tà vẫn chưa nằm trong vòng tay bảo hộ của mình, ai
+			biết sự tình sau này sẽ diễn biến tới đâu?
+			- Không cần đâu ông, con ở đó rất tốt!
+			Quân Tà lập tức cười cười cự tuyệt. Hắn đang tò mò muốn biết mấy tên sát thủ ở
+			thế giới này có bộ dạng ra sao, nếu dọn đi thì khác nào tự đánh mất cơ hội
+			trời cho ấy? Vì thế, khi nghe Quân lão gia tử đem tình hình nguy hiểm ra dọa
+			nạt để khuyên hắn, trong lòng hắn không giấu được hưng phấn cùng chờ mong.
+			Sát thủ.... lúc này đối với hắn vừa là dĩ vãng xa xôi, vừa là hoài niệm da
+			diết.
+			- Ngươi!...... Hỗn láo!
+			Quân lão gia tử khí giận công tâm, đứng bật dậy giơ chưởng lên muốn đập cho
+			đứa cháu ngỗ ngược một cái, nhưng chợt ngẫm nghĩ rồi lại ngồi xuống, thở dài
+			nói:
+			- Ngươi...... lui ra đi.
+			Chuyện gì xảy ra với tên tiểu tử này vậy? Hắn dám công nhiên chống lại mệnh
+			lệnh của ta, lần đầu tiên! Hơn nữa, hắn còn cự tuyệt một cách cực kì dứt
+			khoát! Điềm gở hay điềm tốt đây?
+			Quân Tà cúi người hành lễ rồi lập tức đứng thẳng lên, xoay người bước ra.
+			- Chậm đã, ta còn muốn nhắc nhở ngươi một chuyện, sau này không được có ý dây
+			dưa gì với Linh Mộng công chúa nữa, việc này tuyệt đối không có gì để thương
+			lượng hết!
+			Quân lão gia tử giọng nói nhuốm đầy mệt mỏi, thậm chí còn ẩn chứa mấy phần tâm
+			tàn tro lạnh.
+			Mấy năm qua, Quân gia dù bề ngoài quyền khuynh thiên hạ, ngạo thị triều đình,
+			nhưng bên trong lại ẩn chứa một khuyết điểm chí mạng, chính là huyết mạch kế
+			thừa ít tới mức đáng thương. Con cháu đời thứ ba chỉ có duy nhất tên tiểu tử
+			vô dụng Quân Mạc Tà này mà thôi, Quân lão gia tử đã sống đến chừng này tuổi,
+			sao còn không biết nếu vạn nhất một ngày nào đó mình nhắm mắt xuôi tay, Quân
+			gia sẽ bị người khác lập tức chà đạp, thậm chí vĩnh viễn biến mất trên đời.
+			Nhìn "tài năng" mà Quân Mạc Tà đã "thể hiện", e rằng đây là một cái kết hiển
+			nhiên cho Quân gia, một cái kết bi thảm đã được dự báo từ trước.
+			Vì muốn tránh cái sự không ai muốn ấy, Quân Chiến Thiên trước đây đã từng
+			hướng tới Hoàng đế xin cho người con gái yêu của người là công chúa Linh Mộng
+			về làm dâu Quân gia. Nếu việc có thể thành, sau này dù lão đã nhắm mắt quy
+			thiên, Quân Mạc Tà chỉ cần dựa hơi tổ tiên để lại cùng với thân phận Phò mã
+			hoàng thất, nếu hắn không quá phận thì việc duy trì hương hỏa cho Quân gia
+			cũng không có gì đáng ngại.
+			Làm chồng của đấng Kim chi ngọc diệp, nhìn có vẻ phong quang xán lạn, nhưng sự
+			thực lại là thứ gân gà khó chịu bậc nhất, thậm chí các đại tộc, các gia đình
+			quyền thế đều thắp hương khấn vái cầu cho Hoàng đế đừng nổi dạ yêu quý đoái
+			thương bất tử mà ban cho họ một cô công chúa về làm dâu trong nhà. Công chúa
+			là con dâu, ừ, nhưng vẫn là công chúa cơ mà? Thế nên sẽ có chuyện dở khóc dở
+			cười loạn ngầu diễn ra: ông chồng đáng lẽ phải ngồi trên thì lại phải quỳ
+			xuống hành lễ với bà vợ, rồi cha chồng mẹ phu quân đến ho trước mặt nàng dâu
+			cũng không dám chứ nói gì đến lên mặt dạy dỗ? Đặc biệt nếu không có sự đồng ý
+			của vị "phu nhân đặc biệt", thì phò mã cứ ngoan ngoãn mà tuân thủ chế độ một
+			vợ một chồng văn minh đi, đừng tơ tưởng làm gì cho mất công. Công chúa dễ dãi
+			biết hòa nhập thì không sao, nhưng hãy thử tưởng tượng ngươi vớ phải một bà cô
+			đành hanh ưa kiểu cách lên mặt, quen với cái nếp cả thiên hạ nằm dưới gấu váy,
+			vậy thì chúc mừng, gia đình ngươi hẳn sẽ vô cùng "hạnh phúc"!.
+			Đối với người khác là vậy, nhưng ngược lại, trong mắt Quân Chiến Thiên mà nói,
+			đây lại là một điều đại hỷ đối với tên tiểu tử Quân Mạc Tà, thân phận phò mã
+			nếu có chính là một tấm bùa bảo hộ tuyệt với cho hắn trong tương lai. Vì vậy,
+			lão đành cắn răng hướng tới Hoàng đế yêu cầu hôn sự, âu cũng là do tình thế ép
+			buộc, đáng thương.
+			Hoàng đế bệ hạ tự nhiên hiểu rõ tâm ý vị lão chiến hữu của mình, cũng có chút
+			động tâm thương hại, nhưng sau khi cẩn thận tìm hiểu tư cách chàng rể tương
+			lai, biết được những "thành tích" khác người của chàng, cộng với thái độ thà
+			chết chứ không chấp nhận của con gái yêu, cuối cùng lão Hoàng đế đành ngậm
+			ngùi nói lời từ chối.
+			" Quân đại ca, không phải kẻ làm tiểu đệ này không nể mặt đại ca, nhưng nói gì
+			thì nói tiểu đệ cũng là một người cha, Linh Mộng lại là đứa con gái mà đệ yêu
+			quý nhất. Huynh nói đi, làm sao đệ có thể đem con gái của mình gửi gắm cho
+			một...... Ôi!" Quân Chiến Thiên nhớ lại tình cảnh lúc ấy, khi Hoàng đế bệ hạ
+			còn chưa dứt lời, lão đã thấy cổ họng mình nghẹn đắng lại.
+			Thân là người làm cha sao? Vì nữ nhi của mình mà suy nghĩ sao? Nực cười! Rắm
+			chó! Nếu là mười năm trước, lúc Quân gia ta đang trong thời kì thịnh vượng
+			nhất, thì dù tiểu tử Mạc Tà có khốn kiếp, có vô dụng gấp mười lần bây giờ đi
+			chăng nữa, sợ rằng ngươi mới nghe ta mở miệng yêu cầu hôn sự đã mừng quýnh lên
+			mà gật đầu đến sái cổ. Ôi, nhân tình ấm lạnh, lòng người đa đoan, sự đời đã
+			thế, biết trách ai đây?
+			- Vâng, con biết rồi.
+			Quân Tà hơi dừng chân trước cửa, nhàn nhạt nói, giọng nói bình thản như mặt
+			nước hồ thu, không buồn không vui, nói xong hắn lập tức bước ra ngoài.
+			Quân lão đang chìm trong suy tưởng, bị câu nói lạnh nhạt của gã cháu bất tử
+			này doạ cho giật mình té rớt khỏi mộng đẹp.
+			Lúc trước, khi Quân lão gia tử vừa mới bộc lộ ý định biến Quân Tà thành phò
+			mã, tên tiểu tử liền dương dương tự coi mình đã là hôn phu của Linh Mộng công
+			chúa, đi đâu cũng không ngừng lên mặt khoe khoang khiến nàng cảm thấy phiền
+			não khôn nguôi. Nhưng Quân lão thấy bộ dáng lãnh đạm không chút quan tâm của
+			cháu mình lúc này thì hơi giật mình, cảm thấy bất ngờ. Quân Tà nổi giận, Quân
+			Tà ủ rũ thê thảm, Quân Tà nhảy cẫng lên la hét, thậm chí chửi bới thóa mạ,
+			Quân Tà .... nói tóm lại là biểu hiện kích động, thất vọng thì lão chẳng lấy
+			gì làm ngạc nhiên. Nhưng ô hay, hôm nay thằng cháu lão giở chứng thay đổi,
+			khiến lão chịu giật mình không ít, quả là nguy hiểm cho tim mạch người già!
+			" Mới có mấy ngày, sao tính tình lại thay đổi ghê gớm đến thế nhỉ?" Quân lão
+			gia tử vân vê râu mép, nhìn vào bóng lưng đứa cháu vừa bước ra cửa, đôi mắt
+			thâm thúy có vài phần tư lự. Một lúc sau lão mới từ trong suy tư tỉnh lại, đập
+			tay đánh "chát" xuống bàn, lẩm bẩm như tự nói với chính mình:
+			- Phải phái thêm vài tay hảo thủ, ngày đêm hộ vệ bên người thiếu gia, không
+			cho phép bất kì một sơ suất nào tái diễn! Chỉ cần là kẻ lạ mặt xuất hiện, lập
+			tức giết chết! Không cần cố kị điều gì!.
+			Sự tình kiểu thế này, chỉ có thể diễn ra một lần, tuyệt đối không được có cơ
+			hội lặp lại, hừ, đứa cháu yêu của Chiến Thiên ta, ta xem kẻ nào dám động vào
+			hắn? Hàn ý trong mắt Quân lão chợt xạ ra mãnh liệt.
+			Trong sảnh hoàn toàn vắng lặng đột nhiên vang lên một âm thanh lãng đãng, như
+			có như không:
+			- Rõ!')
+			,(12, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-24T05:52:10.323' AS DateTime),null, 1, 
+			N'Quân Tà bước ra ngoài, hắn khẽ nhắm mắt cảm nhận ánh mặt trời ấm áp đang dịu
+			dàng tỏa nắng trên cao. Từng vầng sáng ấm áp nhẹ nhàng ôm ấp, sưởi ấm thân
+			hình và khuôn mặt có phần tiều tụy của hắn, Quân Tà chậm rãi đi về phía tiểu
+			viện mà hắn vẫn sinh sống, trên đường người hầu nườm nượp qua lại liên tục dạt
+			sang hai bên hành lễ và tránh đường cho hắn, nhưng hắn không hề để ý, vẫn tiếp
+			tục chìm trong suy tưởng. Không ai biết rằng, trong đầu vị Quân gia tam công
+			tử không ngừng lặp đi lặp lại một đoạn đối thoại:
+			" Sát thủ là gì? Nghe tên là biết, chính là kẻ giết người trong bóng tối, "hắc
+			thủ"! Nhất định phải nhớ kĩ một chữ "hắc", chính là yếu quyết tối quan trọng
+			trong nghề!"
+			" Sát thủ, xưa nay đều huyền bí, đến từ nơi phiêu miểu, tan biến vào hư
+			không!"
+			" Thế nào là một sát thủ thành công? Nếu cho đến lúc chết vẫn không ai biết
+			ngươi từng là một tên sát thủ tay nhuốm đầy máu tanh, ngươi chính là một kẻ
+			thành công!"
+			" Vậy, thế nào mới được coi là một siêu cấp sát thủ , một siêu cấp sát thủ
+			thực sự?"
+			" Sát thủ thực sự, thì trong bất kì tình huống nào vẫn có cách ẩn tàng bản
+			thân! Ngồi cạnh văn nhân; văn nhân coi hắn là mặc khách tri kỉ, sống cạnh hoạ
+			sĩ, hắn múa cọ chẳng kém gì người; đi với lưu manh, hắn là thần côn khốn
+			khiếp; ở cùng quý phụ hắn là quý ông, là thân sĩ tiêu chuẩn; đứng cạnh sắc
+			lang, hắn trở thành dâm thần, đứng bên anh hùng, hắn là hán tử đỉnh thiên lập
+			địa!"
+			" Trong sa mạc, hắn là thằn lằn; trên thảo nguyên, hắn đính thị sói chúa; trở
+			về sơn lâm, hắn biến thành mãnh hổ - vạn thú chi vương; vùng vẫy trong đại
+			dương, hắn sẽ là thần long hô mưa gọi gió!"
+			" Có thể làm như vậy, hắn mới là một sát thủ, một sát thủ đúng nghĩa!"
+			" Một kẻ chỉ biết giết người, nhiều nhất hắn thì hắn được coi là tên đồ tể!"
+			" Giết người vì mục đích, cho dù bách sát bách thành, cùng lắm người ta gọi
+			ngươi là thích khách ưu tú!"
+			" Giết người, bản thân nó đã là một môn nghệ thuật! Thân là một sát thủ, ngươi
+			cần ngàn lần nhớ kĩ, tuyệt đối không được có ý nghĩ coi thường bộ môn nghệ
+			thuật cao nhã này!"
+			.............
+			Đây là đoạn đối thoại mà Quân Tà được sư phụ hắn tại kiếp trước từng đàm luận,
+			nghĩ đến đó, hắn không khỏi cười khổ tự giễu:"...... Bổ sung thêm một điều, ở
+			trong loại gia đình kiểu này, ta chính là một tên khốn vô dụng chỉ biết ăn
+			chực như heo, nhị thế tổ ăn hại vô dụng!"
+			Đột nhiên, một thanh âm lạnh lùng vang lên: " Sai! Ngươi không phải là nhị thế
+			tổ! Ta mới là nhị thế tổ, còn ngươi, là tam thế tổ!')
 
 		DECLARE @Counter_Story INT = 2; -- Start with the next number after the existing data
-		DECLARE @Counter_Chapter INT = 7;
+		DECLARE @Counter_Chapter INT = 13;
+		DECLARE @Counter_Volume INT = 7;
 		WHILE @Counter_Story <= 12 -- Set the end condition
 		BEGIN
-			INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title] ,[status],[chapter_content]) 
+			INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
 				VALUES
-					(@Counter_Chapter, @Counter_Story, 1, 5, N'NICK DUNNE', 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+					(@Counter_Chapter, @Counter_Story, @Counter_Volume, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.
 					And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
 					My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.
@@ -923,6 +1508,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 					My gut twisted, and I moved quicker. I needed a drink.')
 
 			SET @Counter_Story = @Counter_Story + 1; -- Increment the counter
+			SET @Counter_Volume = @Counter_Volume + 1;
 			SET @Counter_Chapter = @Counter_Chapter + 1; -- Increment the counter
 		END;
 
@@ -946,27 +1532,27 @@ INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 		(13 ,53 ,24 ,123 ,98),
 		(14 ,53 ,24 ,123 ,98),
 		(15 ,53 ,24 ,123 ,98),
-		(16 ,53 ,24 ,123 ,98)
+		(16 ,53 ,24 ,123 ,98),
+		(17 ,123 ,124 ,143 ,208)
 
 INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
-(1,1),(12,1),(8,1),
-(2,2),(12,2),(8,2),
-(3,3),(12,3),(8,3),
-(1,4),(12,4),(8,4),
-(1,5),(8,5),(11,5),
-(2,6),(8,6),(11,6),
-(3,7),(8,7),(11,7),
-(12,7),(3,8),(5,8),
-(6,8),(10,8),
-(1,9),(7,9),(9,9),(13,9),
-(3,10),(4,10),(5,10),
-(3,11),(7,11),(8,11),
-(2,12),(9,12),(10,12),
-(2,13),(4,13),
-(1,14),(4,14),(5,14),
-(1,15),
-(2,16)
-
+(1,1),(12,1),(8,1),(14,1),
+(2,2),(12,2),(8,2),(14,2),
+(3,3),(12,3),(8,3),(14,3),
+(1,4),(12,4),(8,4),(14,4),
+(1,5),(8,5),(11,5),(14,5),
+(2,6),(8,6),(11,6),(14,6),
+(3,7),(8,7),(11,7),(12,7),(14,7),
+(3,8),(5,8),(6,8),(10,8),(14,8),
+(1,9),(7,9),(9,9),(13,9),(14,9),
+(3,10),(4,10),(5,10),(14,10),
+(3,11),(7,11),(8,11),(14,11),
+(2,12),(9,12),(10,12),(14,12),
+(2,13),(4,13),(14,13),
+(1,14),(4,14),(5,14),(14,14),
+(1,15),(14,15),
+(2,16),(14,16),
+(2,17),(8,17),(12,17),(15,17)
 
 
 INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
@@ -974,7 +1560,8 @@ INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
 	(2,3),(5,3),(9,3),(13,3),
 	(7,4),(10,4),
 	(6,5),(7,5),
-	(8,6),(9,6),(15,6)
+	(8,6),(9,6),(15,6),
+	(2,17),(5,17),(8,17),(9,17),(15,17),(23,17)
 
 INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[stage]) VALUES
 	(2,1,1),(3,1,1),(4,1,1),(5,1,1),
@@ -987,9 +1574,13 @@ INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[stage]) VALUES
 INSERT INTO [dbo].[Chapter_Owned]([user_id],[chapter_id]) VALUES
 	(2,1),(3,1),(4,1),(8,1),
 	(2,3),(5,3),(9,3),(13,3),
-	(7,4),(10,4)
+	(7,4),(10,4),
 	-- (6,5),(7,5),
-	-- (8,6),(9,6),(15,6)
+	(8,6),(9,6),(15,6),
+	(8,7),(9,7),(15,7),
+	(8,8),(9,8),(15,8),
+	(8,10),(9,10),(15,10),
+	(8,12),(9,12),(15,12)
 
 ALTER TABLE [dbo].[Wallet]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])

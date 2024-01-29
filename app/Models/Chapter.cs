@@ -17,7 +17,11 @@ public partial class Chapter
 
     public decimal? ChapterPrice { get; set; }
 
-    public bool? Status { get; set; }
+    public DateTime CreateTime { get; set; }
+
+    public DateTime? UpdateTime { get; set; }
+
+    public int Status { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 

@@ -26,7 +26,15 @@ namespace app.Controllers
         [HttpGet]
         public async Task<ActionResult> GetCategories()
         {
-            var cate = await _context.Categories.ToListAsync();
+            var cate = await _context.Categories
+                .Include(c=>c.Stories)
+                .Select(c => new
+                {
+                    c.CategoryId,
+                    c.CategoryName,
+                    StoriesNumber = c.Stories.Count,
+                })
+                .ToListAsync();
             return _msgService.MsgReturn("Categories successfully", cate);
         }
 

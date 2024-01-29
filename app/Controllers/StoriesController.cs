@@ -13,6 +13,7 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MsgService _msgService = new MsgService();
+        private int pageSize = 20;
 
         public StoriesController(EasyPublishingContext context)
         {
@@ -22,9 +23,10 @@ namespace app.Controllers
         // GET: api/Stories : top famous story
         [HttpGet("top_famous")]
         [EnableQuery]
-        public async Task<ActionResult> GetTopFamousStories()
+        public async Task<ActionResult> GetTopFamousStories(int page)
         {
-            var stories = await _context.Stories.Include(c => c.Author).Include(c => c.StoryInteraction)
+            var stories = await _context.Stories.Where(c => c.Status > 0)
+                .Include(c => c.Author).Include(c => c.StoryInteraction)
                 .Include(c => c.Categories)
                 .Include(c => c.Users) // luot mua truyen
                 .Include(c => c.Chapters).ThenInclude(c => c.Users) // luot mua chuong
@@ -37,11 +39,12 @@ namespace app.Controllers
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
                     StoryChapterNumber = s.Chapters.Count,
-                    StoryLatestChapter = s.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
                     {
-                        s.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
-                        s.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     },
                     s.StoryInteraction.Read,
                     s.StoryInteraction.Like,
@@ -53,42 +56,73 @@ namespace app.Controllers
                 .ThenByDescending(s => s.UserPurchaseChapter)
                 .ThenByDescending(s => s.Read).ThenByDescending(s => s.Follow).ThenByDescending(s => s.Like)
                 .ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", stories);
+            return _msgService.MsgStoryReturn("Stories successfully",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
         // GET: api/Stories : top latest story by chapter
+        //[HttpGet("top_latest_by_chapter")]
+        //[EnableQuery]
+        //public async Task<ActionResult> GetTopLatesttoriesByChapter()
+        //{
+        //    var stories = await _context.Chapters
+        //        .Include(c => c.Story).ThenInclude(c => c.Author)
+        //        .Include(c => c.Story).ThenInclude(c => c.Categories)
+        //        .Where(c => c.Status == true).OrderByDescending(c => c.ChapterId).ToListAsync();
+        //    var stories_list = stories.GroupBy(c => c.StoryId)
+        //        .Select(group => new
+        //        {
+        //            StoryId = group.First().StoryId,
+        //            StoryTitle = group.First().Story.StoryTitle,
+        //            StoryImage = group.First().Story.StoryImage,
+        //            StoryDescription = group.First().Story.StoryDescription,
+        //            StoryCategories = group.First().Story.Categories.Select(c => new
+        //            {
+        //                c.CategoryId,
+        //                c.CategoryName
+        //            }).ToList(),
+        //            StoryAuthor = new { group.First().Story.Author.UserId, group.First().Story.Author.UserFullname },
+        //            StoryChapterNumber = group.Count(),
+        //            StoryLatestChapter = new { group.First().ChapterId, group.First().ChapterTitle, }
+        //        }).ToList();
+        //    return _msgService.MsgReturn("Stories successfully", stories_list);
+        //}
         [HttpGet("top_latest_by_chapter")]
         [EnableQuery]
-        public async Task<ActionResult> GetTopLatesttoriesByChapter()
+        public async Task<ActionResult> GetTopLatesttoriesByChapter(int page)
         {
-            var stories = await _context.Chapters
-                .Include(c => c.Story).ThenInclude(c => c.Author)
-                .Include(c => c.Story).ThenInclude(c => c.Categories)
-                .Where(c => c.Status == true).OrderByDescending(c => c.ChapterId).ToListAsync();
-            var stories_list = stories.GroupBy(c => c.StoryId)
-                .Select(group => new
+            var stories = await _context.Stories.Where(c => c.Status > 0)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Select(s => new
                 {
-                    StoryId = group.First().StoryId,
-                    StoryTitle = group.First().Story.StoryTitle,
-                    StoryImage = group.First().Story.StoryImage,
-                    StoryDescription = group.First().Story.StoryDescription,
-                    StoryCategories = group.First().Story.Categories.Select(c => new
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
                     {
-                        c.CategoryId,
-                        c.CategoryName
-                    }).ToList(),
-                    StoryAuthor = new { group.First().Story.Author.UserId, group.First().Story.Author.UserFullname },
-                    StoryChapterNumber = group.Count(),
-                    StoryLatestChapter = new { group.First().ChapterId, group.First().ChapterTitle, }
-                }).ToList();
-            return _msgService.MsgReturn("Stories successfully", stories_list);
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    },
+                })
+                .OrderByDescending(c => c.StoryLatestChapter.ChapterId)
+                .ToListAsync();
+            return _msgService.MsgStoryReturn("Stories successfully",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
-
         // GET: api/Stories : top 6 purchase story
         [HttpGet("top6_purchase")]
         public async Task<ActionResult> GetTop6StoriesBuy()
         {
-            var stories = await _context.Stories.Include(c => c.Author)
+            var stories = await _context.Stories.Where(c => c.Status > 0)
+                .Include(c => c.Author)
                 .Include(c => c.Users).Include(c => c.StoryInteraction)
                 .Include(c => c.Chapters).ThenInclude(c => c.Users)
                 .Select(s => new
@@ -108,42 +142,44 @@ namespace app.Controllers
             return _msgService.MsgReturn("Stories successfully", stories);
         }
 
+        //// GET: api/Stories : top read story
+        //[HttpGet("top_read")]
+        //[EnableQuery]
+        //public async Task<ActionResult> GetTopStoriesRead()
+        //{
+        //    var stories = await _context.StoryInteractions.OrderByDescending(c => c.Read)
+        //        .Include(c => c.Story).ThenInclude(c => c.Categories)
+        //        .Include(c => c.Story).ThenInclude(c => c.Chapters)
+        //        .Include(c => c.Story).ThenInclude(c => c.Author)
+        //        .Select(s => new
+        //        {
+        //            StoryId = s.StoryId,
+        //            StoryTitle = s.Story.StoryTitle,
+        //            StoryImage = s.Story.StoryImage,
+        //            StoryDescription = s.Story.StoryDescription,
+        //            StoryCategories = s.Story.Categories.ToList(),
+        //            StoryAuthor = new { s.Story.Author.UserId, s.Story.Author.UserFullname },
+        //            StoryChapterNumber = s.Story.Chapters.Count,
+        //            StoryLatestChapter = s.Story.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+        //            new
+        //            {
+        //                s.Story.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+        //                s.Story.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle
+        //            },
+        //            s.Read
+        //        }).ToListAsync();
+        //    return _msgService.MsgReturn("Stories successfully", stories);
+        //}
+
         // GET: api/Stories : top read story
         [HttpGet("top_read")]
         [EnableQuery]
-        public async Task<ActionResult> GetTopStoriesRead()
+        public async Task<ActionResult> GetTopStoriesRead(int page)
         {
-            var stories = await _context.StoryInteractions.OrderByDescending(c => c.Read)
-                .Include(c => c.Story).ThenInclude(c => c.Categories)
-                .Include(c => c.Story).ThenInclude(c => c.Chapters)
-                .Include(c => c.Story).ThenInclude(c => c.Author)
-                .Select(s => new
-                {
-                    StoryId = s.StoryId,
-                    StoryTitle = s.Story.StoryTitle,
-                    StoryImage = s.Story.StoryImage,
-                    StoryDescription = s.Story.StoryDescription,
-                    StoryCategories = s.Story.Categories.ToList(),
-                    StoryAuthor = new { s.Story.Author.UserId, s.Story.Author.UserFullname },
-                    StoryChapterNumber = s.Story.Chapters.Count,
-                    StoryLatestChapter = s.Story.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
-                    new
-                    {
-                        s.Story.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
-                        s.Story.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle
-                    },
-                    s.Read
-                }).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", stories);
-        }
-
-        // GET: api/Stories : top price decend story 
-        [HttpGet("top_price")]
-        [EnableQuery]
-        public async Task<ActionResult> GetTopStoriesPrice()
-        {
-            var stories = await _context.Stories
+            var stories = await _context.Stories.Where(c => c.Status > 0)
+                .Include(c => c.StoryInteraction)
                 .Include(c => c.Author)
+                .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Select(s => new
                 {
@@ -154,43 +190,83 @@ namespace app.Controllers
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
                     StoryChapterNumber = s.Chapters.Count,
-                    StoryLatestChapter = s.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
                     {
-                        s.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
-                        s.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    },
+                    s.StoryInteraction.Read
+                })
+                .OrderByDescending(c => c.Read)
+                .ToListAsync();
+            return _msgService.MsgStoryReturn("Stories successfully",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+        }
+
+        // GET: api/Stories : top price accend story 
+        [HttpGet("top_free")]
+        [EnableQuery]
+        public async Task<ActionResult> GetTopStoriesPrice(int page)
+        {
+            var stories = await _context.Stories.Where(c => c.Status > 0)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     },
                     StoryPrice = s.StoryPrice,
                     ChaptersPrice = s.Chapters.Select(c => c.ChapterPrice).Sum(),
                 }).OrderBy(c => c.StoryPrice)
                 .ThenBy(c => c.ChaptersPrice).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", stories);
+            return _msgService.MsgStoryReturn("Stories successfully",
+               stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
         // GET: api/Stories : top latest story
-        [HttpGet("top_latest")]
+        [HttpGet("top_newest")]
         [EnableQuery]
-        public async Task<ActionResult> GetTopLatesttories()
+        public async Task<ActionResult> GetTopLatesttories(int page)
         {
-            var stories = await _context.Stories.Where(c => c.Status == true).Include(c => c.Author)
-                .OrderByDescending(c => c.StoryId).Include(c => c.Chapters).Include(c => c.Categories)
-                .Select(c => new
+            var stories = await _context.Stories.Where(c => c.Status > 0)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .OrderByDescending(c => c.StoryId)
+                .Select(s => new
                 {
-                    StoryId = c.StoryId,
-                    StoryTitle = c.StoryTitle,
-                    StoryImage = c.StoryImage,
-                    StoryDescription = c.StoryDescription,
-                    StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
-                    StoryCategories = c.Categories.ToList(),
-                    StoryChapterNumber = c.Chapters.Count,
-                    StoryLatestChapter = c.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
                     {
-                        c.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
-                        c.Chapters.OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     },
                 }).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", stories);
+            return _msgService.MsgStoryReturn("Stories successfully",
+               stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
         // GET: api/Stories : stories of each cate
