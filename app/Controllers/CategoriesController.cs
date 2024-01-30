@@ -37,7 +37,61 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn("Categories successfully", cate);
         }
+        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCategory(int id, Category category)
+        {
+            if (id != category.CategoryId)
+            {
+                return BadRequest();
+            }
+            if(category.CategoryName == ""|| category.CategoryName == null)
+            {
+                return  Problem("Entity set 'Categories'  is null.");
+            }
 
+            _context.Entry(category).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!(_context.Categories?.Any(e => e.CategoryId == id)).GetValueOrDefault())
+                {
+                    return NotFound();
+                }
+                else
+                { 
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Category>> PostCategory(Category category)
+        {
+            if (_context.Categories == null)
+            {
+                return Problem("Entity set 'Categories'  is null.");
+            }
+            if (category.CategoryName == "" || category.CategoryName == null)
+            {
+                return Problem("Entity set 'Categories'  is null.");
+            }
+            if ((_context.Categories?.Any(e => e.CategoryName == category.CategoryName)).GetValueOrDefault())
+            {
+                return Problem("Categories already exist"); ;
+            }
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
+        }
+        
         //// GET: api/Categories/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Category>> GetCategory(int id)
