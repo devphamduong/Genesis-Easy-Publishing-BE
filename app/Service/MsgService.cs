@@ -13,9 +13,10 @@ namespace app.Service
                 EM = msg,
                 DT = new
                 {
-                    StoriesNumber = count,
-                    PageNumber = count / 20 + 1,
-                    page,
+                    TotalStories = count,
+                    TotalPage = count / 10 + 1,
+                    Current = page,
+                    PageSize =10,
                     ListStories,
                 },
             });

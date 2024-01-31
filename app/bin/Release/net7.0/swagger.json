@@ -192,6 +192,15 @@
         "tags": [
           "Stories"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -203,6 +212,15 @@
       "get": {
         "tags": [
           "Stories"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
         ],
         "responses": {
           "200": {
@@ -228,6 +246,15 @@
         "tags": [
           "Stories"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -240,6 +267,15 @@
         "tags": [
           "Stories"
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -251,6 +287,15 @@
       "get": {
         "tags": [
           "Stories"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
         ],
         "responses": {
           "200": {
@@ -636,8 +681,17 @@
           "format": "double",
           "type": "number"
         },
+        "createTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "updateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
         "status": {
-          "type": "boolean"
+          "format": "int32",
+          "type": "integer"
         },
         "comments": {
           "type": "array",
@@ -840,8 +894,17 @@
         "storyDescription": {
           "type": "string"
         },
+        "createTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "updateTime": {
+          "format": "date-time",
+          "type": "string"
+        },
         "status": {
-          "type": "boolean"
+          "format": "int32",
+          "type": "integer"
         },
         "author": {
           "$ref": "#/definitions/User"

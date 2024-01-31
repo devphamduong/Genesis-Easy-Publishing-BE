@@ -13,7 +13,7 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MsgService _msgService = new MsgService();
-        private int pageSize = 20;
+        private int pageSize = 10;
 
         public StoriesController(EasyPublishingContext context)
         {
