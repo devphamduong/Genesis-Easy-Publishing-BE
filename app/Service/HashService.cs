@@ -2,7 +2,7 @@
 
 namespace app.Service
 {
-    public class HashPassword
+    public class HashService
     {
         private const int SaltSize = 128 / 8;
         private const int KeySize = 256 / 8;

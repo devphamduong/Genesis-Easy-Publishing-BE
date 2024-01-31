@@ -3,7 +3,7 @@ using System.Net;
 
 namespace app.Service
 {
-    public class SendMail
+    public class MailService
     {
         private string Sender = "nam2998nam@gmail.com";
         private string Password = "gbjc ognq qjin qsqq";

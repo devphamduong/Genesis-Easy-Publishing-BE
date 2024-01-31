@@ -14,8 +14,8 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private readonly IConfiguration _configuration;
-        private HashPassword hashPassword = new HashPassword();
-        private SendMail sendMail = new SendMail();
+        private HashService hashService = new HashService();
+        private MailService mailService = new MailService();
 
         public AuthController(EasyPublishingContext context, IConfiguration configuration)
         {
@@ -24,7 +24,7 @@ namespace app.Controllers
         }
 
 
-        public class LoginModal
+        public class LoginForm
         {
             public string username { get; set; }
             public string password { get; set; }
@@ -44,7 +44,7 @@ namespace app.Controllers
 
             public string? Address { get; set; }
 
-            public DateTime? Dob { get; set; }
+            public string? Dob { get; set; }
 
             public string? Phone { get; set; }
 
@@ -54,21 +54,22 @@ namespace app.Controllers
             //public string? Role { get; set; }
         }
 
-        public class RegisterModal
+        public class RegisterForm
         {
             public string email { get; set; }
             public string password { get; set; }
             public string username { get; set; }
             public string fullName { get; set; }
         }
-        public class ResetPasswordModal
+        public class ResetPasswordForm
         {
+            public string token { get; set; }
             public string password { get; set; }
             public string confirmPassword { get; set; }
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModal data)
+        public IActionResult Login([FromBody] LoginForm data)
         {
             if (string.IsNullOrEmpty(data.username) || string.IsNullOrEmpty(data.password))
             {
@@ -92,12 +93,12 @@ namespace app.Controllers
                 status = u.Status == true ? 1 : 0,
                 userImage = u.UserImage
             }).FirstOrDefault();
-            if (user == null || !hashPassword.Verify(user.password, data.password))
+            if (user == null || !hashService.Verify(user.password, data.password))
             {
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "Wrong email or password",
+                    EM = "Wrong username or password",
                 });
             }
             UserDTO userDTO = new UserDTO
@@ -107,7 +108,7 @@ namespace app.Controllers
                 Username = user.username,
                 FullName = user.fullName,
                 Gender = user.gender,
-                Dob = user.dob,
+                Dob = user.dob.ToString(),
                 Address = user.address,
                 Phone = user.phone,
                 Status = user.status,
@@ -131,7 +132,7 @@ namespace app.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterModal data)
+        public IActionResult Register([FromBody] RegisterForm data)
         {
             if (string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password) || string.IsNullOrEmpty(data.username))
             {
@@ -150,7 +151,16 @@ namespace app.Controllers
                     EM = "This email is already in use by another account",
                 });
             }
-            string passwordHash = hashPassword.Hash(data.password);
+            user = _context.Users.Where(u => u.Username.Equals(data.username)).FirstOrDefault();
+            if (user != null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 3,
+                    EM = "This username is already in use by another account",
+                });
+            }
+            string passwordHash = hashService.Hash(data.password);
             _context.Users.Add(new User
             {
                 Email = data.email,
@@ -190,16 +200,18 @@ namespace app.Controllers
                 new Claim("fullName", user.FullName),
                 new Claim("userName", user.Username),
                 new Claim("gender", user.Gender),
-                new Claim("dob", !string.IsNullOrEmpty(user.Dob.ToString()) ? user.Dob.ToString() : ""),
+                new Claim("dob", !string.IsNullOrEmpty(user.Dob) ? user.Dob : ""),
                 new Claim("address", !string.IsNullOrEmpty(user.Address) ? user.Address : ""),
                 new Claim("phone", !string.IsNullOrEmpty(user.Phone) ? user.Phone : ""),
+                new Claim("status", user.Status.ToString()),
+                new Claim("userImage", !string.IsNullOrEmpty(user.UserImage) ? user.UserImage : ""),
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddDays(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
+                Expires = DateTime.UtcNow.AddHours(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
                 SigningCredentials = new SigningCredentials(
-    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
-    SecurityAlgorithms.HmacSha256)
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
+                    SecurityAlgorithms.HmacSha256)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
@@ -208,9 +220,33 @@ namespace app.Controllers
             return jwt;
         }
 
+        private string CreateForgotPasswordToken(string email)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                new Claim("email", email)
+                }),
+                Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
+                Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
+                Expires = DateTime.UtcNow.AddHours(6),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
+                    SecurityAlgorithms.HmacSha256)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            string jwt = tokenHandler.WriteToken(token);
+            return jwt;
+        }
+
         private string extractToken()
         {
-            if (!String.IsNullOrEmpty(Request.Headers.Authorization) && Request.Headers.Authorization.ToString().Split(' ')[0] == "Bearer" && !String.IsNullOrEmpty(Request.Headers.Authorization.ToString().Split(' ')[1]))
+            if (!String.IsNullOrEmpty(Request.Headers.Authorization) &&
+                Request.Headers.Authorization.ToString().Split(' ')[0] == "Bearer" &&
+                !String.IsNullOrEmpty(Request.Headers.Authorization.ToString().Split(' ')[1]))
             {
                 return Request.Headers.Authorization.ToString().Split(' ')[1];
             }
@@ -229,10 +265,11 @@ namespace app.Controllers
         [HttpGet("account")]
         public IActionResult GetAccount()
         {
+            var jwtSecurityToken = new JwtSecurityToken();
             UserDTO userDTO = null;
             try
             {
-                var jwtSecurityToken = VerifyToken();
+                jwtSecurityToken = VerifyToken();
                 userDTO = new UserDTO
                 {
                     Id = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "id").Value),
@@ -240,12 +277,11 @@ namespace app.Controllers
                     Username = jwtSecurityToken.Claims.First(c => c.Type == "userName").Value,
                     FullName = jwtSecurityToken.Claims.First(c => c.Type == "fullName").Value,
                     Gender = jwtSecurityToken.Claims.First(c => c.Type == "gender").Value,
-                    Dob = DateTime.Parse(jwtSecurityToken.Claims.First(c => c.Type == "dob").Value),
+                    Dob = jwtSecurityToken.Claims.First(c => c.Type == "dob").Value,
                     Address = jwtSecurityToken.Claims.First(c => c.Type == "address").Value,
                     Phone = jwtSecurityToken.Claims.First(c => c.Type == "phone").Value,
                     Status = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "status").Value),
                     UserImage = jwtSecurityToken.Claims.First(c => c.Type == "userImage").Value,
-                    //Role = jwtSecurityToken.Claims.First(c => c.Type == "role").Value,
                 };
             }
             catch (Exception)
@@ -264,6 +300,7 @@ namespace app.Controllers
                 {
                     user = userDTO,
                     access_token = Request.Cookies["access_token"],
+                    jwt = jwtSecurityToken
                 },
             });
         }
@@ -282,7 +319,8 @@ namespace app.Controllers
             }
             try
             {
-                sendMail.Send(email, "Easy Publishing: Reset password", "<p>Click on the link below to reset your password:</p>\r\n<a href=\"#\">Reset password</a>");
+                string token = CreateForgotPasswordToken(email);
+                mailService.Send(email, "Easy Publishing: Reset password", "<p>Click on the link below to reset your password:</p>\r\n<a href=\"https://genesis-easy-publishing.vercel.app/reset-password/" + token +"\">Reset password</a>");
             }
             catch (Exception ex)
             {
@@ -296,6 +334,48 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "We have sent an email to your registered email address, Please follow the instructions to reset your password",
+            });
+        }
+        [HttpPost("reset_password")]
+        public IActionResult ResetPassword([FromBody] ResetPasswordForm data)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            try
+            {
+                var token = handler.ReadJwtToken(data.token);
+                string email = token.Claims.First(c => c.Type == "email").Value;
+                var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
+                if (user == null)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 1,
+                        EM = "User does not exist"
+                    });
+                }
+                if (!data.password.Equals(data.confirmPassword))
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 2,
+                        EM = "Confirm password must match password"
+                    });
+                }
+                user.Password = hashService.Hash(data.password);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Reset password successfully",
             });
         }
     }
