@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {}
+    "D:\\code\\app\\app.csproj": {}
   },
   "projects": {
-    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
+    "D:\\code\\app\\app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "projectUniqueName": "D:\\code\\app\\app.csproj",
         "projectName": "app",
-        "projectPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "projectPath": "D:\\code\\app\\app.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\obj\\",
+        "outputPath": "D:\\code\\app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -50,7 +50,7 @@
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.12, )"
+              "version": "[7.0.14, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -96,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -678,7 +678,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/7.0.12": {
+      "Microsoft.AspNetCore.OpenApi/7.0.14": {
         "type": "package",
         "dependencies": {
           "Microsoft.OpenApi": "1.4.3"
@@ -4899,10 +4899,10 @@
         "microsoft.aspnetcore.odata.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.OpenApi/7.0.12": {
-      "sha512": "KWfmBcvglieWin4srGSPiREh8/8+qCJpME9MPbsN2OVOwKkMXKta2K82Xk0BcZrZCk9tftMBO6qYfJgz0goQpg==",
+    "Microsoft.AspNetCore.OpenApi/7.0.14": {
+      "sha512": "GvrqOw9jyBSAUPQqEFmptKGwr7IH4Wvn+iDZKaEeccCmlXiBPRbTzdlqduc+teiMqnK/JJByg4FMwYHkPin1OA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.openapi/7.0.12",
+      "path": "microsoft.aspnetcore.openapi/7.0.14",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4910,7 +4910,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net7.0/Microsoft.AspNetCore.OpenApi.dll",
         "lib/net7.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.7.0.12.nupkg.sha512",
+        "microsoft.aspnetcore.openapi.7.0.14.nupkg.sha512",
         "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
@@ -11988,7 +11988,7 @@
     "net7.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.15",
       "Microsoft.AspNetCore.OData >= 8.2.4",
-      "Microsoft.AspNetCore.OpenApi >= 7.0.12",
+      "Microsoft.AspNetCore.OpenApi >= 7.0.14",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.15",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.15",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.15",
@@ -12002,11 +12002,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+      "projectUniqueName": "D:\\code\\app\\app.csproj",
       "projectName": "app",
-      "projectPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+      "projectPath": "D:\\code\\app\\app.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\obj\\",
+      "outputPath": "D:\\code\\app\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -12045,7 +12045,7 @@
           },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
-            "version": "[7.0.12, )"
+            "version": "[7.0.14, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -12091,7 +12091,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
