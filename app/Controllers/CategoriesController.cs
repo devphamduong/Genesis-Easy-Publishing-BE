@@ -38,6 +38,7 @@ namespace app.Controllers
             return _msgService.MsgReturn("Categories successfully", cate);
         }
 
+    
         //// GET: api/Categories/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Category>> GetCategory(int id)

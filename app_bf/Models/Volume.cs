@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace app.Models;
+
+public partial class Volume
+{
+    public int VolumeId { get; set; }
+
+    public int StoryId { get; set; }
+
+    public string VolumeTitle { get; set; } = null!;
+
+    public virtual ICollection<Chapter> Chapters { get; set; } = new List<Chapter>();
+
+    public virtual Story Story { get; set; } = null!;
+}
