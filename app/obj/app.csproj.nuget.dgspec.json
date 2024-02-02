@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\app\\app.csproj": {}
+    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {}
   },
   "projects": {
-    "D:\\code\\app\\app.csproj": {
+    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\app\\app.csproj",
+        "projectUniqueName": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
         "projectName": "app",
-        "projectPath": "D:\\code\\app\\app.csproj",
+        "projectPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\app\\obj\\",
+        "outputPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
