@@ -250,10 +250,26 @@
         }
       }
     },
-    "/api/v1/category/gege": {
+    "/api/v1/chapters/story_detail/{storyid}": {
       "get": {
         "tags": [
-          "Categories"
+          "Chapters"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "storyid",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
         ],
         "responses": {
           "200": {
@@ -262,10 +278,10 @@
         }
       }
     },
-    "/api/v1/story/top_famous": {
+    "/api/v1/shelves/top_famous": {
       "get": {
         "tags": [
-          "Stories"
+          "Shelves"
         ],
         "parameters": [
           {
@@ -283,10 +299,10 @@
         }
       }
     },
-    "/api/v1/story/top_latest_by_chapter": {
+    "/api/v1/shelves/top_latest_by_chapter": {
       "get": {
         "tags": [
-          "Stories"
+          "Shelves"
         ],
         "parameters": [
           {
@@ -304,10 +320,10 @@
         }
       }
     },
-    "/api/v1/story/top6_purchase": {
+    "/api/v1/shelves/top6_purchase": {
       "get": {
         "tags": [
-          "Stories"
+          "Shelves"
         ],
         "responses": {
           "200": {
@@ -316,10 +332,10 @@
         }
       }
     },
-    "/api/v1/story/top_read": {
+    "/api/v1/shelves/top_read": {
       "get": {
         "tags": [
-          "Stories"
+          "Shelves"
         ],
         "parameters": [
           {
@@ -337,10 +353,10 @@
         }
       }
     },
-    "/api/v1/story/top_free": {
+    "/api/v1/shelves/top_free": {
       "get": {
         "tags": [
-          "Stories"
+          "Shelves"
         ],
         "parameters": [
           {
@@ -358,10 +374,10 @@
         }
       }
     },
-    "/api/v1/story/top_newest": {
+    "/api/v1/shelves/top_newest": {
       "get": {
         "tags": [
-          "Stories"
+          "Shelves"
         ],
         "parameters": [
           {
@@ -379,10 +395,101 @@
         }
       }
     },
-    "/api/v1/story/cate_stories": {
+    "/api/v1/shelves/cate_stories": {
+      "get": {
+        "tags": [
+          "Shelves"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/shelves/filter": {
+      "put": {
+        "tags": [
+          "Shelves"
+        ],
+        "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=true",
+          "application/json;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;IEEE754Compatible=false",
+          "application/json;IEEE754Compatible=true",
+          "application/xml",
+          "text/plain",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/FilterDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/story/story_detail/{storyid}": {
       "get": {
         "tags": [
           "Stories"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "storyid",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
         ],
         "responses": {
           "200": {
@@ -846,6 +953,32 @@
       },
       "additionalProperties": false
     },
+    "FilterDTO": {
+      "type": "object",
+      "properties": {
+        "storyTitle": {
+          "type": "string"
+        },
+        "purchase": {
+          "$ref": "#/definitions/Purchase"
+        },
+        "orderPriceAscend": {
+          "type": "boolean"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "page": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
     "LoginForm": {
       "type": "object",
       "properties": {
@@ -854,6 +987,20 @@
         },
         "password": {
           "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Purchase": {
+      "type": "object",
+      "properties": {
+        "upLimit": {
+          "format": "double",
+          "type": "number"
+        },
+        "downLimit": {
+          "format": "double",
+          "type": "number"
         }
       },
       "additionalProperties": false

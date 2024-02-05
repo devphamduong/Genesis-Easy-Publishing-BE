@@ -10,7 +10,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.15",
           "Microsoft.AspNetCore.OData": "8.2.4",
-          "Microsoft.AspNetCore.OpenApi": "7.0.14",
+          "Microsoft.AspNetCore.OpenApi": "7.0.15",
           "Microsoft.EntityFrameworkCore.Design": "7.0.15",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.15",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.15",
@@ -620,14 +620,14 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/7.0.14": {
+      "Microsoft.AspNetCore.OpenApi/7.0.15": {
         "dependencies": {
           "Microsoft.OpenApi": "1.4.3"
         },
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "assemblyVersion": "7.0.14.0",
-            "fileVersion": "7.0.1423.52316"
+            "assemblyVersion": "7.0.15.0",
+            "fileVersion": "7.0.1523.60110"
           }
         }
       },
@@ -3016,12 +3016,12 @@
       "path": "microsoft.aspnetcore.odata/8.2.4",
       "hashPath": "microsoft.aspnetcore.odata.8.2.4.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.OpenApi/7.0.14": {
+    "Microsoft.AspNetCore.OpenApi/7.0.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GvrqOw9jyBSAUPQqEFmptKGwr7IH4Wvn+iDZKaEeccCmlXiBPRbTzdlqduc+teiMqnK/JJByg4FMwYHkPin1OA==",
-      "path": "microsoft.aspnetcore.openapi/7.0.14",
-      "hashPath": "microsoft.aspnetcore.openapi.7.0.14.nupkg.sha512"
+      "sha512": "sha512-5AnwJuy7lBaoDhos9SYzLxsGO/s8LsAnP1DR0JSUp1zGzBGnHJEgT4IafAk24PnveKgkiVwh77t5+dU652rwxA==",
+      "path": "microsoft.aspnetcore.openapi/7.0.15",
+      "hashPath": "microsoft.aspnetcore.openapi.7.0.15.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.11": {
       "type": "package",
