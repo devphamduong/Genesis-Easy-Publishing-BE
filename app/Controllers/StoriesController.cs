@@ -69,6 +69,30 @@ namespace app.Controllers
             return _msgService.MsgReturn("Story Detail", stories.FirstOrDefault());
         }
 
+        [HttpPost("publish_story")]
+        public async Task<ActionResult> PublishStory(Story story)
+        {
+            story.CreateTime = DateTime.Now;
+            try
+            {
+                _context.Stories.Add(story);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Can't save story"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Publish story successfully"
+            });
+        }
+
         //// PUT: api/Stories/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
