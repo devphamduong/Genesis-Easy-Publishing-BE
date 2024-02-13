@@ -69,10 +69,11 @@ namespace app.Controllers
             return _msgService.MsgReturn("Story Detail", stories.FirstOrDefault());
         }
 
-        [HttpPost("publish_story")]
-        public async Task<ActionResult> PublishStory(Story story)
+        [HttpPost("save_story")]
+        public async Task<ActionResult> SaveStory(Story story)
         {
             story.CreateTime = DateTime.Now;
+            story.Status = 0;
             try
             {
                 _context.Stories.Add(story);
@@ -89,9 +90,37 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Publish story successfully"
+                EM = "Save story successfully"
             });
         }
+
+        [HttpPost("edit_story")]
+        public async Task<ActionResult> EditStory(Story story)
+        {
+          
+            try
+            {
+                _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Update Fail"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Update story successfully"
+            });
+        }
+
+
+
+
 
         //// PUT: api/Stories/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
