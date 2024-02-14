@@ -76,5 +76,12 @@ namespace app.Controllers
             return _msgService.MsgReturn("Story Chapter Relate", chapters);
         }
 
+        [HttpGet("story_volume")]
+        public async Task<ActionResult> GetVolume(int storyId)
+        {
+            var volumes = await _context.Volumes.Where(v => v.StoryId == storyId).ToListAsync();
+            return _msgService.MsgReturn("List volume", volumes);
+        }
+
     }
 }
