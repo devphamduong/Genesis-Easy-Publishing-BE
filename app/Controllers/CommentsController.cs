@@ -18,7 +18,7 @@ namespace app.Controllers
             _context = context;
         }
 
-        [HttpGet("story_detail/{storyid}")]
+        [HttpGet("story_detail")]
         public async Task<ActionResult> GetStoryComments(int storyid, int page)
         {
             var comments = await _context.Comments.Where(c => c.StoryId == storyid)

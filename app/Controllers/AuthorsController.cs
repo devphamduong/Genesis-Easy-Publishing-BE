@@ -18,11 +18,11 @@ namespace app.Controllers
             _context = context;
         }
 
-        [HttpGet("story_detail/{authorid}")]
-        public async Task<ActionResult> GetStoryRelateAuthor(int authorid)
+        [HttpGet("story_detail")]
+        public async Task<ActionResult> GetStoryRelateAuthor(int storyid)
         {
-
-            var author = await _context.Users.Where(c => c.UserId == authorid)
+            var story = await _context.Stories.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var author = await _context.Users.Where(c => c.UserId == story.AuthorId)
                 .Include(c => c.Stories)
                 .Select(c => new
                 {
@@ -30,7 +30,7 @@ namespace app.Controllers
                     AuthorName = c.UserFullname,
                     AuthorImage = c.UserImage,
                     AuthorStories = c.Stories.Count,
-                    AuthorNewestStory = c.Stories.Where(c => c.AuthorId == authorid).OrderByDescending(c => c.StoryId)
+                    AuthorNewestStory = c.Stories.Where(c => c.AuthorId == story.AuthorId).OrderByDescending(c => c.StoryId)
                     .Select(s => new { s.StoryId, s.StoryTitle, s.StoryImage, s.StoryDescription })
                     .FirstOrDefault()
                 })

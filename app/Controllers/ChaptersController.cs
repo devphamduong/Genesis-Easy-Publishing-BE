@@ -20,7 +20,7 @@ namespace app.Controllers
             _context = context;
         }
 
-        [HttpGet("story_detail/{storyid}")]
+        [HttpGet("story_detail")]
         public async Task<ActionResult> GetStoryChapters(int storyid, int page)
         {
             var chapters = await _context.Chapters.Where(c => c.StoryId == storyid && c.Status > 0)

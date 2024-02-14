@@ -286,7 +286,7 @@ namespace app.Controllers
         }
 
         // get stories owned
-        [HttpPut("my_owned")]
+        [HttpGet("my_owned")]
         [EnableQuery]
         public async Task<ActionResult> GetMyOwned(int userid, int page)
         {
@@ -320,7 +320,7 @@ namespace app.Controllers
         }
 
         // get stories follow
-        [HttpPut("my_follow")]
+        [HttpGet("my_follow")]
         [EnableQuery]
         public async Task<ActionResult> GetMyFollow(int userid, int page)
         {

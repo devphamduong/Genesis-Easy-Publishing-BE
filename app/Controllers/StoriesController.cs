@@ -33,8 +33,8 @@ namespace app.Controllers
         //}
 
         // GET: api/Stories/5
-        [HttpGet("story_detail/{storyid}")]
-        public async Task<ActionResult> GetStoryDetail(int storyid, int page)
+        [HttpGet("story_detail")]
+        public async Task<ActionResult> GetStoryDetail(int storyid)
         {
             var stories = await _context.Stories.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Author).Include(c => c.StoryInteraction)
@@ -70,10 +70,11 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail/related")]
-        public async Task<ActionResult> GetStoryDetailRelate(int storyid, List<int> categories)
+        public async Task<ActionResult> GetStoryDetailRelate(int storyid)
         {
-            var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0
-                && c.Categories.Any(cat => categories.Contains(cat.CategoryId)))
+            var story = await _context.Stories.Include(c => c.Categories).FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var cates = story.Categories.Select(c => c.CategoryId).ToList();
+            var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0)
                 .Include(c => c.Categories)
                 .Select(c => new
                 {
@@ -82,11 +83,13 @@ namespace app.Controllers
                     StoryImage = c.StoryImage,
                     StoryPrice = c.StoryPrice,
                     StorySale = c.StorySale,
-                    StoryCategories = c.Categories.ToList(),
+                    StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
                     StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
                 })
+                .OrderByDescending(c=>c.StoryId)
                 .ToListAsync();
-            return _msgService.MsgReturn("Story Relate", stories.FirstOrDefault());
+            var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
+            return _msgService.MsgReturn("Story Relate", verified.Take(3));
         }
 
         //// PUT: api/Stories/5
