@@ -5,7 +5,7 @@ namespace app.Service
 {
     public class MsgService
     {
-        public JsonResult MsgStoryReturn(String msg, Object ListStories, int page, int count)
+        public JsonResult MsgPagingReturn(String msg, Object ListStories, int page, int count)
         {
             return new JsonResult(new
             {

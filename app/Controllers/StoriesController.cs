@@ -34,7 +34,7 @@ namespace app.Controllers
 
         // GET: api/Stories/5
         [HttpGet("story_detail/{storyid}")]
-        public async Task<ActionResult> GetStory(int storyid, int page)
+        public async Task<ActionResult> GetStoryDetail(int storyid, int page)
         {
             var stories = await _context.Stories.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Author).Include(c => c.StoryInteraction)
@@ -67,6 +67,26 @@ namespace app.Controllers
                 })
                 .ToListAsync();
             return _msgService.MsgReturn("Story Detail", stories.FirstOrDefault());
+        }
+
+        [HttpGet("story_detail/related")]
+        public async Task<ActionResult> GetStoryDetailRelate(int storyid, List<int> categories)
+        {
+            var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0
+                && c.Categories.Any(cat => categories.Contains(cat.CategoryId)))
+                .Include(c => c.Categories)
+                .Select(c => new
+                {
+                    StoryId = c.StoryId,
+                    StoryTitle = c.StoryTitle,
+                    StoryImage = c.StoryImage,
+                    StoryPrice = c.StoryPrice,
+                    StorySale = c.StorySale,
+                    StoryCategories = c.Categories.ToList(),
+                    StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn("Story Relate", stories.FirstOrDefault());
         }
 
         //// PUT: api/Stories/5

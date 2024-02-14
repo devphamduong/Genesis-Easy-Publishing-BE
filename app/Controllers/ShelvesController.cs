@@ -55,11 +55,11 @@ namespace app.Controllers
                     UserPurchaseStory = s.Users.Count,
                     UserPurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
                 })
-                .OrderByDescending(s => s.UserPurchaseStory)
+                .OrderByDescending(s => s.UserPurchaseStory) // top famous compare
                 .ThenByDescending(s => s.UserPurchaseChapter)
                 .ThenByDescending(s => s.Read).ThenByDescending(s => s.Follow).ThenByDescending(s => s.Like)
                 .ToListAsync();
-            return _msgService.MsgStoryReturn("Stories successfully",
+            return _msgService.MsgPagingReturn("Stories successfully",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
@@ -88,9 +88,9 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     },
                 })
-                .OrderByDescending(c => c.StoryLatestChapter.ChapterId)
+                .OrderByDescending(c => c.StoryLatestChapter.ChapterId) // latest by chapters
                 .ToListAsync();
-            return _msgService.MsgStoryReturn("Stories successfully",
+            return _msgService.MsgPagingReturn("Stories successfully",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
         // GET: api/Stories : top 6 purchase story
@@ -146,9 +146,8 @@ namespace app.Controllers
                     },
                     s.StoryInteraction.Read
                 })
-                .OrderByDescending(c => c.Read)
-                .ToListAsync();
-            return _msgService.MsgStoryReturn("Stories successfully",
+                .OrderByDescending(c => c.Read).ToListAsync(); // top by read
+            return _msgService.MsgPagingReturn("Stories successfully",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
@@ -179,9 +178,9 @@ namespace app.Controllers
                     },
                     StoryPrice = s.StoryPrice,
                     ChaptersPrice = s.Chapters.Select(c => c.ChapterPrice).Sum(),
-                }).OrderBy(c => c.StoryPrice)
+                }).OrderBy(c => c.StoryPrice)       // price accending
                 .ThenBy(c => c.ChaptersPrice).ToListAsync();
-            return _msgService.MsgStoryReturn("Stories successfully",
+            return _msgService.MsgPagingReturn("Stories successfully",
                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
@@ -194,7 +193,7 @@ namespace app.Controllers
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
-                .OrderByDescending(c => c.StoryId)
+                .OrderByDescending(c => c.StoryId) // newest by id
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -212,7 +211,7 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     },
                 }).ToListAsync();
-            return _msgService.MsgStoryReturn("Stories successfully",
+            return _msgService.MsgPagingReturn("Stories successfully",
                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
@@ -282,9 +281,76 @@ namespace app.Controllers
 
             stories = stories.OrderByDescending(c => c.StoryLatestChapter.ChapterId).ThenByDescending(c => c.StoryId).ToList();
             var page = filter.page == null ? 0 : 1;
-            return _msgService.MsgStoryReturn("Stories successfully",
+            return _msgService.MsgPagingReturn("Stories successfully",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+        }
 
+        // get stories owned
+        [HttpPut("my_owned")]
+        [EnableQuery]
+        public async Task<ActionResult> GetMyOwned(int userid, int page)
+        {
+            var stories = await _context.Stories.Where(c => c.Users.Any(u => u.UserId == userid) && c.Status > 0)
+                .Include(c => c.Users)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                })
+                .ToListAsync();
+
+            return _msgService.MsgPagingReturn("Stories Owned successfully",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+        }
+
+        // get stories follow
+        [HttpPut("my_follow")]
+        [EnableQuery]
+        public async Task<ActionResult> GetMyFollow(int userid, int page)
+        {
+            var stories = await _context.Stories.Where(c => c.StoryFollowLikes.Any(u => u.UserId == userid) && c.Status > 0)
+                .Include(c => c.StoryFollowLikes)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                })
+                .ToListAsync();
+
+            return _msgService.MsgPagingReturn("Stories Follow successfully",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
     }
 }

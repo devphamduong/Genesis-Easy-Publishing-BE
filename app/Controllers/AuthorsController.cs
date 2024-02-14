@@ -18,19 +18,24 @@ namespace app.Controllers
             _context = context;
         }
 
-        //[HttpGet("story_detail/{storyid}")]
-        //public async Task<ActionResult> GetStoryRelateAuthor(int storyid)
-        //{
-        //    var 
+        [HttpGet("story_detail/{authorid}")]
+        public async Task<ActionResult> GetStoryRelateAuthor(int authorid)
+        {
 
-        //    var chapters = await _context.Stories.Where(c => c.StoryId == storyid && c.Status > 0)
-        //        .Include(c => c.Author)
-        //        .Include(c => c.Users)
-        //        .Select(c => c.Author)
-        //        .OrderByDescending(c => c.ChapterId)
-        //        .Skip(pageSize * (page - 1)).Take(pageSize)
-        //        .ToListAsync();
-        //    return _msgService.MsgReturn("Story Chapter Detail", chapters);
-        //}
+            var author = await _context.Users.Where(c => c.UserId == authorid)
+                .Include(c => c.Stories)
+                .Select(c => new
+                {
+                    AuthorId = c.UserId,
+                    AuthorName = c.UserFullname,
+                    AuthorImage = c.UserImage,
+                    AuthorStories = c.Stories.Count,
+                    AuthorNewestStory = c.Stories.Where(c => c.AuthorId == authorid).OrderByDescending(c => c.StoryId)
+                    .Select(s => new { s.StoryId, s.StoryTitle, s.StoryImage, s.StoryDescription })
+                    .FirstOrDefault()
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn("Story Detail Author Relate", author.FirstOrDefault());
+        }
     }
 }
