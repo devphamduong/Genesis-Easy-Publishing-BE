@@ -2,6 +2,7 @@
 using app.Models;
 using app.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -250,38 +251,38 @@ namespace app.Controllers
         public IActionResult GetAccount()
         {
             var jwtSecurityToken = new JwtSecurityToken();
-            UserDTO userDTO = null;
             try
             {
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-                var user = _context.Users.Where(u => u.UserId == userId).Select(u => new
+                var user = _context.Users.Where(u => u.UserId == userId)
+                    .Include(u => u.Wallets)
+                    .Select(u => new
+                    {
+                        id = u.UserId,
+                        email = u.Email,
+                        username = u.Username,
+                        password = u.Password,
+                        fullName = u.UserFullname,
+                        gender = u.Gender == true ? "Male" : "Female",
+                        dob = u.Dob,
+                        address = u.Address,
+                        phone = u.Phone,
+                        status = u.Status == true ? 1 : 0,
+                        userImage = u.UserImage,
+                        walletInfo = u.Wallets
+                    }).FirstOrDefault();
+                return new JsonResult(new
                 {
-                    id = u.UserId,
-                    email = u.Email,
-                    username = u.Username,
-                    password = u.Password,
-                    fullName = u.UserFullname,
-                    gender = u.Gender == true ? "Male" : "Female",
-                    dob = u.Dob,
-                    address = u.Address,
-                    phone = u.Phone,
-                    status = u.Status == true ? 1 : 0,
-                    userImage = u.UserImage
-                }).FirstOrDefault();
-                userDTO = new UserDTO
-                {
-                    Id = user.id,
-                    Email = user.email,
-                    Username = user.username,
-                    FullName = user.fullName,
-                    Gender = user.gender,
-                    Dob = user.dob.ToString(),
-                    Address = user.address,
-                    Phone = user.phone,
-                    Status = user.status,
-                    UserImage = user.userImage
-                };
+                    EC = 0,
+                    EM = "Get account successfully",
+                    DT = new
+                    {
+                        user = user,
+                        access_token = Request.Cookies["access_token"],
+                        jwt = jwtSecurityToken
+                    },
+                });
             }
             catch (Exception)
             {
@@ -291,17 +292,6 @@ namespace app.Controllers
                     EM = "Not authenticated"
                 });
             }
-            return new JsonResult(new
-            {
-                EC = 0,
-                EM = "Get account successfully",
-                DT = new
-                {
-                    user = userDTO,
-                    access_token = Request.Cookies["access_token"],
-                    jwt = jwtSecurityToken
-                },
-            });
         }
 
         [HttpPost("forgot_password")]
