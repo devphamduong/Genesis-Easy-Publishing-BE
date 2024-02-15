@@ -33,8 +33,8 @@ namespace app.Controllers
         //}
 
         // GET: api/Stories/5
-        [HttpGet("story_detail/{storyid}")]
-        public async Task<ActionResult> GetStory(int storyid, int page)
+        [HttpGet("story_detail")]
+        public async Task<ActionResult> GetStoryDetail(int storyid)
         {
             var stories = await _context.Stories.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Author).Include(c => c.StoryInteraction)
@@ -68,6 +68,80 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn("Story Detail", stories.FirstOrDefault());
         }
+
+        [HttpGet("story_detail/related")]
+        public async Task<ActionResult> GetStoryDetailRelate(int storyid)
+        {
+            var story = await _context.Stories.Include(c => c.Categories).FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var cates = story.Categories.Select(c => c.CategoryId).ToList();
+            var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0)
+                .Include(c => c.Categories)
+                .Select(c => new
+                {
+                    StoryId = c.StoryId,
+                    StoryTitle = c.StoryTitle,
+                    StoryImage = c.StoryImage,
+                    StoryPrice = c.StoryPrice,
+                    StorySale = c.StorySale,
+                    StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
+                    StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
+                })
+                .OrderByDescending(c=>c.StoryId)
+                .ToListAsync();
+            var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
+            return _msgService.MsgReturn("Story Relate", verified.Take(3));
+        }
+
+        [HttpPost("save_story")]
+        public async Task<ActionResult> SaveStory(Story story)
+        {
+            story.CreateTime = DateTime.Now;
+            story.Status = 0;
+            try
+            {
+                _context.Stories.Add(story);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Can't save story"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Save story successfully"
+            });
+        }
+
+        [HttpPost("edit_story")]
+        public async Task<ActionResult> EditStory(Story story)
+        {
+          
+            try
+            {
+                _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Update Fail"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Update story successfully"
+            });
+        }
+
+        
 
         //// PUT: api/Stories/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
