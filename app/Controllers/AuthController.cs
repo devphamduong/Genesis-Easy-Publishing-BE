@@ -51,6 +51,21 @@ namespace app.Controllers
             public string confirmPassword { get; set; }
         }
 
+        public class UserProfileForm
+        {
+            public string UserFullname { get; set; }
+
+            public bool Gender { get; set; }
+
+            public DateTime Dob { get; set; }
+
+            public string Phone { get; set; }
+
+            public string Address { get; set; }
+
+            public string UserImage { get; set; }
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginForm data)
         {
@@ -89,13 +104,6 @@ namespace app.Controllers
                 Id = user.id,
                 Email = user.email,
                 Username = user.username,
-                FullName = user.fullName,
-                Gender = user.gender,
-                Dob = user.dob.ToString(),
-                Address = user.address,
-                Phone = user.phone,
-                Status = user.status,
-                UserImage = user.userImage
             };
             var token = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
@@ -178,16 +186,9 @@ namespace app.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                new Claim("id", user.Id.ToString()),
+                new Claim("userId", user.Id.ToString()),
                 new Claim("email", user.Email),
-                new Claim("fullName", user.FullName),
-                new Claim("userName", user.Username),
-                new Claim("gender", user.Gender),
-                new Claim("dob", !string.IsNullOrEmpty(user.Dob) ? user.Dob : ""),
-                new Claim("address", !string.IsNullOrEmpty(user.Address) ? user.Address : ""),
-                new Claim("phone", !string.IsNullOrEmpty(user.Phone) ? user.Phone : ""),
-                new Claim("status", user.Status.ToString()),
-                new Claim("userImage", !string.IsNullOrEmpty(user.UserImage) ? user.UserImage : ""),
+                new Claim("username", user.Username),
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
@@ -253,18 +254,33 @@ namespace app.Controllers
             try
             {
                 jwtSecurityToken = VerifyToken();
+                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var user = _context.Users.Where(u => u.UserId == userId).Select(u => new
+                {
+                    id = u.UserId,
+                    email = u.Email,
+                    username = u.Username,
+                    password = u.Password,
+                    fullName = u.UserFullname,
+                    gender = u.Gender == true ? "Male" : "Female",
+                    dob = u.Dob,
+                    address = u.Address,
+                    phone = u.Phone,
+                    status = u.Status == true ? 1 : 0,
+                    userImage = u.UserImage
+                }).FirstOrDefault();
                 userDTO = new UserDTO
                 {
-                    Id = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "id").Value),
-                    Email = jwtSecurityToken.Claims.First(c => c.Type == "email").Value,
-                    Username = jwtSecurityToken.Claims.First(c => c.Type == "userName").Value,
-                    FullName = jwtSecurityToken.Claims.First(c => c.Type == "fullName").Value,
-                    Gender = jwtSecurityToken.Claims.First(c => c.Type == "gender").Value,
-                    Dob = jwtSecurityToken.Claims.First(c => c.Type == "dob").Value,
-                    Address = jwtSecurityToken.Claims.First(c => c.Type == "address").Value,
-                    Phone = jwtSecurityToken.Claims.First(c => c.Type == "phone").Value,
-                    Status = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "status").Value),
-                    UserImage = jwtSecurityToken.Claims.First(c => c.Type == "userImage").Value,
+                    Id = user.id,
+                    Email = user.email,
+                    Username = user.username,
+                    FullName = user.fullName,
+                    Gender = user.gender,
+                    Dob = user.dob.ToString(),
+                    Address = user.address,
+                    Phone = user.phone,
+                    Status = user.status,
+                    UserImage = user.userImage
                 };
             }
             catch (Exception)
@@ -303,7 +319,7 @@ namespace app.Controllers
             try
             {
                 string token = CreateForgotPasswordToken(email);
-                mailService.Send(email, "Easy Publishing: Reset password", "<p>Click on the link below to reset your password:</p>\r\n<a href=\"https://genesis-easy-publishing.vercel.app/reset-password/" + token +"\">Reset password</a>");
+                mailService.Send(email, "Easy Publishing: Reset password", "<p>Click on the link below to reset your password:</p>\r\n<a href=\"https://genesis-easy-publishing.vercel.app/reset-password/" + token + "\">Reset password</a>");
             }
             catch (Exception ex)
             {
@@ -370,8 +386,8 @@ namespace app.Controllers
             try
             {
                 jwtSecurityToken = VerifyToken();
-                string username = jwtSecurityToken.Claims.First(c => c.Type == "userName").Value;
-                var user = _context.Users.FirstOrDefault(u => u.Username.Equals(username));
+                string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
+                var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
                 if (hashService.Verify(user.Password, data.oldPassword))
                 {
                     return new JsonResult(new
@@ -403,6 +419,39 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Change password successfully",
+            });
+        }
+
+        [HttpPost("edit_profile")]
+        public IActionResult EditProfile([FromBody] UserProfileForm data)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            UserDTO userDTO = null;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
+                var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
+                user.UserFullname = data.UserFullname;
+                user.Address = data.Address;
+                user.Phone = data.Phone;
+                user.Dob = data.Dob;
+                user.UserImage = data.UserImage;
+                user.Gender = data.Gender;  
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Save profile successfully",
             });
         }
     }
