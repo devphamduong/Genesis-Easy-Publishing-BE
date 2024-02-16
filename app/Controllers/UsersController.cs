@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using app.Models;
+using app.Service;
 
 namespace app.Controllers
 {
@@ -14,6 +15,8 @@ namespace app.Controllers
     public class UsersController : ControllerBase
     {
         private readonly EasyPublishingContext _context;
+        private MsgService _msgService = new MsgService();
+        private int pageSize = 10;
 
         public UsersController(EasyPublishingContext context)
         {
@@ -22,15 +25,32 @@ namespace app.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult> GetUsers(int page)
         {
-            var user = _context.Users.ToList();
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
-            return await _context.Users.ToListAsync();
+            var users = await _context.Users.Where(u => u.UserId > 0)
+               .Include(u => u.Wallets).Include(u => u.StoryIssues)
+               .Include(u => u.Stories)
+               .Select(u => new
+               {
+                   UserId = u.UserId,
+                   UserFullName = u.UserFullname,
+                   Email = u.Email,
+                   Phone = u.Phone,
+                   UserName = u.Username,
+                   PassWord = u.Password,
+                   DoB = u.Dob.ToString(),
+                   UserImage = u.UserImage,
+                   Status = u.Status,
+                   Address = u.Address,
+                   Wallets = u.Wallets.ToList(),
+                  
+               })
+               .OrderBy(s => s.UserId) // top famous compare
+               .ToListAsync();
+            return _msgService.MsgPagingReturn("Stories successfully",
+                users.Skip(pageSize * (page - 1)).Take(pageSize), page, users.Count);
         }
+
 
         // GET: api/Users/5
         [HttpGet("{id}")]
