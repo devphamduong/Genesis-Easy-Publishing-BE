@@ -28,28 +28,28 @@ namespace app.Controllers
 
         public class LoginForm
         {
-            public string username { get; set; }
-            public string password { get; set; }
+            public string Username { get; set; }
+            public string Password { get; set; }
         }
 
         public class RegisterForm
         {
-            public string email { get; set; }
-            public string password { get; set; }
-            public string username { get; set; }
-            public string fullName { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+            public string Username { get; set; }
+            public string FullName { get; set; }
         }
         public class ResetPasswordForm
         {
-            public string token { get; set; }
-            public string password { get; set; }
-            public string confirmPassword { get; set; }
+            public string Token { get; set; }
+            public string Password { get; set; }
+            public string ConfirmPassword { get; set; }
         }
         public class ChangePasswordForm
         {
-            public string oldPassword { get; set; }
-            public string password { get; set; }
-            public string confirmPassword { get; set; }
+            public string OldPassword { get; set; }
+            public string Password { get; set; }
+            public string ConfirmPassword { get; set; }
         }
 
         public class UserProfileForm
@@ -70,7 +70,7 @@ namespace app.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginForm data)
         {
-            if (string.IsNullOrEmpty(data.username) || string.IsNullOrEmpty(data.password))
+            if (string.IsNullOrEmpty(data.Username) || string.IsNullOrEmpty(data.Password))
             {
                 return new JsonResult(new
                 {
@@ -78,21 +78,21 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            var user = _context.Users.Where(u => u.Username.Equals(data.username)).Select(u => new
+            var user = _context.Users.Where(u => u.Username.Equals(data.Username)).Select(u => new
             {
-                id = u.UserId,
-                email = u.Email,
-                username = u.Username,
-                password = u.Password,
-                fullName = u.UserFullname,
-                gender = u.Gender == true ? "Male" : "Female",
-                dob = u.Dob,
-                address = u.Address,
-                phone = u.Phone,
-                status = u.Status == true ? 1 : 0,
-                userImage = u.UserImage
+                UserId = u.UserId,
+                Email = u.Email,
+                Username = u.Username,
+                Password = u.Password,
+                UserFullname = u.UserFullname,
+                Gender = u.Gender == true ? "Male" : "Female",
+                Dob = u.Dob,
+                Address = u.Address,
+                Phone = u.Phone,
+                Status = u.Status == true ? 1 : 0,
+                UserImage = u.UserImage
             }).FirstOrDefault();
-            if (user == null || !hashService.Verify(user.password, data.password))
+            if (user == null || !hashService.Verify(user.Password, data.Password))
             {
                 return new JsonResult(new
                 {
@@ -102,9 +102,9 @@ namespace app.Controllers
             }
             UserDTO userDTO = new UserDTO
             {
-                Id = user.id,
-                Email = user.email,
-                Username = user.username,
+                Id = user.UserId,
+                Email = user.Email,
+                Username = user.Username,
             };
             var token = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
@@ -126,7 +126,7 @@ namespace app.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterForm data)
         {
-            if (string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password) || string.IsNullOrEmpty(data.username))
+            if (string.IsNullOrEmpty(data.Email) || string.IsNullOrEmpty(data.Password) || string.IsNullOrEmpty(data.Username))
             {
                 return new JsonResult(new
                 {
@@ -134,7 +134,7 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            var user = _context.Users.Where(u => u.Email.Equals(data.email)).FirstOrDefault();
+            var user = _context.Users.Where(u => u.Email.Equals(data.Email)).FirstOrDefault();
             if (user != null)
             {
                 return new JsonResult(new
@@ -143,7 +143,7 @@ namespace app.Controllers
                     EM = "This email is already in use by another account",
                 });
             }
-            user = _context.Users.Where(u => u.Username.Equals(data.username)).FirstOrDefault();
+            user = _context.Users.Where(u => u.Username.Equals(data.Username)).FirstOrDefault();
             if (user != null)
             {
                 return new JsonResult(new
@@ -152,13 +152,13 @@ namespace app.Controllers
                     EM = "This username is already in use by another account",
                 });
             }
-            string passwordHash = hashService.Hash(data.password);
+            string passwordHash = hashService.Hash(data.Password);
             _context.Users.Add(new User
             {
-                Email = data.email,
+                Email = data.Email,
                 Password = passwordHash,
-                Username = data.username,
-                UserFullname = !string.IsNullOrEmpty(data.fullName) ? data.fullName : null,
+                Username = data.Username,
+                UserFullname = !string.IsNullOrEmpty(data.FullName) ? data.FullName : null,
                 Gender = true
             });
             _context.SaveChanges();
@@ -259,18 +259,18 @@ namespace app.Controllers
                     .Include(u => u.Wallets)
                     .Select(u => new
                     {
-                        id = u.UserId,
-                        email = u.Email,
-                        username = u.Username,
-                        password = u.Password,
-                        fullName = u.UserFullname,
-                        gender = u.Gender == true ? "Male" : "Female",
-                        dob = u.Dob,
-                        address = u.Address,
-                        phone = u.Phone,
-                        status = u.Status == true ? 1 : 0,
-                        userImage = u.UserImage,
-                        walletInfo = u.Wallets
+                        UserId = u.UserId,
+                        Email = u.Email,
+                        Username = u.Username,
+                        Password = u.Password,
+                        UserFullname = u.UserFullname,
+                        Gender = u.Gender == true ? "Male" : "Female",
+                        Dob = u.Dob,
+                        Address = u.Address,
+                        Phone = u.Phone,
+                        Status = u.Status == true ? 1 : 0,
+                        UserImage = u.UserImage,
+                        WalletInfo = u.Wallets
                     }).FirstOrDefault();
                 return new JsonResult(new
                 {
@@ -331,7 +331,7 @@ namespace app.Controllers
             var handler = new JwtSecurityTokenHandler();
             try
             {
-                var token = handler.ReadJwtToken(data.token);
+                var token = handler.ReadJwtToken(data.Token);
                 string email = token.Claims.First(c => c.Type == "email").Value;
                 var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
                 if (user == null)
@@ -342,7 +342,7 @@ namespace app.Controllers
                         EM = "User does not exist"
                     });
                 }
-                if (!data.password.Equals(data.confirmPassword))
+                if (!data.Password.Equals(data.ConfirmPassword))
                 {
                     return new JsonResult(new
                     {
@@ -350,7 +350,7 @@ namespace app.Controllers
                         EM = "Confirm password must match password"
                     });
                 }
-                user.Password = hashService.Hash(data.password);
+                user.Password = hashService.Hash(data.Password);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -378,7 +378,7 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
                 var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
-                if (hashService.Verify(user.Password, data.oldPassword))
+                if (!hashService.Verify(user.Password, data.OldPassword))
                 {
                     return new JsonResult(new
                     {
@@ -386,7 +386,7 @@ namespace app.Controllers
                         EM = "Wrong password"
                     });
                 }
-                if (!data.password.Equals(data.confirmPassword))
+                if (!data.Password.Equals(data.ConfirmPassword))
                 {
                     return new JsonResult(new
                     {
@@ -394,7 +394,7 @@ namespace app.Controllers
                         EM = "Confirm password must match password"
                     });
                 }
-                user.Password = hashService.Hash(data.password);
+                user.Password = hashService.Hash(data.Password);
                 _context.SaveChanges();
             }
             catch (Exception)
