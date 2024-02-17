@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using System.Xml.Linq;
 
 namespace app.Controllers
 {
@@ -19,8 +20,8 @@ namespace app.Controllers
             _context = context;
         }
 
-        [HttpGet("story_detail/{storyid}")]
-        public async Task<ActionResult> GetStory(int storyid, int page)
+        [HttpGet("story_detail")]
+        public async Task<ActionResult> GetStoryChapters(int storyid, int page)
         {
             var chapters = await _context.Chapters.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Comments)
@@ -35,9 +36,51 @@ namespace app.Controllers
                     UserPurchaseChapter = c.Users.Count,
                 })
                 .OrderByDescending(c => c.ChapterId)
-                .Skip(pageSize * (page - 1)).Take(pageSize)
                 .ToListAsync();
-            return _msgService.MsgReturn("Story Chapter Detail", chapters);
+            return _msgService.MsgPagingReturn("Story Detail Chapter",
+                chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, chapters.Count);
+        }
+
+        [HttpGet("chapter_detail/{chapterid}")]
+        public async Task<ActionResult> GetChapter(int chapterid)
+        {
+            var chapters = await _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
+                .Include(c => c.Story)
+                .Include(c => c.Comments)
+                .Select(c => new
+                {
+                    Story = new { c.StoryId, c.Story.StoryTitle },
+                    ChapterId = c.ChapterId,
+                    ChapterTitle = c.ChapterTitle,
+                    ChapterPrice = c.ChapterPrice,
+                    CreateTime = c.CreateTime,
+                    UpdateTime = c.UpdateTime,
+                    Comment = c.Comments.Count,
+                    UserPurchaseChapter = c.Users.Count,
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn("Story Chapter Detail", chapters.FirstOrDefault());
+        }
+
+        [HttpGet("chapter_detail/taskbar")]
+        public async Task<ActionResult> GetChapterRelated(int chapterid, int storyid)
+        {
+            var chapters = await _context.Chapters.Where(c => c.ChapterId != chapterid && c.Status > 0 && c.StoryId == storyid)
+                .Select(c => new
+                {
+                    ChapterId = c.ChapterId,
+                    ChapterTitle = c.ChapterTitle,
+                })
+                .OrderBy(c => c.ChapterId).Take(2)
+                .ToListAsync();
+            return _msgService.MsgReturn("Story Chapter Relate", chapters);
+        }
+
+        [HttpGet("story_volume")]
+        public async Task<ActionResult> GetVolume(int storyId)
+        {
+            var volumes = await _context.Volumes.Where(v => v.StoryId == storyId).ToListAsync();
+            return _msgService.MsgReturn("List volume", volumes);
         }
 
         [HttpGet("story_volume/{storyid}")]

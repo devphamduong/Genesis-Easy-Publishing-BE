@@ -1,4 +1,5 @@
-﻿using app.Models;
+﻿using app.DTOs;
+using app.Models;
 using app.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -30,30 +31,6 @@ namespace app.Controllers
             public string password { get; set; }
         }
 
-        public class UserDTO
-        {
-            public int Id { get; set; }
-
-            public string? Email { get; set; }
-
-            public string? Username { get; set; }
-
-            public string? FullName { get; set; }
-
-            public string? Gender { get; set; }
-
-            public string? Address { get; set; }
-
-            public string? Dob { get; set; }
-
-            public string? Phone { get; set; }
-
-            public string? UserImage { get; set; }
-
-            public int? Status { get; set; }
-            //public string? Role { get; set; }
-        }
-
         public class RegisterForm
         {
             public string email { get; set; }
@@ -64,6 +41,12 @@ namespace app.Controllers
         public class ResetPasswordForm
         {
             public string token { get; set; }
+            public string password { get; set; }
+            public string confirmPassword { get; set; }
+        }
+        public class ChangePasswordForm
+        {
+            public string oldPassword { get; set; }
             public string password { get; set; }
             public string confirmPassword { get; set; }
         }
@@ -376,6 +359,50 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Reset password successfully",
+            });
+        }
+
+        [HttpPost("change_password")]
+        public IActionResult ChangePassword([FromBody] ChangePasswordForm data)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            UserDTO userDTO = null;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                string username = jwtSecurityToken.Claims.First(c => c.Type == "userName").Value;
+                var user = _context.Users.FirstOrDefault(u => u.Username.Equals(username));
+                if (hashService.Verify(user.Password, data.oldPassword))
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 1,
+                        EM = "Wrong password"
+                    });
+                }
+                if (!data.password.Equals(data.confirmPassword))
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 2,
+                        EM = "Confirm password must match password"
+                    });
+                }
+                user.Password = hashService.Hash(data.password);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Change password successfully",
             });
         }
     }
