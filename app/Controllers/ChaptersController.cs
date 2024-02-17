@@ -95,9 +95,22 @@ namespace app.Controllers
                 EM = "Save chapter successfully"
             });
         }
+        private bool checkPurchase(int? userid, long chapterid,int storyid)
+        {
+            if(userid == null)
+            {
+                return false;
+            }
+            var user = _context.Users.Include(u => u.Chapters).Include(u => u.Stories).FirstOrDefault(u => u.UserId == userid);
+            if(user.Chapters.Any(c => c.ChapterId == chapterid) || user.Stories.Any(s => s.StoryId == storyid))
+            {
+                return true;
+            }
+            return false;
+        }
 
-        [HttpGet("chapter_content/{chapterid}")]
-        public async Task<ActionResult> GetChapter(int chapterid)
+        [HttpGet("chapter_content/{storyid}/{chapterid}")]
+        public async Task<ActionResult> GetChapter(long chapterid, int? userid, int storyid)
         {
             var chapter = _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
                 .Include(c => c.Story)
@@ -119,24 +132,39 @@ namespace app.Controllers
                     EM = "Chapter is not available"
                 });
             }
-            return _msgService.MsgReturn("Chapter content", chapter);
+            if(checkPurchase(userid,chapterid,storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
+            {
+                return _msgService.MsgReturn("Chapter content", chapter);
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "You have to Purchase this chapter first",
+                    DT = chapter
+                });
+            }
         }
 
-        [HttpGet("next_chapter/{storyId}/{currentChapterId}")]
-        public IActionResult NextChapter(int currentChapterId, int storyId)
+        [HttpGet("next_chapter/{storyid}/{currentChapterId}")]
+        public IActionResult NextChapter(long currentChapterId, int storyid,int? userid)
         {
-            var nextChapter = _context.Chapters.Where(c => c.StoryId == storyId && c.ChapterId > currentChapterId && c.Status > 0)
+            var nextChapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterId > currentChapterId && c.Status > 0)
                               .OrderBy(c => c.ChapterId)
-                              .Select(c => new
-                              {
-                                  StoryId = c.Story.StoryId,
-                                  StoryTitle = c.Story.StoryTitle,
-                                  Content = c.ChapterContent,
-                                  ChapterId = c.ChapterId,
-                                  ChapterTitle = c.ChapterTitle,
-                                  ChapterPrice = c.ChapterPrice,
-                                  CreateTime = c.CreateTime
-                              }).FirstOrDefault();
+                              .Include(c => c.Story)
+                                .Select(c => new
+                                {
+                                    StoryId = c.Story.StoryId,
+                                    StoryTitle = c.Story.StoryTitle,
+                                    Content = c.ChapterContent,
+                                    ChapterId = c.ChapterId,
+                                    ChapterTitle = c.ChapterTitle,
+                                    ChapterPrice = c.ChapterPrice,
+                                    CreateTime = c.CreateTime
+                                })
+                              .FirstOrDefault();
+            
             if(nextChapter == null) {
                 return new JsonResult(new
                 {
@@ -144,24 +172,40 @@ namespace app.Controllers
                     EM = "Chapter is not available"
                 });
             }
-            return _msgService.MsgReturn("Chapter content", nextChapter);
+            if (checkPurchase(userid, nextChapter.ChapterId, storyid) || nextChapter.ChapterPrice == 0 || nextChapter.ChapterPrice == null)
+            {
+                return _msgService.MsgReturn("Chapter content", nextChapter);
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "You have to Purchase this chapter first",
+                    DT = nextChapter
+                });
+            }
+            
         }
 
-        [HttpGet("previous_chapter/{storyId}/{currentChapterId}")]
-        public IActionResult PreviousChapter(int currentChapterId, int storyId)
+        [HttpGet("previous_chapter/{storyid}/{currentChapterId}")]
+        public IActionResult PreviousChapter(int currentChapterId, int storyid, int userid)
         {
-            var previousChapter = _context.Chapters.Where(c => c.StoryId == storyId && c.ChapterId < currentChapterId && c.Status > 0)
+            var previousChapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterId < currentChapterId && c.Status > 0)
                               .OrderBy(c => c.ChapterId)
-                              .Select(c => new
-                              {
-                                  StoryId = c.Story.StoryId,
-                                  StoryTitle = c.Story.StoryTitle,
-                                  Content = c.ChapterContent,
-                                  ChapterId = c.ChapterId,
-                                  ChapterTitle = c.ChapterTitle,
-                                  ChapterPrice = c.ChapterPrice,
-                                  CreateTime = c.CreateTime
-                              }).FirstOrDefault();
+                              .Include(c => c.Story)
+                                .Select(c => new
+                                {
+                                    StoryId = c.Story.StoryId,
+                                    StoryTitle = c.Story.StoryTitle,
+                                    Content = c.ChapterContent,
+                                    ChapterId = c.ChapterId,
+                                    ChapterTitle = c.ChapterTitle,
+                                    ChapterPrice = c.ChapterPrice,
+                                    CreateTime = c.CreateTime
+                                })
+                              .FirstOrDefault();
+
             if (previousChapter == null)
             {
                 return new JsonResult(new
@@ -170,7 +214,19 @@ namespace app.Controllers
                     EM = "Chapter is not available"
                 });
             }
-            return _msgService.MsgReturn("Chapter content", previousChapter);
+            if (checkPurchase(userid, previousChapter.ChapterId, storyid) || previousChapter.ChapterPrice == 0 || previousChapter.ChapterPrice == null)
+            {
+                return _msgService.MsgReturn("Chapter content", previousChapter);
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "You have to Purchase this chapter first",
+                    DT = previousChapter
+                });
+            }
         }
     }
 }
