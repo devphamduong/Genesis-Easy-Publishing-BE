@@ -43,7 +43,23 @@ namespace app.Controllers
         [HttpGet("story_volume/{storyid}")]
         public async Task<ActionResult> GetVolume(int storyid)
         {
-            var volumes = await _context.Volumes.Where(v => v.StoryId == storyid).ToListAsync();
+            var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
+                .Include(v => v.Chapters)
+                .Select(v => new
+                {
+                    volumeId = v.VolumeId,
+                    VolumeTitle = v.VolumeTitle,
+                    StoryId = v.StoryId,
+                    Chapters = v.Chapters.Where(c => c.Status > 0).Select(c => new
+                    {
+                        c.ChapterId,
+                        c.ChapterTitle,
+                        c.ChapterPrice,
+                        c.CreateTime
+
+                    }).OrderByDescending(c => c.ChapterId).ToList()
+                })
+                .ToListAsync();
             return _msgService.MsgReturn("List volume", volumes);
         }
 
