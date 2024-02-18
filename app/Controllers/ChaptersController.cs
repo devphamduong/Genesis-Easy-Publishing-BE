@@ -75,15 +75,7 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn("Story Chapter Relate", chapters);
         }
-
-        //[HttpGet("story_volume")]
-        //public async Task<ActionResult> GetVolume(int storyId)
-        //{
-        //    var volumes = await _context.Volumes.Where(v => v.StoryId == storyId).ToListAsync();
-        //    return _msgService.MsgReturn("List volume", volumes);
-        //}
-
-        [HttpGet("story_volume/{storyid}")]
+[HttpGet("story_volume/{storyid}")]
         public async Task<ActionResult> GetVolume(int storyid)
         {
             var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
