@@ -66,7 +66,6 @@ CLOSE table_cursor
 DEALLOCATE table_cursor
 
 
-
 -- table User
 SET ANSI_NULLS ON
 GO
@@ -81,7 +80,7 @@ CREATE TABLE [dbo].[User](
 	[phone] [varchar](11) NULL,
 	[address] [nvarchar](200) NULL,
 	[username] [nvarchar](50) NOT NULL,
-	[password] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](4000) NOT NULL,
 	[user_image] [nvarchar](4000) NULL,
 	[status] [bit] NULL DEFAULT 1,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 
@@ -1673,3 +1672,4 @@ GO
 ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
 GO
+	
