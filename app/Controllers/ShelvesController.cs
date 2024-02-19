@@ -49,15 +49,20 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     },
-                    s.StoryInteraction.Read,
-                    s.StoryInteraction.Like,
-                    s.StoryInteraction.Follow,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
                     UserPurchaseStory = s.Users.Count,
                     UserPurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
                 })
                 .OrderByDescending(s => s.UserPurchaseStory) // top famous compare
                 .ThenByDescending(s => s.UserPurchaseChapter)
-                .ThenByDescending(s => s.Read).ThenByDescending(s => s.Follow).ThenByDescending(s => s.Like)
+                .ThenByDescending(s => s.StoryInteraction.Read).ThenByDescending(s => s.StoryInteraction.Follow)
+                .ThenByDescending(s => s.StoryInteraction.Like)
                 .ToListAsync();
             return _msgService.MsgPagingReturn("Stories successfully",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
@@ -109,7 +114,13 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
                     StoryChapterNumber = s.Chapters.Count,
-                    s.StoryInteraction.Read,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
                     UserCount = s.Users.Count,
                     UserPurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
                 })
@@ -144,9 +155,15 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     },
-                    s.StoryInteraction.Read
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
                 })
-                .OrderByDescending(c => c.Read).ToListAsync(); // top by read
+                .OrderByDescending(c => c.StoryInteraction.Read).ToListAsync(); // top by read
             return _msgService.MsgPagingReturn("Stories successfully",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
@@ -229,11 +246,107 @@ namespace app.Controllers
                     {
                         s.StoryId,
                         s.StoryTitle,
-                        s.StoryInteraction.Read
-                    }).OrderByDescending(s => s.Read).ToList(),
+                        StoryInteraction = new
+                        {
+                            s.StoryInteraction.Like,
+                            s.StoryInteraction.Follow,
+                            s.StoryInteraction.View,
+                            s.StoryInteraction.Read,
+                        },
+                    }).OrderByDescending(s => s.StoryInteraction.Read).ToList(),
                 })
                 .ToListAsync();
             return _msgService.MsgReturn("Stories successfully", stories);
+        }
+
+        // get stories each cate
+        [HttpGet("topcate_shelves")]
+        [EnableQuery]
+        public async Task<ActionResult> GetStoriesTopCate(int cateid)
+        {
+            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateid) && c.Status > 0)
+                .Include(c => c.Users)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                })
+                .OrderByDescending(s => s.StoryLatestChapter.ChapterId)
+                .ThenByDescending(s => s.StoryId)
+                .ThenByDescending(s => s.StoryInteraction.Read).ThenByDescending(s => s.StoryInteraction.Follow)
+                .ThenByDescending(s => s.StoryInteraction.Like).Take(5)
+                .ToListAsync();
+
+            return _msgService.MsgReturn("Stories successfully", stories);
+        }
+
+        // get stories each cate
+        [HttpGet("cate_shelves")]
+        [EnableQuery]
+        public async Task<ActionResult> GetStoriesEachCate(int cateid, int page)
+        {
+            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateid) && c.Status > 0)
+                .Include(c => c.Users)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Include(c => c.StoryInteraction)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                })
+                .OrderByDescending(s => s.StoryLatestChapter.ChapterId)
+                .ThenByDescending(s => s.StoryId)
+                .ThenByDescending(s => s.StoryInteraction.Read).ThenByDescending(s => s.StoryInteraction.Follow)
+                .ThenByDescending(s => s.StoryInteraction.Like)
+                .ToListAsync();
+
+            return _msgService.MsgPagingReturn("Stories successfully",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
         }
 
         // get stories by filter

@@ -518,3 +518,4 @@ D:\code\Genesis-Easy-Publishing-BE\app\obj\Release\net7.0\refint\app.dll
 D:\code\Genesis-Easy-Publishing-BE\app\obj\Release\net7.0\app.pdb
 D:\code\Genesis-Easy-Publishing-BE\app\obj\Release\net7.0\app.genruntimeconfig.cache
 D:\code\Genesis-Easy-Publishing-BE\app\obj\Release\net7.0\ref\app.dll
+D:\code\Genesis-Easy-Publishing-BE\app\obj\Release\net7.0\app.sourcelink.json

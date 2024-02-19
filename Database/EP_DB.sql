@@ -98,7 +98,7 @@ CREATE TABLE [dbo].[User](
 	[phone] [varchar](11) NULL,
 	[address] [nvarchar](200) NULL,
 	[username] [nvarchar](50) NOT NULL,
-	[password] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](4000) NOT NULL,
 	[user_image] [nvarchar](4000) NULL,
 	[status] [bit] NULL DEFAULT 1,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 

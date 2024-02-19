@@ -117,10 +117,10 @@ namespace app.Controllers
             });
         }
 
-        [HttpPost("edit_story")]
+        [HttpPut("edit_story")]
         public async Task<ActionResult> EditStory(Story story)
         {
-          
+            story.UpdateTime = DateTime.Now;
             try
             {
                 _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -131,7 +131,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Update Fail"
+                    EM = "Edit Fail"
                 });
             }
             return new JsonResult(new
@@ -140,7 +140,6 @@ namespace app.Controllers
                 EM = "Update story successfully"
             });
         }
-
         
 
         //// PUT: api/Stories/5
