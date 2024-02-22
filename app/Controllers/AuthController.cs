@@ -35,9 +35,9 @@ namespace app.Controllers
         public class RegisterForm
         {
             public string Email { get; set; }
-            public string Password { get; set; }
             public string Username { get; set; }
-            public string FullName { get; set; }
+            public string Password { get; set; }
+            public string ConfirmPassword { get; set; }
         }
         public class ResetPasswordForm
         {
@@ -131,7 +131,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "Missing parameters",
+                    EM = "Missing required fields",
                 });
             }
             var user = _context.Users.Where(u => u.Email.Equals(data.Email)).FirstOrDefault();
@@ -152,13 +152,20 @@ namespace app.Controllers
                     EM = "This username is already in use by another account",
                 });
             }
+            if (!data.Password.Equals(data.ConfirmPassword))
+            {
+                return new JsonResult(new
+                {
+                    EC = 4,
+                    EM = "Confirm password must match password"
+                });
+            }
             string passwordHash = hashService.Hash(data.Password);
             _context.Users.Add(new User
             {
                 Email = data.Email,
                 Password = passwordHash,
                 Username = data.Username,
-                UserFullname = !string.IsNullOrEmpty(data.FullName) ? data.FullName : null,
                 Gender = true
             });
             _context.SaveChanges();
