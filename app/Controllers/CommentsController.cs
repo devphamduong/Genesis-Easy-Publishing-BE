@@ -32,7 +32,7 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.CommentId)
                 .ToListAsync();
-            pagesize = pagesize ==null ? 10 : pagesize;
+            pagesize = pagesize == null ? 10 : pagesize;
             return _msgService.MsgPagingReturn("Story Detail Comments",
                 comments.Skip(pagesize * (page - 1)).Take(pagesize), page, comments.Count);
         }

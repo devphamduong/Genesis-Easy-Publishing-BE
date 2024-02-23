@@ -306,7 +306,7 @@ namespace app.Controllers
         // get stories each cate
         [HttpGet("cate_shelves")]
         [EnableQuery]
-        public async Task<ActionResult> GetStoriesEachCate(int cateid, int page)
+        public async Task<ActionResult> GetStoriesEachCate(int cateid, int page, int pagesize)
         {
             var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateid) && c.Status > 0)
                 .Include(c => c.Users)
@@ -344,9 +344,9 @@ namespace app.Controllers
                 .ThenByDescending(s => s.StoryInteraction.Read).ThenByDescending(s => s.StoryInteraction.Follow)
                 .ThenByDescending(s => s.StoryInteraction.Like)
                 .ToListAsync();
-
+            pagesize = pagesize == null ? 10 : pagesize;
             return _msgService.MsgPagingReturn("Stories successfully",
-                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+                stories.Skip(pagesize * (page - 1)).Take(pagesize), page, stories.Count);
         }
 
         // get stories by filter
