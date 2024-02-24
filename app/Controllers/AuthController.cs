@@ -107,20 +107,19 @@ namespace app.Controllers
                 Email = user.Email,
                 Username = user.Username,
             };
-            var token = CreateToken(userDTO);
+            var accessToken = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
             cookieOptions.Expires = DateTime.Now.AddDays(1);
             cookieOptions.HttpOnly = true;
-            Response.Cookies.Append("access_token", token, cookieOptions);
+            Response.Cookies.Append("access_token", accessToken, cookieOptions);
             if (data.Remember)
             {
+                var rememberToken = CreateRememberLoginToken(data.EmailOrUsername, data.Password);
                 cookieOptions.Expires = DateTime.Now.AddDays(30);
-                Response.Cookies.Append("email_username", data.EmailOrUsername, cookieOptions);
-                Response.Cookies.Append("password", data.Password, cookieOptions);
+                Response.Cookies.Append("remember_token", rememberToken, cookieOptions);
             } else
             {
-                Response.Cookies.Delete("email_username");
-                Response.Cookies.Delete("password");
+                Response.Cookies.Delete("remember_token");
             }
             return new JsonResult(new
             {
@@ -129,7 +128,7 @@ namespace app.Controllers
                 DT = new
                 {
                     user,
-                    access_token = token,
+                    access_token = accessToken,
                 },
             });
         }
@@ -234,7 +233,30 @@ namespace app.Controllers
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddHours(6),
+                Expires = DateTime.UtcNow.AddHours(12),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
+                    SecurityAlgorithms.HmacSha256)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            string jwt = tokenHandler.WriteToken(token);
+            return jwt;
+        }
+
+        private string CreateRememberLoginToken(string emailOrUsername, string password)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                new Claim("emailOrUsername", emailOrUsername),
+                new Claim("password", password)
+                }),
+                Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
+                Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
+                Expires = DateTime.UtcNow.AddDays(30),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
                     SecurityAlgorithms.HmacSha256)
