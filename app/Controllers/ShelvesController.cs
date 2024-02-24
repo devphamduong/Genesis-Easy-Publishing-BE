@@ -259,6 +259,45 @@ namespace app.Controllers
             return _msgService.MsgReturn("Stories successfully", stories);
         }
 
+
+        // GET: api/Stories : top read shelves cate
+        [HttpGet("topcate_read")]
+        [EnableQuery]
+        public async Task<ActionResult> GetTopStoriesReadShelves(int cateid)
+        {
+            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateid) && c.Status > 0)
+                .Include(c => c.StoryInteraction)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    //StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    //new
+                    //{
+                    //    s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                    //    s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                    //    s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    //},
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                })
+                .OrderByDescending(c => c.StoryInteraction.Read).Take(10).ToListAsync(); // top by read
+            return _msgService.MsgReturn("Stories successfully", stories);
+        }
+
         // get stories each cate
         [HttpGet("topcate_shelves")]
         [EnableQuery]
