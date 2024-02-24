@@ -28,8 +28,9 @@ namespace app.Controllers
 
         public class LoginForm
         {
-            public string Username { get; set; }
+            public string EmailOrUsername { get; set; }
             public string Password { get; set; }
+            public bool Remember { get; set; }
         }
 
         public class RegisterForm
@@ -70,7 +71,7 @@ namespace app.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginForm data)
         {
-            if (string.IsNullOrEmpty(data.Username) || string.IsNullOrEmpty(data.Password))
+            if (string.IsNullOrEmpty(data.EmailOrUsername) || string.IsNullOrEmpty(data.Password))
             {
                 return new JsonResult(new
                 {
@@ -78,12 +79,12 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            var user = _context.Users.Where(u => u.Username.Equals(data.Username)).Select(u => new
+            string password = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault().Password;
+            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
                 UserId = u.UserId,
                 Email = u.Email,
                 Username = u.Username,
-                Password = u.Password,
                 UserFullname = u.UserFullname,
                 Gender = u.Gender == true ? "Male" : "Female",
                 Dob = u.Dob,
@@ -92,7 +93,7 @@ namespace app.Controllers
                 Status = u.Status == true ? 1 : 0,
                 UserImage = u.UserImage
             }).FirstOrDefault();
-            if (user == null || !hashService.Verify(user.Password, data.Password))
+            if (user == null || !hashService.Verify(password, data.Password))
             {
                 return new JsonResult(new
                 {
@@ -111,6 +112,16 @@ namespace app.Controllers
             cookieOptions.Expires = DateTime.Now.AddDays(1);
             cookieOptions.HttpOnly = true;
             Response.Cookies.Append("access_token", token, cookieOptions);
+            if (data.Remember)
+            {
+                cookieOptions.Expires = DateTime.Now.AddDays(30);
+                Response.Cookies.Append("email_username", data.EmailOrUsername, cookieOptions);
+                Response.Cookies.Append("password", data.Password, cookieOptions);
+            } else
+            {
+                Response.Cookies.Delete("email_username");
+                Response.Cookies.Delete("password");
+            }
             return new JsonResult(new
             {
                 EC = 0,
@@ -200,7 +211,7 @@ namespace app.Controllers
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddHours(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
+                Expires = DateTime.UtcNow.AddDays(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
                     SecurityAlgorithms.HmacSha256)
