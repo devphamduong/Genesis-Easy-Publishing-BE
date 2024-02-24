@@ -316,7 +316,13 @@ namespace app.Controllers
             try
             {
                 string token = CreateForgotPasswordToken(email);
-                mailService.Send(email, "Easy Publishing: Reset password", "<p>Click on the link below to reset your password:</p>\r\n<a href=\"https://genesis-easy-publishing.vercel.app/reset-password/" + token + "\">Reset password</a>");
+                mailService.Send(email,
+                        "Easy Publishing: Reset password",
+                        "<b>Hi " + user.Username + ",</b>" +
+                        "<p>There was a request to reset your password! </p> " +
+                        "<p>If you did not make this request then please ignore this email.</p> " +
+                        "<p>Otherwise, please click this link to reset your password:</p> " +
+                        "<a href =\"https://genesis-easy-publishing.vercel.app/reset-password/" + token + "\">Reset password</a>");
             }
             catch (Exception ex)
             {
@@ -358,6 +364,23 @@ namespace app.Controllers
                     });
                 }
                 user.Password = hashService.Hash(data.Password);
+
+                try
+                {
+                    mailService.Send(email,
+                        "Easy Publishing: Reset password",
+                        "<b>Hi " + user.Username + ",</b>" +
+                        "<p>Your password has been reset successfully!</p> " +
+                        "<p>Your new password is: <b>" + data.Password + "</b></p>");
+                }
+                catch (Exception ex)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 3,
+                        EM = "Error: " + ex.Message,
+                    });
+                }
                 _context.SaveChanges();
             }
             catch (Exception)
