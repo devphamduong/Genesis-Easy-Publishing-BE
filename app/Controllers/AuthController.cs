@@ -1,4 +1,4 @@
-﻿using app.DTOs;
+﻿﻿using app.DTOs;
 using app.Models;
 using app.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -28,12 +28,9 @@ namespace app.Controllers
 
         public class LoginForm
         {
-<<<<<<< Updated upstream
-            public string Username { get; set; }
-=======
-            public string emailOrUsername { get; set; }
->>>>>>> Stashed changes
+            public string EmailOrUsername { get; set; }
             public string Password { get; set; }
+            public bool Remember { get; set; }
         }
 
         public class RegisterForm
@@ -74,11 +71,7 @@ namespace app.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginForm data)
         {
-<<<<<<< Updated upstream
-            if (string.IsNullOrEmpty(data.Username) || string.IsNullOrEmpty(data.Password))
-=======
-            if (string.IsNullOrEmpty(data.emailOrUsername) || string.IsNullOrEmpty(data.Password))
->>>>>>> Stashed changes
+            if (string.IsNullOrEmpty(data.EmailOrUsername) || string.IsNullOrEmpty(data.Password))
             {
                 return new JsonResult(new
                 {
@@ -86,17 +79,12 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-<<<<<<< Updated upstream
-            var user = _context.Users.Where(u => u.Username.Equals(data.Username)).Select(u => new
-=======
-            string password = _context.Users.Where(u => u.Username.Equals(data.emailOrUsername) || u.Email.Equals(data.emailOrUsername)).FirstOrDefault().Password;
-            var user = _context.Users.Where(u => u.Username.Equals(data.emailOrUsername) || u.Email.Equals(data.emailOrUsername)).Select(u => new
->>>>>>> Stashed changes
+            string password = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault().Password;
+            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
                 UserId = u.UserId,
                 Email = u.Email,
                 Username = u.Username,
-                Password = u.Password,
                 UserFullname = u.UserFullname,
                 Gender = u.Gender == true ? "Male" : "Female",
                 Dob = u.Dob,
@@ -105,7 +93,7 @@ namespace app.Controllers
                 Status = u.Status == true ? 1 : 0,
                 UserImage = u.UserImage
             }).FirstOrDefault();
-            if (user == null || !hashService.Verify(user.Password, data.Password))
+            if (user == null || !hashService.Verify(password, data.Password))
             {
                 return new JsonResult(new
                 {
@@ -119,24 +107,20 @@ namespace app.Controllers
                 Email = user.Email,
                 Username = user.Username,
             };
-            var token = CreateToken(userDTO);
+            var accessToken = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
             cookieOptions.Expires = DateTime.Now.AddDays(1);
             cookieOptions.HttpOnly = true;
-<<<<<<< Updated upstream
-            Response.Cookies.Append("access_token", token, cookieOptions);
-=======
             Response.Cookies.Append("access_token", accessToken, cookieOptions);
             if (data.Remember)
             {
-                var rememberToken = CreateRememberLoginToken(data.emailOrUsername, data.Password);
+                var rememberToken = CreateRememberLoginToken(data.EmailOrUsername, data.Password);
                 cookieOptions.Expires = DateTime.Now.AddDays(30);
                 Response.Cookies.Append("remember_token", rememberToken, cookieOptions);
             } else
             {
                 Response.Cookies.Delete("remember_token");
             }
->>>>>>> Stashed changes
             return new JsonResult(new
             {
                 EC = 0,
@@ -144,7 +128,7 @@ namespace app.Controllers
                 DT = new
                 {
                     user,
-                    access_token = token,
+                    access_token = accessToken,
                 },
             });
         }
@@ -226,7 +210,7 @@ namespace app.Controllers
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddHours(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
+                Expires = DateTime.UtcNow.AddDays(Int32.Parse(_configuration.GetSection("JWTConfig:Time").Value!)),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
                     SecurityAlgorithms.HmacSha256)
@@ -249,7 +233,30 @@ namespace app.Controllers
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddHours(6),
+                Expires = DateTime.UtcNow.AddHours(12),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
+                    SecurityAlgorithms.HmacSha256)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            string jwt = tokenHandler.WriteToken(token);
+            return jwt;
+        }
+
+        private string CreateRememberLoginToken(string emailOrUsername, string password)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                new Claim("emailOrUsername", emailOrUsername),
+                new Claim("password", password)
+                }),
+                Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
+                Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
+                Expires = DateTime.UtcNow.AddDays(30),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
                     SecurityAlgorithms.HmacSha256)
