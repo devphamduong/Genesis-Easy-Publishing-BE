@@ -370,7 +370,7 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnName("email");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.Password)
-                .HasMaxLength(50)
+                .HasMaxLength(4000)
                 .HasColumnName("password");
             entity.Property(e => e.Phone)
                 .HasMaxLength(11)

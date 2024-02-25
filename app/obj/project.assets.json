@@ -12002,11 +12002,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+      "projectUniqueName": "d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
       "projectName": "app",
-      "projectPath": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+      "projectPath": "d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
       "packagesPath": "C:\\Users\\huyvi\\.nuget\\packages\\",
-      "outputPath": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\obj\\",
+      "outputPath": "d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\huyvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -12095,5 +12095,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

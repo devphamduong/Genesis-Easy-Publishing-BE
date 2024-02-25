@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nechBss85ISwJLosN4emrub6IVnpkrmRJV4OpbgoYd15c4cuymp6Oac9+LBzGmt7BPYD/ckro878oZkEEz2R1g==",
+  "dgSpecHash": "Q4k2zNhtrEL5Pb/AJICDfkZvuw/H5VkeBAkKjohv0KDAfSFh8rsmNSuSWC4s506nUvj1NQ6IAeHktrS82vrhhw==",
   "success": true,
-  "projectFilePath": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+  "projectFilePath": "d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\huyvi\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\huyvi\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
@@ -241,5 +241,12 @@
     "C:\\Users\\huyvi\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\huyvi\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

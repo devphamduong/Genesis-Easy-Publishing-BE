@@ -41,6 +41,30 @@ namespace app.Controllers
                 chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, chapters.Count);
         }
 
+<<<<<<< HEAD
+=======
+        [HttpGet("chapter_detail")]
+        public async Task<ActionResult> GetChapter(int chapterid)
+        {
+            var chapters = await _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
+                .Include(c => c.Story)
+                .Include(c => c.Comments)
+                .Select(c => new
+                {
+                    Story = new { c.StoryId, c.Story.StoryTitle },
+                    ChapterId = c.ChapterId,
+                    ChapterTitle = c.ChapterTitle,
+                    ChapterPrice = c.ChapterPrice,
+                    CreateTime = c.CreateTime,
+                    UpdateTime = c.UpdateTime,
+                    Comment = c.Comments.Count,
+                    UserPurchaseChapter = c.Users.Count,
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn("Story Chapter Detail", chapters.FirstOrDefault());
+        }
+
+>>>>>>> 710dc674503f4ff5556d818740bb27279b49fbfb
         [HttpGet("chapter_detail/taskbar")]
         public async Task<ActionResult> GetChapterRelated(int chapterid, int storyid)
         {
@@ -54,8 +78,12 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn("Story Chapter Relate", chapters);
         }
+<<<<<<< HEAD
 
         [HttpGet("story_volume/{storyid}")]
+=======
+[HttpGet("story_volume/{storyid}")]
+>>>>>>> 710dc674503f4ff5556d818740bb27279b49fbfb
         public async Task<ActionResult> GetVolume(int storyid)
         {
             var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
@@ -259,5 +287,9 @@ namespace app.Controllers
                 });
             }
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 710dc674503f4ff5556d818740bb27279b49fbfb
     }
 }
