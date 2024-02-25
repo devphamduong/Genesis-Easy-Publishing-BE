@@ -62,7 +62,6 @@ namespace app.Controllers
             return _msgService.MsgReturn("Story Chapter Detail", chapters.FirstOrDefault());
         }
 
->>>>>>> 710dc674503f4ff5556d818740bb27279b49fbfb
         [HttpGet("chapter_detail/taskbar")]
         public async Task<ActionResult> GetChapterRelated(int chapterid, int storyid)
         {
