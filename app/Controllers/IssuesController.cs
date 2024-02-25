@@ -34,7 +34,7 @@ namespace app.Controllers
                 .OrderByDescending(c => c.IssueId)
                 .ToListAsync();
             return _msgService.MsgPagingReturn("Story Detail Issue",
-                comments.Skip(pageSize * (page - 1)).Take(pageSize), page, comments.Count);
+                comments.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, comments.Count);
         }
     }
 }

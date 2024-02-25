@@ -34,7 +34,7 @@ namespace app.Controllers
                 .ToListAsync();
             pagesize = pagesize == null ? 10 : pagesize;
             return _msgService.MsgPagingReturn("Story Detail Comments",
-                comments.Skip(pagesize * (page - 1)).Take(pagesize), page, comments.Count);
+                comments.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, comments.Count);
         }
     }
 }

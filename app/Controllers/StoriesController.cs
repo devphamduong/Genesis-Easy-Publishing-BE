@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using app.Models;
 using app.Service;
+using System.Security.Policy;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace app.Controllers
 {
@@ -16,6 +18,7 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MsgService _msgService = new MsgService();
+
         public StoriesController(EasyPublishingContext context)
         {
             _context = context;
@@ -32,40 +35,70 @@ namespace app.Controllers
         //    return await _context.Stories.ToListAsync();
         //}
 
+        private JwtSecurityToken VerifyToken()
+        {
+            var tokenCookie = Request.Cookies["access_token"];
+            var tokenBearer = extractToken();
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(!String.IsNullOrEmpty(tokenBearer) ? tokenBearer : tokenCookie);
+            return jwtSecurityToken;
+        }
+
+        private string extractToken()
+        {
+            if (!String.IsNullOrEmpty(Request.Headers.Authorization) &&
+                Request.Headers.Authorization.ToString().Split(' ')[0] == "Bearer" &&
+                !String.IsNullOrEmpty(Request.Headers.Authorization.ToString().Split(' ')[1]))
+            {
+                return Request.Headers.Authorization.ToString().Split(' ')[1];
+            }
+            return null;
+        }
+
         // GET: api/Stories/5
         [HttpGet("story_detail")]
         public async Task<ActionResult> GetStoryDetail(int storyid)
         {
-            var stories = await _context.Stories.Where(c => c.StoryId == storyid && c.Status > 0)
-                .Include(c => c.Author).Include(c => c.StoryInteraction)
-                .Include(c => c.Categories)
-                .Include(c => c.Users) // luot mua truyen
-                .Include(c => c.Chapters).ThenInclude(c => c.Users)
-                .Select(c => new
-                {
-                    StoryId = c.StoryId,
-                    StoryTitle = c.StoryTitle,
-                    StoryImage = c.StoryImage,
-                    StoryDescription = c.StoryDescription,
-                    StoryPrice = c.StoryPrice,
-                    StorySale = c.StorySale,
-                    CreateTime = c.CreateTime,
-                    StoryCategories = c.Categories.ToList(),
-                    StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
-                    StoryChapterNumber = c.Chapters.Count,
-                    StoryChapters = c.Chapters.Where(c => c.Status > 0).Select(c => new
-                    {
-                        c.ChapterId,
-                        c.ChapterTitle,
-                        c.ChapterPrice,
-                        c.CreateTime
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
 
-                    }).OrderByDescending(c => c.ChapterId)
-                    .Take(3).ToList(),
-                    UserPurchaseStory = c.Users.Count,
-                    StoryInteraction = c.StoryInteraction
-                })
-                .ToListAsync();
+            var stories = await _context.Stories.Where(c => c.StoryId == storyid && c.Status > 0)
+                        .Include(c => c.Author).Include(c => c.StoryInteraction)
+                        .Include(c => c.Categories)
+                        .Include(c => c.Users) // luot mua truyen
+                        .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                        .Select(c => new
+                        {
+                            StoryId = c.StoryId,
+                            StoryTitle = c.StoryTitle,
+                            StoryImage = c.StoryImage,
+                            StoryDescription = c.StoryDescription,
+                            StoryPrice = c.StoryPrice,
+                            StorySale = c.StorySale,
+                            CreateTime = c.CreateTime,
+                            StoryCategories = c.Categories.ToList(),
+                            StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
+                            StoryChapterNumber = c.Chapters.Count,
+                            StoryChapters = c.Chapters.Where(c => c.Status > 0).Select(c => new
+                            {
+                                c.ChapterId,
+                                c.ChapterTitle,
+                                c.ChapterPrice,
+                                c.CreateTime
+
+                            }).OrderByDescending(c => c.ChapterId)
+                            .Take(3).ToList(),
+                            UserPurchaseStory = c.Users.Count,
+                            StoryInteraction = c.StoryInteraction,
+                            UserOwned = c.Users.Any(c => c.UserId == userId)
+                        })
+                        .ToListAsync();
             return _msgService.MsgReturn("Story Detail", stories.FirstOrDefault());
         }
 
@@ -86,7 +119,7 @@ namespace app.Controllers
                     StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
                     StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
                 })
-                .OrderByDescending(c=>c.StoryId)
+                .OrderByDescending(c => c.StoryId)
                 .ToListAsync();
             var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
             return _msgService.MsgReturn("Story Relate", verified.Take(3));
@@ -140,7 +173,7 @@ namespace app.Controllers
                 EM = "Update story successfully"
             });
         }
-        
+
 
         //// PUT: api/Stories/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

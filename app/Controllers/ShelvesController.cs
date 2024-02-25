@@ -65,7 +65,7 @@ namespace app.Controllers
                 .ThenByDescending(s => s.StoryInteraction.Like)
                 .ToListAsync();
             return _msgService.MsgPagingReturn("Stories successfully",
-                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
         [HttpGet("top_latest_by_chapter")]
@@ -96,7 +96,7 @@ namespace app.Controllers
                 .OrderByDescending(c => c.StoryLatestChapter.ChapterId) // latest by chapters
                 .ToListAsync();
             return _msgService.MsgPagingReturn("Stories successfully",
-                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
         // GET: api/Stories : top 6 purchase story
         [HttpGet("top6_purchase")]
@@ -165,7 +165,7 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.StoryInteraction.Read).ToListAsync(); // top by read
             return _msgService.MsgPagingReturn("Stories successfully",
-                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
         // GET: api/Stories : top price accend story 
@@ -198,7 +198,7 @@ namespace app.Controllers
                 }).OrderBy(c => c.StoryPrice)       // price accending
                 .ThenBy(c => c.ChaptersPrice).ToListAsync();
             return _msgService.MsgPagingReturn("Stories successfully",
-               stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+               stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
         // GET: api/Stories : top latest story
@@ -229,7 +229,7 @@ namespace app.Controllers
                     },
                 }).ToListAsync();
             return _msgService.MsgPagingReturn("Stories successfully",
-               stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+               stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
         // GET: api/Stories : stories of each cate
@@ -383,15 +383,16 @@ namespace app.Controllers
                 .ThenByDescending(s => s.StoryInteraction.Read).ThenByDescending(s => s.StoryInteraction.Follow)
                 .ThenByDescending(s => s.StoryInteraction.Like)
                 .ToListAsync();
-            pagesize = pagesize == null ? 10 : pagesize;
+            pagesize = pagesize == null || pagesize == 0 ? 10 : pagesize;
             return _msgService.MsgPagingReturn("Stories successfully",
-                stories.Skip(pagesize * (page - 1)).Take(pagesize), page, stories.Count);
+                stories.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, stories.Count);
         }
 
         // get stories by filter
-        [HttpPut("filter")]
+        [HttpGet("filter")]
         [EnableQuery]
-        public async Task<ActionResult> GetFilter(FilterDTO filter)
+        public async Task<ActionResult> GetFilter(string? title, int? upLimit, int? downLimit, string? sort, [FromQuery] List<int> cates,
+            int? status, int page, int pagesize)
         {
             var stories = await _context.Stories.Where(c => c.Status > 0)
                 .Include(c => c.Author)
@@ -415,26 +416,29 @@ namespace app.Controllers
                     },
                     StoryPrice = s.StoryPrice,
                     ChaptersPrice = s.Chapters.Select(c => c.ChapterPrice).Sum(),
+                    Status = s.Status
                 })
+                .OrderByDescending(c => c.StoryLatestChapter.ChapterId).ThenByDescending(c => c.StoryId)
                 .ToListAsync();
 
-            // name matching
-            stories = String.IsNullOrEmpty(filter.StoryTitle) ? stories : stories.Where(c => c.StoryTitle.ToLower().Contains(filter.StoryTitle.ToLower())).ToList();
-            // purchase story
-            if (filter.Purchase != null)
-            {
-                stories = stories.Where(c => c.StoryPrice >= filter.Purchase.DownLimit && c.StoryPrice <= filter.Purchase.UpLimit).ToList();
-                stories = filter.OrderPriceAscend == null ? stories : stories.OrderBy(c => filter.OrderPriceAscend ?? true ? c.StoryPrice : -c.StoryPrice).ToList();
-            }
-            else stories = stories.Where(c => c.StoryPrice == 0).ToList();
-            // categories matching
-            stories = filter.Categories == null || filter.Categories.Count == 0 ? stories :
-                stories.Where(c => filter.Categories.All(categoryId => c.StoryCategories.Select(sc => sc.CategoryId).Contains(categoryId))).ToList();
 
-            stories = stories.OrderByDescending(c => c.StoryLatestChapter.ChapterId).ThenByDescending(c => c.StoryId).ToList();
-            var page = filter.page == null ? 0 : 1;
+            // name matching
+            stories = String.IsNullOrEmpty(title) ? stories : stories.Where(c => c.StoryTitle.ToLower().Contains(title.ToLower())).ToList();
+
+            // purchase story
+            stories = upLimit == null && downLimit == null ? stories : stories.Where(c => c.StoryPrice >= downLimit && c.StoryPrice <= upLimit).ToList();
+            stories = sort == null ? stories : stories.OrderBy(c => sort == "sort" ? c.StoryPrice : -c.StoryPrice).ToList();
+
+            // categories matching
+            stories = cates == null || cates.Count == 0 ? stories :
+                stories.Where(c => cates.All(categoryId => c.StoryCategories.Select(sc => sc.CategoryId).Contains(categoryId))).ToList();
+
+            stories = status == null ? stories : stories.Where(c => c.Status == status).ToList();
+            //stories = stories.OrderByDescending(c => c.StoryLatestChapter.ChapterId).ThenByDescending(c => c.StoryId).ToList();
+            page = page == null || page == 0 ? 1 : page;
+            pagesize = pagesize == null || pagesize == 0 ? pageSize : pagesize;
             return _msgService.MsgPagingReturn("Stories successfully",
-                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+                stories.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, stories.Count);
         }
 
         // get stories owned
@@ -468,7 +472,7 @@ namespace app.Controllers
                 .ToListAsync();
 
             return _msgService.MsgPagingReturn("Stories Owned successfully",
-                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
         // get stories follow
@@ -502,7 +506,7 @@ namespace app.Controllers
                 .ToListAsync();
 
             return _msgService.MsgPagingReturn("Stories Follow successfully",
-                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, stories.Count);
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
     }
 }

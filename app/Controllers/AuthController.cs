@@ -28,7 +28,11 @@ namespace app.Controllers
 
         public class LoginForm
         {
+<<<<<<< Updated upstream
             public string Username { get; set; }
+=======
+            public string emailOrUsername { get; set; }
+>>>>>>> Stashed changes
             public string Password { get; set; }
         }
 
@@ -70,7 +74,11 @@ namespace app.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginForm data)
         {
+<<<<<<< Updated upstream
             if (string.IsNullOrEmpty(data.Username) || string.IsNullOrEmpty(data.Password))
+=======
+            if (string.IsNullOrEmpty(data.emailOrUsername) || string.IsNullOrEmpty(data.Password))
+>>>>>>> Stashed changes
             {
                 return new JsonResult(new
                 {
@@ -78,7 +86,12 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
+<<<<<<< Updated upstream
             var user = _context.Users.Where(u => u.Username.Equals(data.Username)).Select(u => new
+=======
+            string password = _context.Users.Where(u => u.Username.Equals(data.emailOrUsername) || u.Email.Equals(data.emailOrUsername)).FirstOrDefault().Password;
+            var user = _context.Users.Where(u => u.Username.Equals(data.emailOrUsername) || u.Email.Equals(data.emailOrUsername)).Select(u => new
+>>>>>>> Stashed changes
             {
                 UserId = u.UserId,
                 Email = u.Email,
@@ -110,7 +123,20 @@ namespace app.Controllers
             var cookieOptions = new CookieOptions();
             cookieOptions.Expires = DateTime.Now.AddDays(1);
             cookieOptions.HttpOnly = true;
+<<<<<<< Updated upstream
             Response.Cookies.Append("access_token", token, cookieOptions);
+=======
+            Response.Cookies.Append("access_token", accessToken, cookieOptions);
+            if (data.Remember)
+            {
+                var rememberToken = CreateRememberLoginToken(data.emailOrUsername, data.Password);
+                cookieOptions.Expires = DateTime.Now.AddDays(30);
+                Response.Cookies.Append("remember_token", rememberToken, cookieOptions);
+            } else
+            {
+                Response.Cookies.Delete("remember_token");
+            }
+>>>>>>> Stashed changes
             return new JsonResult(new
             {
                 EC = 0,
