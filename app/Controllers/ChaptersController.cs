@@ -41,8 +41,6 @@ namespace app.Controllers
                 chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, chapters.Count);
         }
 
-<<<<<<< HEAD
-=======
         [HttpGet("chapter_detail")]
         public async Task<ActionResult> GetChapter(int chapterid)
         {
@@ -78,12 +76,7 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn("Story Chapter Relate", chapters);
         }
-<<<<<<< HEAD
-
-        [HttpGet("story_volume/{storyid}")]
-=======
 [HttpGet("story_volume/{storyid}")]
->>>>>>> 710dc674503f4ff5556d818740bb27279b49fbfb
         public async Task<ActionResult> GetVolume(int storyid)
         {
             var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
@@ -287,9 +280,6 @@ namespace app.Controllers
                 });
             }
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> 710dc674503f4ff5556d818740bb27279b49fbfb
     }
 }

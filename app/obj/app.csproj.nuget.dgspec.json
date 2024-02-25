@@ -9,12 +9,12 @@
       "restore": {
         "projectUniqueName": "d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
         "projectName": "app",
-        "projectPath": "d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
-        "packagesPath": "C:\\Users\\huyvi\\.nuget\\packages\\",
-        "outputPath": "d:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\obj\\",
+        "projectPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\huyvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -97,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -140,14 +140,7 @@ namespace app.Controllers
                 EM = "Update story successfully"
             });
         }
-<<<<<<< HEAD
-
-
-
-
-=======
         
->>>>>>> 710dc674503f4ff5556d818740bb27279b49fbfb
 
         //// PUT: api/Stories/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
