@@ -69,8 +69,6 @@ namespace app.Controllers
             return _msgService.MsgReturn("Story Detail", stories.FirstOrDefault());
         }
 
-<<<<<<< HEAD
-=======
         [HttpGet("story_detail/related")]
         public async Task<ActionResult> GetStoryDetailRelate(int storyid)
         {
@@ -94,7 +92,6 @@ namespace app.Controllers
             return _msgService.MsgReturn("Story Relate", verified.Take(3));
         }
 
->>>>>>> 5ca6104548b3259145d3361d4f0fc6aaf2260d65
         [HttpPost("save_story")]
         public async Task<ActionResult> SaveStory(Story story)
         {
@@ -120,17 +117,10 @@ namespace app.Controllers
             });
         }
 
-<<<<<<< HEAD
         [HttpPut("edit_story")]
         public async Task<ActionResult> EditStory(Story story)
         {
             story.UpdateTime = DateTime.Now;
-=======
-        [HttpPost("edit_story")]
-        public async Task<ActionResult> EditStory(Story story)
-        {
-          
->>>>>>> 5ca6104548b3259145d3361d4f0fc6aaf2260d65
             try
             {
                 _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -141,11 +131,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-<<<<<<< HEAD
                     EM = "Edit Fail"
-=======
-                    EM = "Update Fail"
->>>>>>> 5ca6104548b3259145d3361d4f0fc6aaf2260d65
                 });
             }
             return new JsonResult(new
@@ -155,13 +141,9 @@ namespace app.Controllers
             });
         }
 
-<<<<<<< HEAD
 
 
 
-=======
-        
->>>>>>> 5ca6104548b3259145d3361d4f0fc6aaf2260d65
 
         //// PUT: api/Stories/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

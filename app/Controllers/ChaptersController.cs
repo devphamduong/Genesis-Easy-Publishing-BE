@@ -41,27 +41,6 @@ namespace app.Controllers
                 chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, chapters.Count);
         }
 
-        [HttpGet("chapter_detail/{chapterid}")]
-        public async Task<ActionResult> GetChapter(int chapterid)
-        {
-            var chapters = await _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
-                .Include(c => c.Story)
-                .Include(c => c.Comments)
-                .Select(c => new
-                {
-                    Story = new { c.StoryId, c.Story.StoryTitle },
-                    ChapterId = c.ChapterId,
-                    ChapterTitle = c.ChapterTitle,
-                    ChapterPrice = c.ChapterPrice,
-                    CreateTime = c.CreateTime,
-                    UpdateTime = c.UpdateTime,
-                    Comment = c.Comments.Count,
-                    UserPurchaseChapter = c.Users.Count,
-                })
-                .ToListAsync();
-            return _msgService.MsgReturn("Story Chapter Detail", chapters.FirstOrDefault());
-        }
-
         [HttpGet("chapter_detail/taskbar")]
         public async Task<ActionResult> GetChapterRelated(int chapterid, int storyid)
         {
@@ -74,13 +53,6 @@ namespace app.Controllers
                 .OrderBy(c => c.ChapterId).Take(2)
                 .ToListAsync();
             return _msgService.MsgReturn("Story Chapter Relate", chapters);
-        }
-
-        [HttpGet("story_volume")]
-        public async Task<ActionResult> GetVolume(int storyId)
-        {
-            var volumes = await _context.Volumes.Where(v => v.StoryId == storyId).ToListAsync();
-            return _msgService.MsgReturn("List volume", volumes);
         }
 
         [HttpGet("story_volume/{storyid}")]
