@@ -161,19 +161,22 @@ namespace app.Controllers
         }
 
         [HttpGet("chapter_content/{storyid}/{chapterid}")]
-        public async Task<ActionResult> GetChapter(long chapterid, int? userid, int storyid)
+        public async Task<ActionResult> GetChapterContent(long chapterid, int? userid, int storyid)
         {
             var chapter = _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
                 .Include(c => c.Story)
+                .Include(c => c.Comments)
                 .Select(c => new
                 {
-                    StoryId = c.Story.StoryId,
-                    StoryTitle = c.Story.StoryTitle,
+                    Story = new { c.StoryId, c.Story.StoryTitle },
                     Content = c.ChapterContent,
                     ChapterId = c.ChapterId,
                     ChapterTitle = c.ChapterTitle,
                     ChapterPrice = c.ChapterPrice,
-                    CreateTime = c.CreateTime
+                    CreateTime = c.CreateTime,
+                    UpdateTime = c.UpdateTime,
+                    Comment = c.Comments.Count,
+                    UserPurchaseChapter = c.Users.Count,
                 }).FirstOrDefault();
             if (chapter == null)
             {
