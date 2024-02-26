@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using System.IdentityModel.Tokens.Jwt;
 using System.Xml.Linq;
 
 namespace app.Controllers
@@ -20,9 +21,41 @@ namespace app.Controllers
             _context = context;
         }
 
+
+        private JwtSecurityToken VerifyToken()
+        {
+            var tokenCookie = Request.Cookies["access_token"];
+            var tokenBearer = extractToken();
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(!String.IsNullOrEmpty(tokenBearer) ? tokenBearer : tokenCookie);
+            return jwtSecurityToken;
+        }
+
+        private string extractToken()
+        {
+            if (!String.IsNullOrEmpty(Request.Headers.Authorization) &&
+                Request.Headers.Authorization.ToString().Split(' ')[0] == "Bearer" &&
+                !String.IsNullOrEmpty(Request.Headers.Authorization.ToString().Split(' ')[1]))
+            {
+                return Request.Headers.Authorization.ToString().Split(' ')[1];
+            }
+            return null;
+        }
+
         [HttpGet("story_detail")]
         public async Task<ActionResult> GetStoryChapters(int storyid, int page)
         {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            //if (userId==0) return 
+
+
             var chapters = await _context.Chapters.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Comments)
                 .Include(c => c.Users)
@@ -59,7 +92,7 @@ namespace app.Controllers
                     UserPurchaseChapter = c.Users.Count,
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("Story Chapter Detail", chapters.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Story Chapter Detail", chapters.FirstOrDefault());
         }
 
         [HttpGet("chapter_detail/taskbar")]
@@ -73,7 +106,7 @@ namespace app.Controllers
                 })
                 .OrderBy(c => c.ChapterId).Take(2)
                 .ToListAsync();
-            return _msgService.MsgReturn("Story Chapter Relate", chapters);
+            return _msgService.MsgReturn(0, "Story Chapter Relate", chapters);
         }
         [HttpGet("story_volume/{storyid}")]
         public async Task<ActionResult> GetVolume(int storyid)
@@ -95,7 +128,7 @@ namespace app.Controllers
                     }).OrderByDescending(c => c.ChapterId).ToList()
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("List volume", volumes);
+            return _msgService.MsgReturn(0, "List volume", volumes);
         }
 
         [HttpPost("add_chapter")]
@@ -188,7 +221,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userid, chapterid, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn("Chapter content", chapter);
+                return _msgService.MsgReturn(0, "Chapter content", chapter);
             }
             else
             {
@@ -229,7 +262,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userid, nextChapter.ChapterId, storyid) || nextChapter.ChapterPrice == 0 || nextChapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn("Chapter content", nextChapter);
+                return _msgService.MsgReturn(0, "Chapter content", nextChapter);
             }
             else
             {
@@ -271,7 +304,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userid, previousChapter.ChapterId, storyid) || previousChapter.ChapterPrice == 0 || previousChapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn("Chapter content", previousChapter);
+                return _msgService.MsgReturn(0, "Chapter content", previousChapter);
             }
             else
             {
