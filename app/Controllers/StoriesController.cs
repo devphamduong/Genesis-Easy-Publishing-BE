@@ -99,7 +99,7 @@ namespace app.Controllers
                             UserOwned = c.Users.Any(c => c.UserId == userId)
                         })
                         .ToListAsync();
-            return _msgService.MsgReturn("Story Detail", stories.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Story Detail", stories.FirstOrDefault());
         }
 
         [HttpGet("story_detail/related")]
@@ -122,7 +122,7 @@ namespace app.Controllers
                 .OrderByDescending(c => c.StoryId)
                 .ToListAsync();
             var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
-            return _msgService.MsgReturn("Story Relate", verified.Take(3));
+            return _msgService.MsgReturn(0, "Story Relate", verified.Take(3));
         }
 
         [HttpPost("save_story")]

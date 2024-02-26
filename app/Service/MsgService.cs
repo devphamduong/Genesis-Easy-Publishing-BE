@@ -22,7 +22,7 @@ namespace app.Service
             });
         }
 
-        public JsonResult MsgReturn(String msg, Object data)
+        public JsonResult MsgReturn(int success, String msg, Object data)
         {
             return new JsonResult(new
             {
@@ -31,6 +31,7 @@ namespace app.Service
                 DT = data
             });
         }
+
 
     }
 }

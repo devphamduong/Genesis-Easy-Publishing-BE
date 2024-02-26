@@ -27,7 +27,7 @@ namespace app.Controllers
         public async Task<ActionResult> GetCategories()
         {
             var cate = await _context.Categories
-                .Include(c=>c.Stories)
+                .Include(c => c.Stories)
                 .Select(c => new
                 {
                     c.CategoryId,
@@ -35,92 +35,92 @@ namespace app.Controllers
                     StoriesNumber = c.Stories.Count,
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("Categories successfully", cate);
+            return _msgService.MsgReturn(0, "Categories successfully", cate);
         }
-  [HttpPut("{id}")]
-  public async Task<IActionResult> PutCategory(int id, Category category)
-  {
-      if (id != category.CategoryId)
-      {
-          return new JsonResult(new
-          {
-              EC = -1,
-              EM = "Id Categories  is null"
-          });
-      }
-      if (category.CategoryName == "" || category.CategoryName == null)
-      {
-          return new JsonResult(new
-          {
-              EC = -1,
-              EM = "Categories  is null"
-          });
-      }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCategory(int id, Category category)
+        {
+            if (id != category.CategoryId)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Id Categories  is null"
+                });
+            }
+            if (category.CategoryName == "" || category.CategoryName == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Categories  is null"
+                });
+            }
 
-      _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(category).State = EntityState.Modified;
 
-      try
-      {
-          await _context.SaveChangesAsync();
-      }
-      catch
-      {
-              return new JsonResult(new
-              {
-                  EC = -1,
-                  EM = "Can't update category"
-              });
-      }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Can't update category"
+                });
+            }
 
-      return new JsonResult(new
-      {
-          EC = 0,
-          EM = "Update category successfully"
-      });
-  }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Update category successfully"
+            });
+        }
 
-  [HttpPost]
-  public async Task<ActionResult<Category>> PostCategory(Category category)
-  {
-      if (category.CategoryName == "" || category.CategoryName == null|| _context.Categories == null)
-      {
-          return new JsonResult(new
-          {
-              EC = -1,
-              EM = "Categories  is null"
-          });
-      }
-      if ((_context.Categories?.Any(e => e.CategoryName == category.CategoryName)).GetValueOrDefault())
-      {
-          return new JsonResult(new
-          {
-              EC = -1,
-              EM = "Categories already exist"
-          });
-      }
-      try
-      {
-          _context.Categories.Add(category);
-      await _context.SaveChangesAsync();
+        [HttpPost]
+        public async Task<ActionResult<Category>> PostCategory(Category category)
+        {
+            if (category.CategoryName == "" || category.CategoryName == null || _context.Categories == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Categories  is null"
+                });
+            }
+            if ((_context.Categories?.Any(e => e.CategoryName == category.CategoryName)).GetValueOrDefault())
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Categories already exist"
+                });
+            }
+            try
+            {
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
 
-      }
-      catch
-      {
-          return new JsonResult(new
-          {
-              EC = -1,
-              EM = "Can't save category"
-          });
-      }
+            }
+            catch
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Can't save category"
+                });
+            }
 
 
-      return new JsonResult(new
-      {
-          EC = 0,
-          EM = "Save category successfully"
-      });
-  }
-    
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Save category successfully"
+            });
+        }
+
         //// GET: api/Categories/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Category>> GetCategory(int id)
