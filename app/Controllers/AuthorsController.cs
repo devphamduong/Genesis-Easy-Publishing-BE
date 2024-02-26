@@ -35,7 +35,7 @@ namespace app.Controllers
                     .FirstOrDefault()
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("Story Detail Author Relate", author.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Story Detail Author Relate", author.FirstOrDefault());
         }
     }
 }

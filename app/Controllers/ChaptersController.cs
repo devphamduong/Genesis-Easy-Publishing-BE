@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using System.IdentityModel.Tokens.Jwt;
 using System.Xml.Linq;
 
 namespace app.Controllers
@@ -20,8 +21,29 @@ namespace app.Controllers
             _context = context;
         }
 
+
+        private JwtSecurityToken VerifyToken()
+        {
+            var tokenCookie = Request.Cookies["access_token"];
+            var tokenBearer = extractToken();
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(!String.IsNullOrEmpty(tokenBearer) ? tokenBearer : tokenCookie);
+            return jwtSecurityToken;
+        }
+
+        private string extractToken()
+        {
+            if (!String.IsNullOrEmpty(Request.Headers.Authorization) &&
+                Request.Headers.Authorization.ToString().Split(' ')[0] == "Bearer" &&
+                !String.IsNullOrEmpty(Request.Headers.Authorization.ToString().Split(' ')[1]))
+            {
+                return Request.Headers.Authorization.ToString().Split(' ')[1];
+            }
+            return null;
+        }
+
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryChapters(int storyid, int page)
+        public async Task<ActionResult> GetStoryChapters(int storyid, int page, int pagesize)
         {
             var chapters = await _context.Chapters.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Comments)
@@ -37,8 +59,9 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.ChapterId)
                 .ToListAsync();
+            pagesize = pagesize == null || pagesize == 0 ? pageSize : pagesize;
             return _msgService.MsgPagingReturn("Story Detail Chapter",
-                chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, chapters.Count);
+                chapters.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, chapters.Count);
         }
 
         [HttpGet("chapter_detail")]
@@ -59,7 +82,7 @@ namespace app.Controllers
                     UserPurchaseChapter = c.Users.Count,
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("Story Chapter Detail", chapters.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Story Chapter Detail", chapters.FirstOrDefault());
         }
 
         [HttpGet("chapter_detail/taskbar")]
@@ -73,7 +96,7 @@ namespace app.Controllers
                 })
                 .OrderBy(c => c.ChapterId).Take(2)
                 .ToListAsync();
-            return _msgService.MsgReturn("Story Chapter Relate", chapters);
+            return _msgService.MsgReturn(0, "Story Chapter Relate", chapters);
         }
         [HttpGet("story_volume/{storyid}")]
         public async Task<ActionResult> GetVolume(int storyid)
@@ -95,7 +118,7 @@ namespace app.Controllers
                     }).OrderByDescending(c => c.ChapterId).ToList()
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("List volume", volumes);
+            return _msgService.MsgReturn(0, "List volume", volumes);
         }
 
         [HttpPost("add_chapter")]
@@ -161,19 +184,22 @@ namespace app.Controllers
         }
 
         [HttpGet("chapter_content/{storyid}/{chapterid}")]
-        public async Task<ActionResult> GetChapter(long chapterid, int? userid, int storyid)
+        public async Task<ActionResult> GetChapterContent(long chapterid, int? userid, int storyid)
         {
             var chapter = _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
                 .Include(c => c.Story)
+                .Include(c => c.Comments)
                 .Select(c => new
                 {
-                    StoryId = c.Story.StoryId,
-                    StoryTitle = c.Story.StoryTitle,
+                    Story = new { c.StoryId, c.Story.StoryTitle },
                     Content = c.ChapterContent,
                     ChapterId = c.ChapterId,
                     ChapterTitle = c.ChapterTitle,
                     ChapterPrice = c.ChapterPrice,
-                    CreateTime = c.CreateTime
+                    CreateTime = c.CreateTime,
+                    UpdateTime = c.UpdateTime,
+                    Comment = c.Comments.Count,
+                    UserPurchaseChapter = c.Users.Count,
                 }).FirstOrDefault();
             if (chapter == null)
             {
@@ -185,7 +211,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userid, chapterid, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn("Chapter content", chapter);
+                return _msgService.MsgReturn(0, "Chapter content", chapter);
             }
             else
             {
@@ -226,7 +252,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userid, nextChapter.ChapterId, storyid) || nextChapter.ChapterPrice == 0 || nextChapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn("Chapter content", nextChapter);
+                return _msgService.MsgReturn(0, "Chapter content", nextChapter);
             }
             else
             {
@@ -268,7 +294,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userid, previousChapter.ChapterId, storyid) || previousChapter.ChapterPrice == 0 || previousChapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn("Chapter content", previousChapter);
+                return _msgService.MsgReturn(0, "Chapter content", previousChapter);
             }
             else
             {

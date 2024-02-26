@@ -13,7 +13,7 @@ namespace app.Service
                 EM = msg,
                 DT = new
                 {
-                    TotalStories = count,
+                    Total = count,
                     TotalPage = (count % pagesize) > 0 ? count / pagesize + 1 : count / pagesize,
                     Current = page,
                     PageSize = pagesize,
@@ -22,15 +22,16 @@ namespace app.Service
             });
         }
 
-        public JsonResult MsgReturn(String msg, Object data)
+        public JsonResult MsgReturn(int success, String msg, Object data)
         {
             return new JsonResult(new
             {
-                EC = 0,
+                EC = success,
                 EM = msg,
                 DT = data
             });
         }
+
 
     }
 }
