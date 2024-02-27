@@ -15,7 +15,7 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MsgService _msgService = new MsgService();
-        private int pageSize = 10;
+        private int pagesize = 10;
         public ChaptersController(EasyPublishingContext context)
         {
             _context = context;
@@ -43,7 +43,7 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryChapters(int storyid, int page, int pagesize)
+        public async Task<ActionResult> GetStoryChapters(int storyid, int page, int pageSize)
         {
             var chapters = await _context.Chapters.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Comments)
@@ -59,9 +59,9 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.ChapterId)
                 .ToListAsync();
-            pagesize = pagesize == null || pagesize == 0 ? pageSize : pagesize;
+            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Story Detail Chapter",
-                chapters.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, chapters.Count);
+                chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, chapters.Count);
         }
 
         [HttpGet("chapter_detail")]
