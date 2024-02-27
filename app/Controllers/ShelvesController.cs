@@ -126,7 +126,7 @@ namespace app.Controllers
                 })
                 .OrderByDescending(s => s.UserCount)
                 .ThenByDescending(s => s.UserPurchaseChapter).Take(6).ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", stories);
+            return _msgService.MsgReturn(0,"Stories successfully", stories);
         }
 
         // GET: api/Stories : top read story
@@ -256,7 +256,7 @@ namespace app.Controllers
                     }).OrderByDescending(s => s.StoryInteraction.Read).ToList(),
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn("Stories successfully", stories);
+            return _msgService.MsgReturn(0, "Stories successfully", stories);
         }
 
 
@@ -295,7 +295,7 @@ namespace app.Controllers
                     },
                 })
                 .OrderByDescending(c => c.StoryInteraction.Read).Take(10).ToListAsync(); // top by read
-            return _msgService.MsgReturn("Stories successfully", stories);
+            return _msgService.MsgReturn(0, "Stories successfully", stories);
         }
 
         // get stories each cate
@@ -339,7 +339,7 @@ namespace app.Controllers
                 .ThenByDescending(s => s.StoryInteraction.Like).Take(5)
                 .ToListAsync();
 
-            return _msgService.MsgReturn("Stories successfully", stories);
+            return _msgService.MsgReturn(0, "Stories successfully", stories);
         }
 
         // get stories each cate
