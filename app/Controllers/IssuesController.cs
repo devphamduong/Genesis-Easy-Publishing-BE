@@ -12,14 +12,14 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MsgService _msgService = new MsgService();
-        private int pageSize = 10;
+        private int pagesize = 10;
         public IssuesController(EasyPublishingContext context)
         {
             _context = context;
         }
 
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryIssues(int storyid, int page)
+        public async Task<ActionResult> GetStoryIssues(int storyid, int page,int pageSize)
         {
             var comments = await _context.StoryIssues.Where(c => c.StoryId == storyid)
                 .Include(c => c.User)
@@ -33,6 +33,7 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.IssueId)
                 .ToListAsync();
+            pageSize= pageSize==null || pageSize==0? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Story Detail Issue",
                 comments.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, comments.Count);
         }

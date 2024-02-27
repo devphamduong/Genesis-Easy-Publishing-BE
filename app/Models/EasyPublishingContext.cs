@@ -93,6 +93,7 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.ChapterContent)
                 .HasColumnType("ntext")
                 .HasColumnName("chapter_content");
+            entity.Property(e => e.ChapterNumber).HasColumnName("chapter_number");
             entity.Property(e => e.ChapterPrice)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("chapter_price");

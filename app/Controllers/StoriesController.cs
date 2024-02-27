@@ -88,6 +88,7 @@ namespace app.Controllers
                             StoryChapters = c.Chapters.Where(c => c.Status > 0).Select(c => new
                             {
                                 c.ChapterId,
+                                c.ChapterNumber,
                                 c.ChapterTitle,
                                 c.ChapterPrice,
                                 c.CreateTime
@@ -123,6 +124,7 @@ namespace app.Controllers
                     new
                     {
                         c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterNumber,
                         c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
                         c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
                     }

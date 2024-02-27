@@ -275,6 +275,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Chapter](
 	[chapter_id] [bigint] IDENTITY(1,1) NOT NULL,
+	[chapter_number] [bigint] NOT NULL,
 	[story_id] [int] NOT NULL,
 	[volume_id] [int] NOT NULL,
 	[chapter_title] [nvarchar](100) NOT NULL,
@@ -630,9 +631,9 @@ GO
 SET IDENTITY_INSERT [dbo].[Chapter] ON 
 GO
 
-INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
 	VALUES
-		(1, 1, 1, 5, N'NICK DUNNE',CAST(N'2022-01-01T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+		(1, 1, 1, 1, 5, N'NICK DUNNE',CAST(N'2022-01-01T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 		I’d know her head anywhere.
 		And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
 		My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.
@@ -671,7 +672,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		The river wasn’t swollen now, but it was running urgently, in strong ropy currents. Moving apace with the river was a long single-file line of men, eyes aimed at their feet, shoulders tense, walking steadfastly nowhere. As I watched them, one suddenly looked up at me, his face in shadow, an oval blackness. I turned away.
 		I felt an immediate, intense need to get inside. By the time I’d gone twenty feet, my neck bubbled with sweat. The sun was still an angry eye in the sky. You have been seen.
 		My gut twisted, and I moved quicker. I needed a drink.'),
-		(2, 1, 1, 5, N'AMY ELLIOTT JANUARY 8, 2005',CAST(N'2022-01-02T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
+		(2, 2, 1, 1, 5, N'AMY ELLIOTT JANUARY 8, 2005',CAST(N'2022-01-02T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
 		Tra and la! I am smiling a big adopted-orphan smile as I write this. I am embarrassed at how happy I am, like some Technicolor comic of a teenage girl talking on the phone with my hair in a ponytail, the bubble above my head saying: I met a boy!
 		But I did. This is a technical, empirical truth. I met a boy, a great, gorgeous dude, a funny, cool-ass guy. Let me set the scene, because it deserves setting for posterity (no, please, I’m not that far gone, posterity! feh). But still. It’s not New Year’s, but still very much the new year. It’s winter: early dark, freezing cold.
 		Carmen, a newish friend – semi-friend, barely friend, the kind of friend you can’t cancel on – has talked me into going out to Brooklyn, to one of her writers’ parties. Now, I like a writer party, I like writers, I am the child of writers, I am a writer. I still love scribbling that word – WRITER – any time a form, questionnaire, document asks for my occupation. Fine, I write personality quizzes, I don’t write about the Great Issues of the Day, but I think it’s fair to say I am a writer. I’m using this journal to get better: to hone my skills, to collect details and observations. To show don’t tell and all that other writery crap. (Adopted-orphan smile, I mean, that’s not bad, come on.) But really, I do think my quizzes alone qualify me on at least an honorary basis. Right?
@@ -694,7 +695,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		He doesn’t act that way, though. His name is Nick. I love it. It makes him seem nice, and regular, which he is. When he tells me his name, I say, ‘Now, that’s a real name.’ He brightens and reels off some line: ‘Nick’s the kind of guy you can drink a beer with, the kind of guy who doesn’t mind if you puke in his car. Nick!’
 		He makes a series of awful puns. I catch three fourths of his movie references. Two thirds, maybe. (Note to self: Rent The Sure Thing.) He refills my drink without me having to ask, somehow ferreting out one last cup of the good stuff. He has claimed me, placed a flag in me: I was here first, she’s mine, mine. It feels nice, after my recent series of nervous, respectful post-feminist men, to be a territory. He has a great smile, a cat’s smile. He should cough out yellow Tweety Bird feathers, the way he smiles at me. He doesn’t ask what I do for a living, which is fine, which is a change. (I’m a writer, did I mention?) He talks to me in his river-wavy Missouri accent; he was born and raised outside of Hannibal, the boyhood home of Mark Twain, the inspiration for Tom Sawyer. He tells me he worked on a steamboat when he was a teenager, dinner and jazz for the tourists. And when I laugh (bratty, bratty New York girl who has never ventured to those big unwieldy middle states, those States Where Many Other People Live), he informs me that Missoura is a magical place, the most beautiful in the world, no state more glorious. His eyes are mischievous, his lashes are long. I can see what he looked like as a boy.
 		We share a taxi home, the streetlights making dizzy shadows and the car speeding as if we’re being chased. It is one a.m. when we hit one of New York’s unexplained deadlocks twelve blocks from my apartment, so we slide out of the taxi into the cold, into the great What Next? and Nick starts walking me home, his hand on the small of my back, our faces stunned by the chill. As we turn the corner, the local bakery is getting its powdered sugar delivered, funneled into the cellar by the barrelful as if it were cement, and we can see nothing but the shadows of the deliverymen in the white, sweet cloud. The street is billowing, and Nick pulls me close and smiles that smile again, and he takes a single lock of my hair between two fingers and runs them all the way to the end, tugging twice, like he’s ringing a bell. His eyelashes are trimmed with powder, and before he leans in, he brushes the sugar from my lips so he can taste me.')
-		,(3, 1, 2, 5, N'NICK DUNNE',CAST(N'2022-01-03T05:52:10.323' AS DateTime),null, 1, N'I swung wide the door of my bar, slipped into the darkness, and took my first real deep breath of the day, took in the smell of cigarettes and beer, the spice of a dribbled bourbon, the tang of old popcorn. There was only one customer in the bar, sitting by herself at the far, far end: an older woman named Sue who had come in every Thursday with her husband until he died three months back. Now she came alone every Thursday, never much for conversation, just sitting with a beer and a crossword, preserving a ritual.
+		,(3, 3, 1, 2, 5, N'NICK DUNNE',CAST(N'2022-01-03T05:52:10.323' AS DateTime),null, 1, N'I swung wide the door of my bar, slipped into the darkness, and took my first real deep breath of the day, took in the smell of cigarettes and beer, the spice of a dribbled bourbon, the tang of old popcorn. There was only one customer in the bar, sitting by herself at the far, far end: an older woman named Sue who had come in every Thursday with her husband until he died three months back. Now she came alone every Thursday, never much for conversation, just sitting with a beer and a crossword, preserving a ritual.
 		My sister was at work behind the bar, her hair pulled back in nerdy-girl barrettes, her arms pink as she dipped the beer glasses in and out of hot suds. Go is slender and strange-faced, which is not to say unattractive. Her features just take a moment to make sense: the broad jaw; the pinched, pretty nose; the dark globe eyes. If this were a period movie, a man would tilt back his fedora, whistle at the sight of her, and say, ‘Now, there’s a helluva broad!’ The face of a ’30s screwball-movie queen doesn’t always translate in our pixie-princess times, but I know from our years together that men like my sister, a lot, which puts me in that strange brotherly realm of being both proud and wary.
 		‘Do they still make pimento loaf?’ she said by way of greeting, not looking up, just knowing it was me, and I felt the relief I usually felt when I saw her: Things might not be great, but things would be okay.
 		My twin, Go. I’ve said this phrase so many times, it has become a reassuring mantra instead of actual words: Mytwingo. We were born in the ’70s, back when twins were rare, a bit magical: cousins of the unicorn, siblings of the elves. We even have a dash of twin telepathy. Go is truly the one person in the entire world I am totally myself with. I don’t feel the need to explain my actions to her. I don’t clarify, I don’t doubt, I don’t worry. I don’t tell her everything, not anymore, but I tell her more than anyone else, by far. I tell her as much as I can. We spent nine months back to back, covering each other. It became a lifelong habit. It never mattered to me that she was a girl, strange for a deeply self-conscious kid. What can I say? She was always just cool.
@@ -783,7 +784,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		‘Amy!’
 		She wasn’t on the water, she wasn’t in the house. Amy was not there.
 		Amy was gone.'),
-		(4, 1, 2, 5, N'Amy Elliott September 18, 2005',CAST(N'2022-01-05T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
+		(4, 4, 1, 2, 5, N'Amy Elliott September 18, 2005',CAST(N'2022-01-05T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
 		Well, well, well. Guess who’s back? Nick Dunne, Brooklyn party boy, sugar-cloud kisser, disappearing act. Eight months, two weeks, couple of days, no word, and then he resurfaces, like it was all part of the plan. Turns out, he’d lost my phone number. His cell was out of juice, so he’d written it on a stickie. Then he’d tucked the stickie into his jeans pocket and put the jeans in the washer, and it turned the stickie into a piece of cyclone-shaped pulp. He tried to unravel it but could only see a 3 and an 8. (He said.)
 		And then work clobbered him and suddenly it was March and too embarrassingly late to try to find me. (He said.)
 		Of course I was angry. I had been angry. But now I’m not. Let me set the scene. (She said.) Today. Gusty September winds. I’m walking along Seventh Avenue, making a lunchtime contemplation of the sidewalk bodega bins – endless plastic containers of cantaloupe and honeydew and melon perched on ice like the day’s catch – and I could feel a man barnacling himself to my side as I sailed along, and I corner-eyed the intruder and realized who it was. It was him. The boy in ‘I met a boy!’
@@ -828,7 +829,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		So I know I am right not to settle, but it doesn’t make me feel better as my friends pair off and I stay home on Friday night with a bottle of wine and make myself an extravagant meal and tell myself, This is perfect, as if I’m the one dating me. As I go to endless rounds of parties and bar nights, perfumed and sprayed and hopeful, rotating myself around the room like some dubious dessert. I go on dates with men who are nice and good-looking and smart – perfect-on-paper men who make me feel like I’m in a foreign land, trying to explain myself, trying to make myself known. Because isn’t that the point of every relationship: to be known by someone else, to be understood? He gets me. She gets me. Isn’t that the simple magic phrase?
 		So you suffer through the night with the perfect-on-paper man – the stutter of jokes misunderstood, the witty remarks lobbed and missed. Or maybe he understands that you’ve made a witty remark but, unsure of what to do with it, he holds it in his hand like some bit of conversational phlegm he will wipe away later. You spend another hour trying to find each other, to recognise each other, and you drink a little too much and try a little too hard. And you go home to a cold bed and think, That was fine. And your life is a long line of fine.
 		And then you run into Nick Dunne on Seventh Avenue as you’re buying diced cantaloupe, and pow, you are known, you are recognised, the both of you. You both find the exact same things worth remembering. (Just one olive, though). You have the same rhythm. Click. You just know each other. All of a sudden you see reading in bed and waffles on Sunday and laughing at nothing and his mouth on yours. And it’s so far beyond fine that you know you can never go back to fine. That fast. You think: Oh, here is the rest of my life. It’s finally arrived.')
-		,(5, 1, 3, 0, N'Nick Dunne',CAST(N'2022-01-06T05:52:10.323' AS DateTime),null, 0, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
+		,(5, 5, 1, 3, 0, N'Nick Dunne',CAST(N'2022-01-06T05:52:10.323' AS DateTime),null, 0, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
 		I didn’t expect her to. I’d tell the police: Amy would never have left the house with the teakettle on. Or the door open. Or anything waiting to be ironed. The woman got shit done, and she was not one to abandon a project (say, her fixer-upper husband, for instance), even if she decided she didn’t like it. She’d made a grim figure on the Fiji beach during our two-week honeymoon, battling her way through a million mystical pages of The Wind-Up Bird Chronicle, casting pissy glances at me as I devoured thriller after thriller. Since our move back to Missouri, the loss of her job, her life had revolved (devolved?) around the completion of endless tiny, inconsequential projects. The dress would have been ironed.
 		And there was the living room, signs pointing to a struggle. I already knew Amy wasn’t phoning back. I wanted the next part to start.
 		It was the best time of day, the July sky cloudless, the slowly setting sun a spotlight on the east, turning everything golden and lush, a Flemish painting. The police rolled up. It felt casual, me sitting on the steps, an evening bird singing in the tree, these two cops getting out of their car at a leisurely pace, as if they were dropping by a neighborhood picnic. Kid cops, mid-twenties, confident and uninspired, accustomed to soothing worried parents of curfew-busting teens. A Hispanic girl, her hair in a long dark braid, and a black guy with a marine’s stance. Carthage had become a bit (a very tiny bit) less Caucasian while I was away, but it was still so severely segregated that the only people of color I saw in my daily routine tended to be occupational roamers: delivery men, medics, postal workers. Cops. (‘This place is so white, it’s disturbing,’ said Amy, who, back in the melting pot of Manhattan, counted a single African-American among her friends. I accused her of craving ethnic window dressing, minorities as backdrops. It did not go well.)
@@ -901,7 +902,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		‘Five, big one. Let me guess, reservations at Houston’s?’ Gilpin asked. It was the only upscale restaurant in town. You all really need to try Houston’s, my mom had said when we moved back, thinking it was Carthage’s unique little secret, hoping it might please my wife.
 		‘Of course, Houston’s.’
 		It was my fifth lie to the police. I was just starting.')
-		,(6, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
+		,(6, 1, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
 			N'Hắn thậm chí còn chưa kịp mở mắt nhưng tay phải theo bản năng vỗ một cái xuống
 			đất nhảy lên. Đây là một nơi phức tạp, sự sống và cái chết luôn cận kề nhau,
 			vì vậy không thể ở lâu!
@@ -975,7 +976,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			Còn tại sao sư phụ hắn lại phải chịu quả đắng.....
 			Đó là bởi vì ngày đó hắn gọi tất cả sư huynh muội tới cửa WC, còn mới cả mấy
 			vị mỹ nữ tới tham quan nữa...............')
-			,(7, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
+			,(7, 2, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
 			N'Nhưng mà hắn cho rằng thiếu sót lớn nhất của bản thân chính là hắn thật sự rất
 			có lòng thương yêu. Làm một sát thủ, hơn nữa là một sát thủ hàng đầu hai tay
 			dính đầy máu tươi nên những lời này từng khiến vô số người khịt mũi khinh bỉ.
@@ -1087,7 +1088,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			bổn đại gia lại đứng trên đỉnh của thế giới!”
 			Sau khi quyết định xong, Quân Tà lúc này mới để ý tới mình giờ đang ở một thế
 			giới có vẻ hoàn toàn xa lạ!')
-			,(8, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-07T05:52:10.323' AS DateTime),null, 1, 
+			,(8, 3, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-07T05:52:10.323' AS DateTime),null, 1, 
 			N'Ở đây sao lại không giống địa cầu mà mình quen thuộc vậy? Mình ở đây thực sự
 			không quen, cái gì cũng không biết, cái gì cũng không hiểu. Với cả phép tắc
 			của thế giới này là gì? Và thế giới này có những cái gì?
@@ -1173,7 +1174,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			bối rối nháy nháy liên tục. Hai chân một trước một sau, thân thể nhỏ nhắn hơi
 			nghiêng nghiêng, bộ dáng chuẩn bị để bất cứ lúc nào cũng có thể co chân chạy
 			trốn.')
-			,(9, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-19T05:52:10.323' AS DateTime),null, 1, 
+			,(9, 4, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-19T05:52:10.323' AS DateTime),null, 1, 
 			N'Trách không được tại sao ngươi bị xuyên việt. Ngoại hiệu trước kia của ta là
 			Tà Quân tên là Quân Tà mà ngươi được gọi là Mạc Tà. Điều này không phải là
 			xung khắc trời sinh sao? Ngươi không oan nha.
@@ -1252,7 +1253,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			lược vô cùng cao minh mà cũng chính là một trong những Huyền cấp cao thủ tại
 			Thiên Hương Quốc. Tính cách trầm ổn kiên nghị, buồn vui không biểu lộ ra
 			ngoài.')
-			,(10, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-20T05:52:10.323' AS DateTime),null, 1, 
+			,(10, 5, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-20T05:52:10.323' AS DateTime),null, 1, 
 			N'Chỉ cần một câu "xuất thân nghèo khổ, thiếu niên làm tướng" có thể nhìn ra
 			được một hài tử nghèo khổ như nhau thì mấy ai làm được vị trí tướng quân này?
 			Càng huống chi làm tướng từ khi trẻ...
@@ -1309,7 +1310,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			nhiên lơ đễnh như đã đoán trước rồi. Mơ hồ có thái độ lạnh lùng.
 			Ta không nhìn lầm chứ? Quân lão gia tử không thể tin được đứa cháu yếu kém của
 			mình có thái độ như vậy.')
-			,(11, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-21T05:52:10.323' AS DateTime),null, 1, 
+			,(11, 6, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-21T05:52:10.323' AS DateTime),null, 1, 
 			N'Quân Chiến Thiên nhìn Quân Tà thật sâu, giọng nói mang vẻ bi thương nhàn nhạt.
 			Dù tên tiểu tử này có quậy phá, có là một tên bất thành khí đi chăng nữa, hắn
 			vẫn là con cháu của lão, hơn nữa còn là huyết mạch duy nhất của gia tộc. Mặc
@@ -1418,7 +1419,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			Trong sảnh hoàn toàn vắng lặng đột nhiên vang lên một âm thanh lãng đãng, như
 			có như không:
 			- Rõ!')
-			,(12, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-24T05:52:10.323' AS DateTime),null, 1, 
+			,(12, 7, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-24T05:52:10.323' AS DateTime),null, 1, 
 			N'Quân Tà bước ra ngoài, hắn khẽ nhắm mắt cảm nhận ánh mặt trời ấm áp đang dịu
 			dàng tỏa nắng trên cao. Từng vầng sáng ấm áp nhẹ nhàng ôm ấp, sưởi ấm thân
 			hình và khuôn mặt có phần tiều tụy của hắn, Quân Tà chậm rãi đi về phía tiểu
@@ -1465,9 +1466,9 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		DECLARE @Counter_Volume INT = 7;
 		WHILE @Counter_Story <= 12 -- Set the end condition
 		BEGIN
-			INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
 				VALUES
-					(@Counter_Chapter, @Counter_Story, @Counter_Volume, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+					(@Counter_Chapter, 1, @Counter_Story, @Counter_Volume, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.
 					And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
 					My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.

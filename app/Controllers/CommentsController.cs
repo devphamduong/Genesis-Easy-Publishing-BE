@@ -19,7 +19,7 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryComments(int storyid, int page, int pagesize)
+        public async Task<ActionResult> GetStoryComments(int storyid, int page, int pageSize)
         {
             var comments = await _context.Comments.Where(c => c.StoryId == storyid)
                 .Include(c => c.User)
@@ -32,9 +32,9 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.CommentId)
                 .ToListAsync();
-            pagesize = pagesize == null ? 10 : pagesize;
+            pageSize = pageSize == null ? 10 : pageSize;
             return _msgService.MsgPagingReturn("Story Detail Comments",
-                comments.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, comments.Count);
+                comments.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, comments.Count);
         }
     }
 }
