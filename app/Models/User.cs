@@ -27,6 +27,10 @@ public partial class User
 
     public bool? Status { get; set; }
 
+    public string? DescriptionMarkdown { get; set; }
+
+    public string? DescriptionHtml { get; set; }
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();

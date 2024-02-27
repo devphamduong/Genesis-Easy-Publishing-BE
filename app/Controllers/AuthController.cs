@@ -1,4 +1,4 @@
-﻿﻿using app.DTOs;
+﻿using app.DTOs;
 using app.Models;
 using app.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -56,16 +56,13 @@ namespace app.Controllers
         public class UserProfileForm
         {
             public string UserFullname { get; set; }
-
             public bool Gender { get; set; }
-
             public DateTime Dob { get; set; }
-
             public string Phone { get; set; }
-
             public string Address { get; set; }
-
             public string UserImage { get; set; }
+            public string DescriptionMarkdown { get; set; }
+            public string DescriptionHTML { get; set; }
         }
 
         [HttpPost("login")]
@@ -117,7 +114,8 @@ namespace app.Controllers
                 var rememberToken = CreateRememberLoginToken(data.EmailOrUsername, data.Password);
                 cookieOptions.Expires = DateTime.Now.AddDays(30);
                 Response.Cookies.Append("remember_token", rememberToken, cookieOptions);
-            } else
+            }
+            else
             {
                 Response.Cookies.Delete("remember_token");
             }
@@ -497,7 +495,9 @@ namespace app.Controllers
                 user.Phone = data.Phone;
                 user.Dob = data.Dob;
                 user.UserImage = data.UserImage;
-                user.Gender = data.Gender;  
+                user.Gender = data.Gender;
+                user.DescriptionMarkdown = data.DescriptionMarkdown;
+                user.DescriptionHtml = data.DescriptionHTML;
                 _context.SaveChanges();
             }
             catch (Exception)

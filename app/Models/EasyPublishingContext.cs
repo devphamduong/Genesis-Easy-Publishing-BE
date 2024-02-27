@@ -362,6 +362,12 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.Address)
                 .HasMaxLength(200)
                 .HasColumnName("address");
+            entity.Property(e => e.DescriptionHtml)
+                .HasColumnType("ntext")
+                .HasColumnName("description_html");
+            entity.Property(e => e.DescriptionMarkdown)
+                .HasColumnType("ntext")
+                .HasColumnName("description_markdown");
             entity.Property(e => e.Dob)
                 .HasColumnType("date")
                 .HasColumnName("dob");
