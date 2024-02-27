@@ -179,6 +179,13 @@ namespace app.Controllers
                 Gender = true
             });
             _context.SaveChanges();
+            _context.Wallets.Add(new Wallet
+            {
+                UserId = _context.Users.FirstOrDefault(u => u.Username.Equals(data.Username)).UserId,
+                Fund = 0,
+                Refund = 0
+            });
+            _context.SaveChanges();
             return new JsonResult(new
             {
                 EC = 0,
