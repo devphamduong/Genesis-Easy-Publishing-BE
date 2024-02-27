@@ -109,6 +109,7 @@ namespace app.Controllers
             var cates = story.Categories.Select(c => c.CategoryId).ToList();
             var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0)
                 .Include(c => c.Categories)
+                .Include(c=>c.Chapters)
                 .Select(c => new
                 {
                     StoryId = c.StoryId,
@@ -118,6 +119,13 @@ namespace app.Controllers
                     StorySale = c.StorySale,
                     StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
                     StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
+                    StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                    }
                 })
                 .OrderByDescending(c => c.StoryId)
                 .ToListAsync();

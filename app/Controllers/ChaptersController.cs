@@ -43,19 +43,8 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryChapters(int storyid, int page)
+        public async Task<ActionResult> GetStoryChapters(int storyid, int page, int pagesize)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
-            //if (userId==0) return 
-
-
             var chapters = await _context.Chapters.Where(c => c.StoryId == storyid && c.Status > 0)
                 .Include(c => c.Comments)
                 .Include(c => c.Users)
@@ -70,8 +59,9 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.ChapterId)
                 .ToListAsync();
+            pagesize = pagesize == null || pagesize == 0 ? pageSize : pagesize;
             return _msgService.MsgPagingReturn("Story Detail Chapter",
-                chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, chapters.Count);
+                chapters.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, chapters.Count);
         }
 
         [HttpGet("chapter_detail")]
