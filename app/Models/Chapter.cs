@@ -7,6 +7,8 @@ public partial class Chapter
 {
     public long ChapterId { get; set; }
 
+    public long ChapterNumber { get; set; }
+
     public int StoryId { get; set; }
 
     public int VolumeId { get; set; }

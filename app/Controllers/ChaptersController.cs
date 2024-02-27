@@ -51,6 +51,7 @@ namespace app.Controllers
                 .Select(c => new
                 {
                     ChapterId = c.ChapterId,
+                    ChapterNumber = c.ChapterNumber,
                     ChapterTitle = c.ChapterTitle,
                     ChapterPrice = c.ChapterPrice,
                     CreateTime = c.CreateTime,
@@ -74,6 +75,7 @@ namespace app.Controllers
                 {
                     Story = new { c.StoryId, c.Story.StoryTitle },
                     ChapterId = c.ChapterId,
+                    ChapterNumber = c.ChapterNumber,
                     ChapterTitle = c.ChapterTitle,
                     ChapterPrice = c.ChapterPrice,
                     CreateTime = c.CreateTime,
