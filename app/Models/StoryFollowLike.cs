@@ -9,7 +9,9 @@ public partial class StoryFollowLike
 
     public int StoryId { get; set; }
 
-    public bool? Stage { get; set; }
+    public bool? Follow { get; set; }
+
+    public bool? Like { get; set; }
 
     public virtual Story Story { get; set; } = null!;
 

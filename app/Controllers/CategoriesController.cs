@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using app.Models;
 using NuGet.Common;
 using app.Service;
+using System.Drawing.Printing;
 
 namespace app.Controllers
 {
@@ -37,6 +38,30 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Categories successfully", cate);
         }
+
+        // GET: api/filter
+        [HttpGet("options")]
+        public async Task<ActionResult> GetOptionFilter()
+        {
+            var cate = await _context.Categories
+                .Include(c => c.Stories)
+                .Select(c => new
+                {
+                    c.CategoryId,
+                    c.CategoryName,
+                })
+                .ToListAsync();
+            var stories = await _context.Stories.Select(s => new { s.StoryPrice, }).OrderByDescending(s => s.StoryPrice).ToListAsync();
+            var to = stories.Max(c => c.StoryPrice);
+            var from = stories.Min(c => c.StoryPrice);
+            var status = new
+            {
+                done = new { Name = "Hoàn thành", Value = 2 },
+                writing = new { Name = "Chưa hoàn thành", Value = 1 }
+            };
+            return _msgService.MsgReturn(0, "Categories successfully", new { cate, to, from, status });
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategory(int id, Category category)
         {
