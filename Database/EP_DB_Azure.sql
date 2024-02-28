@@ -138,7 +138,8 @@ GO
 CREATE TABLE [dbo].[Story_Follow_Like](
 	[user_id] [int] NOT NULL,
 	[story_id] [int] NOT NULL,
-	[stage] [bit] NULL,
+	[follow] [bit] NULL,
+	[like] [bit] NULL,
  CONSTRAINT [PK_story_follow] PRIMARY KEY CLUSTERED 
 (
 	[user_id],[story_id] ASC
@@ -327,6 +328,24 @@ CREATE TABLE [dbo].[Comment](
 ) ON [PRIMARY]
 GO
 
+-- table Comment Repsponse
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CommentResponse](
+	[comment_response_id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[comment_id] [int] NULL,
+	[comment_content] [nvarchar](2000) NOT NULL,
+	[comment_date] [date] NOT NULL,
+ CONSTRAINT [PK_commentresponse] PRIMARY KEY CLUSTERED 
+(
+	[comment_response_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- table Report
 SET ANSI_NULLS ON
 GO
@@ -358,7 +377,7 @@ GO
 INSERT [dbo].[User]([user_id],[user_fullname]  ,[gender] ,[dob] ,[email] ,[phone]  ,[address] ,[username] ,[password]  ,[user_image] ,[status])  
 	VALUES
 		(1, N'Duy Pham', 1, CAST(N'2002-12-25' AS Date), N'duypd@fpt.edu.vn', N'0382132025', N'FBT University ', N'duypd', N'123456', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null)
-		,(2, N'Vinh Nguyen', 1, CAST(N'2002-12-25' AS Date), N'duypd@gmail.com', N'0382132025', N'FBT University ', N'baspdd', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null, 1)
+		,(2, N'Duy Pham', 1, CAST(N'2002-12-25' AS Date), N'duypd@gmail.com', N'0382132025', N'FBT University ', N'baspdd', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null, 1)
 		,(3, N'Ivory Marcel', 0, CAST(N'1969-09-20' AS Date), N'Bookie_User1@qa.team', N'6128170843', N'E312R', N'user_no1', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=',null, 1)
 		,(4, N'Mary Barisol', 1, CAST(N'1970-02-16' AS Date), N'Bookie_User2@qa.team', N'7134690959', N'F012R', N'namnd', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=',null, 1)
 		,(5, N'Eden Frost', 1, CAST(N'1984-03-13' AS Date), N'Bookie_User3@qa.team', N'8252042139', N'B438R', N'user_no3', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null, 1)
@@ -1498,6 +1517,65 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
 GO
 
+SET IDENTITY_INSERT [dbo].[Comment] ON
+GO
+
+DECLARE @CommentId INT = 1; -- Start comment_id from 1
+DECLARE @UserId INT = 2; -- Start user_id from 1
+DECLARE @StoryId INT = 1; -- Start story_id from 1
+
+WHILE @UserId <= 20 -- End user_id at 20
+BEGIN
+    WHILE @StoryId <= 17 -- End story_id at 17
+    BEGIN
+        INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [issue_id], [comment_content], [comment_date])
+        VALUES (@CommentId, @UserId, @StoryId, null, null, N'Truyện hay quá', CAST(N'2023-09-24' AS Date));
+
+        SET @StoryId = @StoryId + 1; -- Increment story_id
+        SET @CommentId = @CommentId + 1; -- Increment comment_id
+    END
+
+    SET @StoryId = 1; -- Reset story_id to 1
+    SET @UserId = @UserId + 1; -- Increment user_id
+END
+GO
+
+SET IDENTITY_INSERT [dbo].[Comment] OFF
+GO
+
+
+SET IDENTITY_INSERT [dbo].[CommentResponse] ON
+GO
+
+DECLARE @Run INT = 1; -- Start comment_id from 1
+DECLARE @CommentRepId INT = 1; -- Start comment_id from 1
+DECLARE @CommentId INT = 1; -- Start comment_id from 1
+DECLARE @UserId INT = 2; -- Start user_id from 1
+
+WHILE @UserId <= 20 -- End user_id at 20
+BEGIN
+
+	DECLARE @Temp INT = @UserId; -- Start user_id from 1
+    WHILE @Run <= 5 -- End story_id at 17
+    BEGIN
+		INSERT INTO [dbo].[CommentResponse] ([comment_response_id], [user_id], [comment_id], [comment_content], [comment_date])
+		VALUES (@CommentRepId, @Temp, @CommentId, 'I love u', CAST(N'2023-10-24' AS Date));
+
+		SET @Temp = @Temp + 1;
+		SET @Run = @Run + 1;
+		SET @CommentRepId = @CommentRepId + 1; -- Increment story_id
+	END
+
+	SET @CommentId = @CommentId + 1; -- Increment comment_id
+	SET @Run = 1;
+    SET @UserId = @UserId + 1; -- Increment user_id
+END
+GO
+
+SET IDENTITY_INSERT [dbo].[CommentResponse] OFF
+GO
+
+
 INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 	VALUES 
 		(1 ,100 ,24 ,123 ,198),
@@ -1546,13 +1624,14 @@ INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
 	(8,6),(9,6),(15,6),
 	(2,17),(5,17),(8,17),(9,17),(15,17),(23,17)
 
-INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[stage]) VALUES
-	(2,1,1),(3,1,1),(4,1,1),(5,1,1),
-	(2,2,null),(3,2,0),(4,2,null),(9,2,0),
-	(2,3,0),(5,3,0),(9,3,0),(13,3,0),
-	(7,4,null),(10,4,null),
-	(6,5,null),(7,5,null),
-	(8,6,null),(9,6,1)	
+INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[follow],[like]) VALUES
+	(2,1,1,1),(3,1,1,1),(4,1,1,1),(5,1,1,1),
+	(2,2,0,1),(3,2,1,0),(4,2,1,0),(9,2,0,1),
+	(2,3,0,1),(5,3,0,1),(9,3,0,1),(13,3,0,1),
+	(7,4,1,0),(10,4,1,0),
+	(6,5,0,1),(7,5,0,1),
+	(8,6,1,0),(9,6,1,0),
+	(2,17,1,0)	
 
 INSERT INTO [dbo].[Chapter_Owned]([user_id],[chapter_id]) VALUES
 	(2,1),(3,1),(4,1),(8,1),
@@ -1649,6 +1728,13 @@ ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([issue_id])
 REFERENCES [dbo].[Story_Issue] ([issue_id])
 GO
 
+ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([comment_id])
+REFERENCES [dbo].[Comment] ([comment_id])
+GO
 
 ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1673,4 +1759,3 @@ GO
 ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
 GO
-	
