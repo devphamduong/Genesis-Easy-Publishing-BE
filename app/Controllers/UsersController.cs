@@ -47,7 +47,7 @@ namespace app.Controllers
                })
                .OrderBy(s => s.UserId) // top famous compare
                .ToListAsync();
-            return _msgService.MsgPagingReturn("Stories successfully",
+            return _msgService.MsgPagingReturn("Get All Users successfully",
                 users.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, users.Count);
         }
 
