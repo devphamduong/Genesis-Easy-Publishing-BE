@@ -3,3 +3,15 @@ epstorydbserver.database.windows.net
 epstoryadmin
 @easypublishing1
 mt54jBSyYzuu9PAu4W1HiQvgtnxQGSJRj4cuZXhkMz9knR7ahHhjiZr2YWCG
+
+
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+    if (!optionsBuilder.IsConfigured)
+    {
+        var conf = new ConfigurationBuilder()
+          .SetBasePath(Directory.GetCurrentDirectory())
+          .AddJsonFile("appsettings.json").Build();
+        optionsBuilder.UseSqlServer(conf.GetConnectionString("MyCnn"));
+    }
+}

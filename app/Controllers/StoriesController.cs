@@ -73,6 +73,7 @@ namespace app.Controllers
                         .Include(c => c.Categories)
                         .Include(c => c.Users) // luot mua truyen
                         .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                        .Include(c => c.StoryFollowLikes)
                         .Select(c => new
                         {
                             StoryId = c.StoryId,
@@ -97,7 +98,9 @@ namespace app.Controllers
                             .Take(3).ToList(),
                             UserPurchaseStory = c.Users.Count,
                             StoryInteraction = c.StoryInteraction,
-                            UserOwned = c.Users.Any(c => c.UserId == userId)
+                            UserOwned = c.Users.Any(c => c.UserId == userId),
+                            UserFollow = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Follow == true),
+                            UserLike = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Like == true),
                         })
                         .ToListAsync();
             return _msgService.MsgReturn(0, "Story Detail", stories.FirstOrDefault());
@@ -110,7 +113,7 @@ namespace app.Controllers
             var cates = story.Categories.Select(c => c.CategoryId).ToList();
             var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0)
                 .Include(c => c.Categories)
-                .Include(c=>c.Chapters)
+                .Include(c => c.Chapters)
                 .Select(c => new
                 {
                     StoryId = c.StoryId,
