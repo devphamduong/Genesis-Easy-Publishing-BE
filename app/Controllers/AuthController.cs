@@ -93,14 +93,7 @@ namespace app.Controllers
                 Status = u.Status == true ? 1 : 0,
                 UserImage = u.UserImage
             }).FirstOrDefault();
-            if (user == null || !hashService.Verify(password, data.Password))
-            {
-                return new JsonResult(new
-                {
-                    EC = 2,
-                    EM = "Wrong username or password",
-                });
-            }
+           
             UserDTO userDTO = new UserDTO
             {
                 Id = user.UserId,
