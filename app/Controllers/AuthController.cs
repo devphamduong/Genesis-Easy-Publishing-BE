@@ -88,7 +88,9 @@ namespace app.Controllers
                 Address = u.Address,
                 Phone = u.Phone,
                 Status = u.Status == true ? 1 : 0,
-                UserImage = u.UserImage
+                UserImage = u.UserImage,
+                DescriptionMarkdown = u.DescriptionMarkdown,
+                DescriptionHTML = u.DescriptionHtml
             }).FirstOrDefault();
             if (user == null || !hashService.Verify(password, data.Password))
             {
@@ -315,7 +317,9 @@ namespace app.Controllers
                         Phone = u.Phone,
                         Status = u.Status == true ? 1 : 0,
                         UserImage = u.UserImage,
-                        WalletInfo = u.Wallets
+                        WalletInfo = u.Wallets,
+                        DescriptionMarkdown = u.DescriptionMarkdown,
+                        DescriptionHTML = u.DescriptionHtml
                     }).FirstOrDefault();
                 return new JsonResult(new
                 {
