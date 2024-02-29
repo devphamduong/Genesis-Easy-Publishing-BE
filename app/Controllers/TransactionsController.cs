@@ -370,5 +370,43 @@ namespace app.Controllers
                 });
             }
         }
+
+        [HttpGet("transaction_history")]
+        public async Task<ActionResult> GetUserTransactionHistory(int page, int pageSize)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var transactions = await _context.Transactions
+                .Where(c => c.Wallet.UserId == userId)
+                .Select(c => new
+                {
+                    TransactionId = c.TransactionId,
+                    Amount = c.Amount,
+                    FundBefore = c.FundBefore,
+                    FundAfter = c.FundAfter,
+                    RefundBefore = c.RefundBefore,
+                    RefundAfter = c.RefundAfter,
+                    TransactionTime = c.TransactionTime,
+                    Status = c.Status,
+                    Description = c.Description,
+                })
+                .OrderByDescending(c => c.TransactionTime)
+                .ToListAsync();
+                pageSize = pageSize == null ? 10 : pageSize;
+                return _msgService.MsgPagingReturn("User transaction history",
+                    transactions.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, transactions.Count);
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+        }
     }
 }
