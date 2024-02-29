@@ -25,7 +25,7 @@ public partial class Comment
 
     public virtual StoryIssue? Issue { get; set; }
 
-    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
+    public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 
     public virtual Story? Story { get; set; }
 

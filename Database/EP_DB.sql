@@ -648,18 +648,18 @@ INSERT [dbo].[Category] ([category_id],[category_name])
 		(1, N'Manhwa'),
 		(2, N'Manhua'), 
 		(3, N'Manga'), 
-		(4, N'Short Story'), 
-		(5, N'Novel'), 
+		(4, N'Truyện ngắn'), 
+		(5, N'Tiểu thuyết'), 
 		(6, N'Comedy'), 
-		(7, N'Horror'), 
-		(8, N'Action'), 
-		(9, N'Adventure'),
-		(10, N'Romance'), 
-		(11, N'Fantasy'), 
-		(12, N'Mystery'), 
-		(13, N'Science Fiction'),
-		(14, N'English'), 
-		(15, N'Vietnamese')
+		(7, N'Kinh dị'), 
+		(8, N'Hành động'), 
+		(9, N'Phiêu lưu'),
+		(10, N'Lãng mạn'), 
+		(11, N'Viễn tưởng'), 
+		(12, N'Bí ẩn'), 
+		(13, N'Khoa học'),
+		(14, N'Tiếng anh'), 
+		(15, N'Tiếng Việt')
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
@@ -1615,16 +1615,16 @@ GO
 
 	INSERT INTO [dbo].[ReportType] ([report_type_id], [report_type_content])
 	VALUES 
-		(1, N'Sexual Content'),
-		(2, N'Violent or repulsive content'),
-		(3, N'Hateful or abusive content'),
-		(4, N'Harassment or bullying'),
-		(5, N'Harmful or dangerous acts'),
-		(6, N'Child abuse'),
-		(7, N'Promotes terrorism'),
-		(8, N'Spam or misleading'),
-		(9, N'Infringes my rights'),
-		(10, N'Caption issue')
+		(1, N'Nội dung khiêu dâm'),
+		(2, N'Nội dung bạo lực hoặc phản cảm'),
+		(3, N'Nội dung thù địch hoặc lạm dụng'),
+		(4, N'Quấy rối hoặc bắt nạt'),
+		(5, N'Hành vi có hại hoặc nguy hiểm'),
+		(6, N'Lạm dụng trẻ em'),
+		(7, N'Chủ nghĩa khủng bố'),
+		(8, N'Spam hoặc gây hiểu nhầm'),
+		(9, N'Vi phạm quyền lợi'),
+		(10, N'Vấn đề về phụ đề')
 
 SET IDENTITY_INSERT [dbo].[ReportType] OFF
 GO

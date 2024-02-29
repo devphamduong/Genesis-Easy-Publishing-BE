@@ -35,7 +35,7 @@ public partial class User
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
+    public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 
     public virtual ICollection<Story> Stories { get; set; } = new List<Story>();
 

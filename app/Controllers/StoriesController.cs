@@ -94,7 +94,7 @@ namespace app.Controllers
                                 c.ChapterPrice,
                                 c.CreateTime
 
-                            }).OrderByDescending(c => c.ChapterId)
+                            }).OrderByDescending(c => c.ChapterNumber)
                             .Take(3).ToList(),
                             UserPurchaseStory = c.Users.Count,
                             StoryInteraction = c.StoryInteraction,
@@ -123,13 +123,13 @@ namespace app.Controllers
                     StorySale = c.StorySale,
                     StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
                     StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
-                    StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
                     {
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterNumber,
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
                     }
                 })
                 .OrderByDescending(c => c.StoryId)
