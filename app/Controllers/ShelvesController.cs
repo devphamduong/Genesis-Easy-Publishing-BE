@@ -399,7 +399,7 @@ namespace app.Controllers
         // get stories by filter
         [HttpGet("filter")]
         [EnableQuery]
-        public async Task<ActionResult> GetFilter(string? title, int? upLimit, int? downLimit, string? sort, [FromQuery] List<int> cates,
+        public async Task<ActionResult> GetFilter(string? title, int? to, int? from, string? sort, [FromQuery] List<int> cates,
             int? status, int page, int pageSize)
         {
             var stories = await _context.Stories.Where(c => c.Status > 0)
@@ -435,7 +435,7 @@ namespace app.Controllers
             stories = String.IsNullOrEmpty(title) ? stories : stories.Where(c => c.StoryTitle.ToLower().Contains(title.ToLower())).ToList();
 
             // purchase story
-            stories = upLimit == null && downLimit == null ? stories : stories.Where(c => c.StoryPrice >= downLimit && c.StoryPrice <= upLimit).ToList();
+            stories = to == null && from == null ? stories : stories.Where(c => c.StoryPrice >= from && c.StoryPrice <= to).ToList();
             stories = sort == null ? stories : stories.OrderBy(c => sort == "sort" ? c.StoryPrice : -c.StoryPrice).ToList();
 
             // categories matching

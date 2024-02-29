@@ -31,6 +31,8 @@ public partial class User
 
     public string? DescriptionHtml { get; set; }
 
+    public virtual ICollection<CommentResponse> CommentResponses { get; set; } = new List<CommentResponse>();
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
