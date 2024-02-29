@@ -366,24 +366,39 @@ CREATE TABLE [dbo].[CommentResponse](
 ) ON [PRIMARY]
 GO
 
--- table Report
+-- table ReportType
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Report](
+CREATE TABLE [dbo].[ReportType](
+	[report_type_id] [int] IDENTITY(1,1) NOT NULL,
+	[report_type_content] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_reporttype] PRIMARY KEY CLUSTERED 
+(
+	[report_type_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- table ReportContent
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ReportContent](
 	[report_id] [int] IDENTITY(1,1) NOT NULL,
 	[user_id] [int] NOT NULL,
+	[report_type_id] [int] NOT NULL,
 	[story_id] [int] NULL,
 	[chapter_id] [bigint] NULL,
 	[issue_id] [int] NULL,
-	[transaction_id] [bigint] NULL,
 	[comment_id] [int] NULL,
-	[report_title] [nvarchar](100) NOT NULL,
+	-- [report_title] [nvarchar](100) NOT NULL,
 	[report_content] [nvarchar](2000) NOT NULL,
 	[report_date] [date] NOT NULL,
 	[status] [bit] NULL,
- CONSTRAINT [PK_report] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_reportcontent] PRIMARY KEY CLUSTERED 
 (
 	[report_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -535,16 +550,16 @@ GO
 
 INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [story_sale], [story_image], [story_description], [create_time], [update_time], [status])
 	VALUES 
-		( 1,N'Gone Girl ',1, CAST(11.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.<br>
-		On a warm summer morning in North Carthage, Missouri, it is Nick and Amy Dunne’s fifth wedding anniversary. Presents are being wrapped and reservations are being made when Nick’s clever and beautiful wife disappears from their rented McMansion on the Mississippi River. Husband-of-the-Year Nick isn’t doing himself any favors with cringe-worthy daydreams about the slope and shape of his wife’s head, but passages from Amy''s diary reveal the alpha-girl perfectionist could have put anyone dangerously on edge. Under mounting pressure from the police and the media—as well as Amy’s fiercely doting parents—the town golden boy parades an endless series of lies, deceits, and inappropriate behavior. Nick is oddly evasive, and he’s definitely bitter—but is he really a killer?<br>
+		( 1,N'Gone Girl ',1, CAST(11.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.
+		On a warm summer morning in North Carthage, Missouri, it is Nick and Amy Dunne’s fifth wedding anniversary. Presents are being wrapped and reservations are being made when Nick’s clever and beautiful wife disappears from their rented McMansion on the Mississippi River. Husband-of-the-Year Nick isn’t doing himself any favors with cringe-worthy daydreams about the slope and shape of his wife’s head, but passages from Amy''s diary reveal the alpha-girl perfectionist could have put anyone dangerously on edge. Under mounting pressure from the police and the media—as well as Amy’s fiercely doting parents—the town golden boy parades an endless series of lies, deceits, and inappropriate behavior. Nick is oddly evasive, and he’s definitely bitter—but is he really a killer?
 		As the cops close in, every couple in town is soon wondering how well they know the one that they love. With his twin sister, Margo, at his side, Nick stands by his innocence. Trouble is, if Nick didn’t do it, where is that beautiful wife? And what was in that silvery gift box hidden in the back of her bedroom closet?',
 		CAST(N'2022-01-01T05:52:10.323' AS DateTime), null, 1),
-		(2, N'And Then There Were None', 2, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1638425885l/16299._SY475_.jpg', N'First, there were ten—a curious assortment of strangers summoned as weekend guests to a little private island off the coast of Devon. Their host, an eccentric millionaire unknown to all of them, is nowhere to be found. All that the guests have in common is a wicked past they''re unwilling to reveal—and a secret that will seal their fate. For each has been marked for murder. A famous nursery rhyme is framed and hung in every room of the mansion:<br>
-		"Ten little boys went out to dine; One choked his little self and then there were nine. Nine little boys sat up very late; One overslept himself and then there were eight. Eight little boys traveling in Devon; One said he''d stay there then there were seven. Seven little boys chopping up sticks; One chopped himself in half and then there were six. Six little boys playing with a hive; A bumblebee stung one and then there were five. Five little boys going in for law; One got in Chancery and then there were four. Four little boys going out to sea; A red herring swallowed one and then there were three. Three little boys walking in the zoo; A big bear hugged one and then there were two. Two little boys sitting in the sun; One got frizzled up and then there was one. One little boy left all alone; He went out and hanged himself and then there were none."<br>
+		(2, N'And Then There Were None', 2, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1638425885l/16299._SY475_.jpg', N'First, there were ten—a curious assortment of strangers summoned as weekend guests to a little private island off the coast of Devon. Their host, an eccentric millionaire unknown to all of them, is nowhere to be found. All that the guests have in common is a wicked past they''re unwilling to reveal—and a secret that will seal their fate. For each has been marked for murder. A famous nursery rhyme is framed and hung in every room of the mansion:
+		"Ten little boys went out to dine; One choked his little self and then there were nine. Nine little boys sat up very late; One overslept himself and then there were eight. Eight little boys traveling in Devon; One said he''d stay there then there were seven. Seven little boys chopping up sticks; One chopped himself in half and then there were six. Six little boys playing with a hive; A bumblebee stung one and then there were five. Five little boys going in for law; One got in Chancery and then there were four. Four little boys going out to sea; A red herring swallowed one and then there were three. Three little boys walking in the zoo; A big bear hugged one and then there were two. Two little boys sitting in the sun; One got frizzled up and then there was one. One little boy left all alone; He went out and hanged himself and then there were none."
 		When they realize that murders are occurring as described in the rhyme, terror mounts. One by one they fall prey. Before the weekend is out, there will be none. Who has choreographed this dastardly scheme? And who will be left to tell the tale? Only the dead are above suspicion.',  
 		CAST(N'2022-02-01T05:52:10.323' AS DateTime), null, 1),
-		(3, N'The Silent Patient', 3, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1582759969l/40097951._SX318_.jpg', N'Alicia Berenson’s life is seemingly perfect. A famous painter married to an in-demand fashion photographer, she lives in a grand house with big windows overlooking a park in one of London’s most desirable areas. One evening her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in the face, and then never speaks another word.<br>
-		Alicia’s refusal to talk, or give any kind of explanation, turns a domestic tragedy into something far grander, a mystery that captures the public imagination and casts Alicia into notoriety. The price of her art skyrockets, and she, the silent patient, is hidden away from the tabloids and spotlight at the Grove, a secure forensic unit in North London.<br>
+		(3, N'The Silent Patient', 3, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1582759969l/40097951._SX318_.jpg', N'Alicia Berenson’s life is seemingly perfect. A famous painter married to an in-demand fashion photographer, she lives in a grand house with big windows overlooking a park in one of London’s most desirable areas. One evening her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in the face, and then never speaks another word.
+		Alicia’s refusal to talk, or give any kind of explanation, turns a domestic tragedy into something far grander, a mystery that captures the public imagination and casts Alicia into notoriety. The price of her art skyrockets, and she, the silent patient, is hidden away from the tabloids and spotlight at the Grove, a secure forensic unit in North London.
 		Theo Faber is a criminal psychotherapist who has waited a long time for the opportunity to work with Alicia. His determination to get her to talk and unravel the mystery of why she shot her husband takes him down a twisting path into his own motivations—a search for the truth that threatens to consume him....',
 		CAST(N'2022-03-01T05:52:10.323' AS DateTime), null, 1),
 		(4, N'The Girl on the Train',4, CAST(13.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1574805682l/22557272.jpg', N'Rachel catches the same commuter train every morning. She knows it will wait at the same signal each time, overlooking a row of back gardens. She’s even started to feel like she knows the people who live in one of the houses. “Jess and Jason,” she calls them. Their life—as she sees it—is perfect. If only Rachel could be that happy. And then she sees something shocking. It’s only a minute until the train moves on, but it’s enough. Now everything’s changed. Now Rachel has a chance to become a part of the lives she’s only watched from afar. Now they’ll see; she’s much more than just the girl on the train...',
@@ -553,33 +568,33 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		CAST(N'2022-05-01T05:52:10.323' AS DateTime), null,  1),
 		(6, N'The Shining',6, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1353277730l/11588.jpg', N'Jack Torrance''s new job at the Overlook Hotel is the perfect chance for a fresh start. As the off-season caretaker at the atmospheric old hotel, he''ll have plenty of time to spend reconnecting with his family and working on his writing. But as the harsh winter weather sets in, the idyllic location feels ever more remote...and more sinister. And the only one to notice the strange and terrible forces gathering around the Overlook is Danny Torrance, a uniquely gifted five-year-old.',  
 		CAST(N'2022-06-01T05:52:10.323' AS DateTime), null, 1),
-		(7, N'It',6, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1334416842l/830502.jpg', N'Welcome to Derry, Maine ...<br>
-		It’s a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real ...<br>
+		(7, N'It',6, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1334416842l/830502.jpg', N'Welcome to Derry, Maine ...
+		It’s a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real ...
 		They were seven teenagers when they first stumbled upon the horror. Now they are grown-up men and women who have gone out into the big world to gain success and happiness. But none of them can withstand the force that has drawn them back to Derry to face the nightmare without an end, and the evil without a name.',  
 		CAST(N'2022-07-01T05:52:10.323' AS DateTime), null, 1),
 		(8, N'A Game Of Thrones: A Song of Ice and Fire', 7, CAST(13.99 AS Decimal(10, 2)), 0, N'https://m.media-amazon.com/images/P/0553386794.01._SCLZZZZZZZ_SX500_.jpg', N'Long ago, in a time forgotten, a preternatural event threw the seasons out of balance. In a land where summers can last decades and winters a lifetime, trouble is brewing. The cold is returning, and in the frozen wastes to the north of Winterfell, sinister and supernatural forces are massing beyond the kingdom’s protective Wall. At the center of the conflict lie the Starks of Winterfell, a family as harsh and unyielding as the land they were born to. Sweeping from a land of brutal cold to a distant summertime kingdom of epicurean plenty, here is a tale of lords and ladies, soldiers and sorcerers, assassins and bastards, who come together in a time of grim omens.
-		<br>
+		
 		Here an enigmatic band of warriors bear swords of no human metal; a tribe of fierce wildlings carry men off into madness; a cruel young dragon prince barters his sister to win back his throne; and a determined woman undertakes the most treacherous of journeys. Amid plots and counterplots, tragedy and betrayal, victory and terror, the fate of the Starks, their allies, and their enemies hangs perilously in the balance, as each endeavors to win that deadliest of conflicts: the game of thrones.', 
 		CAST(N'2022-08-01T05:52:10.323' AS DateTime), null, 1),
 		(9, N'The Hunger Games',8, CAST(15.00 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1586722975l/2767052.jpg', N'Could you survive on your own in the wild, with every one out to make sure you don''t live to see the morning?
-		<br>
+		
 		In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.
-		<br>
+		
 		Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she steps forward to take her sister''s place in the Games. But Katniss has been close to dead before—and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weight survival against humanity and life against love.',
 		CAST(N'2022-09-01T05:52:10.323' AS DateTime), null,  1),
-		(10,N'The Time Machine',9, CAST(12.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg', N'“I’ve had a most amazing time....”<br>
+		(10,N'The Time Machine',9, CAST(12.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg', N'“I’ve had a most amazing time....”
 		So begins the Time Traveller’s astonishing firsthand account of his journey 800,000 years beyond his own era—and the story that launched H.G. Wells’s successful career and earned him his reputation as the father of science fiction. With a speculative leap that still fires the imagination, Wells sends his brave explorer to face a future burdened with our greatest hopes...and our darkest fears. A pull of the Time Machine’s lever propels him to the age of a slowly dying Earth.  There he discovers two bizarre races—the ethereal Eloi and the subterranean Morlocks—who not only symbolize the duality of human nature, but offer a terrifying portrait of the men of tomorrow as well.  Published in 1895, this masterpiece of invention captivated readers on the threshold of a new century.', 
 		CAST(N'2022-09-02T05:52:10.323' AS DateTime), null, 1),
 		(11, N'Outlander', 10, CAST(13.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1529065012l/10964._SY475_.jpg', N'The year is 1945. Claire Randall, a former combat nurse, is just back from the war and reunited with her husband on a second honeymoon when she walks through a standing stone in one of the ancient circles that dot the British Isles. Suddenly she is a Sassenach—an “outlander”—in a Scotland torn by war and raiding border clans in the year of Our Lord...1743.
-		<br>
+		
 		Hurled back in time by forces she cannot understand, Claire is catapulted into the intrigues of lairds and spies that may threaten her life, and shatter her heart. For here James Fraser, a gallant young Scots warrior, shows her a love so absolute that Claire becomes a woman torn between fidelity and desire—and between two vastly different men in two irreconcilable lives.', 
 		CAST(N'2022-09-03T05:52:10.323' AS DateTime), null, 1),
 		(12, N'All the Light We Cannot See', 11, CAST(10.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451445646l/18143977.jpg', N'Marie-Laure lives in Paris near the Museum of Natural History, where her father works. When she is twelve, the Nazis occupy Paris and father and daughter flee to the walled citadel of Saint-Malo, where Marie-Laure’s reclusive great uncle lives in a tall house by the sea. With them they carry what might be the museum’s most valuable and dangerous jewel.
-		<br>In a mining town in Germany, Werner Pfennig, an orphan, grows up with his younger sister, enchanted by a crude radio they find that brings them news and stories from places they have never seen or imagined. Werner becomes an expert at building and fixing these crucial new instruments and is enlisted to use his talent to track down the resistance. Deftly interweaving the lives of Marie-Laure and Werner, Doerr illuminates the ways, against all odds, people try to be good to one another.',
+		In a mining town in Germany, Werner Pfennig, an orphan, grows up with his younger sister, enchanted by a crude radio they find that brings them news and stories from places they have never seen or imagined. Werner becomes an expert at building and fixing these crucial new instruments and is enlisted to use his talent to track down the resistance. Deftly interweaving the lives of Marie-Laure and Werner, Doerr illuminates the ways, against all odds, people try to be good to one another.',
 		CAST(N'2022-09-03T05:52:10.323' AS DateTime), null, 1),
 		(13, N'Fullmetal Alchemist, Vol. 1', 12 , CAST(9.35 AS Decimal(10, 2)), CAST(30 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388179331l/870.jpg', N'Breaking the laws of nature is a serious crime!
-		<br>In an alchemical ritual gone wrong, Edward Elric lost his arm and his leg, and his brother Alphonse became nothing but a soul in a suit of armor. Equipped with mechanical “auto-mail” limbs, Edward becomes a state alchemist, seeking the one thing that can restore his and his brother’s bodies...the legendary Philosopher’s Stone.
-		<br>Alchemy: the mystical power to alter the natural world; something between magic, art and science. When two brothers, Edward and Alphonse Elric, dabbled in this power to grant their dearest wish, one of them lost an arm and a leg…and the other became nothing but a soul locked into a body of living steel. Now Edward is an agent of the government, a slave of the military-alchemical complex, using his unique powers to obey orders…even to kill. Except his powers aren''t unique. The world has been ravaged by the abuse of alchemy. And in pursuit of the ultimate alchemical treasure, the Philosopher''s Stone, their enemies are even more ruthless than they are…', 
+		In an alchemical ritual gone wrong, Edward Elric lost his arm and his leg, and his brother Alphonse became nothing but a soul in a suit of armor. Equipped with mechanical “auto-mail” limbs, Edward becomes a state alchemist, seeking the one thing that can restore his and his brother’s bodies...the legendary Philosopher’s Stone.
+		Alchemy: the mystical power to alter the natural world; something between magic, art and science. When two brothers, Edward and Alphonse Elric, dabbled in this power to grant their dearest wish, one of them lost an arm and a leg…and the other became nothing but a soul locked into a body of living steel. Now Edward is an agent of the government, a slave of the military-alchemical complex, using his unique powers to obey orders…even to kill. Except his powers aren''t unique. The world has been ravaged by the abuse of alchemy. And in pursuit of the ultimate alchemical treasure, the Philosopher''s Stone, their enemies are even more ruthless than they are…', 
 		CAST(N'2022-09-04T05:52:10.323' AS DateTime), null, 1),
 		(14,N'Death Note, Vol. 1: Boredom',13, CAST(10.40 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1419952134l/13615.jpg', N'Light Yagami is an ace student with great prospects - and he''s bored out of his mind. But all that changes when he finds the Death Note, a notebook dropped by a rogue Shinigami, a death god. Any human whose name is written in the notebook dies, and now Light has vowed to use the power of the Death Note to rid the world of evil. But when criminals begin dropping dead, the authorities send the legendary detective L to track down the killer. With L hot on his heels, will Light lose sight of his noble goal... or his life?', 
 		CAST(N'2022-09-05T05:52:10.323' AS DateTime), null, 1),
@@ -588,10 +603,10 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		(16, N'Classroom of the Elite Vol. 1', 15, CAST(9.69 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1540974678l/41085104.jpg', N'Students of the prestigious Tokyo Metropolitan Advanced Nurturing High School are given remarkable freedom—if they can win, barter, or save enough points to work their way up the ranks! Ayanokoji Kiyotaka has landed at the bottom in the scorned Class D, where he meets Horikita Suzune, who’s determined to rise up the ladder to Class A. Can they beat the system in a school where cutthroat competition is the name of the game?',
 		CAST(N'2022-09-09T05:52:10.323' AS DateTime), null, 1),
 		(17, N'Dị Thế Tà Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyento.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
-		<br>Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
-		<br>Trong một lần tranh đoạt cổ vật với những phe cánh hắc đạo, tính mạng của y gặp phải nguy hiểm tột cùng khi rơi vào vòng vây phục kích. Trong cái rủi lại có cái may, chính lúc này, những món bảo vật huyền bí mà hắn tranh đoạt đã phát tỏa huyền năng đưa hắn trở về thế giới cổ đại, nơi mà pháp luật chỉ mang tính tượng trưng và chân lý chỉ thuộc về kẻ mạnh.
-		<br>Sống trong thế giới nhiễu nhương này, liệu rằng những kỹ năng của một sát thủ có giúp hắn yên ổn tồn tại…?
-		<br>Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		Trong một lần tranh đoạt cổ vật với những phe cánh hắc đạo, tính mạng của y gặp phải nguy hiểm tột cùng khi rơi vào vòng vây phục kích. Trong cái rủi lại có cái may, chính lúc này, những món bảo vật huyền bí mà hắn tranh đoạt đã phát tỏa huyền năng đưa hắn trở về thế giới cổ đại, nơi mà pháp luật chỉ mang tính tượng trưng và chân lý chỉ thuộc về kẻ mạnh.
+		Sống trong thế giới nhiễu nhương này, liệu rằng những kỹ năng của một sát thủ có giúp hắn yên ổn tồn tại…?
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
 		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 1)
 
 SET IDENTITY_INSERT [dbo].[Story] OFF
@@ -1595,6 +1610,43 @@ GO
 SET IDENTITY_INSERT [dbo].[CommentResponse] OFF
 GO
 
+SET IDENTITY_INSERT [dbo].[ReportType] ON
+GO
+
+	INSERT INTO [dbo].[ReportType] ([report_type_id], [report_type_content])
+	VALUES 
+		(1, N'Sexual Content'),
+		(2, N'Violent or repulsive content'),
+		(3, N'Hateful or abusive content'),
+		(4, N'Harassment or bullying'),
+		(5, N'Harmful or dangerous acts'),
+		(6, N'Child abuse'),
+		(7, N'Promotes terrorism'),
+		(8, N'Spam or misleading'),
+		(9, N'Infringes my rights'),
+		(10, N'Caption issue')
+
+SET IDENTITY_INSERT [dbo].[ReportType] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[ReportContent] ON
+GO
+
+	INSERT INTO [dbo].[ReportContent] ([report_id], [user_id],[report_type_id],[story_id],[chapter_id],[issue_id],[comment_id],[report_content],[report_date],[status])
+	VALUES 
+		(1, 5, 1, 1, null, null, null, N'Truyện không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(2, 12, 7, 1, null, null, null, N'không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(3, 14, 5, 4, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(4, 25, 7, 3, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(5, 5, 8, null, 1, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(6, 24, 10, null, 4, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(7, 16, 3, null, null, null, 3, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(8, 35, 2, null, null, null, 14, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(9, 25, 6, null, null, null, 24, N' không phù hợp', CAST(N'2023-12-24' AS Date),null)
+		
+SET IDENTITY_INSERT [dbo].[ReportContent] OFF
+GO
+
 
 INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 	VALUES 
@@ -1756,27 +1808,29 @@ ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([user_id])
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([story_id])
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([report_type_id])
+REFERENCES [dbo].[ReportType] ([report_type_id])
+GO
+
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([story_id])
 REFERENCES [dbo].[Story] ([story_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([issue_id])
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([issue_id])
 REFERENCES [dbo].[Story_Issue] ([issue_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([transaction_id])
-REFERENCES [dbo].[Transaction] ([transaction_id])
-GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([comment_id])
+
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
 GO
 	
