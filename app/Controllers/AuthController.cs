@@ -55,14 +55,14 @@ namespace app.Controllers
 
         public class UserProfileForm
         {
-            public string UserFullname { get; set; }
-            public bool Gender { get; set; }
-            public DateTime Dob { get; set; }
-            public string Phone { get; set; }
-            public string Address { get; set; }
-            public string UserImage { get; set; }
-            public string DescriptionMarkdown { get; set; }
-            public string DescriptionHTML { get; set; }
+            public string? UserFullname { get; set; }
+            public bool? Gender { get; set; }
+            public DateTime? Dob { get; set; }
+            public string? Phone { get; set; }
+            public string? Address { get; set; }
+            public string? UserImage { get; set; }
+            public string? DescriptionMarkdown { get; set; }
+            public string? DescriptionHTML { get; set; }
         }
 
         [HttpPost("login")]
