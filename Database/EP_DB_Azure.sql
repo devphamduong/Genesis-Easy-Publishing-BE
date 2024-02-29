@@ -83,6 +83,8 @@ CREATE TABLE [dbo].[User](
 	[password] [nvarchar](4000) NOT NULL,
 	[user_image] [nvarchar](4000) NULL,
 	[status] [bit] NULL DEFAULT 1,
+	[description_markdown] [ntext] NULL,
+	[description_html] [ntext] NULL,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 
 (
 	[user_id] ASC
