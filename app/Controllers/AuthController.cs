@@ -1,4 +1,4 @@
-﻿﻿using app.DTOs;
+﻿using app.DTOs;
 using app.Models;
 using app.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -56,16 +56,13 @@ namespace app.Controllers
         public class UserProfileForm
         {
             public string UserFullname { get; set; }
-
             public bool Gender { get; set; }
-
             public DateTime Dob { get; set; }
-
             public string Phone { get; set; }
-
             public string Address { get; set; }
-
             public string UserImage { get; set; }
+            public string DescriptionMarkdown { get; set; }
+            public string DescriptionHTML { get; set; }
         }
 
         [HttpPost("login")]
@@ -91,7 +88,9 @@ namespace app.Controllers
                 Address = u.Address,
                 Phone = u.Phone,
                 Status = u.Status == true ? 1 : 0,
-                UserImage = u.UserImage
+                UserImage = u.UserImage,
+                DescriptionMarkdown = u.DescriptionMarkdown,
+                DescriptionHTML = u.DescriptionHtml
             }).FirstOrDefault();
             if (user == null || !hashService.Verify(password, data.Password))
             {
@@ -117,7 +116,8 @@ namespace app.Controllers
                 var rememberToken = CreateRememberLoginToken(data.EmailOrUsername, data.Password);
                 cookieOptions.Expires = DateTime.Now.AddDays(30);
                 Response.Cookies.Append("remember_token", rememberToken, cookieOptions);
-            } else
+            }
+            else
             {
                 Response.Cookies.Delete("remember_token");
             }
@@ -177,6 +177,13 @@ namespace app.Controllers
                 Password = passwordHash,
                 Username = data.Username,
                 Gender = true
+            });
+            _context.SaveChanges();
+            _context.Wallets.Add(new Wallet
+            {
+                UserId = _context.Users.FirstOrDefault(u => u.Username.Equals(data.Username)).UserId,
+                Fund = 0,
+                Refund = 0
             });
             _context.SaveChanges();
             return new JsonResult(new
@@ -310,7 +317,9 @@ namespace app.Controllers
                         Phone = u.Phone,
                         Status = u.Status == true ? 1 : 0,
                         UserImage = u.UserImage,
-                        WalletInfo = u.Wallets
+                        WalletInfo = u.Wallets,
+                        DescriptionMarkdown = u.DescriptionMarkdown,
+                        DescriptionHTML = u.DescriptionHtml
                     }).FirstOrDefault();
                 return new JsonResult(new
                 {
@@ -355,7 +364,7 @@ namespace app.Controllers
                         "<p>There was a request to reset your password! </p> " +
                         "<p>If you did not make this request then please ignore this email.</p> " +
                         "<p>Otherwise, please click this link to reset your password:</p> " +
-                        "<a href =\"https://genesis-easy-publishing.vercel.app/reset-password/" + token + "\">Reset password</a>");
+                        "<a href =\"https://genesis-easy-publishing.vercel.app/reset-password?token=" + token + "\">Reset password</a>");
             }
             catch (Exception ex)
             {
@@ -490,7 +499,9 @@ namespace app.Controllers
                 user.Phone = data.Phone;
                 user.Dob = data.Dob;
                 user.UserImage = data.UserImage;
-                user.Gender = data.Gender;  
+                user.Gender = data.Gender;
+                user.DescriptionMarkdown = data.DescriptionMarkdown;
+                user.DescriptionHtml = data.DescriptionHTML;
                 _context.SaveChanges();
             }
             catch (Exception)

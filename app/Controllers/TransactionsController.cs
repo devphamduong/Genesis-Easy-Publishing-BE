@@ -51,6 +51,22 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a=>a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w=>w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                if (user_wallet.Fund < story.StoryPrice)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -2,
+                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                    });
+                }
+                if (userId == author.UserId)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -3,
+                        EM = "This story is yours!"
+                    });
+                }
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -67,10 +83,10 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = story.StoryPrice,
-                    FundBefore = author_wallet.Fund,
-                    FundAfter = author_wallet.Fund + story.StoryPrice,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
+                    FundBefore = 0,
+                    FundAfter = 0,
+                    RefundAfter = author_wallet.Refund,
+                    RefundBefore = author_wallet.Refund + story.StoryPrice,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Receive TLT from selling stories {story.StoryTitle}"
@@ -101,6 +117,22 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                if (user_wallet.Fund < story.StoryPrice)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -2,
+                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                    });
+                }
+                if (userId == author.UserId)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -3,
+                        EM = "This story is yours!"
+                    });
+                }
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -117,10 +149,10 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
-                    FundBefore = author_wallet.Fund,
-                    FundAfter = author_wallet.Fund + (decimal)chapter.ChapterPrice,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
+                    FundBefore = 0,
+                    FundAfter = 0,
+                    RefundAfter = author_wallet.Refund,
+                    RefundBefore = author_wallet.Refund + (decimal)chapter.ChapterPrice,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Receive TLT from selling chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
@@ -150,6 +182,22 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                if (user_wallet.Fund < story.StoryPrice)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -2,
+                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                    });
+                }
+                if (userId == author.UserId)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -3,
+                        EM = "This story is yours!"
+                    });
+                }
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -166,16 +214,16 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = story.StoryPrice,
-                    FundBefore = author_wallet.Fund,
-                    FundAfter = author_wallet.Fund + story.StoryPrice,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
+                    FundBefore = 0,
+                    FundAfter = 0,
+                    RefundAfter = author_wallet.Refund,
+                    RefundBefore = author_wallet.Refund + story.StoryPrice,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Receive TLT from selling stories {story.StoryTitle}"
                 };
                 user_wallet.Fund = user_wallet.Fund - story.StoryPrice;
-                author_wallet.Fund = author_wallet.Fund + story.StoryPrice;
+                author_wallet.Refund = author_wallet.Refund + story.StoryPrice;
                 user.Stories.Add(story);
                 story.Users.Add(user);
 
@@ -216,6 +264,22 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                if (user_wallet.Fund < story.StoryPrice)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -2,
+                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                    });
+                }
+                if (userId == author.UserId)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -3,
+                        EM = "This story is yours!"
+                    });
+                }
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -232,16 +296,16 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
-                    FundBefore = author_wallet.Fund,
-                    FundAfter = author_wallet.Fund + (decimal)chapter.ChapterPrice,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
+                    FundBefore = 0,
+                    FundAfter = 0,
+                    RefundAfter = author_wallet.Refund,
+                    RefundBefore = author_wallet.Refund + (decimal)chapter.ChapterPrice,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Receive TLT from selling chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
                 };
                 user_wallet.Fund = user_wallet.Fund - (decimal)chapter.ChapterPrice;
-                author_wallet.Fund = author_wallet.Fund + (decimal)chapter.ChapterPrice;
+                author_wallet.Refund = author_wallet.Refund + (decimal)chapter.ChapterPrice;
                 user.Chapters.Add(chapter);
                 chapter.Users.Add(user);
 
@@ -257,6 +321,83 @@ namespace app.Controllers
                     EC = 0,
                     EM = $"Buy chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle} successful"
                 });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+        }
+
+         [HttpPost("add_transaction_recharge")]
+        public async Task<ActionResult> AddTransactionRecharge(string username,int number_recharge)
+        {
+            try
+            {
+                var user = await _context.Users.Where(u => u.Username == username).FirstOrDefaultAsync();
+                var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
+                var user_transaction = new Transaction
+                {
+                    WalletId = user_wallet.WalletId,
+                    Amount = number_recharge,
+                    FundBefore = user_wallet.Fund,
+                    FundAfter = user_wallet.Fund + number_recharge,
+                    RefundAfter = 0,
+                    RefundBefore = 0,
+                    TransactionTime = DateTime.Now,
+                    Status = true,
+                    Description = $"Recharge {number_recharge}"
+                };
+                user_wallet.Fund = user_wallet.Fund + number_recharge;
+                _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.Transactions.Add(user_transaction);
+                await _context.SaveChangesAsync();
+                return new JsonResult(new
+                {
+                    EC = 0,
+                    EM = $"Recharge {number_recharge} : {user.UserFullname} successfull"
+                });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Recharge fail"
+                });
+            }
+        }
+
+        [HttpGet("transaction_history")]
+        public async Task<ActionResult> GetUserTransactionHistory(int page, int pageSize)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var transactions = await _context.Transactions
+                .Where(c => c.Wallet.UserId == userId)
+                .Select(c => new
+                {
+                    TransactionId = c.TransactionId,
+                    Amount = c.Amount,
+                    FundBefore = c.FundBefore,
+                    FundAfter = c.FundAfter,
+                    RefundBefore = c.RefundBefore,
+                    RefundAfter = c.RefundAfter,
+                    TransactionTime = c.TransactionTime,
+                    Status = c.Status,
+                    Description = c.Description,
+                })
+                .OrderByDescending(c => c.TransactionTime)
+                .ToListAsync();
+                pageSize = pageSize == null ? 10 : pageSize;
+                return _msgService.MsgPagingReturn("User transaction history",
+                    transactions.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, transactions.Count);
             }
             catch (Exception)
             {
