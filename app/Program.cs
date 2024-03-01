@@ -65,6 +65,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseCors("AllowAll");
 
 app.UseAuthorization();
