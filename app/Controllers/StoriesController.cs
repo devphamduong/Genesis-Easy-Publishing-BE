@@ -138,15 +138,31 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Story Relate", verified.Take(3));
         }
 
-        [HttpPost("save_story")]
-        public async Task<ActionResult> SaveStory(Story story)
+        public class AddStoryForm
         {
-            story.CreateTime = DateTime.Now;
-            story.Status = 0;
+            public string StoryTitle { get; set; } = null!;
+            public int AuthorId { get; set; }
+            public string? StoryDescription { get; set; }
+
+            public List<int> CategoryIds { get; set; }
+        }
+
+        [HttpPost("save_story")]
+        public async Task<ActionResult> SaveStory(AddStoryForm addStoryForm)
+        {
             try
             {
-                _context.Stories.Add(story);
-                _context.SaveChanges();
+                _context.Stories.Add(new Story
+                {
+                    StoryTitle = addStoryForm.StoryTitle,
+                    AuthorId = addStoryForm.AuthorId,
+                    StoryDescription = addStoryForm.StoryDescription,
+                    CreateTime = DateTime.Now,
+                    Status = 0,
+                    StoryPrice = 0,
+                    Categories = _context.Categories.Where(c => addStoryForm.CategoryIds.Contains(c.CategoryId)).ToList()
+                }) ;
+                _context.SaveChanges();     
             }
             catch (Exception)
             {
