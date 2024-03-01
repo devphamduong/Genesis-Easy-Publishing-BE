@@ -130,6 +130,8 @@ namespace app.Controllers
             chapter.Status = 1;
             try
             {
+                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.VolumeId  == chapter.VolumeId).Select(c=> c.ChapterNumber).DefaultIfEmpty(0).Max()+1;
+                chapter.ChapterNumber = nextChapterNum;
                 _context.Chapters.Add(chapter);
                 _context.SaveChanges();
             }
