@@ -23,12 +23,21 @@ namespace app.Controllers
         {
             var comments = await _context.Comments.Where(c => c.StoryId == storyid)
                 .Include(c => c.User)
+                .Include(c => c.CommentResponses).ThenInclude(c => c.User)
                 .Select(c => new
                 {
+                    UserComment = new { c.User.UserId, c.User.UserFullname, c.User.UserImage },
                     CommentId = c.CommentId,
                     CommentContent = c.CommentContent,
                     CommentDate = c.CommentDate,
-                    UserComment = new { c.User.UserId, c.User.UserFullname, c.User.UserImage },
+                    CommentResponse = c.CommentResponses.Select(s => new
+                    {
+                        UserComment = new { s.User.UserId, s.User.UserFullname, s.User.UserImage },
+                        s.CommentResponseId,
+                        s.CommentId,
+                        s.CommentContent,
+                        s.CommentDate,
+                    }).ToList()
                 })
                 .OrderByDescending(c => c.CommentId)
                 .ToListAsync();

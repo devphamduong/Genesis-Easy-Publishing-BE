@@ -27,7 +27,7 @@ public partial class Chapter
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
+    public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 
     public virtual Story Story { get; set; } = null!;
 

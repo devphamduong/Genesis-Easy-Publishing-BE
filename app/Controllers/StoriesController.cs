@@ -73,6 +73,7 @@ namespace app.Controllers
                         .Include(c => c.Categories)
                         .Include(c => c.Users) // luot mua truyen
                         .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                        .Include(c => c.StoryFollowLikes)
                         .Select(c => new
                         {
                             StoryId = c.StoryId,
@@ -93,11 +94,13 @@ namespace app.Controllers
                                 c.ChapterPrice,
                                 c.CreateTime
 
-                            }).OrderByDescending(c => c.ChapterId)
+                            }).OrderByDescending(c => c.ChapterNumber)
                             .Take(3).ToList(),
                             UserPurchaseStory = c.Users.Count,
                             StoryInteraction = c.StoryInteraction,
-                            UserOwned = c.Users.Any(c => c.UserId == userId)
+                            UserOwned = c.Users.Any(c => c.UserId == userId),
+                            UserFollow = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Follow == true),
+                            UserLike = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Like == true),
                         })
                         .ToListAsync();
             return _msgService.MsgReturn(0, "Story Detail", stories.FirstOrDefault());
@@ -110,7 +113,7 @@ namespace app.Controllers
             var cates = story.Categories.Select(c => c.CategoryId).ToList();
             var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0)
                 .Include(c => c.Categories)
-                .Include(c=>c.Chapters)
+                .Include(c => c.Chapters)
                 .Select(c => new
                 {
                     StoryId = c.StoryId,
@@ -120,13 +123,13 @@ namespace app.Controllers
                     StorySale = c.StorySale,
                     StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
                     StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
-                    StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
                     {
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterId,
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterNumber,
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().ChapterTitle,
-                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault().CreateTime
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
+                        c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
                     }
                 })
                 .OrderByDescending(c => c.StoryId)

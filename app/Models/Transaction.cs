@@ -28,7 +28,5 @@ public partial class Transaction
 
     public string? Description { get; set; }
 
-    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
-
     public virtual Wallet Wallet { get; set; } = null!;
 }

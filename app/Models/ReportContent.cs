@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace app.Models;
 
-public partial class Comment
+public partial class ReportContent
 {
-    public int CommentId { get; set; }
+    public int ReportId { get; set; }
 
     public int UserId { get; set; }
+
+    public int ReportTypeId { get; set; }
 
     public int? StoryId { get; set; }
 
@@ -15,17 +17,21 @@ public partial class Comment
 
     public int? IssueId { get; set; }
 
-    public string CommentContent { get; set; } = null!;
+    public int? CommentId { get; set; }
 
-    public DateTime CommentDate { get; set; }
+    public string ReportContent1 { get; set; } = null!;
+
+    public DateTime ReportDate { get; set; }
+
+    public bool? Status { get; set; }
 
     public virtual Chapter? Chapter { get; set; }
 
-    public virtual ICollection<CommentResponse> CommentResponses { get; set; } = new List<CommentResponse>();
+    public virtual Comment? Comment { get; set; }
 
     public virtual StoryIssue? Issue { get; set; }
 
-    public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
+    public virtual ReportType ReportType { get; set; } = null!;
 
     public virtual Story? Story { get; set; }
 
