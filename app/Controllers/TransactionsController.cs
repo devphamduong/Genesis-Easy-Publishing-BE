@@ -38,6 +38,37 @@ namespace app.Controllers
             return null;
         }
 
+        [HttpGet("get_user_wallet")]
+        public async Task<ActionResult> GetUserWallet()
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var wallet = await _context.Wallets.Where(w => w.UserId == userId)
+                    .Include(w=> w.Transactions)
+                    .Select(w => new
+                    {
+                        WalletId= w.WalletId,
+                        UserId = w.UserId,
+                        Fund = w.Fund,
+                        Refund = w.Refund,
+                        Transaction = w.Transactions
+                    })
+                    .FirstOrDefaultAsync();
+                return _msgService.MsgReturn(0, "Get Transaction Buy Story Detail", wallet);
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+        }
+        
         [HttpGet("transaction_buy_story")]
         public async  Task<ActionResult> GetTransactionBuyStory(int storyId)
         {
@@ -51,22 +82,29 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a=>a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w=>w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
-                if (user_wallet.Fund < story.StoryPrice)
-                {
-                    return new JsonResult(new
+                var user_story = await _context.Users.Where(u => u.UserId == userId)
+                    .Include(u => u.Chapters)
+                    .Select(u => new
                     {
-                        EC = -2,
-                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
-                    });
-                }
-                if (userId == author.UserId)
-                {
-                    return new JsonResult(new
-                    {
-                        EC = -3,
-                        EM = "This story is yours!"
-                    });
-                }
+                        Stories = u.Stories
+                    })
+                    .FirstOrDefaultAsync();
+               if (user_wallet.Fund < story.StoryPrice)
+               {
+                   return new JsonResult(new
+                   {
+                       EC = -2,
+                       EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                   });
+               }
+               if (userId == author.UserId || user_story.Stories.Contains(story))
+               {
+                   return new JsonResult(new
+                   {
+                       EC = -3,
+                       EM = "This story is yours!"
+                   });
+               }
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -117,6 +155,13 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                var user_chapter = await _context.Users.Where(u => u.UserId == userId)
+                    .Include(u => u.Chapters)
+                    .Select(u => new
+                    {
+                        Chapter = u.Chapters
+                    })
+                    .FirstOrDefaultAsync();
                 if (user_wallet.Fund < story.StoryPrice)
                 {
                     return new JsonResult(new
@@ -125,7 +170,7 @@ namespace app.Controllers
                         EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
                     });
                 }
-                if (userId == author.UserId)
+                if (userId == author.UserId|| user_chapter.Chapter.Contains(chapter))
                 {
                     return new JsonResult(new
                     {
@@ -182,6 +227,13 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                var user_story = await _context.Users.Where(u => u.UserId == userId)
+                     .Include(u => u.Chapters)
+                     .Select(u => new
+                     {
+                         Stories = u.Stories
+                     })
+                     .FirstOrDefaultAsync();
                 if (user_wallet.Fund < story.StoryPrice)
                 {
                     return new JsonResult(new
@@ -190,7 +242,7 @@ namespace app.Controllers
                         EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
                     });
                 }
-                if (userId == author.UserId)
+                if (userId == author.UserId || user_story.Stories.Contains(story))
                 {
                     return new JsonResult(new
                     {
@@ -264,6 +316,13 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                var user_chapter = await _context.Users.Where(u => u.UserId == userId)
+                    .Include(u => u.Chapters)
+                    .Select(u => new
+                    {
+                        Chapter = u.Chapters
+                    })
+                    .FirstOrDefaultAsync();
                 if (user_wallet.Fund < story.StoryPrice)
                 {
                     return new JsonResult(new
@@ -272,7 +331,7 @@ namespace app.Controllers
                         EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
                     });
                 }
-                if (userId == author.UserId)
+                if (userId == author.UserId || user_chapter.Chapter.Contains(chapter))
                 {
                     return new JsonResult(new
                     {
