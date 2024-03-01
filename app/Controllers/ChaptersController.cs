@@ -100,6 +100,7 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Story Chapter Relate", chapters);
         }
+
         [HttpGet("story_volume/{storyid}")]
         public async Task<ActionResult> GetVolume(int storyid)
         {
@@ -113,11 +114,12 @@ namespace app.Controllers
                     Chapters = v.Chapters.Where(c => c.Status > 0).Select(c => new
                     {
                         c.ChapterId,
+                        c.ChapterNumber,
                         c.ChapterTitle,
                         c.ChapterPrice,
                         c.CreateTime
 
-                    }).OrderByDescending(c => c.ChapterId).ToList()
+                    }).OrderByDescending(c => c.ChapterNumber).ToList()
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "List volume", volumes);
@@ -130,7 +132,9 @@ namespace app.Controllers
             chapter.Status = 1;
             try
             {
-                _context.Chapters.Add(chapter);
+                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId).Select(c=> c.ChapterNumber).DefaultIfEmpty(0).Max()+1;
+                chapter.ChapterNumber = nextChapterNum;
+                await _context.Chapters.AddAsync(chapter);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -178,6 +182,10 @@ namespace app.Controllers
                 return false;
             }
             var user = _context.Users.Include(u => u.Chapters).Include(u => u.Stories).FirstOrDefault(u => u.UserId == userid);
+            if(user == null)
+            {
+                return false;
+            }
             if (user.Chapters.Any(c => c.ChapterId == chapterid) || user.Stories.Any(s => s.StoryId == storyid))
             {
                 return true;
@@ -200,7 +208,7 @@ namespace app.Controllers
             long nextChapterId = NextChapter(chapterid, storyid);
             long previousChapterId = PreviousChapter(chapterid, storyid);
 
-            var chapter = _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
+            var chapter = await _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
                 .Include(c => c.Story)
                 .Include(c => c.Comments)
                 .Select(c => new
@@ -216,7 +224,7 @@ namespace app.Controllers
                     UserPurchaseChapter = c.Users.Count,
                     NextChapterId = nextChapterId,
                     PreviousChapterId = previousChapterId
-                }).FirstOrDefault();
+                }).FirstOrDefaultAsync();
 
             if (chapter == null)
             {
