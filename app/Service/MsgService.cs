@@ -5,7 +5,7 @@ namespace app.Service
 {
     public class MsgService
     {
-        public JsonResult MsgPagingReturn(String msg, Object ListStories, int page, int pagesize, int count)
+        public JsonResult MsgPagingReturn(String msg, Object list, int page, int pagesize, int count)
         {
             return new JsonResult(new
             {
@@ -17,7 +17,7 @@ namespace app.Service
                     TotalPage = (count % pagesize) > 0 ? count / pagesize + 1 : count / pagesize,
                     Current = page,
                     PageSize = pagesize,
-                    ListStories,
+                    list,
                 },
             });
         }

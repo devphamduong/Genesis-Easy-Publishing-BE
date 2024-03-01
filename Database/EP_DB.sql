@@ -101,6 +101,8 @@ CREATE TABLE [dbo].[User](
 	[password] [nvarchar](4000) NOT NULL,
 	[user_image] [nvarchar](4000) NULL,
 	[status] [bit] NULL DEFAULT 1,
+	[description_markdown] [ntext] NULL,
+	[description_html] [ntext] NULL,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 
 (
 	[user_id] ASC
@@ -156,7 +158,8 @@ GO
 CREATE TABLE [dbo].[Story_Follow_Like](
 	[user_id] [int] NOT NULL,
 	[story_id] [int] NOT NULL,
-	[stage] [bit] NULL,
+	[follow] [bit] NULL,
+	[like] [bit] NULL,
  CONSTRAINT [PK_story_follow] PRIMARY KEY CLUSTERED 
 (
 	[user_id],[story_id] ASC
@@ -275,6 +278,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Chapter](
 	[chapter_id] [bigint] IDENTITY(1,1) NOT NULL,
+	[chapter_number] [bigint] NOT NULL,
 	[story_id] [int] NOT NULL,
 	[volume_id] [int] NOT NULL,
 	[chapter_title] [nvarchar](100) NOT NULL,
@@ -344,24 +348,57 @@ CREATE TABLE [dbo].[Comment](
 ) ON [PRIMARY]
 GO
 
--- table Report
+-- table Comment Repsponse
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Report](
+CREATE TABLE [dbo].[CommentResponse](
+	[comment_response_id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[comment_id] [int] NULL,
+	[comment_content] [nvarchar](2000) NOT NULL,
+	[comment_date] [date] NOT NULL,
+ CONSTRAINT [PK_commentresponse] PRIMARY KEY CLUSTERED 
+(
+	[comment_response_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- table ReportType
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ReportType](
+	[report_type_id] [int] IDENTITY(1,1) NOT NULL,
+	[report_type_content] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_reporttype] PRIMARY KEY CLUSTERED 
+(
+	[report_type_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- table ReportContent
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ReportContent](
 	[report_id] [int] IDENTITY(1,1) NOT NULL,
 	[user_id] [int] NOT NULL,
+	[report_type_id] [int] NOT NULL,
 	[story_id] [int] NULL,
 	[chapter_id] [bigint] NULL,
 	[issue_id] [int] NULL,
-	[transaction_id] [bigint] NULL,
 	[comment_id] [int] NULL,
-	[report_title] [nvarchar](100) NOT NULL,
+	-- [report_title] [nvarchar](100) NOT NULL,
 	[report_content] [nvarchar](2000) NOT NULL,
 	[report_date] [date] NOT NULL,
 	[status] [bit] NULL,
- CONSTRAINT [PK_report] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_reportcontent] PRIMARY KEY CLUSTERED 
 (
 	[report_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -375,7 +412,7 @@ GO
 INSERT [dbo].[User]([user_id],[user_fullname]  ,[gender] ,[dob] ,[email] ,[phone]  ,[address] ,[username] ,[password]  ,[user_image] ,[status])  
 	VALUES
 		(1, N'Duy Pham', 1, CAST(N'2002-12-25' AS Date), N'duypd@fpt.edu.vn', N'0382132025', N'FBT University ', N'duypd', N'123456', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null)
-		,(2, N'Vinh Nguyen', 1, CAST(N'2002-12-25' AS Date), N'duypd@gmail.com', N'0382132025', N'FBT University ', N'baspdd', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null, 1)
+		,(2, N'Duy Pham', 1, CAST(N'2002-12-25' AS Date), N'duypd@gmail.com', N'0382132025', N'FBT University ', N'baspdd', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null, 1)
 		,(3, N'Ivory Marcel', 0, CAST(N'1969-09-20' AS Date), N'Bookie_User1@qa.team', N'6128170843', N'E312R', N'user_no1', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=',null, 1)
 		,(4, N'Mary Barisol', 1, CAST(N'1970-02-16' AS Date), N'Bookie_User2@qa.team', N'7134690959', N'F012R', N'namnd', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=',null, 1)
 		,(5, N'Eden Frost', 1, CAST(N'1984-03-13' AS Date), N'Bookie_User3@qa.team', N'8252042139', N'B438R', N'user_no3', N'eGw6JHeSV2aWhoFS1ZpEWg==;jzeo0Bn2BI78YNzUyLGjDkNoqzW22H9fquxA/86oclA=', null, 1)
@@ -513,16 +550,16 @@ GO
 
 INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [story_sale], [story_image], [story_description], [create_time], [update_time], [status])
 	VALUES 
-		( 1,N'Gone Girl ',1, CAST(11.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.<br>
-		On a warm summer morning in North Carthage, Missouri, it is Nick and Amy Dunne’s fifth wedding anniversary. Presents are being wrapped and reservations are being made when Nick’s clever and beautiful wife disappears from their rented McMansion on the Mississippi River. Husband-of-the-Year Nick isn’t doing himself any favors with cringe-worthy daydreams about the slope and shape of his wife’s head, but passages from Amy''s diary reveal the alpha-girl perfectionist could have put anyone dangerously on edge. Under mounting pressure from the police and the media—as well as Amy’s fiercely doting parents—the town golden boy parades an endless series of lies, deceits, and inappropriate behavior. Nick is oddly evasive, and he’s definitely bitter—but is he really a killer?<br>
+		( 1,N'Gone Girl ',1, CAST(11.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.
+		On a warm summer morning in North Carthage, Missouri, it is Nick and Amy Dunne’s fifth wedding anniversary. Presents are being wrapped and reservations are being made when Nick’s clever and beautiful wife disappears from their rented McMansion on the Mississippi River. Husband-of-the-Year Nick isn’t doing himself any favors with cringe-worthy daydreams about the slope and shape of his wife’s head, but passages from Amy''s diary reveal the alpha-girl perfectionist could have put anyone dangerously on edge. Under mounting pressure from the police and the media—as well as Amy’s fiercely doting parents—the town golden boy parades an endless series of lies, deceits, and inappropriate behavior. Nick is oddly evasive, and he’s definitely bitter—but is he really a killer?
 		As the cops close in, every couple in town is soon wondering how well they know the one that they love. With his twin sister, Margo, at his side, Nick stands by his innocence. Trouble is, if Nick didn’t do it, where is that beautiful wife? And what was in that silvery gift box hidden in the back of her bedroom closet?',
 		CAST(N'2022-01-01T05:52:10.323' AS DateTime), null, 1),
-		(2, N'And Then There Were None', 2, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1638425885l/16299._SY475_.jpg', N'First, there were ten—a curious assortment of strangers summoned as weekend guests to a little private island off the coast of Devon. Their host, an eccentric millionaire unknown to all of them, is nowhere to be found. All that the guests have in common is a wicked past they''re unwilling to reveal—and a secret that will seal their fate. For each has been marked for murder. A famous nursery rhyme is framed and hung in every room of the mansion:<br>
-		"Ten little boys went out to dine; One choked his little self and then there were nine. Nine little boys sat up very late; One overslept himself and then there were eight. Eight little boys traveling in Devon; One said he''d stay there then there were seven. Seven little boys chopping up sticks; One chopped himself in half and then there were six. Six little boys playing with a hive; A bumblebee stung one and then there were five. Five little boys going in for law; One got in Chancery and then there were four. Four little boys going out to sea; A red herring swallowed one and then there were three. Three little boys walking in the zoo; A big bear hugged one and then there were two. Two little boys sitting in the sun; One got frizzled up and then there was one. One little boy left all alone; He went out and hanged himself and then there were none."<br>
+		(2, N'And Then There Were None', 2, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1638425885l/16299._SY475_.jpg', N'First, there were ten—a curious assortment of strangers summoned as weekend guests to a little private island off the coast of Devon. Their host, an eccentric millionaire unknown to all of them, is nowhere to be found. All that the guests have in common is a wicked past they''re unwilling to reveal—and a secret that will seal their fate. For each has been marked for murder. A famous nursery rhyme is framed and hung in every room of the mansion:
+		"Ten little boys went out to dine; One choked his little self and then there were nine. Nine little boys sat up very late; One overslept himself and then there were eight. Eight little boys traveling in Devon; One said he''d stay there then there were seven. Seven little boys chopping up sticks; One chopped himself in half and then there were six. Six little boys playing with a hive; A bumblebee stung one and then there were five. Five little boys going in for law; One got in Chancery and then there were four. Four little boys going out to sea; A red herring swallowed one and then there were three. Three little boys walking in the zoo; A big bear hugged one and then there were two. Two little boys sitting in the sun; One got frizzled up and then there was one. One little boy left all alone; He went out and hanged himself and then there were none."
 		When they realize that murders are occurring as described in the rhyme, terror mounts. One by one they fall prey. Before the weekend is out, there will be none. Who has choreographed this dastardly scheme? And who will be left to tell the tale? Only the dead are above suspicion.',  
 		CAST(N'2022-02-01T05:52:10.323' AS DateTime), null, 1),
-		(3, N'The Silent Patient', 3, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1582759969l/40097951._SX318_.jpg', N'Alicia Berenson’s life is seemingly perfect. A famous painter married to an in-demand fashion photographer, she lives in a grand house with big windows overlooking a park in one of London’s most desirable areas. One evening her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in the face, and then never speaks another word.<br>
-		Alicia’s refusal to talk, or give any kind of explanation, turns a domestic tragedy into something far grander, a mystery that captures the public imagination and casts Alicia into notoriety. The price of her art skyrockets, and she, the silent patient, is hidden away from the tabloids and spotlight at the Grove, a secure forensic unit in North London.<br>
+		(3, N'The Silent Patient', 3, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1582759969l/40097951._SX318_.jpg', N'Alicia Berenson’s life is seemingly perfect. A famous painter married to an in-demand fashion photographer, she lives in a grand house with big windows overlooking a park in one of London’s most desirable areas. One evening her husband Gabriel returns home late from a fashion shoot, and Alicia shoots him five times in the face, and then never speaks another word.
+		Alicia’s refusal to talk, or give any kind of explanation, turns a domestic tragedy into something far grander, a mystery that captures the public imagination and casts Alicia into notoriety. The price of her art skyrockets, and she, the silent patient, is hidden away from the tabloids and spotlight at the Grove, a secure forensic unit in North London.
 		Theo Faber is a criminal psychotherapist who has waited a long time for the opportunity to work with Alicia. His determination to get her to talk and unravel the mystery of why she shot her husband takes him down a twisting path into his own motivations—a search for the truth that threatens to consume him....',
 		CAST(N'2022-03-01T05:52:10.323' AS DateTime), null, 1),
 		(4, N'The Girl on the Train',4, CAST(13.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1574805682l/22557272.jpg', N'Rachel catches the same commuter train every morning. She knows it will wait at the same signal each time, overlooking a row of back gardens. She’s even started to feel like she knows the people who live in one of the houses. “Jess and Jason,” she calls them. Their life—as she sees it—is perfect. If only Rachel could be that happy. And then she sees something shocking. It’s only a minute until the train moves on, but it’s enough. Now everything’s changed. Now Rachel has a chance to become a part of the lives she’s only watched from afar. Now they’ll see; she’s much more than just the girl on the train...',
@@ -531,33 +568,33 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		CAST(N'2022-05-01T05:52:10.323' AS DateTime), null,  1),
 		(6, N'The Shining',6, CAST(12.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1353277730l/11588.jpg', N'Jack Torrance''s new job at the Overlook Hotel is the perfect chance for a fresh start. As the off-season caretaker at the atmospheric old hotel, he''ll have plenty of time to spend reconnecting with his family and working on his writing. But as the harsh winter weather sets in, the idyllic location feels ever more remote...and more sinister. And the only one to notice the strange and terrible forces gathering around the Overlook is Danny Torrance, a uniquely gifted five-year-old.',  
 		CAST(N'2022-06-01T05:52:10.323' AS DateTime), null, 1),
-		(7, N'It',6, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1334416842l/830502.jpg', N'Welcome to Derry, Maine ...<br>
-		It’s a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real ...<br>
+		(7, N'It',6, CAST(10.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1334416842l/830502.jpg', N'Welcome to Derry, Maine ...
+		It’s a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real ...
 		They were seven teenagers when they first stumbled upon the horror. Now they are grown-up men and women who have gone out into the big world to gain success and happiness. But none of them can withstand the force that has drawn them back to Derry to face the nightmare without an end, and the evil without a name.',  
 		CAST(N'2022-07-01T05:52:10.323' AS DateTime), null, 1),
 		(8, N'A Game Of Thrones: A Song of Ice and Fire', 7, CAST(13.99 AS Decimal(10, 2)), 0, N'https://m.media-amazon.com/images/P/0553386794.01._SCLZZZZZZZ_SX500_.jpg', N'Long ago, in a time forgotten, a preternatural event threw the seasons out of balance. In a land where summers can last decades and winters a lifetime, trouble is brewing. The cold is returning, and in the frozen wastes to the north of Winterfell, sinister and supernatural forces are massing beyond the kingdom’s protective Wall. At the center of the conflict lie the Starks of Winterfell, a family as harsh and unyielding as the land they were born to. Sweeping from a land of brutal cold to a distant summertime kingdom of epicurean plenty, here is a tale of lords and ladies, soldiers and sorcerers, assassins and bastards, who come together in a time of grim omens.
-		<br>
+		
 		Here an enigmatic band of warriors bear swords of no human metal; a tribe of fierce wildlings carry men off into madness; a cruel young dragon prince barters his sister to win back his throne; and a determined woman undertakes the most treacherous of journeys. Amid plots and counterplots, tragedy and betrayal, victory and terror, the fate of the Starks, their allies, and their enemies hangs perilously in the balance, as each endeavors to win that deadliest of conflicts: the game of thrones.', 
 		CAST(N'2022-08-01T05:52:10.323' AS DateTime), null, 1),
 		(9, N'The Hunger Games',8, CAST(15.00 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1586722975l/2767052.jpg', N'Could you survive on your own in the wild, with every one out to make sure you don''t live to see the morning?
-		<br>
+		
 		In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.
-		<br>
+		
 		Sixteen-year-old Katniss Everdeen, who lives alone with her mother and younger sister, regards it as a death sentence when she steps forward to take her sister''s place in the Games. But Katniss has been close to dead before—and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weight survival against humanity and life against love.',
 		CAST(N'2022-09-01T05:52:10.323' AS DateTime), null,  1),
-		(10,N'The Time Machine',9, CAST(12.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg', N'“I’ve had a most amazing time....”<br>
+		(10,N'The Time Machine',9, CAST(12.50 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg', N'“I’ve had a most amazing time....”
 		So begins the Time Traveller’s astonishing firsthand account of his journey 800,000 years beyond his own era—and the story that launched H.G. Wells’s successful career and earned him his reputation as the father of science fiction. With a speculative leap that still fires the imagination, Wells sends his brave explorer to face a future burdened with our greatest hopes...and our darkest fears. A pull of the Time Machine’s lever propels him to the age of a slowly dying Earth.  There he discovers two bizarre races—the ethereal Eloi and the subterranean Morlocks—who not only symbolize the duality of human nature, but offer a terrifying portrait of the men of tomorrow as well.  Published in 1895, this masterpiece of invention captivated readers on the threshold of a new century.', 
 		CAST(N'2022-09-02T05:52:10.323' AS DateTime), null, 1),
 		(11, N'Outlander', 10, CAST(13.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1529065012l/10964._SY475_.jpg', N'The year is 1945. Claire Randall, a former combat nurse, is just back from the war and reunited with her husband on a second honeymoon when she walks through a standing stone in one of the ancient circles that dot the British Isles. Suddenly she is a Sassenach—an “outlander”—in a Scotland torn by war and raiding border clans in the year of Our Lord...1743.
-		<br>
+		
 		Hurled back in time by forces she cannot understand, Claire is catapulted into the intrigues of lairds and spies that may threaten her life, and shatter her heart. For here James Fraser, a gallant young Scots warrior, shows her a love so absolute that Claire becomes a woman torn between fidelity and desire—and between two vastly different men in two irreconcilable lives.', 
 		CAST(N'2022-09-03T05:52:10.323' AS DateTime), null, 1),
 		(12, N'All the Light We Cannot See', 11, CAST(10.99 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1451445646l/18143977.jpg', N'Marie-Laure lives in Paris near the Museum of Natural History, where her father works. When she is twelve, the Nazis occupy Paris and father and daughter flee to the walled citadel of Saint-Malo, where Marie-Laure’s reclusive great uncle lives in a tall house by the sea. With them they carry what might be the museum’s most valuable and dangerous jewel.
-		<br>In a mining town in Germany, Werner Pfennig, an orphan, grows up with his younger sister, enchanted by a crude radio they find that brings them news and stories from places they have never seen or imagined. Werner becomes an expert at building and fixing these crucial new instruments and is enlisted to use his talent to track down the resistance. Deftly interweaving the lives of Marie-Laure and Werner, Doerr illuminates the ways, against all odds, people try to be good to one another.',
+		In a mining town in Germany, Werner Pfennig, an orphan, grows up with his younger sister, enchanted by a crude radio they find that brings them news and stories from places they have never seen or imagined. Werner becomes an expert at building and fixing these crucial new instruments and is enlisted to use his talent to track down the resistance. Deftly interweaving the lives of Marie-Laure and Werner, Doerr illuminates the ways, against all odds, people try to be good to one another.',
 		CAST(N'2022-09-03T05:52:10.323' AS DateTime), null, 1),
 		(13, N'Fullmetal Alchemist, Vol. 1', 12 , CAST(9.35 AS Decimal(10, 2)), CAST(30 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388179331l/870.jpg', N'Breaking the laws of nature is a serious crime!
-		<br>In an alchemical ritual gone wrong, Edward Elric lost his arm and his leg, and his brother Alphonse became nothing but a soul in a suit of armor. Equipped with mechanical “auto-mail” limbs, Edward becomes a state alchemist, seeking the one thing that can restore his and his brother’s bodies...the legendary Philosopher’s Stone.
-		<br>Alchemy: the mystical power to alter the natural world; something between magic, art and science. When two brothers, Edward and Alphonse Elric, dabbled in this power to grant their dearest wish, one of them lost an arm and a leg…and the other became nothing but a soul locked into a body of living steel. Now Edward is an agent of the government, a slave of the military-alchemical complex, using his unique powers to obey orders…even to kill. Except his powers aren''t unique. The world has been ravaged by the abuse of alchemy. And in pursuit of the ultimate alchemical treasure, the Philosopher''s Stone, their enemies are even more ruthless than they are…', 
+		In an alchemical ritual gone wrong, Edward Elric lost his arm and his leg, and his brother Alphonse became nothing but a soul in a suit of armor. Equipped with mechanical “auto-mail” limbs, Edward becomes a state alchemist, seeking the one thing that can restore his and his brother’s bodies...the legendary Philosopher’s Stone.
+		Alchemy: the mystical power to alter the natural world; something between magic, art and science. When two brothers, Edward and Alphonse Elric, dabbled in this power to grant their dearest wish, one of them lost an arm and a leg…and the other became nothing but a soul locked into a body of living steel. Now Edward is an agent of the government, a slave of the military-alchemical complex, using his unique powers to obey orders…even to kill. Except his powers aren''t unique. The world has been ravaged by the abuse of alchemy. And in pursuit of the ultimate alchemical treasure, the Philosopher''s Stone, their enemies are even more ruthless than they are…', 
 		CAST(N'2022-09-04T05:52:10.323' AS DateTime), null, 1),
 		(14,N'Death Note, Vol. 1: Boredom',13, CAST(10.40 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1419952134l/13615.jpg', N'Light Yagami is an ace student with great prospects - and he''s bored out of his mind. But all that changes when he finds the Death Note, a notebook dropped by a rogue Shinigami, a death god. Any human whose name is written in the notebook dies, and now Light has vowed to use the power of the Death Note to rid the world of evil. But when criminals begin dropping dead, the authorities send the legendary detective L to track down the killer. With L hot on his heels, will Light lose sight of his noble goal... or his life?', 
 		CAST(N'2022-09-05T05:52:10.323' AS DateTime), null, 1),
@@ -566,10 +603,10 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		(16, N'Classroom of the Elite Vol. 1', 15, CAST(9.69 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1540974678l/41085104.jpg', N'Students of the prestigious Tokyo Metropolitan Advanced Nurturing High School are given remarkable freedom—if they can win, barter, or save enough points to work their way up the ranks! Ayanokoji Kiyotaka has landed at the bottom in the scorned Class D, where he meets Horikita Suzune, who’s determined to rise up the ladder to Class A. Can they beat the system in a school where cutthroat competition is the name of the game?',
 		CAST(N'2022-09-09T05:52:10.323' AS DateTime), null, 1),
 		(17, N'Dị Thế Tà Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyento.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
-		<br>Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
-		<br>Trong một lần tranh đoạt cổ vật với những phe cánh hắc đạo, tính mạng của y gặp phải nguy hiểm tột cùng khi rơi vào vòng vây phục kích. Trong cái rủi lại có cái may, chính lúc này, những món bảo vật huyền bí mà hắn tranh đoạt đã phát tỏa huyền năng đưa hắn trở về thế giới cổ đại, nơi mà pháp luật chỉ mang tính tượng trưng và chân lý chỉ thuộc về kẻ mạnh.
-		<br>Sống trong thế giới nhiễu nhương này, liệu rằng những kỹ năng của một sát thủ có giúp hắn yên ổn tồn tại…?
-		<br>Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		Trong một lần tranh đoạt cổ vật với những phe cánh hắc đạo, tính mạng của y gặp phải nguy hiểm tột cùng khi rơi vào vòng vây phục kích. Trong cái rủi lại có cái may, chính lúc này, những món bảo vật huyền bí mà hắn tranh đoạt đã phát tỏa huyền năng đưa hắn trở về thế giới cổ đại, nơi mà pháp luật chỉ mang tính tượng trưng và chân lý chỉ thuộc về kẻ mạnh.
+		Sống trong thế giới nhiễu nhương này, liệu rằng những kỹ năng của một sát thủ có giúp hắn yên ổn tồn tại…?
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
 		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 1)
 
 SET IDENTITY_INSERT [dbo].[Story] OFF
@@ -611,18 +648,18 @@ INSERT [dbo].[Category] ([category_id],[category_name])
 		(1, N'Manhwa'),
 		(2, N'Manhua'), 
 		(3, N'Manga'), 
-		(4, N'Short Story'), 
-		(5, N'Novel'), 
+		(4, N'Truyện ngắn'), 
+		(5, N'Tiểu thuyết'), 
 		(6, N'Comedy'), 
-		(7, N'Horror'), 
-		(8, N'Action'), 
-		(9, N'Adventure'),
-		(10, N'Romance'), 
-		(11, N'Fantasy'), 
-		(12, N'Mystery'), 
-		(13, N'Science Fiction'),
-		(14, N'English'), 
-		(15, N'Vietnamese')
+		(7, N'Kinh dị'), 
+		(8, N'Hành động'), 
+		(9, N'Phiêu lưu'),
+		(10, N'Lãng mạn'), 
+		(11, N'Viễn tưởng'), 
+		(12, N'Bí ẩn'), 
+		(13, N'Khoa học'),
+		(14, N'Tiếng anh'), 
+		(15, N'Tiếng Việt')
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
@@ -630,9 +667,9 @@ GO
 SET IDENTITY_INSERT [dbo].[Chapter] ON 
 GO
 
-INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
 	VALUES
-		(1, 1, 1, 5, N'NICK DUNNE',CAST(N'2022-01-01T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+		(1, 1, 1, 1, 5, N'NICK DUNNE',CAST(N'2022-01-01T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 		I’d know her head anywhere.
 		And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
 		My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.
@@ -671,7 +708,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		The river wasn’t swollen now, but it was running urgently, in strong ropy currents. Moving apace with the river was a long single-file line of men, eyes aimed at their feet, shoulders tense, walking steadfastly nowhere. As I watched them, one suddenly looked up at me, his face in shadow, an oval blackness. I turned away.
 		I felt an immediate, intense need to get inside. By the time I’d gone twenty feet, my neck bubbled with sweat. The sun was still an angry eye in the sky. You have been seen.
 		My gut twisted, and I moved quicker. I needed a drink.'),
-		(2, 1, 1, 5, N'AMY ELLIOTT JANUARY 8, 2005',CAST(N'2022-01-02T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
+		(2, 2, 1, 1, 5, N'AMY ELLIOTT JANUARY 8, 2005',CAST(N'2022-01-02T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
 		Tra and la! I am smiling a big adopted-orphan smile as I write this. I am embarrassed at how happy I am, like some Technicolor comic of a teenage girl talking on the phone with my hair in a ponytail, the bubble above my head saying: I met a boy!
 		But I did. This is a technical, empirical truth. I met a boy, a great, gorgeous dude, a funny, cool-ass guy. Let me set the scene, because it deserves setting for posterity (no, please, I’m not that far gone, posterity! feh). But still. It’s not New Year’s, but still very much the new year. It’s winter: early dark, freezing cold.
 		Carmen, a newish friend – semi-friend, barely friend, the kind of friend you can’t cancel on – has talked me into going out to Brooklyn, to one of her writers’ parties. Now, I like a writer party, I like writers, I am the child of writers, I am a writer. I still love scribbling that word – WRITER – any time a form, questionnaire, document asks for my occupation. Fine, I write personality quizzes, I don’t write about the Great Issues of the Day, but I think it’s fair to say I am a writer. I’m using this journal to get better: to hone my skills, to collect details and observations. To show don’t tell and all that other writery crap. (Adopted-orphan smile, I mean, that’s not bad, come on.) But really, I do think my quizzes alone qualify me on at least an honorary basis. Right?
@@ -694,7 +731,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		He doesn’t act that way, though. His name is Nick. I love it. It makes him seem nice, and regular, which he is. When he tells me his name, I say, ‘Now, that’s a real name.’ He brightens and reels off some line: ‘Nick’s the kind of guy you can drink a beer with, the kind of guy who doesn’t mind if you puke in his car. Nick!’
 		He makes a series of awful puns. I catch three fourths of his movie references. Two thirds, maybe. (Note to self: Rent The Sure Thing.) He refills my drink without me having to ask, somehow ferreting out one last cup of the good stuff. He has claimed me, placed a flag in me: I was here first, she’s mine, mine. It feels nice, after my recent series of nervous, respectful post-feminist men, to be a territory. He has a great smile, a cat’s smile. He should cough out yellow Tweety Bird feathers, the way he smiles at me. He doesn’t ask what I do for a living, which is fine, which is a change. (I’m a writer, did I mention?) He talks to me in his river-wavy Missouri accent; he was born and raised outside of Hannibal, the boyhood home of Mark Twain, the inspiration for Tom Sawyer. He tells me he worked on a steamboat when he was a teenager, dinner and jazz for the tourists. And when I laugh (bratty, bratty New York girl who has never ventured to those big unwieldy middle states, those States Where Many Other People Live), he informs me that Missoura is a magical place, the most beautiful in the world, no state more glorious. His eyes are mischievous, his lashes are long. I can see what he looked like as a boy.
 		We share a taxi home, the streetlights making dizzy shadows and the car speeding as if we’re being chased. It is one a.m. when we hit one of New York’s unexplained deadlocks twelve blocks from my apartment, so we slide out of the taxi into the cold, into the great What Next? and Nick starts walking me home, his hand on the small of my back, our faces stunned by the chill. As we turn the corner, the local bakery is getting its powdered sugar delivered, funneled into the cellar by the barrelful as if it were cement, and we can see nothing but the shadows of the deliverymen in the white, sweet cloud. The street is billowing, and Nick pulls me close and smiles that smile again, and he takes a single lock of my hair between two fingers and runs them all the way to the end, tugging twice, like he’s ringing a bell. His eyelashes are trimmed with powder, and before he leans in, he brushes the sugar from my lips so he can taste me.')
-		,(3, 1, 2, 5, N'NICK DUNNE',CAST(N'2022-01-03T05:52:10.323' AS DateTime),null, 1, N'I swung wide the door of my bar, slipped into the darkness, and took my first real deep breath of the day, took in the smell of cigarettes and beer, the spice of a dribbled bourbon, the tang of old popcorn. There was only one customer in the bar, sitting by herself at the far, far end: an older woman named Sue who had come in every Thursday with her husband until he died three months back. Now she came alone every Thursday, never much for conversation, just sitting with a beer and a crossword, preserving a ritual.
+		,(3, 3, 1, 2, 5, N'NICK DUNNE',CAST(N'2022-01-03T05:52:10.323' AS DateTime),null, 1, N'I swung wide the door of my bar, slipped into the darkness, and took my first real deep breath of the day, took in the smell of cigarettes and beer, the spice of a dribbled bourbon, the tang of old popcorn. There was only one customer in the bar, sitting by herself at the far, far end: an older woman named Sue who had come in every Thursday with her husband until he died three months back. Now she came alone every Thursday, never much for conversation, just sitting with a beer and a crossword, preserving a ritual.
 		My sister was at work behind the bar, her hair pulled back in nerdy-girl barrettes, her arms pink as she dipped the beer glasses in and out of hot suds. Go is slender and strange-faced, which is not to say unattractive. Her features just take a moment to make sense: the broad jaw; the pinched, pretty nose; the dark globe eyes. If this were a period movie, a man would tilt back his fedora, whistle at the sight of her, and say, ‘Now, there’s a helluva broad!’ The face of a ’30s screwball-movie queen doesn’t always translate in our pixie-princess times, but I know from our years together that men like my sister, a lot, which puts me in that strange brotherly realm of being both proud and wary.
 		‘Do they still make pimento loaf?’ she said by way of greeting, not looking up, just knowing it was me, and I felt the relief I usually felt when I saw her: Things might not be great, but things would be okay.
 		My twin, Go. I’ve said this phrase so many times, it has become a reassuring mantra instead of actual words: Mytwingo. We were born in the ’70s, back when twins were rare, a bit magical: cousins of the unicorn, siblings of the elves. We even have a dash of twin telepathy. Go is truly the one person in the entire world I am totally myself with. I don’t feel the need to explain my actions to her. I don’t clarify, I don’t doubt, I don’t worry. I don’t tell her everything, not anymore, but I tell her more than anyone else, by far. I tell her as much as I can. We spent nine months back to back, covering each other. It became a lifelong habit. It never mattered to me that she was a girl, strange for a deeply self-conscious kid. What can I say? She was always just cool.
@@ -783,7 +820,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		‘Amy!’
 		She wasn’t on the water, she wasn’t in the house. Amy was not there.
 		Amy was gone.'),
-		(4, 1, 2, 5, N'Amy Elliott September 18, 2005',CAST(N'2022-01-05T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
+		(4, 4, 1, 2, 5, N'Amy Elliott September 18, 2005',CAST(N'2022-01-05T05:52:10.323' AS DateTime),null, 1, N'– Diary entry –
 		Well, well, well. Guess who’s back? Nick Dunne, Brooklyn party boy, sugar-cloud kisser, disappearing act. Eight months, two weeks, couple of days, no word, and then he resurfaces, like it was all part of the plan. Turns out, he’d lost my phone number. His cell was out of juice, so he’d written it on a stickie. Then he’d tucked the stickie into his jeans pocket and put the jeans in the washer, and it turned the stickie into a piece of cyclone-shaped pulp. He tried to unravel it but could only see a 3 and an 8. (He said.)
 		And then work clobbered him and suddenly it was March and too embarrassingly late to try to find me. (He said.)
 		Of course I was angry. I had been angry. But now I’m not. Let me set the scene. (She said.) Today. Gusty September winds. I’m walking along Seventh Avenue, making a lunchtime contemplation of the sidewalk bodega bins – endless plastic containers of cantaloupe and honeydew and melon perched on ice like the day’s catch – and I could feel a man barnacling himself to my side as I sailed along, and I corner-eyed the intruder and realized who it was. It was him. The boy in ‘I met a boy!’
@@ -828,7 +865,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		So I know I am right not to settle, but it doesn’t make me feel better as my friends pair off and I stay home on Friday night with a bottle of wine and make myself an extravagant meal and tell myself, This is perfect, as if I’m the one dating me. As I go to endless rounds of parties and bar nights, perfumed and sprayed and hopeful, rotating myself around the room like some dubious dessert. I go on dates with men who are nice and good-looking and smart – perfect-on-paper men who make me feel like I’m in a foreign land, trying to explain myself, trying to make myself known. Because isn’t that the point of every relationship: to be known by someone else, to be understood? He gets me. She gets me. Isn’t that the simple magic phrase?
 		So you suffer through the night with the perfect-on-paper man – the stutter of jokes misunderstood, the witty remarks lobbed and missed. Or maybe he understands that you’ve made a witty remark but, unsure of what to do with it, he holds it in his hand like some bit of conversational phlegm he will wipe away later. You spend another hour trying to find each other, to recognise each other, and you drink a little too much and try a little too hard. And you go home to a cold bed and think, That was fine. And your life is a long line of fine.
 		And then you run into Nick Dunne on Seventh Avenue as you’re buying diced cantaloupe, and pow, you are known, you are recognised, the both of you. You both find the exact same things worth remembering. (Just one olive, though). You have the same rhythm. Click. You just know each other. All of a sudden you see reading in bed and waffles on Sunday and laughing at nothing and his mouth on yours. And it’s so far beyond fine that you know you can never go back to fine. That fast. You think: Oh, here is the rest of my life. It’s finally arrived.')
-		,(5, 1, 3, 0, N'Nick Dunne',CAST(N'2022-01-06T05:52:10.323' AS DateTime),null, 0, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
+		,(5, 5, 1, 3, 0, N'Nick Dunne',CAST(N'2022-01-06T05:52:10.323' AS DateTime),null, 0, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
 		I didn’t expect her to. I’d tell the police: Amy would never have left the house with the teakettle on. Or the door open. Or anything waiting to be ironed. The woman got shit done, and she was not one to abandon a project (say, her fixer-upper husband, for instance), even if she decided she didn’t like it. She’d made a grim figure on the Fiji beach during our two-week honeymoon, battling her way through a million mystical pages of The Wind-Up Bird Chronicle, casting pissy glances at me as I devoured thriller after thriller. Since our move back to Missouri, the loss of her job, her life had revolved (devolved?) around the completion of endless tiny, inconsequential projects. The dress would have been ironed.
 		And there was the living room, signs pointing to a struggle. I already knew Amy wasn’t phoning back. I wanted the next part to start.
 		It was the best time of day, the July sky cloudless, the slowly setting sun a spotlight on the east, turning everything golden and lush, a Flemish painting. The police rolled up. It felt casual, me sitting on the steps, an evening bird singing in the tree, these two cops getting out of their car at a leisurely pace, as if they were dropping by a neighborhood picnic. Kid cops, mid-twenties, confident and uninspired, accustomed to soothing worried parents of curfew-busting teens. A Hispanic girl, her hair in a long dark braid, and a black guy with a marine’s stance. Carthage had become a bit (a very tiny bit) less Caucasian while I was away, but it was still so severely segregated that the only people of color I saw in my daily routine tended to be occupational roamers: delivery men, medics, postal workers. Cops. (‘This place is so white, it’s disturbing,’ said Amy, who, back in the melting pot of Manhattan, counted a single African-American among her friends. I accused her of craving ethnic window dressing, minorities as backdrops. It did not go well.)
@@ -901,7 +938,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		‘Five, big one. Let me guess, reservations at Houston’s?’ Gilpin asked. It was the only upscale restaurant in town. You all really need to try Houston’s, my mom had said when we moved back, thinking it was Carthage’s unique little secret, hoping it might please my wife.
 		‘Of course, Houston’s.’
 		It was my fifth lie to the police. I was just starting.')
-		,(6, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
+		,(6, 1, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
 			N'Hắn thậm chí còn chưa kịp mở mắt nhưng tay phải theo bản năng vỗ một cái xuống
 			đất nhảy lên. Đây là một nơi phức tạp, sự sống và cái chết luôn cận kề nhau,
 			vì vậy không thể ở lâu!
@@ -975,7 +1012,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			Còn tại sao sư phụ hắn lại phải chịu quả đắng.....
 			Đó là bởi vì ngày đó hắn gọi tất cả sư huynh muội tới cửa WC, còn mới cả mấy
 			vị mỹ nữ tới tham quan nữa...............')
-			,(7, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
+			,(7, 2, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-06T05:52:10.323' AS DateTime),null, 1, 
 			N'Nhưng mà hắn cho rằng thiếu sót lớn nhất của bản thân chính là hắn thật sự rất
 			có lòng thương yêu. Làm một sát thủ, hơn nữa là một sát thủ hàng đầu hai tay
 			dính đầy máu tươi nên những lời này từng khiến vô số người khịt mũi khinh bỉ.
@@ -1087,7 +1124,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			bổn đại gia lại đứng trên đỉnh của thế giới!”
 			Sau khi quyết định xong, Quân Tà lúc này mới để ý tới mình giờ đang ở một thế
 			giới có vẻ hoàn toàn xa lạ!')
-			,(8, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-07T05:52:10.323' AS DateTime),null, 1, 
+			,(8, 3, 17, 4, 0, N'Tà quân Quân Tà',CAST(N'2023-10-07T05:52:10.323' AS DateTime),null, 1, 
 			N'Ở đây sao lại không giống địa cầu mà mình quen thuộc vậy? Mình ở đây thực sự
 			không quen, cái gì cũng không biết, cái gì cũng không hiểu. Với cả phép tắc
 			của thế giới này là gì? Và thế giới này có những cái gì?
@@ -1173,7 +1210,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			bối rối nháy nháy liên tục. Hai chân một trước một sau, thân thể nhỏ nhắn hơi
 			nghiêng nghiêng, bộ dáng chuẩn bị để bất cứ lúc nào cũng có thể co chân chạy
 			trốn.')
-			,(9, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-19T05:52:10.323' AS DateTime),null, 1, 
+			,(9, 4, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-19T05:52:10.323' AS DateTime),null, 1, 
 			N'Trách không được tại sao ngươi bị xuyên việt. Ngoại hiệu trước kia của ta là
 			Tà Quân tên là Quân Tà mà ngươi được gọi là Mạc Tà. Điều này không phải là
 			xung khắc trời sinh sao? Ngươi không oan nha.
@@ -1252,7 +1289,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			lược vô cùng cao minh mà cũng chính là một trong những Huyền cấp cao thủ tại
 			Thiên Hương Quốc. Tính cách trầm ổn kiên nghị, buồn vui không biểu lộ ra
 			ngoài.')
-			,(10, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-20T05:52:10.323' AS DateTime),null, 1, 
+			,(10, 5, 17, 5, 0, N'Quân Mạc Tà',CAST(N'2023-10-20T05:52:10.323' AS DateTime),null, 1, 
 			N'Chỉ cần một câu "xuất thân nghèo khổ, thiếu niên làm tướng" có thể nhìn ra
 			được một hài tử nghèo khổ như nhau thì mấy ai làm được vị trí tướng quân này?
 			Càng huống chi làm tướng từ khi trẻ...
@@ -1309,7 +1346,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			nhiên lơ đễnh như đã đoán trước rồi. Mơ hồ có thái độ lạnh lùng.
 			Ta không nhìn lầm chứ? Quân lão gia tử không thể tin được đứa cháu yếu kém của
 			mình có thái độ như vậy.')
-			,(11, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-21T05:52:10.323' AS DateTime),null, 1, 
+			,(11, 6, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-21T05:52:10.323' AS DateTime),null, 1, 
 			N'Quân Chiến Thiên nhìn Quân Tà thật sâu, giọng nói mang vẻ bi thương nhàn nhạt.
 			Dù tên tiểu tử này có quậy phá, có là một tên bất thành khí đi chăng nữa, hắn
 			vẫn là con cháu của lão, hơn nữa còn là huyết mạch duy nhất của gia tộc. Mặc
@@ -1418,7 +1455,7 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 			Trong sảnh hoàn toàn vắng lặng đột nhiên vang lên một âm thanh lãng đãng, như
 			có như không:
 			- Rõ!')
-			,(12, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-24T05:52:10.323' AS DateTime),null, 1, 
+			,(12, 7, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-24T05:52:10.323' AS DateTime),null, 1, 
 			N'Quân Tà bước ra ngoài, hắn khẽ nhắm mắt cảm nhận ánh mặt trời ấm áp đang dịu
 			dàng tỏa nắng trên cao. Từng vầng sáng ấm áp nhẹ nhàng ôm ấp, sưởi ấm thân
 			hình và khuôn mặt có phần tiều tụy của hắn, Quân Tà chậm rãi đi về phía tiểu
@@ -1465,9 +1502,9 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 		DECLARE @Counter_Volume INT = 7;
 		WHILE @Counter_Story <= 12 -- Set the end condition
 		BEGIN
-			INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
 				VALUES
-					(@Counter_Chapter, @Counter_Story, @Counter_Volume, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+					(@Counter_Chapter, 1, @Counter_Story, @Counter_Volume, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.
 					And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
 					My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.
@@ -1514,6 +1551,102 @@ INSERT [dbo].[Chapter]([chapter_id],[story_id],[volume_id],[chapter_price],[chap
 
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
 GO
+
+SET IDENTITY_INSERT [dbo].[Comment] ON
+GO
+
+DECLARE @CommentId INT = 1; -- Start comment_id from 1
+DECLARE @UserId INT = 2; -- Start user_id from 1
+DECLARE @StoryId INT = 1; -- Start story_id from 1
+
+WHILE @UserId <= 20 -- End user_id at 20
+BEGIN
+    WHILE @StoryId <= 17 -- End story_id at 17
+    BEGIN
+        INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [issue_id], [comment_content], [comment_date])
+        VALUES (@CommentId, @UserId, @StoryId, null, null, N'Truyện hay quá', CAST(N'2023-09-24' AS Date));
+
+        SET @StoryId = @StoryId + 1; -- Increment story_id
+        SET @CommentId = @CommentId + 1; -- Increment comment_id
+    END
+
+    SET @StoryId = 1; -- Reset story_id to 1
+    SET @UserId = @UserId + 1; -- Increment user_id
+END
+GO
+
+SET IDENTITY_INSERT [dbo].[Comment] OFF
+GO
+
+
+SET IDENTITY_INSERT [dbo].[CommentResponse] ON
+GO
+
+DECLARE @Run INT = 1; -- Start comment_id from 1
+DECLARE @CommentRepId INT = 1; -- Start comment_id from 1
+DECLARE @CommentId INT = 1; -- Start comment_id from 1
+DECLARE @UserId INT = 2; -- Start user_id from 1
+
+WHILE @UserId <= 20 -- End user_id at 20
+BEGIN
+
+	DECLARE @Temp INT = @UserId; -- Start user_id from 1
+    WHILE @Run <= 5 -- End story_id at 17
+    BEGIN
+		INSERT INTO [dbo].[CommentResponse] ([comment_response_id], [user_id], [comment_id], [comment_content], [comment_date])
+		VALUES (@CommentRepId, @Temp, @CommentId, 'I love u', CAST(N'2023-10-24' AS Date));
+
+		SET @Temp = @Temp + 1;
+		SET @Run = @Run + 1;
+		SET @CommentRepId = @CommentRepId + 1; -- Increment story_id
+	END
+
+	SET @CommentId = @CommentId + 1; -- Increment comment_id
+	SET @Run = 1;
+    SET @UserId = @UserId + 1; -- Increment user_id
+END
+GO
+
+SET IDENTITY_INSERT [dbo].[CommentResponse] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[ReportType] ON
+GO
+
+	INSERT INTO [dbo].[ReportType] ([report_type_id], [report_type_content])
+	VALUES 
+		(1, N'Nội dung khiêu dâm'),
+		(2, N'Nội dung bạo lực hoặc phản cảm'),
+		(3, N'Nội dung thù địch hoặc lạm dụng'),
+		(4, N'Quấy rối hoặc bắt nạt'),
+		(5, N'Hành vi có hại hoặc nguy hiểm'),
+		(6, N'Lạm dụng trẻ em'),
+		(7, N'Chủ nghĩa khủng bố'),
+		(8, N'Spam hoặc gây hiểu nhầm'),
+		(9, N'Vi phạm quyền lợi'),
+		(10, N'Vấn đề về phụ đề')
+
+SET IDENTITY_INSERT [dbo].[ReportType] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[ReportContent] ON
+GO
+
+	INSERT INTO [dbo].[ReportContent] ([report_id], [user_id],[report_type_id],[story_id],[chapter_id],[issue_id],[comment_id],[report_content],[report_date],[status])
+	VALUES 
+		(1, 5, 1, 1, null, null, null, N'Truyện không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(2, 12, 7, 1, null, null, null, N'không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(3, 14, 5, 4, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(4, 25, 7, 3, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(5, 5, 8, null, 1, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(6, 24, 10, null, 4, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(7, 16, 3, null, null, null, 3, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(8, 35, 2, null, null, null, 14, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(9, 25, 6, null, null, null, 24, N' không phù hợp', CAST(N'2023-12-24' AS Date),null)
+		
+SET IDENTITY_INSERT [dbo].[ReportContent] OFF
+GO
+
 
 INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 	VALUES 
@@ -1563,13 +1696,14 @@ INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
 	(8,6),(9,6),(15,6),
 	(2,17),(5,17),(8,17),(9,17),(15,17),(23,17)
 
-INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[stage]) VALUES
-	(2,1,1),(3,1,1),(4,1,1),(5,1,1),
-	(2,2,null),(3,2,0),(4,2,null),(9,2,0),
-	(2,3,0),(5,3,0),(9,3,0),(13,3,0),
-	(7,4,null),(10,4,null),
-	(6,5,null),(7,5,null),
-	(8,6,null),(9,6,1)	
+INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[follow],[like]) VALUES
+	(2,1,1,1),(3,1,1,1),(4,1,1,1),(5,1,1,1),
+	(2,2,0,1),(3,2,1,0),(4,2,1,0),(9,2,0,1),
+	(2,3,0,1),(5,3,0,1),(9,3,0,1),(13,3,0,1),
+	(7,4,1,0),(10,4,1,0),
+	(6,5,0,1),(7,5,0,1),
+	(8,6,1,0),(9,6,1,0),
+	(2,17,1,0)	
 
 INSERT INTO [dbo].[Chapter_Owned]([user_id],[chapter_id]) VALUES
 	(2,1),(3,1),(4,1),(8,1),
@@ -1666,28 +1800,37 @@ ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([issue_id])
 REFERENCES [dbo].[Story_Issue] ([issue_id])
 GO
 
-
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([user_id])
+ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([story_id])
+ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([comment_id])
+REFERENCES [dbo].[Comment] ([comment_id])
+GO
+
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([report_type_id])
+REFERENCES [dbo].[ReportType] ([report_type_id])
+GO
+
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([story_id])
 REFERENCES [dbo].[Story] ([story_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([issue_id])
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([issue_id])
 REFERENCES [dbo].[Story_Issue] ([issue_id])
 GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([transaction_id])
-REFERENCES [dbo].[Transaction] ([transaction_id])
-GO
 
-ALTER TABLE [dbo].[Report]  WITH CHECK ADD FOREIGN KEY([comment_id])
+
+ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
 GO
 	
