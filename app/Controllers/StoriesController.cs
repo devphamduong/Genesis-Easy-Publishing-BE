@@ -143,7 +143,6 @@ namespace app.Controllers
             public string StoryTitle { get; set; } = null!;
             public int AuthorId { get; set; }
             public string? StoryDescription { get; set; }
-
             public List<int> CategoryIds { get; set; }
         }
 
@@ -160,9 +159,9 @@ namespace app.Controllers
                     CreateTime = DateTime.Now,
                     Status = 0,
                     StoryPrice = 0,
-                    Categories = _context.Categories.Where(c => addStoryForm.CategoryIds.Contains(c.CategoryId)).ToList()
-                }) ;
-                _context.SaveChanges();     
+                    Categories = await _context.Categories.Where(c => addStoryForm.CategoryIds.Contains(c.CategoryId)).ToListAsync()
+                });
+                _context.SaveChanges();
             }
             catch (Exception)
             {
