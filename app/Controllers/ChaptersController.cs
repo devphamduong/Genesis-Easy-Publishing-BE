@@ -194,7 +194,7 @@ namespace app.Controllers
         }
 
         [HttpGet("chapter_content/{storyid}/{chapterNumber}")]
-        public async Task<ActionResult> GetChapterContent(long chapterNum, int storyid)
+        public async Task<ActionResult> GetChapterContent(long chapterNumber, int storyid)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -205,9 +205,9 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            long nextChapterNum = NextChapter(chapterNum, storyid);
+            long nextChapterNum = NextChapter(chapterNumber, storyid);
 
-            var chapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterNumber == chapterNum && c.Status > 0)
+            var chapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterNumber == chapterNumber && c.Status > 0)
                 .Include(c => c.Story)
                 .Include(c => c.Comments)
                 .Select(c => new
@@ -233,7 +233,7 @@ namespace app.Controllers
                     EM = "Chapter is not available"
                 });
             }
-            if (checkPurchase(userId, chapterNum, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
+            if (checkPurchase(userId, chapterNumber, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
             {
                 return _msgService.MsgReturn(0, "Chapter content", chapter);
             }
