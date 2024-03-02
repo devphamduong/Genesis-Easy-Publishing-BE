@@ -175,7 +175,7 @@ namespace app.Controllers
                 EM = "Save chapter successfully"
             });
         }
-        private bool checkPurchase(int? userid, long chapterid, int storyid)
+        private bool checkPurchase(int? userid, long chapterNum, int storyid)
         {
             if (userid == null)
             {
@@ -186,15 +186,15 @@ namespace app.Controllers
             {
                 return false;
             }
-            if (user.Chapters.Any(c => c.ChapterId == chapterid) || user.Stories.Any(s => s.StoryId == storyid))
+            if (user.Chapters.Any(c => c.ChapterNumber == chapterNum && c.StoryId == storyid) || user.Stories.Any(s => s.StoryId == storyid))
             {
                 return true;
             }
             return false;
         }
 
-        [HttpGet("chapter_content/{storyid}/{chapterid}")]
-        public async Task<ActionResult> GetChapterContent(long chapterid, int storyid)
+        [HttpGet("chapter_content/{storyid}/{chapterNumber}")]
+        public async Task<ActionResult> GetChapterContent(long chapterNum, int storyid)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -205,10 +205,9 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            long nextChapterId = NextChapter(chapterid, storyid);
-            long previousChapterId = PreviousChapter(chapterid, storyid);
+            long nextChapterNum = NextChapter(chapterNum, storyid);
 
-            var chapter = await _context.Chapters.Where(c => c.ChapterId == chapterid && c.Status > 0)
+            var chapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterNumber == chapterNum && c.Status > 0)
                 .Include(c => c.Story)
                 .Include(c => c.Comments)
                 .Select(c => new
@@ -216,15 +215,15 @@ namespace app.Controllers
                     Story = new { c.StoryId, c.Story.StoryTitle, c.Story.StoryPrice },
                     Content = c.ChapterContent,
                     ChapterId = c.ChapterId,
+                    ChapterNumber = c.ChapterNumber,
                     ChapterTitle = c.ChapterTitle,
                     ChapterPrice = c.ChapterPrice,
                     CreateTime = c.CreateTime,
                     UpdateTime = c.UpdateTime,
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
-                    NextChapterId = nextChapterId,
-                    PreviousChapterId = previousChapterId
-                }).FirstOrDefaultAsync();
+                    NextChapterNumber = nextChapterNum
+                }).FirstOrDefault();
 
             if (chapter == null)
             {
@@ -234,7 +233,7 @@ namespace app.Controllers
                     EM = "Chapter is not available"
                 });
             }
-            if (checkPurchase(userId, chapterid, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
+            if (checkPurchase(userId, chapterNum, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
             {
                 return _msgService.MsgReturn(0, "Chapter content", chapter);
             }
@@ -249,13 +248,13 @@ namespace app.Controllers
             }
         }
 
-        private long NextChapter(long currentChapterId, int storyid)
+        private long NextChapter(long currentChapterNumber, int storyid)
         {
-            var nextChapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterId > currentChapterId && c.Status > 0)
-                              .OrderBy(c => c.ChapterId)
+            var nextChapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterNumber > currentChapterNumber && c.Status > 0)
+                              .OrderBy(c => c.ChapterNumber)
                                 .Select(c => new
                                 {
-                                    ChapterId = c.ChapterId
+                                    ChapterNumber = c.ChapterNumber
                                 })
                               .FirstOrDefault();
 
@@ -263,28 +262,7 @@ namespace app.Controllers
             {
                 return -1;
             }
-            return nextChapter.ChapterId;
-           
-        }
-
-        private long PreviousChapter(long currentChapterId, int storyid)
-        {
-            var previousChapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterId < currentChapterId && c.Status > 0)
-                              .OrderBy(c => c.ChapterId)
-                              .Include(c => c.Story)
-                                .Select(c => new
-                                {
-                                    ChapterId = c.ChapterId
-                                })
-                              .FirstOrDefault();
-
-            if (previousChapter == null)
-            {
-                return -1;
-            }
-            return previousChapter.ChapterId;
-        }
-        
-
+            return nextChapter.ChapterNumber;
+        }        
     }
 }
