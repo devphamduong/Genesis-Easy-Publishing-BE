@@ -32,6 +32,15 @@ namespace app.Service
             });
         }
 
+        public JsonResult MsgActionReturn(int success, String msg)
+        {
+            return new JsonResult(new
+            {
+                EC = success,
+                EM = msg,
+            });
+        }
+
 
     }
 }
