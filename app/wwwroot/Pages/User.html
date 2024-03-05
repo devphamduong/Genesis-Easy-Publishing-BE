@@ -1,0 +1,109 @@
+﻿
+<div class="page-inner">
+    <div class="page-header">
+        <h4 class="page-title">User Management</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Basic</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="basic-datatables" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("huy");
+        loadData();
+    });
+
+    function loadData() {
+        fetch('http://localhost:5188/api/Users/getAllUser')
+            .then(response => response.json())
+            .then(data => {
+                updateTable(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    function updateTable(data) {
+        var dataTable = $('#basic-datatables').DataTable();
+        dataTable.clear();
+
+        data.dt.list.forEach(item => {
+            dataTable.row.add([
+                item.userId,
+                item.userFullName,
+                item.email,
+                item.phone,
+                item.address,
+                item.phone
+            ]).draw();
+        });
+    }
+
+
+    //$(document).ready(function () {
+
+    //    var dataTable = $('#basic-datatables').DataTable();
+
+    //    // Fetch data from the server using Ajax
+    //    $.ajax({
+    //        url: 'http://localhost:5188/api/Users?page=1', // Replace with your actual server endpoint
+    //        method: 'GET',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            // Clear existing rows
+    //            dataTable.clear();
+
+    //            // Add new rows
+    //            $.each(data.dt.list, function (index, item) {
+    //                dataTable.row.add([
+    //                    item.userId,
+    //                    item.userFullName,
+    //                    item.email,
+    //                    item.phone,
+    //                    item.address,
+    //                    item.phone
+    //                ]).draw();
+    //            });
+    //        },
+    //        error: function (error) {
+    //            console.error('Error fetching data:', error);
+    //        }
+    //    });
+    //});     
+</script>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mIk3nXf3GqJNExQV2XUVIEh0o5YHxLY/PGxyDXO+3Bo=",
+  "Hash": "1hvgGWcu9IXrCd+fDj4RYVmfHm0+VyuCzOd0XmMULvE=",
   "Source": "app",
   "BasePath": "_content/app",
   "Mode": "Default",
@@ -2361,6 +2361,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Index.html"
+    },
+    {
+      "Identity": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\User.html",
+      "SourceId": "app",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\",
+      "BasePath": "_content/app",
+      "RelativePath": "Pages/User.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Pages\\User.html"
     }
   ]
 }
