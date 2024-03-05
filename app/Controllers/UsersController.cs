@@ -23,6 +23,31 @@ namespace app.Controllers
             _context = context;
         }
 
+        [HttpGet("getAllUser")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            var users = await _context.Users.Where(u => u.UserId > 0)
+               .Include(u => u.Wallets).Include(u => u.StoryIssues)
+               .Include(u => u.Stories)
+               .Select(u => new
+               {
+                   UserId = u.UserId,
+                   UserFullName = u.UserFullname,
+                   Email = u.Email,
+                   Phone = u.Phone,
+                   UserName = u.Username,
+                   PassWord = u.Password,
+                   DoB = u.Dob.ToString(),
+                   UserImage = u.UserImage,
+                   Status = u.Status,
+                   Address = u.Address,
+                   Wallets = u.Wallets.ToList(),
+               })
+               .OrderBy(s => s.UserId) // top famous compare
+               .ToListAsync();
+            return _msgService.MsgReturn(0, "success", users);
+        }
+
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult> GetUsers(int page)
