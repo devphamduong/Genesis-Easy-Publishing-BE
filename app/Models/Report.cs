@@ -31,7 +31,6 @@ public partial class Report
 
     public virtual Comment? Comment { get; set; }
 
-    public virtual StoryIssue? Issue { get; set; }
 
     public virtual Story? Story { get; set; }
 

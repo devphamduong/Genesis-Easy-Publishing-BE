@@ -240,7 +240,7 @@ namespace app.Controllers
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddHours(12),
+                Expires = DateTime.UtcNow.AddHours(24),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
                     SecurityAlgorithms.HmacSha256)
@@ -303,21 +303,18 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var user = _context.Users.Where(u => u.UserId == userId)
-                    .Include(u => u.Wallets)
                     .Select(u => new
                     {
                         UserId = u.UserId,
                         Email = u.Email,
                         Username = u.Username,
-                        Password = u.Password,
                         UserFullname = u.UserFullname,
                         Gender = u.Gender == true ? "Male" : "Female",
                         Dob = u.Dob,
                         Address = u.Address,
                         Phone = u.Phone,
-                        Status = u.Status == true ? 1 : 0,
+                        Status = u.Status == true ? "Active" : "Inactive",
                         UserImage = u.UserImage,
-                        WalletInfo = u.Wallets,
                         DescriptionMarkdown = u.DescriptionMarkdown,
                         DescriptionHTML = u.DescriptionHtml
                     }).FirstOrDefault();
@@ -327,9 +324,7 @@ namespace app.Controllers
                     EM = "Get account successfully",
                     DT = new
                     {
-                        user = user,
-                        access_token = Request.Cookies["access_token"],
-                        jwt = jwtSecurityToken
+                        user = user
                     },
                 });
             }
@@ -484,7 +479,7 @@ namespace app.Controllers
             });
         }
 
-        [HttpPost("edit_profile")]
+        [HttpPut("edit_profile")]
         public IActionResult EditProfile([FromBody] UserProfileForm data)
         {
             var jwtSecurityToken = new JwtSecurityToken();
