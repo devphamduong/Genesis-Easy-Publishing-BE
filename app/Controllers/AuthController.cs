@@ -240,7 +240,7 @@ namespace app.Controllers
                 }),
                 Issuer = _configuration.GetSection("JWTConfig:Issuer").Value!,
                 Audience = _configuration.GetSection("JWTConfig:Audience").Value!,
-                Expires = DateTime.UtcNow.AddHours(12),
+                Expires = DateTime.UtcNow.AddHours(24),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWTConfig:Key").Value!)),
                     SecurityAlgorithms.HmacSha256)
