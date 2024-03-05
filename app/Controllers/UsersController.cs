@@ -27,7 +27,7 @@ namespace app.Controllers
         public async Task<ActionResult> GetAllUsers()
         {
             var users = await _context.Users.Where(u => u.UserId > 0)
-               .Include(u => u.Wallets).Include(u => u.StoryIssues)
+               .Include(u => u.Wallets)
                .Include(u => u.Stories)
                .Select(u => new
                {

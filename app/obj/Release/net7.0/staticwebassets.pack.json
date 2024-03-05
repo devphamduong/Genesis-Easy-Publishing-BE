@@ -529,6 +529,14 @@
       "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\plugins\\_sweetalert.scss"
     },
     {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Index.html",
+      "PackagePath": "staticwebassets\\Index.html"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\User.html",
+      "PackagePath": "staticwebassets\\Pages\\User.html"
+    },
+    {
       "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.app.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
