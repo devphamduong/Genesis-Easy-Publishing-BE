@@ -66,7 +66,6 @@ CLOSE table_cursor
 DEALLOCATE table_cursor
 
 
-
 -- table User
 SET ANSI_NULLS ON
 GO
@@ -292,24 +291,24 @@ CREATE TABLE [dbo].[Chapter_Owned](
 ) ON [PRIMARY]
 GO
 
--- table Story_Issue
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Story_Issue](
-	[issue_id] [int] IDENTITY(1,1) NOT NULL,
-	[user_id] [int] NOT NULL,
-	[story_id] [int] NULL,
-	[issue_title] [nvarchar](100) NOT NULL,
-	[issue_content] [nvarchar](500) NOT NULL,
-	[issue_date] [date] NOT NULL,
-  CONSTRAINT [PK_story_issue] PRIMARY KEY CLUSTERED 
-(
-	[issue_id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+-- -- table Story_Issue
+-- SET ANSI_NULLS ON
+-- GO
+-- SET QUOTED_IDENTIFIER ON
+-- GO
+-- CREATE TABLE [dbo].[Story_Issue](
+-- 	[issue_id] [int] IDENTITY(1,1) NOT NULL,
+-- 	[user_id] [int] NOT NULL,
+-- 	[story_id] [int] NULL,
+-- 	[issue_title] [nvarchar](100) NOT NULL,
+-- 	[issue_content] [nvarchar](500) NOT NULL,
+-- 	[issue_date] [date] NOT NULL,
+--   CONSTRAINT [PK_story_issue] PRIMARY KEY CLUSTERED 
+-- (
+-- 	[issue_id] ASC
+-- )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+-- ) ON [PRIMARY]
+-- GO
 
 -- table Comment
 SET ANSI_NULLS ON
@@ -321,7 +320,7 @@ CREATE TABLE [dbo].[Comment](
 	[user_id] [int] NOT NULL,
 	[story_id] [int] NULL,
 	[chapter_id] [bigint] NULL,
-	[issue_id] [int] NULL,
+	-- [issue_id] [int] NULL,
 	[comment_content] [nvarchar](2000) NOT NULL,
 	[comment_date] [date] NOT NULL,
  CONSTRAINT [PK_comment] PRIMARY KEY CLUSTERED 
@@ -331,23 +330,23 @@ CREATE TABLE [dbo].[Comment](
 ) ON [PRIMARY]
 GO
 
--- table Comment Repsponse
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[CommentResponse](
-	[comment_response_id] [int] IDENTITY(1,1) NOT NULL,
-	[user_id] [int] NOT NULL,
-	[comment_id] [int] NULL,
-	[comment_content] [nvarchar](2000) NOT NULL,
-	[comment_date] [date] NOT NULL,
- CONSTRAINT [PK_commentresponse] PRIMARY KEY CLUSTERED 
-(
-	[comment_response_id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+-- -- table Comment Repsponse
+-- SET ANSI_NULLS ON
+-- GO
+-- SET QUOTED_IDENTIFIER ON
+-- GO
+-- CREATE TABLE [dbo].[CommentResponse](
+-- 	[comment_response_id] [int] IDENTITY(1,1) NOT NULL,
+-- 	[user_id] [int] NOT NULL,
+-- 	[comment_id] [int] NULL,
+-- 	[comment_content] [nvarchar](2000) NOT NULL,
+-- 	[comment_date] [date] NOT NULL,
+--  CONSTRAINT [PK_commentresponse] PRIMARY KEY CLUSTERED 
+-- (
+-- 	[comment_response_id] ASC
+-- )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+-- ) ON [PRIMARY]
+-- GO
 
 -- table ReportType
 SET ANSI_NULLS ON
@@ -375,7 +374,7 @@ CREATE TABLE [dbo].[ReportContent](
 	[report_type_id] [int] NOT NULL,
 	[story_id] [int] NULL,
 	[chapter_id] [bigint] NULL,
-	[issue_id] [int] NULL,
+	-- [issue_id] [int] NULL,
 	[comment_id] [int] NULL,
 	-- [report_title] [nvarchar](100) NOT NULL,
 	[report_content] [nvarchar](2000) NOT NULL,
@@ -1546,8 +1545,8 @@ WHILE @UserId <= 20 -- End user_id at 20
 BEGIN
     WHILE @StoryId <= 17 -- End story_id at 17
     BEGIN
-        INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [issue_id], [comment_content], [comment_date])
-        VALUES (@CommentId, @UserId, @StoryId, null, null, N'Truyện hay quá', CAST(N'2023-09-24' AS Date));
+        INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [comment_content], [comment_date])
+        VALUES (@CommentId, @UserId, @StoryId, null, N'Truyện hay quá', CAST(N'2023-09-24' AS Date));
 
         SET @StoryId = @StoryId + 1; -- Increment story_id
         SET @CommentId = @CommentId + 1; -- Increment comment_id
@@ -1562,36 +1561,36 @@ SET IDENTITY_INSERT [dbo].[Comment] OFF
 GO
 
 
-SET IDENTITY_INSERT [dbo].[CommentResponse] ON
-GO
+-- SET IDENTITY_INSERT [dbo].[CommentResponse] ON
+-- GO
 
-DECLARE @Run INT = 1; -- Start comment_id from 1
-DECLARE @CommentRepId INT = 1; -- Start comment_id from 1
-DECLARE @CommentId INT = 1; -- Start comment_id from 1
-DECLARE @UserId INT = 2; -- Start user_id from 1
+-- DECLARE @Run INT = 1; -- Start comment_id from 1
+-- DECLARE @CommentRepId INT = 1; -- Start comment_id from 1
+-- DECLARE @CommentId INT = 1; -- Start comment_id from 1
+-- DECLARE @UserId INT = 2; -- Start user_id from 1
 
-WHILE @UserId <= 20 -- End user_id at 20
-BEGIN
+-- WHILE @UserId <= 20 -- End user_id at 20
+-- BEGIN
 
-	DECLARE @Temp INT = @UserId; -- Start user_id from 1
-    WHILE @Run <= 5 -- End story_id at 17
-    BEGIN
-		INSERT INTO [dbo].[CommentResponse] ([comment_response_id], [user_id], [comment_id], [comment_content], [comment_date])
-		VALUES (@CommentRepId, @Temp, @CommentId, 'I love u', CAST(N'2023-10-24' AS Date));
+-- 	DECLARE @Temp INT = @UserId; -- Start user_id from 1
+--     WHILE @Run <= 5 -- End story_id at 17
+--     BEGIN
+-- 		INSERT INTO [dbo].[CommentResponse] ([comment_response_id], [user_id], [comment_id], [comment_content], [comment_date])
+-- 		VALUES (@CommentRepId, @Temp, @CommentId, 'I love u', CAST(N'2023-10-24' AS Date));
 
-		SET @Temp = @Temp + 1;
-		SET @Run = @Run + 1;
-		SET @CommentRepId = @CommentRepId + 1; -- Increment story_id
-	END
+-- 		SET @Temp = @Temp + 1;
+-- 		SET @Run = @Run + 1;
+-- 		SET @CommentRepId = @CommentRepId + 1; -- Increment story_id
+-- 	END
 
-	SET @CommentId = @CommentId + 1; -- Increment comment_id
-	SET @Run = 1;
-    SET @UserId = @UserId + 1; -- Increment user_id
-END
-GO
+-- 	SET @CommentId = @CommentId + 1; -- Increment comment_id
+-- 	SET @Run = 1;
+--     SET @UserId = @UserId + 1; -- Increment user_id
+-- END
+-- GO
 
-SET IDENTITY_INSERT [dbo].[CommentResponse] OFF
-GO
+-- SET IDENTITY_INSERT [dbo].[CommentResponse] OFF
+-- GO
 
 SET IDENTITY_INSERT [dbo].[ReportType] ON
 GO
@@ -1615,17 +1614,17 @@ GO
 SET IDENTITY_INSERT [dbo].[ReportContent] ON
 GO
 
-	INSERT INTO [dbo].[ReportContent] ([report_id], [user_id],[report_type_id],[story_id],[chapter_id],[issue_id],[comment_id],[report_content],[report_date],[status])
+	INSERT INTO [dbo].[ReportContent] ([report_id], [user_id],[report_type_id],[story_id],[chapter_id],[comment_id],[report_content],[report_date],[status])
 	VALUES 
-		(1, 5, 1, 1, null, null, null, N'Truyện không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(2, 12, 7, 1, null, null, null, N'không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(3, 14, 5, 4, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(4, 25, 7, 3, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(5, 5, 8, null, 1, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(6, 24, 10, null, 4, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(7, 16, 3, null, null, null, 3, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(8, 35, 2, null, null, null, 14, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(9, 25, 6, null, null, null, 24, N' không phù hợp', CAST(N'2023-12-24' AS Date),null)
+		(1, 5, 1, 1, null, null, N'Truyện không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(2, 12, 7, 1, null, null, N'không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(3, 14, 5, 4, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(4, 25, 7, 3, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(5, 5, 8, null, 1, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(6, 24, 10, null, 4, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(7, 16, 3, null, null, 3, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(8, 35, 2, null, null, 14, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(9, 25, 6, null, null, 24, N' không phù hợp', CAST(N'2023-12-24' AS Date),null)
 		
 SET IDENTITY_INSERT [dbo].[ReportContent] OFF
 GO
@@ -1759,13 +1758,13 @@ ALTER TABLE [dbo].[Chapter_Owned]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([user_id])
-REFERENCES [dbo].[User] ([user_id])
-GO
+-- ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([user_id])
+-- REFERENCES [dbo].[User] ([user_id])
+-- GO
 
-ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([story_id])
-REFERENCES [dbo].[Story] ([story_id])
-GO
+-- ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([story_id])
+-- REFERENCES [dbo].[Story] ([story_id])
+-- GO
 
 ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1779,17 +1778,17 @@ ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([issue_id])
-REFERENCES [dbo].[Story_Issue] ([issue_id])
-GO
+-- ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([issue_id])
+-- REFERENCES [dbo].[Story_Issue] ([issue_id])
+-- GO
 
-ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([user_id])
-REFERENCES [dbo].[User] ([user_id])
-GO
+-- ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([user_id])
+-- REFERENCES [dbo].[User] ([user_id])
+-- GO
 
-ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([comment_id])
-REFERENCES [dbo].[Comment] ([comment_id])
-GO
+-- ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([comment_id])
+-- REFERENCES [dbo].[Comment] ([comment_id])
+-- GO
 
 ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1807,9 +1806,11 @@ ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([issue_id])
-REFERENCES [dbo].[Story_Issue] ([issue_id])
-GO
+-- ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([issue_id])
+-- REFERENCES [dbo].[Story_Issue] ([issue_id])
+-- GO
+
+
 
 ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
