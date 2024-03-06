@@ -31,6 +31,8 @@ public partial class Chapter
 
     public virtual Story Story { get; set; } = null!;
 
+    public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
+
     public virtual Volume Volume { get; set; } = null!;
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();

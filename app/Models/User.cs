@@ -39,6 +39,8 @@ public partial class User
 
     public virtual ICollection<StoryFollowLike> StoryFollowLikes { get; set; } = new List<StoryFollowLike>();
 
+    public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
+
     public virtual ICollection<Wallet> Wallets { get; set; } = new List<Wallet>();
 
     public virtual ICollection<Chapter> Chapters { get; set; } = new List<Chapter>();
