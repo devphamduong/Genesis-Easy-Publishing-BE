@@ -38,7 +38,7 @@ namespace app.Controllers
             return null;
         }
 
-        [HttpGet("story_like")]
+        [HttpPut("story_like")]
         public async Task<ActionResult> LikeStory(int storyid)
         {
             var jwtSecurityToken = new JwtSecurityToken();
@@ -77,7 +77,7 @@ namespace app.Controllers
         }
 
 
-        [HttpGet("story_follow")]
+        [HttpPut("story_follow")]
         public async Task<ActionResult> FollowStory(int storyid)
         {
             var jwtSecurityToken = new JwtSecurityToken();
