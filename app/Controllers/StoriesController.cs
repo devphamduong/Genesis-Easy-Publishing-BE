@@ -139,6 +139,29 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Story Relate", verified.Take(3));
         }
 
+        [HttpGet("GetStoryByAuthor")]
+        public async Task<ActionResult> GetStoryByAuthorId()
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            var story = await _context.Stories.Where(s => s.AuthorId == userId)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    Status = s.Status,
+                    CreateTime = s.CreateTime
+                }).ToListAsync();
+            return _msgService.MsgReturn(0, "List Story", story);
+        }
+
         public class AddStoryForm
         {
             public string StoryTitle { get; set; } = null!;
