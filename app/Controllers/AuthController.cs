@@ -40,12 +40,19 @@ namespace app.Controllers
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
         }
+
+        public class ForgotPasswordForm
+        {
+            public string Email { get; set; }
+        }
+
         public class ResetPasswordForm
         {
             public string Token { get; set; }
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
         }
+
         public class ChangePasswordForm
         {
             public string OldPassword { get; set; }
@@ -339,9 +346,9 @@ namespace app.Controllers
         }
 
         [HttpPost("forgot_password")]
-        public IActionResult SendMailConfirm(string email)
+        public IActionResult SendMailConfirm([FromBody] ForgotPasswordForm data)
         {
-            var user = _context.Users.Where(u => u.Email.Equals(email)).FirstOrDefault();
+            var user = _context.Users.Where(u => u.Email.Equals(data.Email)).FirstOrDefault();
             if (user == null)
             {
                 return new JsonResult(new
@@ -352,8 +359,8 @@ namespace app.Controllers
             }
             try
             {
-                string token = CreateForgotPasswordToken(email);
-                mailService.Send(email,
+                string token = CreateForgotPasswordToken(data.Email);
+                mailService.Send(data.Email,
                         "Easy Publishing: Reset password",
                         "<b>Hi " + user.Username + ",</b>" +
                         "<p>There was a request to reset your password! </p> " +
@@ -479,7 +486,7 @@ namespace app.Controllers
             });
         }
 
-        [HttpPut("edit_profile")]
+        [HttpPut("update_profile")]
         public IActionResult EditProfile([FromBody] UserProfileForm data)
         {
             var jwtSecurityToken = new JwtSecurityToken();

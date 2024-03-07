@@ -302,7 +302,7 @@
       }
     },
     "/api/v1/auth/edit_profile": {
-      "post": {
+      "put": {
         "tags": [
           "Auth"
         ],
@@ -816,7 +816,7 @@
         }
       }
     },
-    "/api/v1/chapters/chapter_content/{storyid}/{chapterid}": {
+    "/api/v1/chapters/chapter_content/{storyid}/{chapterNumber}": {
       "get": {
         "tags": [
           "Chapters"
@@ -824,17 +824,10 @@
         "parameters": [
           {
             "in": "path",
-            "name": "chapterid",
+            "name": "chapterNumber",
             "required": true,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "in": "query",
-            "name": "userid",
-            "type": "integer",
-            "format": "int32",
-            "collectionFormat": "multi"
           },
           {
             "in": "path",
@@ -887,7 +880,7 @@
       }
     },
     "/api/v1/interaction/story_like": {
-      "get": {
+      "put": {
         "tags": [
           "Interactions"
         ],
@@ -908,7 +901,7 @@
       }
     },
     "/api/v1/interaction/story_follow": {
-      "get": {
+      "put": {
         "tags": [
           "Interactions"
         ],
@@ -1627,6 +1620,74 @@
         }
       }
     },
+    "/api/vi/transaction/get_transaction_recharge": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/vi/transaction/get_buy_transaction": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Users/getAllUser": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Users": {
       "get": {
         "tags": [
@@ -2022,6 +2083,12 @@
         "story": {
           "$ref": "#/definitions/Story"
         },
+        "storyReads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoryRead"
+          }
+        },
         "volume": {
           "$ref": "#/definitions/Volume"
         },
@@ -2270,6 +2337,12 @@
         "storyInteraction": {
           "$ref": "#/definitions/StoryInteraction"
         },
+        "storyReads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoryRead"
+          }
+        },
         "volumes": {
           "type": "array",
           "items": {
@@ -2342,6 +2415,37 @@
         },
         "story": {
           "$ref": "#/definitions/Story"
+        }
+      },
+      "additionalProperties": false
+    },
+    "StoryRead": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "storyId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "chapterId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "readTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "chapter": {
+          "$ref": "#/definitions/Chapter"
+        },
+        "story": {
+          "$ref": "#/definitions/Story"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
         }
       },
       "additionalProperties": false
@@ -2459,6 +2563,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/StoryFollowLike"
+          }
+        },
+        "storyReads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoryRead"
           }
         },
         "wallets": {

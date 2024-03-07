@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "M9l/mnNB7udliph2tfnnX0N7SJqObeHL4Y2MbTz1AZg=",
+  "Hash": "Ng3q5GqzeINi2Jurr6QIhC0cysYGGGInfQsmGdxGQwg=",
   "Source": "app",
   "BasePath": "_content/app",
   "Mode": "Default",
@@ -2523,6 +2523,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Assets\\sass\\atlantis\\plugins\\_sweetalert.scss"
+    },
+    {
+      "Identity": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Index.html",
+      "SourceId": "app",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\",
+      "BasePath": "_content/app",
+      "RelativePath": "Index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Index.html"
+    },
+    {
+      "Identity": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\User.html",
+      "SourceId": "app",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\",
+      "BasePath": "_content/app",
+      "RelativePath": "Pages/User.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Pages\\User.html"
     }
   ]
 }
