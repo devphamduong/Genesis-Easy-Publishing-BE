@@ -235,7 +235,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userId, chapterNumber, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn(0, "Chapter content", chapter);
+                return _msgService.MsgReturn(0, "Chapter content", new { chapter, Message = null });
             }
             else
             {
@@ -243,7 +243,7 @@ namespace app.Controllers
                 {
                     EC = 2,
                     EM = "You have to Purchase this chapter first",
-                    DT = chapter
+                    DT = new { chapter, Message = "You have to Purchase this chapter first" }
                 });
             }
         }
