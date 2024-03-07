@@ -243,7 +243,7 @@ namespace app.Controllers
                 {
                     EC = 2,
                     EM = "You have to Purchase this chapter first",
-                    DT = chapter
+                    DT = new { chapter , Message = "You have to Purchase this chapter first" }
                 });
             }
         }
