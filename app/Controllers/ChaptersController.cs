@@ -58,7 +58,7 @@ namespace app.Controllers
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
                 })
-                .OrderByDescending(c => c.ChapterNumber)
+                .OrderBy(c => c.ChapterNumber)
                 .ToListAsync();
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Story Detail Chapter",
@@ -235,7 +235,7 @@ namespace app.Controllers
             }
             if (checkPurchase(userId, chapterNumber, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
             {
-                return _msgService.MsgReturn(0, "Chapter content", new { chapter, Message = null });
+                return _msgService.MsgReturn(0, "Chapter content", new { chapter, Message = "" });
             }
             else
             {
