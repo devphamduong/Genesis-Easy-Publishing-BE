@@ -366,7 +366,7 @@ namespace app.Controllers
                         "<p>There was a request to reset your password! </p> " +
                         "<p>If you did not make this request then please ignore this email.</p> " +
                         "<p>Otherwise, please click this link to reset your password:</p> " +
-                        "<a href =\"https://genesis-easy-publishing.vercel.app/reset-password?token=" + token + "\">Reset password</a>");
+                        "<a href =\"http://localhost:3000/auth/reset-password?token=" + token + "\">Reset password</a>");
             }
             catch (Exception ex)
             {
@@ -490,7 +490,7 @@ namespace app.Controllers
         public IActionResult EditProfile([FromBody] UserProfileForm data)
         {
             var jwtSecurityToken = new JwtSecurityToken();
-            UserDTO userDTO = null;
+            string accessToken = null;
             try
             {
                 jwtSecurityToken = VerifyToken();
@@ -505,6 +505,18 @@ namespace app.Controllers
                 user.DescriptionMarkdown = data.DescriptionMarkdown;
                 user.DescriptionHtml = data.DescriptionHTML;
                 _context.SaveChanges();
+
+                UserDTO userDTO = new UserDTO
+                {
+                    Id = user.UserId,
+                    Email = user.Email,
+                    Username = user.Username,
+                };
+                accessToken = CreateToken(userDTO);
+                var cookieOptions = new CookieOptions();
+                cookieOptions.Expires = DateTime.Now.AddDays(1);
+                cookieOptions.HttpOnly = true;
+                Response.Cookies.Append("access_token", accessToken, cookieOptions);
             }
             catch (Exception)
             {
@@ -518,6 +530,10 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Save profile successfully",
+                DT = new
+                {
+                    access_token = accessToken
+                }
             });
         }
     }
