@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using System.Text;
 
 namespace app.Service
 {
@@ -22,6 +23,23 @@ namespace app.Service
             byte[] hash = Convert.FromBase64String(elements[1]);
             byte[] hashInput = Rfc2898DeriveBytes.Pbkdf2(passwordInput, salt, Iterations, HashAlgorithmName.SHA256, KeySize);
             return CryptographicOperations.FixedTimeEquals(hash, hashInput);
+        }
+
+        public static String HmacSHA512(string key, string inputData)
+        {
+            var hash = new StringBuilder();
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
+            using (var hmac = new HMACSHA512(keyBytes))
+            {
+                byte[] hashValue = hmac.ComputeHash(inputBytes);
+                foreach (var theByte in hashValue)
+                {
+                    hash.Append(theByte.ToString("x2"));
+                }
+            }
+
+            return hash.ToString();
         }
     }
 }
