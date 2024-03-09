@@ -83,7 +83,16 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            string password = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault().Password;
+            var userCheck = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault();
+            if (userCheck == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Wrong username or password",
+                });
+            };
+            string password = userCheck.Password;
             var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
                 UserId = u.UserId,
@@ -99,7 +108,7 @@ namespace app.Controllers
                 DescriptionMarkdown = u.DescriptionMarkdown,
                 DescriptionHTML = u.DescriptionHtml
             }).FirstOrDefault();
-            if (user == null || !hashService.Verify(password, data.Password))
+            if (!hashService.Verify(password, data.Password))
             {
                 return new JsonResult(new
                 {
