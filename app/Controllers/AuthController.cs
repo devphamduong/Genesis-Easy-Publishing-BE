@@ -94,7 +94,7 @@ namespace app.Controllers
                 Dob = u.Dob,
                 Address = u.Address,
                 Phone = u.Phone,
-                Status = u.Status == true ? 1 : 0,
+                Status = u.Status == true ? "Active" : "Inactive",
                 UserImage = u.UserImage,
                 DescriptionMarkdown = u.DescriptionMarkdown,
                 DescriptionHTML = u.DescriptionHtml
