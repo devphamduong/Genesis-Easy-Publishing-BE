@@ -46,7 +46,7 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Report Option", types);
         }
 
-        [HttpPost("story_detail")]
+        [HttpPost("send")]
         public async Task<ActionResult> SendReport(ReportDTO reportDTO)
         {
             var jwtSecurityToken = new JwtSecurityToken();

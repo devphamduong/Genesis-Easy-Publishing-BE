@@ -58,7 +58,7 @@ namespace app.Controllers
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
                 })
-                .OrderByDescending(c => c.ChapterNumber)
+                .OrderBy(c => c.ChapterNumber)
                 .ToListAsync();
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Story Detail Chapter",
@@ -236,6 +236,7 @@ namespace app.Controllers
                 });
             }
             return _msgService.MsgReturn(0, "Chapter content", chapter);
+
         }
 
         private long NextChapter(long currentChapterNumber, int storyid)

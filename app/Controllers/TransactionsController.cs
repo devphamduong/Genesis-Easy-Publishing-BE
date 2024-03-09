@@ -1,10 +1,13 @@
 using app.Models;
 using app.Service;
+using app.Service.VNPayService;
+using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
+using static app.Controllers.AuthController;
 
 namespace app.Controllers
 {
@@ -14,11 +17,30 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MsgService _msgService = new MsgService();
+        private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TransactionsController(EasyPublishingContext context)
+        public TransactionsController(EasyPublishingContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
+
+        public class VNPayRequestForm
+        {
+            public string PaymentContent { get; set; } = string.Empty;
+            public string PaymentCurrency { get; set; } = string.Empty;
+            public string PaymentRefId { get; set; } = string.Empty;
+            public decimal? RequiredAmount { get; set; }
+            public DateTime? PaymentDate { get; set; } = DateTime.Now;
+            public DateTime? ExpireDate { get; set; } = DateTime.Now.AddMinutes(15);
+            public string? PaymentLanguage { get; set; } = string.Empty;
+            public string? MerchantId { get; set; } = string.Empty;
+            public string? PaymentDestinationId { get; set; } = string.Empty;
+            public string? Signature { get; set; } = string.Empty;
+        }
+
         private JwtSecurityToken VerifyToken()
         {
             var tokenCookie = Request.Cookies["access_token"];
@@ -545,6 +567,29 @@ namespace app.Controllers
                     EM = "Not authenticated"
                 });
             }
+        }
+
+        [HttpPost("vnpay_request")]
+        public IActionResult SendVNPayRequest([FromBody] VNPayRequestForm data)
+        {
+            string version = _configuration.GetSection("VNPayConfig:Version").Value;
+            string tmnCode = _configuration.GetSection("VNPayConfig:TmnCode").Value;
+            string hashSecret = _configuration.GetSection("VNPayConfig:HashSecret").Value;
+            string paymentUrl = _configuration.GetSection("VNPayConfig:PaymentUrl").Value;
+
+            var vnpayRequest = new VNPayRequest(version,
+            tmnCode, DateTime.Now, _httpContextAccessor?.HttpContext?.Connection?.LocalIpAddress?.ToString() ?? string.Empty, data.RequiredAmount ?? 0, data.PaymentCurrency ?? string.Empty,
+                              "other", data.PaymentContent ?? string.Empty, "https://localhost:44393/PaymentConfirm", DateTime.Now.Ticks.ToString());
+            paymentUrl = vnpayRequest.GetLink(paymentUrl, hashSecret);
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Send vnpay request successfully",
+                DT = new
+                {
+                    paymentUrl = paymentUrl
+                }
+            });
         }
     }
 }
