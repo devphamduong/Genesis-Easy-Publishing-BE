@@ -213,6 +213,7 @@ namespace app.Controllers
                 .Select(c => new
                 {
                     Story = new { c.StoryId, c.Story.StoryTitle, c.Story.StoryPrice },
+                    Author = new { c.Story.Author.UserId, c.Story.Author.UserFullname },
                     Content = c.ChapterContent,
                     ChapterId = c.ChapterId,
                     ChapterNumber = c.ChapterNumber,
@@ -222,30 +223,20 @@ namespace app.Controllers
                     UpdateTime = c.UpdateTime,
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
-                    NextChapterNumber = nextChapterNum
+                    NextChapterNumber = nextChapterNum,
+                    Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null)
                 }).FirstOrDefault();
 
             if (chapter == null)
             {
                 return new JsonResult(new
                 {
-                    EC = 1,
+                    EC = -1,
                     EM = "Chapter is not available"
                 });
             }
-            if (checkPurchase(userId, chapterNumber, storyid) || chapter.ChapterPrice == 0 || chapter.ChapterPrice == null)
-            {
-                return _msgService.MsgReturn(0, "Chapter content", new { chapter, Message = "" });
-            }
-            else
-            {
-                return new JsonResult(new
-                {
-                    EC = 2,
-                    EM = "You have to Purchase this chapter first",
-                    DT = new { chapter, Message = "You have to Purchase this chapter first" }
-                });
-            }
+            return _msgService.MsgReturn(0, "Chapter content", chapter);
+
         }
 
         private long NextChapter(long currentChapterNumber, int storyid)
