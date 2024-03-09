@@ -213,6 +213,7 @@ namespace app.Controllers
                 .Select(c => new
                 {
                     Story = new { c.StoryId, c.Story.StoryTitle, c.Story.StoryPrice },
+                    Author = new { c.Story.Author.UserId, c.Story.Author.UserFullname },
                     Content = c.ChapterContent,
                     ChapterId = c.ChapterId,
                     ChapterNumber = c.ChapterNumber,
