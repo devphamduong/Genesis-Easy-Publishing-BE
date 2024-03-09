@@ -83,8 +83,8 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            var userCheck = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault();
-            if (userCheck == null)
+            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault();
+            if (user == null)
             {
                 return new JsonResult(new
                 {
@@ -92,8 +92,8 @@ namespace app.Controllers
                     EM = "Wrong username or password",
                 });
             };
-            string password = userCheck.Password;
-            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
+            string password = user.Password;
+            var userResponse = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
                 UserId = u.UserId,
                 Email = u.Email,
@@ -118,9 +118,9 @@ namespace app.Controllers
             }
             UserDTO userDTO = new UserDTO
             {
-                Id = user.UserId,
-                Email = user.Email,
-                Username = user.Username,
+                Id = userResponse.UserId,
+                Email = userResponse.Email,
+                Username = userResponse.Username,
             };
             var accessToken = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
@@ -143,7 +143,7 @@ namespace app.Controllers
                 EM = "Login successfully",
                 DT = new
                 {
-                    user,
+                    user = userResponse,
                     access_token = accessToken,
                 },
             });
