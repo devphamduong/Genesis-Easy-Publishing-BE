@@ -1,0 +1,557 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\css\\atlantis.css",
+      "PackagePath": "staticwebassets\\Assets\\css\\atlantis.css"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\css\\atlantis.css.map",
+      "PackagePath": "staticwebassets\\Assets\\css\\atlantis.css.map"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\css\\atlantis.min.css",
+      "PackagePath": "staticwebassets\\Assets\\css\\atlantis.min.css"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\Assets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\css\\demo.css",
+      "PackagePath": "staticwebassets\\Assets\\css\\demo.css"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\css\\fonts.css",
+      "PackagePath": "staticwebassets\\Assets\\css\\fonts.css"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\css\\fonts.min.css",
+      "PackagePath": "staticwebassets\\Assets\\css\\fonts.min.css"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\flaticon\\Flaticon.eot",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\flaticon\\Flaticon.eot"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\flaticon\\Flaticon.svg",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\flaticon\\Flaticon.svg"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\flaticon\\Flaticon.ttf",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\flaticon\\Flaticon.ttf"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\flaticon\\Flaticon.woff",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\flaticon\\Flaticon.woff"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\flaticon\\_flaticon.scss",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\flaticon\\_flaticon.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\flaticon\\flaticon.css",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\flaticon\\flaticon.css"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\flaticon\\flaticon.html",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\flaticon\\flaticon.html"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-brands-400.eot",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-brands-400.eot"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-brands-400.svg",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-brands-400.svg"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-brands-400.woff"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-regular-400.eot",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-regular-400.eot"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-regular-400.svg",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-regular-400.svg"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-regular-400.woff"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-solid-900.eot",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-solid-900.eot"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-solid-900.svg",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-solid-900.svg"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-solid-900.woff"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\fontawesome\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\fontawesome\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.eot",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.eot"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.svg",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.svg"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.ttf",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.ttf"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.woff",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.woff"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.woff2",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\simple-line-icons\\Simple-Line-Icons.woff2"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\summernote\\summernote.eot",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\summernote\\summernote.eot"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\summernote\\summernote.ttf",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\summernote\\summernote.ttf"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\fonts\\summernote\\summernote.woff",
+      "PackagePath": "staticwebassets\\Assets\\fonts\\summernote\\summernote.woff"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\atlantis.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\atlantis.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\atlantis.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\atlantis.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\atlantis2.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\atlantis2.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\core\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\core\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\core\\jquery.3.2.1.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\core\\jquery.3.2.1.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\core\\popper.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\core\\popper.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\demo.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\demo.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\bootstrap-notify\\bootstrap-notify.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\bootstrap-notify\\bootstrap-notify.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\chart-circle\\circles.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\chart-circle\\circles.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\chart.js\\chart.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\chart.js\\chart.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\datatables\\datatables.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\datatables\\datatables.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jquery-scrollbar\\jquery.scrollbar.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jquery-scrollbar\\jquery.scrollbar.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jquery-ui-1.12.1.custom\\jquery-ui.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jquery-ui-1.12.1.custom\\jquery-ui.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jquery-ui-touch-punch\\jquery.ui.touch-punch.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jquery-ui-touch-punch\\jquery.ui.touch-punch.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jquery.sparkline\\jquery.sparkline.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jquery.sparkline\\jquery.sparkline.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\jquery.vmap.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\jquery.vmap.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.africa.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.africa.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.asia.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.asia.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.australia.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.australia.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.europe.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.europe.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.north-america.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.north-america.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.south-america.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\continents\\jquery.vmap.south-america.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.algeria.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.algeria.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.argentina.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.argentina.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.brazil.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.brazil.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.canada.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.canada.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.croatia.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.croatia.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.europe.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.europe.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.france.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.france.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.germany.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.germany.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.greece.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.greece.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.indonesia.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.indonesia.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.iran.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.iran.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.iraq.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.iraq.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.new_regions_france.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.new_regions_france.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.russia.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.russia.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.serbia.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.serbia.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.tunisia.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.tunisia.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.turkey.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.turkey.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.ukraine.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.ukraine.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.usa.counties.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.usa.counties.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.usa.districts.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.usa.districts.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.usa.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.usa.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.world.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\jqvmap\\maps\\jquery.vmap.world.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\sweetalert\\sweetalert.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\sweetalert\\sweetalert.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\plugin\\webfont\\webfont.min.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\plugin\\webfont\\webfont.min.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\setting-demo.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\setting-demo.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\setting-demo2.js",
+      "PackagePath": "staticwebassets\\Assets\\js\\setting-demo2.js"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_background.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_background.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_components.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_components.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_flaticon.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_flaticon.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_font-awesome.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_font-awesome.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_layouts-colors.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_layouts-colors.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_layouts.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_layouts.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_opacity.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_opacity.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_outlinefocus.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_outlinefocus.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_plugins.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_plugins.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_responsive-horizontal.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_responsive-horizontal.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_responsive.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_responsive.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_typography.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_typography.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\_variables.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\_variables.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_activityfeed.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_activityfeed.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_alerts.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_alerts.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_avatars.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_avatars.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_badges.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_badges.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_breadcrumbs.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_breadcrumbs.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_buttons.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_buttons.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_cards.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_cards.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_charts.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_charts.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_colorinputs.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_colorinputs.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_dropdowns.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_dropdowns.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_gutters.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_gutters.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_imagecheck.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_imagecheck.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_inputs.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_inputs.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_listgroup.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_listgroup.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_loader.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_loader.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_maps.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_maps.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_modals.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_modals.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_navbars.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_navbars.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_navsearch.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_navsearch.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_navtabs.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_navtabs.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_paginations.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_paginations.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_popovers.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_popovers.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_progress.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_progress.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_selectgroup.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_selectgroup.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_sliders.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_sliders.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_stamps.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_stamps.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_tables.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_tables.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\components\\_timeline.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\components\\_timeline.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\plugins\\_animate.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\plugins\\_animate.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\plugins\\_datatables.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\plugins\\_datatables.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\plugins\\_jqueryscrollbar.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\plugins\\_jqueryscrollbar.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\plugins\\_jqueryui.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\plugins\\_jqueryui.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\sass\\atlantis\\plugins\\_sweetalert.scss",
+      "PackagePath": "staticwebassets\\Assets\\sass\\atlantis\\plugins\\_sweetalert.scss"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Index.html",
+      "PackagePath": "staticwebassets\\Index.html"
+    },
+    {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\User.html",
+      "PackagePath": "staticwebassets\\Pages\\User.html"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.app.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.build.app.props",
+      "PackagePath": "build\\app.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.app.props",
+      "PackagePath": "buildMultiTargeting\\app.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildTransitive.app.props",
+      "PackagePath": "buildTransitive\\app.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

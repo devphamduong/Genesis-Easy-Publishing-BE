@@ -8,6 +8,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
+builder.Services.AddHttpContextAccessor();
 // db
 builder.Services.AddDbContext<EasyPublishingContext>
     (option => option.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));

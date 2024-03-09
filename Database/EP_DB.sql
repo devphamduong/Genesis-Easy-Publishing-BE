@@ -150,6 +150,23 @@ CREATE TABLE [dbo].[Transaction](
 ) ON [PRIMARY]
 GO
 
+-- table Story_Read_History
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Story_Read](
+	[user_id] [int] NOT NULL,
+	[story_id] [int] NOT NULL,
+	[chapter_id] [bigint] NOT NULL,
+	[read_time] [date] NOT NULL,
+ CONSTRAINT [PK_story_read] PRIMARY KEY CLUSTERED 
+(
+	[user_id],[story_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- table Story_Follow
 SET ANSI_NULLS ON
 GO
@@ -309,24 +326,24 @@ CREATE TABLE [dbo].[Chapter_Owned](
 ) ON [PRIMARY]
 GO
 
--- table Story_Issue
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Story_Issue](
-	[issue_id] [int] IDENTITY(1,1) NOT NULL,
-	[user_id] [int] NOT NULL,
-	[story_id] [int] NULL,
-	[issue_title] [nvarchar](100) NOT NULL,
-	[issue_content] [nvarchar](500) NOT NULL,
-	[issue_date] [date] NOT NULL,
-  CONSTRAINT [PK_story_issue] PRIMARY KEY CLUSTERED 
-(
-	[issue_id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+-- -- table Story_Issue
+-- SET ANSI_NULLS ON
+-- GO
+-- SET QUOTED_IDENTIFIER ON
+-- GO
+-- CREATE TABLE [dbo].[Story_Issue](
+-- 	[issue_id] [int] IDENTITY(1,1) NOT NULL,
+-- 	[user_id] [int] NOT NULL,
+-- 	[story_id] [int] NULL,
+-- 	[issue_title] [nvarchar](100) NOT NULL,
+-- 	[issue_content] [nvarchar](500) NOT NULL,
+-- 	[issue_date] [date] NOT NULL,
+--   CONSTRAINT [PK_story_issue] PRIMARY KEY CLUSTERED 
+-- (
+-- 	[issue_id] ASC
+-- )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+-- ) ON [PRIMARY]
+-- GO
 
 -- table Comment
 SET ANSI_NULLS ON
@@ -338,7 +355,7 @@ CREATE TABLE [dbo].[Comment](
 	[user_id] [int] NOT NULL,
 	[story_id] [int] NULL,
 	[chapter_id] [bigint] NULL,
-	[issue_id] [int] NULL,
+	-- [issue_id] [int] NULL,
 	[comment_content] [nvarchar](2000) NOT NULL,
 	[comment_date] [date] NOT NULL,
  CONSTRAINT [PK_comment] PRIMARY KEY CLUSTERED 
@@ -348,23 +365,23 @@ CREATE TABLE [dbo].[Comment](
 ) ON [PRIMARY]
 GO
 
--- table Comment Repsponse
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[CommentResponse](
-	[comment_response_id] [int] IDENTITY(1,1) NOT NULL,
-	[user_id] [int] NOT NULL,
-	[comment_id] [int] NULL,
-	[comment_content] [nvarchar](2000) NOT NULL,
-	[comment_date] [date] NOT NULL,
- CONSTRAINT [PK_commentresponse] PRIMARY KEY CLUSTERED 
-(
-	[comment_response_id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+-- -- table Comment Repsponse
+-- SET ANSI_NULLS ON
+-- GO
+-- SET QUOTED_IDENTIFIER ON
+-- GO
+-- CREATE TABLE [dbo].[CommentResponse](
+-- 	[comment_response_id] [int] IDENTITY(1,1) NOT NULL,
+-- 	[user_id] [int] NOT NULL,
+-- 	[comment_id] [int] NULL,
+-- 	[comment_content] [nvarchar](2000) NOT NULL,
+-- 	[comment_date] [date] NOT NULL,
+--  CONSTRAINT [PK_commentresponse] PRIMARY KEY CLUSTERED 
+-- (
+-- 	[comment_response_id] ASC
+-- )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+-- ) ON [PRIMARY]
+-- GO
 
 -- table ReportType
 SET ANSI_NULLS ON
@@ -392,7 +409,7 @@ CREATE TABLE [dbo].[ReportContent](
 	[report_type_id] [int] NOT NULL,
 	[story_id] [int] NULL,
 	[chapter_id] [bigint] NULL,
-	[issue_id] [int] NULL,
+	-- [issue_id] [int] NULL,
 	[comment_id] [int] NULL,
 	-- [report_title] [nvarchar](100) NOT NULL,
 	[report_content] [nvarchar](2000) NOT NULL,
@@ -531,19 +548,45 @@ INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])
 		,(9, 9, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
 		,(10, 10, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
 
-DECLARE @Counter INT = 11; -- Start with the next number after the existing data
+	DECLARE @Counter INT = 11; -- Start with the next number after the existing data
 
-WHILE @Counter <= 100 -- Set the end condition
-BEGIN
-    INSERT INTO [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
-    VALUES
-        (@Counter, @Counter, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)));
+	WHILE @Counter <= 100 -- Set the end condition
+	BEGIN
+		INSERT INTO [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
+		VALUES
+			(@Counter, @Counter, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)));
 
-    SET @Counter = @Counter + 1; -- Increment the counter
-END;
+		SET @Counter = @Counter + 1; -- Increment the counter
+	END;
 
 SET IDENTITY_INSERT [dbo].[Wallet] OFF
 GO
+
+INSERT INTO [dbo].[Story_Read]([user_id],[story_id],[chapter_id],[read_time]) VALUES
+	(2,1,8,CAST(N'2023-12-22' AS Date)),
+	(2,3,13,CAST(N'2023-12-22' AS Date)),
+	(2,17,8,CAST(N'2023-12-22' AS Date)),
+	(3,1,10,CAST(N'2023-12-22' AS Date)),
+	(4,1,3,CAST(N'2023-12-22' AS Date)),
+	(5,17,7,CAST(N'2023-12-22' AS Date))
+	
+
+INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[follow],[like]) VALUES
+	(2,1,1,1),(3,1,1,1),(4,1,1,1),(5,1,1,1),
+	(2,2,0,1),(3,2,1,0),(4,2,1,0),(9,2,0,1),
+	(2,3,0,1),(5,3,0,1),(9,3,0,1),(13,3,0,1),
+	(7,4,1,0),(10,4,1,0),
+	(6,5,0,1),(7,5,0,1),
+	(8,6,1,0),(9,6,1,0),
+	(2,17,1,0)
+
+INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
+	(2,1),(3,1),(4,1),(8,1),
+	(2,3),(5,3),(9,3),(13,3),
+	(7,4),(10,4),
+	(6,5),(7,5),
+	(8,6),(9,6),(15,6),
+	(2,17),(5,17),(8,17),(9,17),(15,17),(23,17)
 
 SET IDENTITY_INSERT [dbo].[Story] ON 
 GO
@@ -602,43 +645,62 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		CAST(N'2022-09-06T05:52:10.323' AS DateTime), null, 1),
 		(16, N'Classroom of the Elite Vol. 1', 15, CAST(9.69 AS Decimal(10, 2)), 0, N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1540974678l/41085104.jpg', N'Students of the prestigious Tokyo Metropolitan Advanced Nurturing High School are given remarkable freedom—if they can win, barter, or save enough points to work their way up the ranks! Ayanokoji Kiyotaka has landed at the bottom in the scorned Class D, where he meets Horikita Suzune, who’s determined to rise up the ladder to Class A. Can they beat the system in a school where cutthroat competition is the name of the game?',
 		CAST(N'2022-09-09T05:52:10.323' AS DateTime), null, 1),
-		(17, N'Dị Thế Tà Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyento.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
+		(17, N'Dị Thế Tà Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
 		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
 		Trong một lần tranh đoạt cổ vật với những phe cánh hắc đạo, tính mạng của y gặp phải nguy hiểm tột cùng khi rơi vào vòng vây phục kích. Trong cái rủi lại có cái may, chính lúc này, những món bảo vật huyền bí mà hắn tranh đoạt đã phát tỏa huyền năng đưa hắn trở về thế giới cổ đại, nơi mà pháp luật chỉ mang tính tượng trưng và chân lý chỉ thuộc về kẻ mạnh.
 		Sống trong thế giới nhiễu nhương này, liệu rằng những kỹ năng của một sát thủ có giúp hắn yên ổn tồn tại…?
 		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
-		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 1)
-
+		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 1),
+		(18, N'Dị Thế', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
+		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
+		(19, N'Tà Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
+		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
+		(20, N'Dị Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
+		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
+		(21, N'Ma Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
+		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
+		(22, N'Dị Thế Tà Quân', 1, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
+		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Dị Thế Tà Quân!',
+		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2)
 SET IDENTITY_INSERT [dbo].[Story] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Volume] ON 
-GO
-
-INSERT [dbo].[Volume] ([volume_id] ,[story_id], [volume_title])
+INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 	VALUES 
-		(1, 1, N'Marriage can be a real killer.'),
-		(2, 1, N'Twin sister'),
-		(3, 1, N'Turns a domestic'),
-		(4, 17, N'Tà quân Quân Tà'),
-		(5, 17, N'Quân Mạc Tà'),
-		(6, 17, N'Quân Vô Ý'),
-		(7, 2, N'Nine little boys'),
-		(8, 3, N' A famous painter'),
-		(9, 4, N' Commuter train'),
-		(10, 5, N' Waking up'),
-		(11, 6, N' One chopped'),
-		(12, 7, N' One chopped'),
-		(13, 8, N' One chopped'),
-		(14, 9, N' One chopped'),
-		(15, 10, N' One chopped'),
-		(16, 11, N' One chopped'),
-		(17, 12, N' One chopped'),
-		(18, 13, N' One chopped')
-		
-		
-SET IDENTITY_INSERT [dbo].[Volume] OFF
-GO
+		(1 ,100 ,24 ,123 ,198),
+		(2 ,43 ,34 ,83 ,158),
+		(3 ,23 ,14 ,23 ,238),
+		(4 ,43 ,24 ,33 ,48),
+		(5 ,23 ,24 ,123 ,98),
+		(6 ,53 ,24 ,123 ,98),
+		(7 ,53 ,24 ,123 ,98),
+		(8 ,53 ,24 ,123 ,98),
+		(9 ,53 ,24 ,123 ,98),
+		(10 ,53 ,24 ,123 ,98),
+		(11 ,53 ,24 ,123 ,98),
+		(12 ,53 ,24 ,123 ,98),
+		(13 ,53 ,24 ,123 ,98),
+		(14 ,53 ,24 ,123 ,98),
+		(15 ,53 ,24 ,123 ,98),
+		(16 ,53 ,24 ,123 ,98),
+		(17 ,123 ,124 ,143 ,208),
+		(18 ,13 ,14 ,14 ,28),
+		(19 ,13 ,14 ,14 ,28),
+		(20 ,13 ,14 ,14 ,28),
+		(21 ,13 ,14 ,14 ,28),
+		(22 ,13 ,14 ,14 ,28)
+
+
+
 
 SET IDENTITY_INSERT [dbo].[Category] ON 
 GO
@@ -663,6 +725,66 @@ INSERT [dbo].[Category] ([category_id],[category_name])
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
+
+INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
+	(1,1),(12,1),(8,1),(14,1),
+	(2,2),(12,2),(8,2),(14,2),
+	(3,3),(12,3),(8,3),(14,3),
+	(1,4),(12,4),(8,4),(14,4),
+	(1,5),(8,5),(11,5),(14,5),
+	(2,6),(8,6),(11,6),(14,6),
+	(3,7),(8,7),(11,7),(12,7),(14,7),
+	(3,8),(5,8),(6,8),(10,8),(14,8),
+	(1,9),(7,9),(9,9),(13,9),(14,9),
+	(3,10),(4,10),(5,10),(14,10),
+	(3,11),(7,11),(8,11),(14,11),
+	(2,12),(9,12),(10,12),(14,12),
+	(2,13),(4,13),(14,13),
+	(1,14),(4,14),(5,14),(14,14),
+	(1,15),(14,15),
+	(2,16),(14,16),
+	(2,17),(8,17),(12,17),(15,17),
+	(1,18),(2,18),(3,18),(4,18),(5,18),(6,18),(7,18),(8,18),(9,18),(10,18),(11,18),(12,18),(13,18),(14,18),(15,18),
+	(1,19),(2,19),(3,19),(4,19),(5,19),(6,19),(7,19),(8,19),(9,19),(10,19),(11,19),(12,19),(13,19),(14,19),(15,19),
+	(1,20),(2,20),(3,20),(4,20),(5,20),(6,20),(7,20),(8,20),(9,20),(10,20),(11,20),(12,20),(13,20),(14,20),(15,20),
+	(1,21),(2,21),(3,21),(4,21),(5,21),(6,21),(7,21),(8,21),(9,21),(10,21),(11,21),(12,21),(13,21),(14,21),(15,21),
+	(1,22),(2,22),(3,22),(4,22),(5,22),(6,22),(7,22),(8,22),(9,22),(10,22),(11,22),(12,22),(13,22),(14,22),(15,22)
+
+
+SET IDENTITY_INSERT [dbo].[Volume] ON 
+GO
+
+INSERT [dbo].[Volume] ([volume_id] ,[story_id], [volume_title])
+	VALUES 
+		(1, 1, N'Marriage can be a real killer.'),
+		(2, 1, N'Twin sister'),
+		(3, 1, N'Turns a domestic'),
+		(4, 17, N'Tà quân Quân Tà'),
+		(5, 17, N'Quân Mạc Tà'),
+		(6, 17, N'Quân Vô Ý'),
+		(7, 2, N'Nine little boys'),
+		(8, 3, N' A famous painter'),
+		(9, 4, N' Commuter train'),
+		(10, 5, N' Waking up'),
+		(11, 6, N' One chopped'),
+		(12, 7, N' One chopped'),
+		(13, 8, N' One chopped'),
+		(14, 9, N' One chopped'),
+		(15, 10, N' One chopped'),
+		(16, 11, N' One chopped'),
+		(17, 12, N' One chopped'),
+		(18, 13, N' One chopped'),
+		(19, 1, N'Turns a domestic'),
+		(20, 1, N'Turns a domestic'),
+		(21, 1, N'Turns a domestic'),
+		(22, 1, N'Turns a domestic'),
+		(23, 1, N'Turns a domestic'),
+		(24, 1, N'Turns a domestic'),
+		(25, 1, N'Turns a domestic')
+		
+SET IDENTITY_INSERT [dbo].[Volume] OFF
+GO
+
 
 SET IDENTITY_INSERT [dbo].[Chapter] ON 
 GO
@@ -865,7 +987,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		So I know I am right not to settle, but it doesn’t make me feel better as my friends pair off and I stay home on Friday night with a bottle of wine and make myself an extravagant meal and tell myself, This is perfect, as if I’m the one dating me. As I go to endless rounds of parties and bar nights, perfumed and sprayed and hopeful, rotating myself around the room like some dubious dessert. I go on dates with men who are nice and good-looking and smart – perfect-on-paper men who make me feel like I’m in a foreign land, trying to explain myself, trying to make myself known. Because isn’t that the point of every relationship: to be known by someone else, to be understood? He gets me. She gets me. Isn’t that the simple magic phrase?
 		So you suffer through the night with the perfect-on-paper man – the stutter of jokes misunderstood, the witty remarks lobbed and missed. Or maybe he understands that you’ve made a witty remark but, unsure of what to do with it, he holds it in his hand like some bit of conversational phlegm he will wipe away later. You spend another hour trying to find each other, to recognise each other, and you drink a little too much and try a little too hard. And you go home to a cold bed and think, That was fine. And your life is a long line of fine.
 		And then you run into Nick Dunne on Seventh Avenue as you’re buying diced cantaloupe, and pow, you are known, you are recognised, the both of you. You both find the exact same things worth remembering. (Just one olive, though). You have the same rhythm. Click. You just know each other. All of a sudden you see reading in bed and waffles on Sunday and laughing at nothing and his mouth on yours. And it’s so far beyond fine that you know you can never go back to fine. That fast. You think: Oh, here is the rest of my life. It’s finally arrived.')
-		,(5, 5, 1, 3, 0, N'Nick Dunne',CAST(N'2022-01-06T05:52:10.323' AS DateTime),null, 0, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
+		,(5, 5, 1, 3, 5, N'Nick Dunne',CAST(N'2022-01-06T05:52:10.323' AS DateTime),null, 1, N'I waited for the police first in the kitchen, but the acrid smell of the burnt teakettle was curling up in the back of my throat, underscoring my need to retch, so I drifted out on the front porch, sat on the top stair, and willed myself to be calm. I kept trying Amy’s cell, and it kept going to voice mail, that quick-clip cadence swearing she’d phone right back. Amy always phoned right back. It had been three hours, and I’d left five messages, and Amy had not phoned back.
 		I didn’t expect her to. I’d tell the police: Amy would never have left the house with the teakettle on. Or the door open. Or anything waiting to be ironed. The woman got shit done, and she was not one to abandon a project (say, her fixer-upper husband, for instance), even if she decided she didn’t like it. She’d made a grim figure on the Fiji beach during our two-week honeymoon, battling her way through a million mystical pages of The Wind-Up Bird Chronicle, casting pissy glances at me as I devoured thriller after thriller. Since our move back to Missouri, the loss of her job, her life had revolved (devolved?) around the completion of endless tiny, inconsequential projects. The dress would have been ironed.
 		And there was the living room, signs pointing to a struggle. I already knew Amy wasn’t phoning back. I wanted the next part to start.
 		It was the best time of day, the July sky cloudless, the slowly setting sun a spotlight on the east, turning everything golden and lush, a Flemish painting. The police rolled up. It felt casual, me sitting on the steps, an evening bird singing in the tree, these two cops getting out of their car at a leisurely pace, as if they were dropping by a neighborhood picnic. Kid cops, mid-twenties, confident and uninspired, accustomed to soothing worried parents of curfew-busting teens. A Hispanic girl, her hair in a long dark braid, and a black guy with a marine’s stance. Carthage had become a bit (a very tiny bit) less Caucasian while I was away, but it was still so severely segregated that the only people of color I saw in my daily routine tended to be occupational roamers: delivery men, medics, postal workers. Cops. (‘This place is so white, it’s disturbing,’ said Amy, who, back in the melting pot of Manhattan, counted a single African-American among her friends. I accused her of craving ethnic window dressing, minorities as backdrops. It did not go well.)
@@ -1455,7 +1577,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			Trong sảnh hoàn toàn vắng lặng đột nhiên vang lên một âm thanh lãng đãng, như
 			có như không:
 			- Rõ!')
-			,(12, 7, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-24T05:52:10.323' AS DateTime),null, 1, 
+			,(12, 7, 17, 6, 0, N'Quân Mạc Tà',CAST(N'2023-10-24T05:52:10.323' AS DateTime),null, 0, 
 			N'Quân Tà bước ra ngoài, hắn khẽ nhắm mắt cảm nhận ánh mặt trời ấm áp đang dịu
 			dàng tỏa nắng trên cao. Từng vầng sáng ấm áp nhẹ nhàng ôm ấp, sưởi ấm thân
 			hình và khuôn mặt có phần tiều tụy của hắn, Quân Tà chậm rãi đi về phía tiểu
@@ -1549,8 +1671,76 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			SET @Counter_Chapter = @Counter_Chapter + 1; -- Increment the counter
 		END;
 
+		DECLARE @Counter_ChapterNum INT = 6; -- Start with the next number after the existing data
+		DECLARE @Counter_Chapters INT = 24;
+		DECLARE @Counter_Volumes INT = 19;
+		WHILE @Counter_ChapterNum <= 25 -- Set the end condition
+		BEGIN
+			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+				VALUES
+					(@Counter_Chapters, @Counter_ChapterNum, 1, @Counter_Volumes, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+					I’d know her head anywhere.
+					And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
+					My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.
+					At that exact moment, 6-0-0, the sun climbed over the skyline of oaks, revealing its full summer angry-God self. Its reflection flared across the river toward our house, a long, blaring finger aimed at me through our frail bedroom curtains. Accusing: You have been seen. You will be seen.
+					I wallowed in bed, which was our New York bed in our new house, which we still called the new house, even though we’d been back here for two years. It’s a rented house right along the Mississippi River, a house that screams Suburban Nouveau Riche, the kind of place I aspired to as a kid from my split-level, shag-carpet side of town. The kind of house that is immediately familiar: a generically grand, unchallenging, new, new, new house that my wife would – and did – detest.
+					‘Should I remove my soul before I come inside?’ Her first line upon arrival. It had been a compromise: Amy demanded we rent, not buy, in my little Missouri hometown, in her firm hope that we wouldn’t be stuck here long. But the only houses for rent were clustered in this failed development: a miniature ghost town of bank-owned, recession-busted, price-reduced mansions, a neighborhood that closed before it ever opened. It was a compromise, but Amy didn’t see it that way, not in the least. To Amy, it was a punishing whim on my part, a nasty, selfish twist of the knife. I would drag her, caveman-style, to a town she had aggressively avoided, and make her live in the kind of house she used to mock. I suppose it’s not a compromise if only one of you considers it such, but that was what our compromises tended to look like. One of us was always angry. Amy, usually.
+					Do not blame me for this particular grievance, Amy. The Missouri Grievance. Blame the economy, blame bad luck, blame my parents, blame your parents, blame the Internet, blame people who use the Internet. I used to be a writer. I was a writer who wrote about TV and movies and books. Back when people read things on paper, back when anyone cared about what I thought. I’d arrived in New York in the late ’90s, the last gasp of the glory days, although no one knew it then. New York was packed with writers, real writers, because there were magazines, real magazines, loads of them. This was back when the Internet was still some exotic pet kept in the corner of the publishing world – throw some kibble at it, watch it dance on its little leash, oh quite cute, it definitely won’t kill us in the night. Think about it: a time when newly graduated college kids could come to New York and get paid to write. We had no clue that we were embarking on careers that would vanish within a decade.
+					I had a job for eleven years and then I didn’t, it was that fast. All around the country, magazines began shuttering, succumbing to a sudden infection brought on by the busted economy. Writers (my kind of writers: aspiring novelists, ruminative thinkers, people whose brains don’t work quick enough to blog or link or tweet, basically old, stubborn blowhards) were through. We were like women’s hat makers or buggy-whip manufacturers: Our time was done. Three weeks after I got cut loose, Amy lost her job, such as it was. (Now I can feel Amy looking over my shoulder, smirking at the time I’ve spent discussing my career, my misfortune, and dismissing her experience in one sentence. That, she would tell you, is typical. Just like Nick, she would say. It was a refrain of hers: Just like Nick to … and whatever followed, whatever was just like me, was bad.) Two jobless grown-ups, we spent weeks wandering around our Brooklyn brownstone in socks and pajamas, ignoring the future, strewing unopened mail across tables and sofas, eating ice cream at ten a.m. and taking thick afternoon naps.
+					Then one day the phone rang. My twin sister was on the other end. Margo had moved back home after her own New York layoff a year before – the girl is one step ahead of me in everything, even shitty luck. Margo, calling from good ole North Carthage, Missouri, from the house where we grew up, and as I listened to her voice, I saw her at age ten, with a dark cap of hair and overall shorts, sitting on our grandparents’ back dock, her body slouched over like an old pillow, her skinny legs dangling in the water, watching the river flow over fish-white feet, so intently, utterly self-possessed even as a child.
+					Go’s voice was warm and crinkly even as she gave this cold news: Our indomitable mother was dying. Our dad was nearly gone – his (nasty) mind, his (miserable) heart, both murky as he meandered toward the great gray beyond. But it looked like our mother would beat him there. About six months, maybe a year, she had. I could tell that Go had gone to meet with the doctor by herself, taken her studious notes in her slovenly handwriting, and she was teary as she tried to decipher what she’d written. Dates and doses.
+					‘Well, fuck, I have no idea what this says, is it a nine? Does that even make sense?’ she said, and I interrupted. Here was a task, a purpose, held out on my sister’s palm like a plum. I almost cried with relief.
+					‘I’ll come back, Go. We’ll move back home. You shouldn’t have to do this all by yourself.’
+					She didn’t believe me. I could hear her breathing on the other end.
+					‘I’m serious, Go. Why not? There’s nothing here.’
+					A long exhale. ‘What about Amy?’
+					That is what I didn’t take long enough to consider. I simply assumed I would bundle up my New York wife with her New York interests, her New York pride, and remove her from her New York parents – leave the frantic, thrilling futureland of Manhattan behind – and transplant her to a little town on the river in Missouri, and all would be fine.
+					I did not yet understand how foolish, how optimistic, how, yes, just like Nick I was for thinking this. The misery it would lead to.
+					‘Amy will be fine. Amy …’ Here was where I should have said, ‘Amy loves Mom.’ But I couldn’t tell Go that Amy loved our mother, because after all that time, Amy still barely knew our mother. Their few meetings had left them both baffled. Amy would dissect the conversations for days after – ‘And what did she mean by …,’ – as if my mother were some ancient peasant tribeswoman arriving from the tundra with an armful of raw yak meat and some buttons for bartering, trying to get something from Amy that wasn’t on offer.
+					Amy didn’t care to know my family, didn’t want to know my birthplace, and yet for some reason, I thought moving home would be a good idea.
+					My morning breath warmed the pillow, and I changed the subject in my mind. Today was not a day for second-guessing or regret, it was a day for doing. Downstairs, I could hear the return of a long-lost sound: Amy making breakfast. Banging wooden cupboards (rump-thump!), rattling containers of tin and glass (ding-ring!), shuffling and sorting a collection of metal pots and iron pans (ruzz-shuzz!). A culinary orchestra tuning up, clattering vigorously toward the finale, a cake pan drumrolling along the floor, hitting the wall with a cymballic crash. Something impressive was being created, probably a crepe, because crepes are special, and today Amy would want to cook something special.
+					It was our five-year anniversary.
+					I walked barefoot to the edge of the steps and stood listening, working my toes into the plush wall-to-wall carpet Amy detested on principle, as I tried to decide whether I was ready to join my wife. Amy was in the kitchen, oblivious to my hesitation. She was humming something melancholy and familiar. I strained to make it out – a folk song? a lullabye? – and then realized it was the theme to M.A.S.H. Suicide is painless. I went downstairs.
+					I hovered in the doorway, watching my wife. Her yellow-butter hair was pulled up, the hank of ponytail swinging cheerful as a jumprope, and she was sucking distractedly on a burnt fingertip, humming around it. She hummed to herself because she was an unrivaled botcher of lyrics. When we were first dating, a Genesis song came on the radio: ‘She seems to have an invisible touch, yeah.’ And Amy crooned instead, ‘She takes my hat and puts it on the top shelf.’ When I asked her why she’d ever think her lyrics were remotely, possibly, vaguely right, she told me she always thought the woman in the song truly loved the man because she put his hat on the top shelf. I knew I liked her then, really liked her, this girl with an explanation for everything.
+					There’s something disturbing about recalling a warm memory and feeling utterly cold.
+					Amy peered at the crepe sizzling in the pan and licked something off her wrist. She looked triumphant, wifely. If I took her in my arms, she would smell like berries and powdered sugar.
+					When she spied me lurking there in grubby boxers, my hair in full Heat Miser spike, she leaned against the kitchen counter and said, ‘Well, hello, handsome.’
+					Bile and dread inched up my throat. I thought to myself: Okay, go.
+					I was very late getting to work. My sister and I had done a foolish thing when we both moved back home. We had done what we always talked about doing. We opened a bar. We borrowed money from Amy to do this, eighty thousand dollars, which was once nothing to Amy but by then was almost everything. I swore I would pay her back, with interest. I would not be a man who borrowed from his wife – I could feel my dad twisting his lips at the very idea. Well, there are all kinds of men, his most damning phrase, the second half left unsaid, and you are the wrong kind.
+					But truly, it was a practical decision, a smart business move. Amy and I both needed new careers; this would be mine. She would pick one someday, or not, but in the meantime, here was an income, made possible by the last of Amy’s trust fund. Like the McMansion I rented, the bar featured symbolically in my childhood memories – a place where only grown-ups go, and do whatever grown-ups do. Maybe that’s why I was so insistent on buying it after being stripped of my livelihood. It’s a reminder that I am, after all, an adult, a grown man, a useful human being, even though I lost the career that made me all these things. I won’t make that mistake again: The once plentiful herds of magazine writers would continue to be culled – by the Internet, by the recession, by the American public, who would rather watch TV or play video games or electronically inform friends that, like, rain sucks! But there’s no app for a bourbon buzz on a warm day in a cool, dark bar. The world will always want a drink.
+					Our bar is a corner bar with a haphazard, patchwork aesthetic. Its best feature is a massive Victorian backbar, dragon heads and angel faces emerging from the oak – an extravagant work of wood in these shitty plastic days. The remainder of the bar is, in fact, shitty, a showcase of the shabbiest design offerings of every decade: an Eisenhower-era linoleum floor, the edges turned up like burnt toast; dubious wood-paneled walls straight from a ’70s home-porn video; halogen floor lamps, an accidental tribute to my 1990s dorm room. The ultimate effect is strangely homey – it looks less like a bar than someone’s benignly neglected fixer-upper. And jovial: We share a parking lot with the local bowling alley, and when our door swings wide, the clatter of strikes applauds the customer’s entrance.
+					We named the bar The Bar. ‘People will think we’re ironic instead of creatively bankrupt,’ my sister reasoned.
+					Yes, we thought we were being clever New Yorkers – that the name was a joke no one else would really get, not get like we did. Not meta-get. We pictured the locals scrunching their noses: Why’d you name it The Bar? But our first customer, a gray-haired woman in bifocals and a pink jogging suit, said, ‘I like the name. Like in Breakfast at Tiffany’s and Audrey Hepburn’s cat was named Cat.’
+					We felt much less superior after that, which was a good thing.
+					I pulled into the parking lot. I waited until a strike erupted from the bowling alley – thank you, thank you, friends – then stepped out of the car. I admired the surroundings, still not bored with the broken-in view: the squatty blond-brick post office across the street (now closed on Saturdays), the unassuming beige office building just down the way (now closed, period). The town wasn’t prosperous, not anymore, not by a long shot. Hell, it wasn’t even original, being one of two Carthage, Missouris – ours is technically North Carthage, which makes it sound like a twin city, although it’s hundreds of miles from the other and the lesser of the two: a quaint little 1950s town that bloated itself into a basic midsize suburb and dubbed it progress. Still, it was where my mom grew up and where she raised me and Go, so it had some history. Mine, at least.
+					As I walked toward the bar across the concrete-and-weed parking lot, I looked straight down the road and saw the river. That’s what I’ve always loved about our town: We aren’t built on some safe bluff overlooking the Mississippi – we are on the Mississippi. I could walk down the road and step right into the sucker, an easy three-foot drop, and be on my way to Tennessee. Every building downtown bears hand-drawn lines from where the river hit during the Flood of ’61, ’75, ’84, ’93, ’07, ’08, ’11. And so on.
+					The river wasn’t swollen now, but it was running urgently, in strong ropy currents. Moving apace with the river was a long single-file line of men, eyes aimed at their feet, shoulders tense, walking steadfastly nowhere. As I watched them, one suddenly looked up at me, his face in shadow, an oval blackness. I turned away.
+					I felt an immediate, intense need to get inside. By the time I’d gone twenty feet, my neck bubbled with sweat. The sun was still an angry eye in the sky. You have been seen.
+					My gut twisted, and I moved quicker. I needed a drink.')
+
+			SET @Counter_ChapterNum = @Counter_ChapterNum + 1; -- Increment the counter
+			SET @Counter_Chapters = @Counter_Chapters + 1; -- Increment the counter
+			
+			 IF @Counter_ChapterNum % 3 = 0 -- Check if chapter number is divisible by 3
+				BEGIN
+					SET @Counter_Volumes = @Counter_Volumes + 1; -- Increment volume number
+				END
+		END;
+
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
 GO
+
+INSERT INTO [dbo].[Chapter_Owned]([user_id],[chapter_id]) VALUES
+	(2,1),(3,1),(4,1),(8,1),
+	(2,3),(5,3),(9,3),(13,3),
+	(7,4),(10,4),
+	-- (6,5),(7,5),
+	(8,6),(9,6),(15,6),
+	(8,7),(9,7),(15,7),
+	(8,8),(9,8),(15,8),
+	(8,10),(9,10),(15,10),
+	(8,12),(9,12),(15,12)
+
 
 SET IDENTITY_INSERT [dbo].[Comment] ON
 GO
@@ -1563,8 +1753,8 @@ WHILE @UserId <= 20 -- End user_id at 20
 BEGIN
     WHILE @StoryId <= 17 -- End story_id at 17
     BEGIN
-        INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [issue_id], [comment_content], [comment_date])
-        VALUES (@CommentId, @UserId, @StoryId, null, null, N'Truyện hay quá', CAST(N'2023-09-24' AS Date));
+        INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [comment_content], [comment_date])
+        VALUES (@CommentId, @UserId, @StoryId, null, N'Truyện hay quá', CAST(N'2023-09-24' AS Date));
 
         SET @StoryId = @StoryId + 1; -- Increment story_id
         SET @CommentId = @CommentId + 1; -- Increment comment_id
@@ -1579,36 +1769,36 @@ SET IDENTITY_INSERT [dbo].[Comment] OFF
 GO
 
 
-SET IDENTITY_INSERT [dbo].[CommentResponse] ON
-GO
+-- SET IDENTITY_INSERT [dbo].[CommentResponse] ON
+-- GO
 
-DECLARE @Run INT = 1; -- Start comment_id from 1
-DECLARE @CommentRepId INT = 1; -- Start comment_id from 1
-DECLARE @CommentId INT = 1; -- Start comment_id from 1
-DECLARE @UserId INT = 2; -- Start user_id from 1
+-- DECLARE @Run INT = 1; -- Start comment_id from 1
+-- DECLARE @CommentRepId INT = 1; -- Start comment_id from 1
+-- DECLARE @CommentId INT = 1; -- Start comment_id from 1
+-- DECLARE @UserId INT = 2; -- Start user_id from 1
 
-WHILE @UserId <= 20 -- End user_id at 20
-BEGIN
+-- WHILE @UserId <= 20 -- End user_id at 20
+-- BEGIN
 
-	DECLARE @Temp INT = @UserId; -- Start user_id from 1
-    WHILE @Run <= 5 -- End story_id at 17
-    BEGIN
-		INSERT INTO [dbo].[CommentResponse] ([comment_response_id], [user_id], [comment_id], [comment_content], [comment_date])
-		VALUES (@CommentRepId, @Temp, @CommentId, 'I love u', CAST(N'2023-10-24' AS Date));
+-- 	DECLARE @Temp INT = @UserId; -- Start user_id from 1
+--     WHILE @Run <= 5 -- End story_id at 17
+--     BEGIN
+-- 		INSERT INTO [dbo].[CommentResponse] ([comment_response_id], [user_id], [comment_id], [comment_content], [comment_date])
+-- 		VALUES (@CommentRepId, @Temp, @CommentId, 'I love u', CAST(N'2023-10-24' AS Date));
 
-		SET @Temp = @Temp + 1;
-		SET @Run = @Run + 1;
-		SET @CommentRepId = @CommentRepId + 1; -- Increment story_id
-	END
+-- 		SET @Temp = @Temp + 1;
+-- 		SET @Run = @Run + 1;
+-- 		SET @CommentRepId = @CommentRepId + 1; -- Increment story_id
+-- 	END
 
-	SET @CommentId = @CommentId + 1; -- Increment comment_id
-	SET @Run = 1;
-    SET @UserId = @UserId + 1; -- Increment user_id
-END
-GO
+-- 	SET @CommentId = @CommentId + 1; -- Increment comment_id
+-- 	SET @Run = 1;
+--     SET @UserId = @UserId + 1; -- Increment user_id
+-- END
+-- GO
 
-SET IDENTITY_INSERT [dbo].[CommentResponse] OFF
-GO
+-- SET IDENTITY_INSERT [dbo].[CommentResponse] OFF
+-- GO
 
 SET IDENTITY_INSERT [dbo].[ReportType] ON
 GO
@@ -1632,89 +1822,21 @@ GO
 SET IDENTITY_INSERT [dbo].[ReportContent] ON
 GO
 
-	INSERT INTO [dbo].[ReportContent] ([report_id], [user_id],[report_type_id],[story_id],[chapter_id],[issue_id],[comment_id],[report_content],[report_date],[status])
+	INSERT INTO [dbo].[ReportContent] ([report_id], [user_id],[report_type_id],[story_id],[chapter_id],[comment_id],[report_content],[report_date],[status])
 	VALUES 
-		(1, 5, 1, 1, null, null, null, N'Truyện không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(2, 12, 7, 1, null, null, null, N'không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(3, 14, 5, 4, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(4, 25, 7, 3, null, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(5, 5, 8, null, 1, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(6, 24, 10, null, 4, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(7, 16, 3, null, null, null, 3, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(8, 35, 2, null, null, null, 14, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(9, 25, 6, null, null, null, 24, N' không phù hợp', CAST(N'2023-12-24' AS Date),null)
+		(1, 5, 1, 1, null, null, N'Truyện không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(2, 12, 7, 1, null, null, N'không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(3, 14, 5, 4, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(4, 25, 7, 3, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(5, 5, 8, null, 1, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(6, 24, 10, null, 4, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(7, 16, 3, null, null, 3, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(8, 35, 2, null, null, 14, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
+		(9, 25, 6, null, null, 24, N' không phù hợp', CAST(N'2023-12-24' AS Date),null)
 		
 SET IDENTITY_INSERT [dbo].[ReportContent] OFF
 GO
 
-
-INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
-	VALUES 
-		(1 ,100 ,24 ,123 ,198),
-		(2 ,43 ,34 ,83 ,158),
-		(3 ,23 ,14 ,23 ,238),
-		(4 ,43 ,24 ,33 ,48),
-		(5 ,23 ,24 ,123 ,98),
-		(6 ,53 ,24 ,123 ,98),
-		(7 ,53 ,24 ,123 ,98),
-		(8 ,53 ,24 ,123 ,98),
-		(9 ,53 ,24 ,123 ,98),
-		(10 ,53 ,24 ,123 ,98),
-		(11 ,53 ,24 ,123 ,98),
-		(12 ,53 ,24 ,123 ,98),
-		(13 ,53 ,24 ,123 ,98),
-		(14 ,53 ,24 ,123 ,98),
-		(15 ,53 ,24 ,123 ,98),
-		(16 ,53 ,24 ,123 ,98),
-		(17 ,123 ,124 ,143 ,208)
-
-INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
-(1,1),(12,1),(8,1),(14,1),
-(2,2),(12,2),(8,2),(14,2),
-(3,3),(12,3),(8,3),(14,3),
-(1,4),(12,4),(8,4),(14,4),
-(1,5),(8,5),(11,5),(14,5),
-(2,6),(8,6),(11,6),(14,6),
-(3,7),(8,7),(11,7),(12,7),(14,7),
-(3,8),(5,8),(6,8),(10,8),(14,8),
-(1,9),(7,9),(9,9),(13,9),(14,9),
-(3,10),(4,10),(5,10),(14,10),
-(3,11),(7,11),(8,11),(14,11),
-(2,12),(9,12),(10,12),(14,12),
-(2,13),(4,13),(14,13),
-(1,14),(4,14),(5,14),(14,14),
-(1,15),(14,15),
-(2,16),(14,16),
-(2,17),(8,17),(12,17),(15,17)
-
-
-INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
-	(2,1),(3,1),(4,1),(8,1),
-	(2,3),(5,3),(9,3),(13,3),
-	(7,4),(10,4),
-	(6,5),(7,5),
-	(8,6),(9,6),(15,6),
-	(2,17),(5,17),(8,17),(9,17),(15,17),(23,17)
-
-INSERT INTO [dbo].[Story_Follow_Like]([user_id],[story_id],[follow],[like]) VALUES
-	(2,1,1,1),(3,1,1,1),(4,1,1,1),(5,1,1,1),
-	(2,2,0,1),(3,2,1,0),(4,2,1,0),(9,2,0,1),
-	(2,3,0,1),(5,3,0,1),(9,3,0,1),(13,3,0,1),
-	(7,4,1,0),(10,4,1,0),
-	(6,5,0,1),(7,5,0,1),
-	(8,6,1,0),(9,6,1,0),
-	(2,17,1,0)	
-
-INSERT INTO [dbo].[Chapter_Owned]([user_id],[chapter_id]) VALUES
-	(2,1),(3,1),(4,1),(8,1),
-	(2,3),(5,3),(9,3),(13,3),
-	(7,4),(10,4),
-	-- (6,5),(7,5),
-	(8,6),(9,6),(15,6),
-	(8,7),(9,7),(15,7),
-	(8,8),(9,8),(15,8),
-	(8,10),(9,10),(15,10),
-	(8,12),(9,12),(15,12)
 
 ALTER TABLE [dbo].[Wallet]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1722,6 +1844,18 @@ GO
 
 ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD FOREIGN KEY([wallet_id])
 REFERENCES [dbo].[Wallet] ([wallet_id])
+GO
+
+ALTER TABLE [dbo].[Story_Read]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[Story_Read]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Story_Read]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
 ALTER TABLE [dbo].[Story_Follow_Like]  WITH CHECK ADD FOREIGN KEY([story_id])
@@ -1744,16 +1878,16 @@ ALTER TABLE [dbo].[Story]  WITH CHECK ADD FOREIGN KEY([author_id])
 REFERENCES [dbo].[User] ([user_id])
 GO
 
+ALTER TABLE [dbo].[Story_Interaction]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
 ALTER TABLE [dbo].[Story_Category]  WITH CHECK ADD FOREIGN KEY([story_id])
 REFERENCES [dbo].[Story] ([story_id])
 GO
 
 ALTER TABLE [dbo].[Story_Category]  WITH CHECK ADD FOREIGN KEY([category_id])
 REFERENCES [dbo].[Category] ([category_id])
-GO
-
-ALTER TABLE [dbo].[Story_Interaction]  WITH CHECK ADD FOREIGN KEY([story_id])
-REFERENCES [dbo].[Story] ([story_id])
 GO
 
 ALTER TABLE [dbo].[Volume]  WITH CHECK ADD FOREIGN KEY([story_id])
@@ -1776,13 +1910,13 @@ ALTER TABLE [dbo].[Chapter_Owned]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([user_id])
-REFERENCES [dbo].[User] ([user_id])
-GO
+-- ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([user_id])
+-- REFERENCES [dbo].[User] ([user_id])
+-- GO
 
-ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([story_id])
-REFERENCES [dbo].[Story] ([story_id])
-GO
+-- ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([story_id])
+-- REFERENCES [dbo].[Story] ([story_id])
+-- GO
 
 ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1796,17 +1930,17 @@ ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([issue_id])
-REFERENCES [dbo].[Story_Issue] ([issue_id])
-GO
+-- ALTER TABLE [dbo].[Comment]  WITH CHECK ADD FOREIGN KEY([issue_id])
+-- REFERENCES [dbo].[Story_Issue] ([issue_id])
+-- GO
 
-ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([user_id])
-REFERENCES [dbo].[User] ([user_id])
-GO
+-- ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([user_id])
+-- REFERENCES [dbo].[User] ([user_id])
+-- GO
 
-ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([comment_id])
-REFERENCES [dbo].[Comment] ([comment_id])
-GO
+-- ALTER TABLE [dbo].[CommentResponse]  WITH CHECK ADD FOREIGN KEY([comment_id])
+-- REFERENCES [dbo].[Comment] ([comment_id])
+-- GO
 
 ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1824,17 +1958,24 @@ ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
-ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([issue_id])
-REFERENCES [dbo].[Story_Issue] ([issue_id])
-GO
-
-
+-- ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([issue_id])
+-- REFERENCES [dbo].[Story_Issue] ([issue_id])
+-- GO
 
 ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
 GO
 	
-
+CREATE TRIGGER trg_InsertStoryInteraction
+ON [dbo].[Story]
+AFTER INSERT
+AS
+BEGIN
+    INSERT INTO [dbo].[Story_Interaction] ([story_id], [like], [follow], [view], [read])
+    SELECT
+        inserted.[story_id],0,0,0,0  
+    FROM inserted;
+END;
 
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0 mean Fail, 1 mean Pending, 2 mean Successful' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Transaction', @level2type=N'COLUMN',@level2name=N'status'
 GO

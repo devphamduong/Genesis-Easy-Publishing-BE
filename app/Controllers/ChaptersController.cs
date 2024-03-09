@@ -58,7 +58,7 @@ namespace app.Controllers
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
                 })
-                .OrderByDescending(c => c.ChapterNumber)
+                .OrderBy(c => c.ChapterNumber)
                 .ToListAsync();
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Story Detail Chapter",
@@ -194,6 +194,7 @@ namespace app.Controllers
         }
 
         [HttpGet("chapter_content/{storyid}/{chapterNumber}")]
+        public async Task<ActionResult> GetChapterContent(long chapterNumber, int storyid)
         public async Task<ActionResult> GetChapterContent(long chapterNumber, int storyid)
         {
             var jwtSecurityToken = new JwtSecurityToken();

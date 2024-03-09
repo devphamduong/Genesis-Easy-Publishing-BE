@@ -13,17 +13,11 @@ public partial class Comment
 
     public long? ChapterId { get; set; }
 
-    public int? IssueId { get; set; }
-
     public string CommentContent { get; set; } = null!;
 
     public DateTime CommentDate { get; set; }
 
     public virtual Chapter? Chapter { get; set; }
-
-    public virtual ICollection<CommentResponse> CommentResponses { get; set; } = new List<CommentResponse>();
-
-    public virtual StoryIssue? Issue { get; set; }
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 

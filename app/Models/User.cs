@@ -31,8 +31,6 @@ public partial class User
 
     public string? DescriptionHtml { get; set; }
 
-    public virtual ICollection<CommentResponse> CommentResponses { get; set; } = new List<CommentResponse>();
-
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
@@ -41,7 +39,7 @@ public partial class User
 
     public virtual ICollection<StoryFollowLike> StoryFollowLikes { get; set; } = new List<StoryFollowLike>();
 
-    public virtual ICollection<StoryIssue> StoryIssues { get; set; } = new List<StoryIssue>();
+    public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
 
     public virtual ICollection<Wallet> Wallets { get; set; } = new List<Wallet>();
 

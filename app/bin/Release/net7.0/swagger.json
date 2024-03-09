@@ -160,12 +160,55 @@
         "tags": [
           "Auth"
         ],
+        "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=true",
+          "application/json;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;IEEE754Compatible=false",
+          "application/json;IEEE754Compatible=true",
+          "application/xml",
+          "text/plain",
+          "text/json",
+          "application/*+json"
+        ],
         "parameters": [
           {
-            "in": "query",
-            "name": "email",
-            "type": "string",
-            "collectionFormat": "multi"
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ForgotPasswordForm"
+            }
           }
         ],
         "responses": {
@@ -301,8 +344,8 @@
         }
       }
     },
-    "/api/v1/auth/edit_profile": {
-      "post": {
+    "/api/v1/auth/update_profile": {
+      "put": {
         "tags": [
           "Auth"
         ],
@@ -816,7 +859,7 @@
         }
       }
     },
-    "/api/v1/chapters/chapter_content/{storyid}/{chapterid}": {
+    "/api/v1/chapters/chapter_content/{storyid}/{chapterNumber}": {
       "get": {
         "tags": [
           "Chapters"
@@ -824,17 +867,10 @@
         "parameters": [
           {
             "in": "path",
-            "name": "chapterid",
+            "name": "chapterNumber",
             "required": true,
             "type": "integer",
             "format": "int64"
-          },
-          {
-            "in": "query",
-            "name": "userid",
-            "type": "integer",
-            "format": "int32",
-            "collectionFormat": "multi"
           },
           {
             "in": "path",
@@ -886,10 +922,10 @@
         }
       }
     },
-    "/api/v1/issues/story_detail": {
-      "get": {
+    "/api/v1/interaction/story_like": {
+      "put": {
         "tags": [
-          "Issues"
+          "Interactions"
         ],
         "parameters": [
           {
@@ -898,17 +934,24 @@
             "type": "integer",
             "format": "int32",
             "collectionFormat": "multi"
-          },
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/interaction/story_follow": {
+      "put": {
+        "tags": [
+          "Interactions"
+        ],
+        "parameters": [
           {
             "in": "query",
-            "name": "page",
-            "type": "integer",
-            "format": "int32",
-            "collectionFormat": "multi"
-          },
-          {
-            "in": "query",
-            "name": "pageSize",
+            "name": "storyid",
             "type": "integer",
             "format": "int32",
             "collectionFormat": "multi"
@@ -925,6 +968,69 @@
       "get": {
         "tags": [
           "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/reports/send": {
+      "post": {
+        "tags": [
+          "Reports"
+        ],
+        "consumes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=true",
+          "application/json;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;IEEE754Compatible=false",
+          "application/json;IEEE754Compatible=true",
+          "application/xml",
+          "text/plain",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ReportDTO"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1139,6 +1245,41 @@
         }
       }
     },
+    "/api/v1/shelves/cate_shelves_done": {
+      "get": {
+        "tags": [
+          "Shelves"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cateid",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/shelves/filter": {
       "get": {
         "tags": [
@@ -1308,6 +1449,18 @@
         }
       }
     },
+    "/api/v1/story/GetStoryByAuthor": {
+      "get": {
+        "tags": [
+          "Stories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/v1/story/save_story": {
       "post": {
         "tags": [
@@ -1360,7 +1513,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/Story"
+              "$ref": "#/definitions/AddStoryForm"
             }
           }
         ],
@@ -1426,6 +1579,18 @@
               "$ref": "#/definitions/Story"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/vi/transaction/get_user_wallet": {
+      "get": {
+        "tags": [
+          "Transactions"
         ],
         "responses": {
           "200": {
@@ -1565,6 +1730,74 @@
             "format": "int32",
             "collectionFormat": "multi"
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/vi/transaction/get_transaction_recharge": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/vi/transaction/get_buy_transaction": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32",
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Users/getAllUser": {
+      "get": {
+        "tags": [
+          "Users"
         ],
         "responses": {
           "200": {
@@ -1855,6 +2088,29 @@
     }
   },
   "definitions": {
+    "AddStoryForm": {
+      "type": "object",
+      "properties": {
+        "storyTitle": {
+          "type": "string"
+        },
+        "authorId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "storyDescription": {
+          "type": "string"
+        },
+        "categoryIds": {
+          "type": "array",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "Category": {
       "type": "object",
       "properties": {
@@ -1945,6 +2201,12 @@
         "story": {
           "$ref": "#/definitions/Story"
         },
+        "storyReads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoryRead"
+          }
+        },
         "volume": {
           "$ref": "#/definitions/Volume"
         },
@@ -1976,10 +2238,6 @@
           "format": "int64",
           "type": "integer"
         },
-        "issueId": {
-          "format": "int32",
-          "type": "integer"
-        },
         "commentContent": {
           "type": "string"
         },
@@ -1989,15 +2247,6 @@
         },
         "chapter": {
           "$ref": "#/definitions/Chapter"
-        },
-        "commentResponses": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CommentResponse"
-          }
-        },
-        "issue": {
-          "$ref": "#/definitions/StoryIssue"
         },
         "reportContents": {
           "type": "array",
@@ -2014,33 +2263,11 @@
       },
       "additionalProperties": false
     },
-    "CommentResponse": {
+    "ForgotPasswordForm": {
       "type": "object",
       "properties": {
-        "commentResponseId": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "userId": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "commentId": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "commentContent": {
+        "email": {
           "type": "string"
-        },
-        "commentDate": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "comment": {
-          "$ref": "#/definitions/Comment"
-        },
-        "user": {
-          "$ref": "#/definitions/User"
         }
       },
       "additionalProperties": false
@@ -2101,10 +2328,6 @@
           "format": "int64",
           "type": "integer"
         },
-        "issueId": {
-          "format": "int32",
-          "type": "integer"
-        },
         "commentId": {
           "format": "int32",
           "type": "integer"
@@ -2125,9 +2348,6 @@
         "comment": {
           "$ref": "#/definitions/Comment"
         },
-        "issue": {
-          "$ref": "#/definitions/StoryIssue"
-        },
         "reportType": {
           "$ref": "#/definitions/ReportType"
         },
@@ -2136,6 +2356,31 @@
         },
         "user": {
           "$ref": "#/definitions/User"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ReportDTO": {
+      "type": "object",
+      "properties": {
+        "reportTypeId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "storyId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "chapterId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "commentId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "reportContent": {
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -2244,10 +2489,10 @@
         "storyInteraction": {
           "$ref": "#/definitions/StoryInteraction"
         },
-        "storyIssues": {
+        "storyReads": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/StoryIssue"
+            "$ref": "#/definitions/StoryRead"
           }
         },
         "volumes": {
@@ -2326,13 +2571,9 @@
       },
       "additionalProperties": false
     },
-    "StoryIssue": {
+    "StoryRead": {
       "type": "object",
       "properties": {
-        "issueId": {
-          "format": "int32",
-          "type": "integer"
-        },
         "userId": {
           "format": "int32",
           "type": "integer"
@@ -2341,27 +2582,16 @@
           "format": "int32",
           "type": "integer"
         },
-        "issueTitle": {
-          "type": "string"
+        "chapterId": {
+          "format": "int64",
+          "type": "integer"
         },
-        "issueContent": {
-          "type": "string"
-        },
-        "issueDate": {
+        "readTime": {
           "format": "date-time",
           "type": "string"
         },
-        "comments": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Comment"
-          }
-        },
-        "reportContents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ReportContent"
-          }
+        "chapter": {
+          "$ref": "#/definitions/Chapter"
         },
         "story": {
           "$ref": "#/definitions/Story"
@@ -2463,12 +2693,6 @@
         "descriptionHtml": {
           "type": "string"
         },
-        "commentResponses": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CommentResponse"
-          }
-        },
         "comments": {
           "type": "array",
           "items": {
@@ -2493,10 +2717,10 @@
             "$ref": "#/definitions/StoryFollowLike"
           }
         },
-        "storyIssues": {
+        "storyReads": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/StoryIssue"
+            "$ref": "#/definitions/StoryRead"
           }
         },
         "wallets": {

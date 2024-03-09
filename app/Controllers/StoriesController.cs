@@ -123,6 +123,7 @@ namespace app.Controllers
                     StorySale = c.StorySale,
                     StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
                     StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
+                    StoryChapterNumber = c.Chapters.Count,
                     StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
                     {

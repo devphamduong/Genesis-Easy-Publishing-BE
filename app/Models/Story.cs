@@ -37,7 +37,7 @@ public partial class Story
 
     public virtual StoryInteraction? StoryInteraction { get; set; }
 
-    public virtual ICollection<StoryIssue> StoryIssues { get; set; } = new List<StoryIssue>();
+    public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
 
     public virtual ICollection<Volume> Volumes { get; set; } = new List<Volume>();
 

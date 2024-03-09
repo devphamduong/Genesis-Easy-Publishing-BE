@@ -54,11 +54,12 @@ namespace app.Controllers
             var stories = await _context.Stories.Select(s => new { s.StoryPrice, }).OrderByDescending(s => s.StoryPrice).ToListAsync();
             var to = stories.Max(c => c.StoryPrice);
             var from = stories.Min(c => c.StoryPrice);
-            var status = new
-            {
-                done = new { Name = "Hoàn thành", Value = 2 },
-                writing = new { Name = "Chưa hoàn thành", Value = 1 }
-            };
+            var status = new List<object>
+                {
+                    new { Name = "Hoàn thành", Value = 2 },
+                    new { Name = "Chưa hoàn thành", Value = 1 }
+                };
+
             return _msgService.MsgReturn(0, "Categories successfully", new { cate, to, from, status });
         }
 
