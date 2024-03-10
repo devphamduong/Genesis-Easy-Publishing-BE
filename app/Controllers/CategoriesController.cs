@@ -33,6 +33,7 @@ namespace app.Controllers
                 {
                     c.CategoryId,
                     c.CategoryName,
+                    c.CategoryDescription,
                     StoriesNumber = c.Stories.Count,
                 })
                 .ToListAsync();
@@ -49,6 +50,7 @@ namespace app.Controllers
                 {
                     c.CategoryId,
                     c.CategoryName,
+                    c.CategoryDescription
                 })
                 .ToListAsync();
             var stories = await _context.Stories.Select(s => new { s.StoryPrice, }).OrderByDescending(s => s.StoryPrice).ToListAsync();
