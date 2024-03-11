@@ -214,7 +214,7 @@ namespace app.Controllers
                 {
                     Story = new { c.StoryId, c.Story.StoryTitle, c.Story.StoryPrice },
                     Author = new { c.Story.Author.UserId, c.Story.Author.UserFullname },
-                    Content = c.ChapterContent,
+                    Content = c.ChapterContentHtml,
                     ChapterId = c.ChapterId,
                     ChapterNumber = c.ChapterNumber,
                     ChapterTitle = c.ChapterTitle,

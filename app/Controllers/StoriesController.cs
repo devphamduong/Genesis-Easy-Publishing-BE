@@ -166,7 +166,8 @@ namespace app.Controllers
         {
             public string StoryTitle { get; set; } = null!;
             public int AuthorId { get; set; }
-            public string? StoryDescription { get; set; }
+            public string? StoryDescriptionMarkdown { get; set; }
+            public string? StoryDescriptionHtml { get; set; }
             public List<int> CategoryIds { get; set; }
         }
 
@@ -179,7 +180,8 @@ namespace app.Controllers
                 {
                     StoryTitle = addStoryForm.StoryTitle,
                     AuthorId = addStoryForm.AuthorId,
-                    StoryDescription = addStoryForm.StoryDescription,
+                    StoryDescriptionHtml = addStoryForm.StoryDescriptionHtml,
+                    StoryDescriptionMarkdown = addStoryForm.StoryDescriptionMarkdown,
                     CreateTime = DateTime.Now,
                     Status = 0,
                     StoryPrice = 0,

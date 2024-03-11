@@ -17,7 +17,8 @@ public partial class Story
 
     public string? StoryImage { get; set; }
 
-    public string? StoryDescription { get; set; }
+    public string? StoryDescriptionMarkdown { get; set; }
+    public string? StoryDescriptionHtml { get; set; }
 
     public DateTime CreateTime { get; set; }
 
