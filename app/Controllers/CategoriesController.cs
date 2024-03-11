@@ -39,7 +39,20 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Categories successfully", cate);
         }
-
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Category>> GetUser(int id)
+        {
+            if (_context.Categories == null)
+            {
+                return NotFound();
+            }
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return category;
+        }
         // GET: api/filter
         [HttpGet("options")]
         public async Task<ActionResult> GetOptionFilter()
