@@ -64,6 +64,9 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(100)
                 .HasColumnName("category_name");
+            entity.Property(e => e.CategoryDescription)
+               .HasMaxLength(500)
+               .HasColumnName("category_description");
 
             entity.HasMany(d => d.Stories).WithMany(p => p.Categories)
                 .UsingEntity<Dictionary<string, object>>(
