@@ -83,8 +83,17 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            string password = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault().Password;
-            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
+            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault();
+            if (user == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Wrong username or password",
+                });
+            };
+            string password = user.Password;
+            var userResponse = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
                 UserId = u.UserId,
                 Email = u.Email,
@@ -99,7 +108,7 @@ namespace app.Controllers
                 DescriptionMarkdown = u.DescriptionMarkdown,
                 DescriptionHTML = u.DescriptionHtml
             }).FirstOrDefault();
-            if (user == null || !hashService.Verify(password, data.Password))
+            if (!hashService.Verify(password, data.Password))
             {
                 return new JsonResult(new
                 {
@@ -109,9 +118,9 @@ namespace app.Controllers
             }
             UserDTO userDTO = new UserDTO
             {
-                Id = user.UserId,
-                Email = user.Email,
-                Username = user.Username,
+                Id = userResponse.UserId,
+                Email = userResponse.Email,
+                Username = userResponse.Username,
             };
             var accessToken = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
@@ -134,7 +143,7 @@ namespace app.Controllers
                 EM = "Login successfully",
                 DT = new
                 {
-                    user,
+                    user = userResponse,
                     access_token = accessToken,
                 },
             });

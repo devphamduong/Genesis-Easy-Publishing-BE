@@ -211,7 +211,9 @@ CREATE TABLE [dbo].[Story](
 	[story_price] [decimal](10, 2) NOT NULL,
 	[story_sale] [decimal] NULL,
 	[story_image] [varchar](4000) NULL,
-	[story_description] [nvarchar](4000) NULL,
+	[story_description] [ntext] NULL,
+	[story_description_markdown] [ntext] NULL,
+	[story_description_html] [ntext] NULL,
 	[create_time] [datetime] NOT NULL,
 	[update_time] [datetime] NULL,
 	[status] [int] NOT NULL,
@@ -288,6 +290,7 @@ CREATE TABLE [dbo].[Volume](
 ) ON [PRIMARY]
 GO
 
+
 -- table Chapter
 SET ANSI_NULLS ON
 GO
@@ -299,7 +302,8 @@ CREATE TABLE [dbo].[Chapter](
 	[story_id] [int] NOT NULL,
 	[volume_id] [int] NOT NULL,
 	[chapter_title] [nvarchar](100) NOT NULL,
-	[chapter_content] [ntext] NOT NULL,
+	[chapter_content_markdown] [ntext] NULL,
+	[chapter_content_html] [ntext] NULL,
 	[chapter_price] [decimal](10, 2) NULL,
 	[create_time] [datetime] NOT NULL,
 	[update_time] [datetime] NULL,
@@ -789,7 +793,7 @@ GO
 SET IDENTITY_INSERT [dbo].[Chapter] ON 
 GO
 
-INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 	VALUES
 		(1, 1, 1, 1, 5, N'NICK DUNNE',CAST(N'2022-01-01T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 		I’d know her head anywhere.
@@ -1624,7 +1628,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		DECLARE @Counter_Volume INT = 7;
 		WHILE @Counter_Story <= 12 -- Set the end condition
 		BEGIN
-			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 				VALUES
 					(@Counter_Chapter, 1, @Counter_Story, @Counter_Volume, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.
@@ -1676,7 +1680,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		DECLARE @Counter_Volumes INT = 19;
 		WHILE @Counter_ChapterNum <= 25 -- Set the end condition
 		BEGIN
-			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 				VALUES
 					(@Counter_Chapters, @Counter_ChapterNum, 1, @Counter_Volumes, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.
