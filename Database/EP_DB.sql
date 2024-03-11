@@ -595,7 +595,7 @@ INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
 SET IDENTITY_INSERT [dbo].[Story] ON 
 GO
 
-INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [story_sale], [story_image], [story_description_html], [create_time], [update_time], [status])
+INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [story_sale], [story_image], [story_description], [create_time], [update_time], [status])
 	VALUES 
 		( 1,N'Gone Girl ',1, CAST(11.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.
 		On a warm summer morning in North Carthage, Missouri, it is Nick and Amy Dunne’s fifth wedding anniversary. Presents are being wrapped and reservations are being made when Nick’s clever and beautiful wife disappears from their rented McMansion on the Mississippi River. Husband-of-the-Year Nick isn’t doing himself any favors with cringe-worthy daydreams about the slope and shape of his wife’s head, but passages from Amy''s diary reveal the alpha-girl perfectionist could have put anyone dangerously on edge. Under mounting pressure from the police and the media—as well as Amy’s fiercely doting parents—the town golden boy parades an endless series of lies, deceits, and inappropriate behavior. Nick is oddly evasive, and he’s definitely bitter—but is he really a killer?
