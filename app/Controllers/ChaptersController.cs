@@ -195,7 +195,6 @@ namespace app.Controllers
 
         [HttpGet("chapter_content/{storyid}/{chapterNumber}")]
         public async Task<ActionResult> GetChapterContent(long chapterNumber, int storyid)
-        public async Task<ActionResult> GetChapterContent(long chapterNumber, int storyid)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -214,7 +213,7 @@ namespace app.Controllers
                 .Select(c => new
                 {
                     Story = new { c.StoryId, c.Story.StoryTitle, c.Story.StoryPrice },
-                    Content = c.ChapterContent,
+                    Content = c.ChapterContentHtml,
                     ChapterId = c.ChapterId,
                     ChapterNumber = c.ChapterNumber,
                     ChapterTitle = c.ChapterTitle,

@@ -15,7 +15,8 @@ public partial class Chapter
 
     public string ChapterTitle { get; set; } = null!;
 
-    public string ChapterContent { get; set; } = null!;
+    public string? ChapterContentMarkdown { get; set; }
+    public string? ChapterContentHtml { get; set; }
 
     public decimal? ChapterPrice { get; set; }
 
