@@ -31,7 +31,7 @@ namespace app.Controllers
                     AuthorImage = c.UserImage,
                     AuthorStories = c.Stories.Count,
                     AuthorNewestStory = c.Stories.Where(c => c.AuthorId == story.AuthorId).OrderByDescending(c => c.StoryId)
-                    .Select(s => new { s.StoryId, s.StoryTitle, s.StoryImage, s.StoryDescription })
+                    .Select(s => new { s.StoryId, s.StoryTitle, s.StoryImage, s.StoryDescriptionHtml })
                     .FirstOrDefault()
                 })
                 .ToListAsync();

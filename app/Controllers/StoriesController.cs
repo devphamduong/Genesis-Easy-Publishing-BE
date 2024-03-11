@@ -79,7 +79,7 @@ namespace app.Controllers
                             StoryId = c.StoryId,
                             StoryTitle = c.StoryTitle,
                             StoryImage = c.StoryImage,
-                            StoryDescription = c.StoryDescription,
+                            StoryDescription = c.StoryDescriptionHtml,
                             StoryPrice = c.StoryPrice,
                             StorySale = c.StorySale,
                             CreateTime = c.CreateTime,
