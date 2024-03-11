@@ -211,6 +211,7 @@ CREATE TABLE [dbo].[Story](
 	[story_price] [decimal](10, 2) NOT NULL,
 	[story_sale] [decimal] NULL,
 	[story_image] [varchar](4000) NULL,
+	[story_description] [ntext] NULL,
 	[story_description_markdown] [ntext] NULL,
 	[story_description_html] [ntext] NULL,
 	[create_time] [datetime] NOT NULL,

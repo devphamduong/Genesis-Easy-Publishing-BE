@@ -224,6 +224,9 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("create_time");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.StoryDescription)
+                    .HasColumnType("ntext")
+                    .HasColumnName("story_description");
             entity.Property(e => e.StoryDescriptionHtml)
                     .HasColumnType("ntext")
                     .HasColumnName("story_description_html");
