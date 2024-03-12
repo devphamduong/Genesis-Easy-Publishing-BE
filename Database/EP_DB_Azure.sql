@@ -230,6 +230,7 @@ GO
 CREATE TABLE [dbo].[Category](
 	[category_id] [int] IDENTITY(1,1) NOT NULL,
 	[category_name] [nvarchar](100) NULL,
+	[category_description] [nvarchar](500) NULL,
  CONSTRAINT [PK_category] PRIMARY KEY CLUSTERED 
 (
 	[category_id] ASC
