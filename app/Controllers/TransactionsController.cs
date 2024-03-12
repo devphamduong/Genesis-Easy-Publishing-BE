@@ -30,14 +30,14 @@ namespace app.Controllers
         public class VNPayRequestForm
         {
             public string PaymentContent { get; set; } = string.Empty;
-            public string PaymentCurrency { get; set; } = string.Empty;
+            public string PaymentCurrency { get; set; } = "VND";
             public string PaymentRefId { get; set; } = string.Empty;
             public decimal? RequiredAmount { get; set; }
             public DateTime? PaymentDate { get; set; } = DateTime.Now;
             public DateTime? ExpireDate { get; set; } = DateTime.Now.AddMinutes(15);
-            public string? PaymentLanguage { get; set; } = string.Empty;
+            public string? PaymentLanguage { get; set; } = "vn";
             public string? MerchantId { get; set; } = string.Empty;
-            public string? PaymentDestinationId { get; set; } = string.Empty;
+            public string? PaymentDestinationId { get; set; } = "VNPAY";
             public string? Signature { get; set; } = string.Empty;
         }
 
@@ -579,7 +579,7 @@ namespace app.Controllers
 
             var vnpayRequest = new VNPayRequest(version,
             tmnCode, DateTime.Now, _httpContextAccessor?.HttpContext?.Connection?.LocalIpAddress?.ToString() ?? string.Empty, data.RequiredAmount ?? 0, data.PaymentCurrency ?? string.Empty,
-                              "other", data.PaymentContent ?? string.Empty, "https://localhost:44393/PaymentConfirm", DateTime.Now.Ticks.ToString());
+                              "other", data.PaymentContent ?? string.Empty, "http://localhost:3000/payment-confirm", DateTime.Now.Ticks.ToString());
             paymentUrl = vnpayRequest.GetLink(paymentUrl, hashSecret);
             return new JsonResult(new
             {

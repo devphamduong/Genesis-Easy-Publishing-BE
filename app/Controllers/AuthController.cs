@@ -1,6 +1,7 @@
 ﻿using app.DTOs;
 using app.Models;
 using app.Service;
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -63,7 +64,7 @@ namespace app.Controllers
         public class UserProfileForm
         {
             public string? UserFullname { get; set; }
-            public bool? Gender { get; set; }
+            public string? Gender { get; set; }
             public DateTime? Dob { get; set; }
             public string? Phone { get; set; }
             public string? Address { get; set; }
@@ -394,11 +395,12 @@ namespace app.Controllers
         [HttpPost("reset_password")]
         public IActionResult ResetPassword([FromBody] ResetPasswordForm data)
         {
+            string email;
             var handler = new JwtSecurityTokenHandler();
             try
             {
                 var token = handler.ReadJwtToken(data.Token);
-                string email = token.Claims.First(c => c.Type == "email").Value;
+                email = token.Claims.First(c => c.Type == "email").Value;
                 var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
                 if (user == null)
                 {
@@ -448,6 +450,10 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Reset password successfully",
+                DT = new
+                {
+                    email = email
+                }
             });
         }
 
@@ -510,7 +516,14 @@ namespace app.Controllers
                 user.Phone = data.Phone;
                 user.Dob = data.Dob;
                 user.UserImage = data.UserImage;
-                user.Gender = data.Gender;
+                if (data.Gender.ToLower().Equals("male"))
+                {
+                    user.Gender = true;
+                }
+                else
+                {
+                    user.Gender = false;
+                }
                 user.DescriptionMarkdown = data.DescriptionMarkdown;
                 user.DescriptionHtml = data.DescriptionHTML;
                 _context.SaveChanges();
