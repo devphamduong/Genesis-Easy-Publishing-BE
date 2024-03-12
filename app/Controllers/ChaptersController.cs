@@ -225,15 +225,12 @@ namespace app.Controllers
                     UserPurchaseChapter = c.Users.Count,
                     NextChapterNumber = nextChapterNum,
                     Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null)
-                    NextChapterNumber = nextChapterNum,
-                    Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null)
                 }).FirstOrDefault();
 
             if (chapter == null)
             {
                 return new JsonResult(new
                 {
-                    EC = -1,
                     EC = -1,
                     EM = "Chapter is not available"
                 });

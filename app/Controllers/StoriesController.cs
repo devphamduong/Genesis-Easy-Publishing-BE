@@ -139,6 +139,21 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Story Relate", verified.Take(3));
         }
 
+        [HttpGet("GetDataForChart")]
+        public async Task<ActionResult> GetDataForChart(int storyId)
+        {
+            var data = await _context.Stories.Where(s => s.StoryId == storyId)
+                    .Include(s => s.StoryInteraction)
+                    .Select(s => new
+                    {
+                        StoryId = s.StoryId,
+                        StoryTitle = s.StoryTitle,
+                        Like = s.StoryInteraction.Like,
+                        Follow = s.StoryInteraction.Follow,
+                    }).FirstOrDefaultAsync();
+            return _msgService.MsgReturn(0, "List Story", data);
+        }
+
         [HttpGet("GetStoryByAuthor")]
         public async Task<ActionResult> GetStoryByAuthorId()
         {
