@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
 namespace app.Controllers
@@ -496,6 +497,21 @@ namespace app.Controllers
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Stories successfully",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
+        }
+
+        [HttpGet("author_detail")]
+        public async Task<ActionResult> GetStoryByAuthorId(int authorid)
+        {
+
+            var stories = await _context.Stories.Where(s => s.AuthorId == authorid && s.Status > 0)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    CreateTime = s.CreateTime
+                }).OrderByDescending(c=>c.StoryId).ToListAsync();
+            return _msgService.MsgReturn(0, "List Stories", stories);
         }
 
         // get stories owned

@@ -37,5 +37,24 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Story Detail Author Relate", author.FirstOrDefault());
         }
+
+        [HttpGet("author_detail")]
+        public async Task<ActionResult> GetAuthor(int authorid)
+        {
+            var author = await _context.Users.Where(c => c.UserId == authorid)
+                .Include(c => c.Stories)
+                .Select(c => new
+                {
+                    AuthorId = c.UserId,
+                    AuthorName = c.UserFullname,
+                    AuthorImage = c.UserImage,
+                    AuthorEmail = c.Email,
+                    AuthorDescriptionHtml = c.DescriptionHtml,
+                    AuthorDescriptionMarkdown = c.DescriptionMarkdown,
+                    AuthorStories = c.Stories.Count,
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Detail Author", author.FirstOrDefault());
+        }
     }
 }
