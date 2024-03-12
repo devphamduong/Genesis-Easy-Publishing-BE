@@ -46,6 +46,56 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Report Option", types);
         }
 
+        [HttpGet("all_report")]
+        public async Task<ActionResult> GetAllReports()
+        {
+            var reports = await _context.ReportContents
+                .Include(r => r.ReportType)
+                .Include(r=>r.Chapter)
+                .Include(r=>r.Story)
+                .Include(r=>r.Comment)
+                .Include(r=>r.User)
+                .Select(r=> new
+                {
+                    ReportId = r.ReportId,
+                    UserName = r.User.Username,
+                    ReportTypeContent = r.ReportType.ReportTypeContent,
+                    ChapterTitle = r.Chapter.ChapterTitle,
+                    StoryTitle = r.Story.StoryTitle,
+                    CommentContent = r.Comment.CommentContent,
+                    ReportContent1 = r.ReportContent1,
+                    ReportDate = r.ReportDate,
+                    Status = r.Status
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "All Report", reports);
+        }
+
+        [HttpGet("report/{id}")]
+        public async Task<ActionResult> GetReport(int id)
+        {
+            var reports = await _context.ReportContents.Where(r=>r.ReportId == id)
+                .Include(r => r.ReportType)
+                .Include(r => r.Chapter)
+                .Include(r => r.Story)
+                .Include(r => r.Comment)
+                .Include(r => r.User)
+                .Select(r => new
+                {
+                    ReportId = r.ReportId,
+                    UserName = r.User.Username,
+                    ReportTypeContent = r.ReportType.ReportTypeContent,
+                    ChapterTitle = r.Chapter.ChapterTitle,
+                    StoryTitle = r.Story.StoryTitle,
+                    CommentContent = r.Comment.CommentContent,
+                    ReportContent1 = r.ReportContent1,
+                    ReportDate = r.ReportDate,
+                    Status = r.Status
+                })
+                .FirstOrDefaultAsync();
+            return _msgService.MsgReturn(0, "Get Report", reports);
+        }
+
         [HttpPost("send")]
         public async Task<ActionResult> SendReport(ReportDTO reportDTO)
         {
