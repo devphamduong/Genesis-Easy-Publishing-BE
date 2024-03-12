@@ -211,7 +211,9 @@ CREATE TABLE [dbo].[Story](
 	[story_price] [decimal](10, 2) NOT NULL,
 	[story_sale] [decimal] NULL,
 	[story_image] [varchar](4000) NULL,
-	[story_description] [nvarchar](4000) NULL,
+	[story_description] [ntext] NULL,
+	[story_description_markdown] [ntext] NULL,
+	[story_description_html] [ntext] NULL,
 	[create_time] [datetime] NOT NULL,
 	[update_time] [datetime] NULL,
 	[status] [int] NOT NULL,
@@ -248,6 +250,7 @@ GO
 CREATE TABLE [dbo].[Category](
 	[category_id] [int] IDENTITY(1,1) NOT NULL,
 	[category_name] [nvarchar](100) NULL,
+	[category_description] [nvarchar](500) NULL,
  CONSTRAINT [PK_category] PRIMARY KEY CLUSTERED 
 (
 	[category_id] ASC
@@ -288,6 +291,7 @@ CREATE TABLE [dbo].[Volume](
 ) ON [PRIMARY]
 GO
 
+
 -- table Chapter
 SET ANSI_NULLS ON
 GO
@@ -299,7 +303,8 @@ CREATE TABLE [dbo].[Chapter](
 	[story_id] [int] NOT NULL,
 	[volume_id] [int] NOT NULL,
 	[chapter_title] [nvarchar](100) NOT NULL,
-	[chapter_content] [ntext] NOT NULL,
+	[chapter_content_markdown] [ntext] NULL,
+	[chapter_content_html] [ntext] NULL,
 	[chapter_price] [decimal](10, 2) NULL,
 	[create_time] [datetime] NOT NULL,
 	[update_time] [datetime] NULL,
@@ -705,23 +710,23 @@ INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 SET IDENTITY_INSERT [dbo].[Category] ON 
 GO
 
-INSERT [dbo].[Category] ([category_id],[category_name]) 
+INSERT [dbo].[Category] ([category_id],[category_name],[category_description]) 
 	VALUES
-		(1, N'Manhwa'),
-		(2, N'Manhua'), 
-		(3, N'Manga'), 
-		(4, N'Truyện ngắn'), 
-		(5, N'Tiểu thuyết'), 
-		(6, N'Comedy'), 
-		(7, N'Kinh dị'), 
-		(8, N'Hành động'), 
-		(9, N'Phiêu lưu'),
-		(10, N'Lãng mạn'), 
-		(11, N'Viễn tưởng'), 
-		(12, N'Bí ẩn'), 
-		(13, N'Khoa học'),
-		(14, N'Tiếng anh'), 
-		(15, N'Tiếng Việt')
+		(1, N'Manhwa',N'Truyện Hàn Quốc'),
+		(2, N'Manhua',N'Truyện của Trung Quốc'), 
+		(3, N'Manga',N'Truyện của Nhật Bản'), 
+		(4, N'Truyện ngắn',N'Những truyện ngắn,thường là 1 vài chapter'), 
+		(5, N'Tiểu thuyết',N'tiểu thuyết là sử thi của đời tư'), 
+		(6, N'Comedy',N'Thể loại có nội dung trong sáng và cảm động, thường có các tình tiết gây cười, các xung đột nhẹ nhàng'), 
+		(7, N'Kinh dị',N'Thể loại dành cho lứa tuổi 17+ bao gồm các pha bạo lực, máu me, chém giết, tình dục ở mức độ vừa'), 
+		(8, N'Hành động',N'Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh'), 
+		(9, N'Phiêu lưu',N'Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật'),
+		(10, N'Lãng mạn',N'Thường là những câu chuyện về tình yêu, tình cảm lãng mạn.'), 
+		(11, N'Viễn tưởng',N'Thể hiện những sức mạnh đáng kinh ngạc và không thể giải thích được, chúng thường đi kèm với những sự kiện trái ngược hoặc thách thức với những định luật vật lý'), 
+		(12, N'Bí ẩn',N'Thể loại thường xuất hiện những điều bí ấn không thể lí giải được và sau đó là những nỗ lực của nhân vật chính nhằm tìm ra câu trả lời thỏa đáng'), 
+		(13, N'Khoa học',N'Truyện liên quan đến vấn đề khoa học'),
+		(14, N'Tiếng anh',N'Truyện viết bằng tiếng anh'), 
+		(15, N'Tiếng Việt',N'Truyện viết bằng tiếng việt')
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
@@ -789,7 +794,7 @@ GO
 SET IDENTITY_INSERT [dbo].[Chapter] ON 
 GO
 
-INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 	VALUES
 		(1, 1, 1, 1, 5, N'NICK DUNNE',CAST(N'2022-01-01T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 		I’d know her head anywhere.
@@ -1624,7 +1629,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		DECLARE @Counter_Volume INT = 7;
 		WHILE @Counter_Story <= 12 -- Set the end condition
 		BEGIN
-			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 				VALUES
 					(@Counter_Chapter, 1, @Counter_Story, @Counter_Volume, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.
@@ -1676,7 +1681,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		DECLARE @Counter_Volumes INT = 19;
 		WHILE @Counter_ChapterNum <= 25 -- Set the end condition
 		BEGIN
-			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content]) 
+			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 				VALUES
 					(@Counter_Chapters, @Counter_ChapterNum, 1, @Counter_Volumes, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.

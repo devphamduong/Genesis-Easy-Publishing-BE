@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ng3q5GqzeINi2Jurr6QIhC0cysYGGGInfQsmGdxGQwg=",
+  "Hash": "E5jn+ZmWMJFPWSYYNpt2yanndx2AYOLuQSRVcDA2xkg=",
   "Source": "app",
   "BasePath": "_content/app",
   "Mode": "Default",
@@ -2542,6 +2542,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Index.html"
+    },
+    {
+      "Identity": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\Category.html",
+      "SourceId": "app",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\",
+      "BasePath": "_content/app",
+      "RelativePath": "Pages/Category.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Pages\\Category.html"
     },
     {
       "Identity": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\User.html",

@@ -64,6 +64,9 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(100)
                 .HasColumnName("category_name");
+            entity.Property(e => e.CategoryDescription)
+               .HasMaxLength(500)
+               .HasColumnName("category_description");
 
             entity.HasMany(d => d.Stories).WithMany(p => p.Categories)
                 .UsingEntity<Dictionary<string, object>>(
@@ -92,9 +95,12 @@ public partial class EasyPublishingContext : DbContext
             entity.ToTable("Chapter");
 
             entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
-            entity.Property(e => e.ChapterContent)
+            entity.Property(e => e.ChapterContentHtml)
+                    .HasColumnType("ntext")
+                    .HasColumnName("chapter_content_html");
+            entity.Property(e => e.ChapterContentMarkdown)
                 .HasColumnType("ntext")
-                .HasColumnName("chapter_content");
+                .HasColumnName("chapter_content_markdown");
             entity.Property(e => e.ChapterNumber).HasColumnName("chapter_number");
             entity.Property(e => e.ChapterPrice)
                 .HasColumnType("decimal(10, 2)")
@@ -222,8 +228,14 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnName("create_time");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.StoryDescription)
-                .HasMaxLength(4000)
-                .HasColumnName("story_description");
+                    .HasColumnType("ntext")
+                    .HasColumnName("story_description");
+            entity.Property(e => e.StoryDescriptionHtml)
+                    .HasColumnType("ntext")
+                    .HasColumnName("story_description_html");
+            entity.Property(e => e.StoryDescriptionMarkdown)
+                .HasColumnType("ntext")
+                .HasColumnName("story_description_markdown");
             entity.Property(e => e.StoryImage)
                 .HasMaxLength(4000)
                 .IsUnicode(false)
