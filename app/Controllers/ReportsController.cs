@@ -43,7 +43,7 @@ namespace app.Controllers
         public async Task<ActionResult> GetReportType()
         {
             var types = await _context.ReportTypes.Select(c => new { c.ReportTypeId, c.ReportTypeContent }).ToListAsync();
-            return _msgService.MsgReturn(0, "Report Option", types);
+            return _msgService.MsgReturn(0, "Các loại báo cáo", types);
         }
 
         [HttpGet("all_report")]
@@ -108,9 +108,9 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Login first");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
-            if (!ModelState.IsValid) return _msgService.MsgActionReturn(-1, "Lack param");
+            if (!ModelState.IsValid) return _msgService.MsgActionReturn(-1, "Thiếu điều kiện");
             ReportContent report = new ReportContent()
             {
                 UserId = userId,

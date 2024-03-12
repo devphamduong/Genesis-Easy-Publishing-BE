@@ -9,6 +9,7 @@ using app.Models;
 using app.Service;
 using System.Security.Policy;
 using System.IdentityModel.Tokens.Jwt;
+using System.Drawing.Printing;
 
 namespace app.Controllers
 {
@@ -103,7 +104,7 @@ namespace app.Controllers
                             UserLike = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Like == true),
                         })
                         .ToListAsync();
-            return _msgService.MsgReturn(0, "Story Detail", stories.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Thông tin truyện", stories.FirstOrDefault());
         }
 
         [HttpGet("story_detail/related")]
@@ -136,8 +137,9 @@ namespace app.Controllers
                 .OrderByDescending(c => c.StoryId)
                 .ToListAsync();
             var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
-            return _msgService.MsgReturn(0, "Story Relate", verified.Take(3));
+            return _msgService.MsgReturn(0, "Truyện liên quan", verified.Take(3));
         }
+
 
         [HttpGet("GetDataForChart")]
         public async Task<ActionResult> GetDataForChart(int storyId)

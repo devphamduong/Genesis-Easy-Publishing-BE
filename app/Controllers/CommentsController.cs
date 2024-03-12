@@ -34,7 +34,7 @@ namespace app.Controllers
                 .OrderByDescending(c => c.CommentId)
                 .ToListAsync();
             pageSize = pageSize == null ? 10 : pageSize;
-            return _msgService.MsgPagingReturn("Story Detail Comments",
+            return _msgService.MsgPagingReturn("Bình luận của truyện",
                 comments.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, comments.Count);
         }
     }

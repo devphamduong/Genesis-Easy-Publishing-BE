@@ -54,7 +54,7 @@ namespace app.Controllers
 
             var wallet = await _context.Wallets.Where(c => c.UserId == userId)
                     .Select(c => new { c.WalletId, c.Fund }).ToListAsync();
-            return _msgService.MsgReturn(0, "Wallet balance", wallet.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Số dư", wallet.FirstOrDefault());
         }
     }
 }
