@@ -565,15 +565,18 @@ namespace app.Controllers
                 //.OrderByDescending(c => c.StoryId)
                 .ToListAsync();
             stories = String.IsNullOrEmpty(title) ? stories : stories.Where(c => c.StoryTitle.ToLower().Contains(title.ToLower())).ToList();
+
             if (sort != null && sort.Any())
             {
-                if (sort.Contains("storyTitle"))
+                if (sort.Any(c => c.Contains("storyTitle")))
                     stories = sort.Contains("-storyTitle") ? stories.OrderByDescending(c => c.StoryTitle).ToList()
                         : stories.OrderBy(c => c.StoryTitle).ToList();
-                if (sort.Contains("userPurchaseStory"))
+
+                if (sort.Any(c => c.Contains("userPurchaseStory")))
                     stories = sort.Contains("-userPurchaseStory") ? stories.OrderByDescending(c => c.UserPurchaseStory).ToList()
                         : stories.OrderBy(c => c.UserPurchaseStory).ToList();
-                if (sort.Contains("storyCreatime"))
+
+                if (sort.Any(c => c.Contains("storyCreatime")))
                     stories = sort.Contains("-storyCreatime") ? stories.OrderByDescending(c => c.StoryCreatime).ToList()
                         : stories.OrderBy(c => c.StoryCreatime).ToList();
             }
@@ -581,7 +584,7 @@ namespace app.Controllers
             page = page == null || page == 0 ? 1 : page;
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Truyện của tác giả",
-            stories.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, stories.Count);
+            stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
         // get stories owned
