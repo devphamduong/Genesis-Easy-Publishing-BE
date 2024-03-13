@@ -68,9 +68,13 @@ namespace app.Controllers
             public DateTime? Dob { get; set; }
             public string? Phone { get; set; }
             public string? Address { get; set; }
-            public string? UserImage { get; set; }
             public string? DescriptionMarkdown { get; set; }
             public string? DescriptionHTML { get; set; }
+        }
+
+        public class Avatar
+        {
+            public IFormFile userImage { get; set; }
         }
 
         [HttpPost("login")]
@@ -515,7 +519,6 @@ namespace app.Controllers
                 user.Address = data.Address;
                 user.Phone = data.Phone;
                 user.Dob = data.Dob;
-                user.UserImage = data.UserImage;
                 if (data.Gender.ToLower().Equals("male"))
                 {
                     user.Gender = true;
@@ -558,5 +561,33 @@ namespace app.Controllers
                 }
             });
         }
+
+        [HttpPut("update_avatar")]
+        public IActionResult ChangeAvatar([FromForm] Avatar data)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            string accessToken = null;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
+                var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Save avatar successfully"
+            });
+        }
+
     }
 }
