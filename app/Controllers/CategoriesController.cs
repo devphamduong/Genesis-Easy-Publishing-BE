@@ -33,12 +33,26 @@ namespace app.Controllers
                 {
                     c.CategoryId,
                     c.CategoryName,
+                    c.CategoryDescription,
                     StoriesNumber = c.Stories.Count,
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "Categories successfully", cate);
+            return _msgService.MsgReturn(0, "Các thể loại truyện", cate);
         }
-
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Category>> GetUser(int id)
+        {
+            if (_context.Categories == null)
+            {
+                return NotFound();
+            }
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return category;
+        }
         // GET: api/filter
         [HttpGet("options")]
         public async Task<ActionResult> GetOptionFilter()
@@ -49,6 +63,7 @@ namespace app.Controllers
                 {
                     c.CategoryId,
                     c.CategoryName,
+                    c.CategoryDescription
                 })
                 .ToListAsync();
             var stories = await _context.Stories.Select(s => new { s.StoryPrice, }).OrderByDescending(s => s.StoryPrice).ToListAsync();
@@ -60,7 +75,7 @@ namespace app.Controllers
                     new { Name = "Chưa hoàn thành", Value = 1 }
                 };
 
-            return _msgService.MsgReturn(0, "Categories successfully", new { cate, to, from, status });
+            return _msgService.MsgReturn(0, "Trường tìm kiếm", new { cate, to, from, status });
         }
 
         [HttpPut("{id}")]

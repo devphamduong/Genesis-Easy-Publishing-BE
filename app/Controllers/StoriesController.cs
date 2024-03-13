@@ -9,6 +9,7 @@ using app.Models;
 using app.Service;
 using System.Security.Policy;
 using System.IdentityModel.Tokens.Jwt;
+using System.Drawing.Printing;
 
 namespace app.Controllers
 {
@@ -79,7 +80,7 @@ namespace app.Controllers
                             StoryId = c.StoryId,
                             StoryTitle = c.StoryTitle,
                             StoryImage = c.StoryImage,
-                            StoryDescription = c.StoryDescription,
+                            StoryDescription = c.StoryDescriptionHtml,
                             StoryPrice = c.StoryPrice,
                             StorySale = c.StorySale,
                             CreateTime = c.CreateTime,
@@ -103,7 +104,7 @@ namespace app.Controllers
                             UserLike = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Like == true),
                         })
                         .ToListAsync();
-            return _msgService.MsgReturn(0, "Story Detail", stories.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Thông tin truyện", stories.FirstOrDefault());
         }
 
         [HttpGet("story_detail/related")]
@@ -136,14 +137,54 @@ namespace app.Controllers
                 .OrderByDescending(c => c.StoryId)
                 .ToListAsync();
             var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
-            return _msgService.MsgReturn(0, "Story Relate", verified.Take(3));
+            return _msgService.MsgReturn(0, "Truyện liên quan", verified.Take(3));
+        }
+
+
+        [HttpGet("GetDataForChart")]
+        public async Task<ActionResult> GetDataForChart(int storyId)
+        {
+            var data = await _context.Stories.Where(s => s.StoryId == storyId)
+                    .Include(s => s.StoryInteraction)
+                    .Select(s => new
+                    {
+                        StoryId = s.StoryId,
+                        StoryTitle = s.StoryTitle,
+                        Like = s.StoryInteraction.Like,
+                        Follow = s.StoryInteraction.Follow,
+                    }).FirstOrDefaultAsync();
+            return _msgService.MsgReturn(0, "List Story", data);
+        }
+
+        [HttpGet("GetStoryByAuthor")]
+        public async Task<ActionResult> GetStoryByAuthorId()
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            var story = await _context.Stories.Where(s => s.AuthorId == userId)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    Status = s.Status,
+                    CreateTime = s.CreateTime
+                }).ToListAsync();
+            return _msgService.MsgReturn(0, "List Story", story);
         }
 
         public class AddStoryForm
         {
             public string StoryTitle { get; set; } = null!;
             public int AuthorId { get; set; }
-            public string? StoryDescription { get; set; }
+            public string? StoryDescriptionMarkdown { get; set; }
+            public string? StoryDescriptionHtml { get; set; }
             public List<int> CategoryIds { get; set; }
         }
 
@@ -156,7 +197,8 @@ namespace app.Controllers
                 {
                     StoryTitle = addStoryForm.StoryTitle,
                     AuthorId = addStoryForm.AuthorId,
-                    StoryDescription = addStoryForm.StoryDescription,
+                    StoryDescriptionHtml = addStoryForm.StoryDescriptionHtml,
+                    StoryDescriptionMarkdown = addStoryForm.StoryDescriptionMarkdown,
                     CreateTime = DateTime.Now,
                     Status = 0,
                     StoryPrice = 0,

@@ -16,8 +16,9 @@ public partial class Story
     public decimal? StorySale { get; set; }
 
     public string? StoryImage { get; set; }
-
     public string? StoryDescription { get; set; }
+    public string? StoryDescriptionMarkdown { get; set; }
+    public string? StoryDescriptionHtml { get; set; }
 
     public DateTime CreateTime { get; set; }
 
@@ -36,6 +37,8 @@ public partial class Story
     public virtual ICollection<StoryFollowLike> StoryFollowLikes { get; set; } = new List<StoryFollowLike>();
 
     public virtual StoryInteraction? StoryInteraction { get; set; }
+
+    public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
 
     public virtual ICollection<Volume> Volumes { get; set; } = new List<Volume>();
 

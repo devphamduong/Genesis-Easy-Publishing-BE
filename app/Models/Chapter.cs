@@ -15,7 +15,8 @@ public partial class Chapter
 
     public string ChapterTitle { get; set; } = null!;
 
-    public string ChapterContent { get; set; } = null!;
+    public string? ChapterContentMarkdown { get; set; }
+    public string? ChapterContentHtml { get; set; }
 
     public decimal? ChapterPrice { get; set; }
 
@@ -30,6 +31,8 @@ public partial class Chapter
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 
     public virtual Story Story { get; set; } = null!;
+
+    public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
 
     public virtual Volume Volume { get; set; } = null!;
 

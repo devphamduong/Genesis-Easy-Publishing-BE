@@ -40,12 +40,19 @@ namespace app.Controllers
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
         }
+
+        public class ForgotPasswordForm
+        {
+            public string Email { get; set; }
+        }
+
         public class ResetPasswordForm
         {
             public string Token { get; set; }
             public string Password { get; set; }
             public string ConfirmPassword { get; set; }
         }
+
         public class ChangePasswordForm
         {
             public string OldPassword { get; set; }
@@ -76,8 +83,17 @@ namespace app.Controllers
                     EM = "Missing parameters",
                 });
             }
-            string password = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault().Password;
-            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
+            var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault();
+            if (user == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Wrong username or password",
+                });
+            };
+            string password = user.Password;
+            var userResponse = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
                 UserId = u.UserId,
                 Email = u.Email,
@@ -87,12 +103,12 @@ namespace app.Controllers
                 Dob = u.Dob,
                 Address = u.Address,
                 Phone = u.Phone,
-                Status = u.Status == true ? 1 : 0,
+                Status = u.Status == true ? "Active" : "Inactive",
                 UserImage = u.UserImage,
                 DescriptionMarkdown = u.DescriptionMarkdown,
                 DescriptionHTML = u.DescriptionHtml
             }).FirstOrDefault();
-            if (user == null || !hashService.Verify(password, data.Password))
+            if (!hashService.Verify(password, data.Password))
             {
                 return new JsonResult(new
                 {
@@ -102,9 +118,9 @@ namespace app.Controllers
             }
             UserDTO userDTO = new UserDTO
             {
-                Id = user.UserId,
-                Email = user.Email,
-                Username = user.Username,
+                Id = userResponse.UserId,
+                Email = userResponse.Email,
+                Username = userResponse.Username,
             };
             var accessToken = CreateToken(userDTO);
             var cookieOptions = new CookieOptions();
@@ -127,7 +143,7 @@ namespace app.Controllers
                 EM = "Login successfully",
                 DT = new
                 {
-                    user,
+                    user = userResponse,
                     access_token = accessToken,
                 },
             });
@@ -339,9 +355,9 @@ namespace app.Controllers
         }
 
         [HttpPost("forgot_password")]
-        public IActionResult SendMailConfirm(string email)
+        public IActionResult SendMailConfirm([FromBody] ForgotPasswordForm data)
         {
-            var user = _context.Users.Where(u => u.Email.Equals(email)).FirstOrDefault();
+            var user = _context.Users.Where(u => u.Email.Equals(data.Email)).FirstOrDefault();
             if (user == null)
             {
                 return new JsonResult(new
@@ -352,14 +368,14 @@ namespace app.Controllers
             }
             try
             {
-                string token = CreateForgotPasswordToken(email);
-                mailService.Send(email,
+                string token = CreateForgotPasswordToken(data.Email);
+                mailService.Send(data.Email,
                         "Easy Publishing: Reset password",
                         "<b>Hi " + user.Username + ",</b>" +
                         "<p>There was a request to reset your password! </p> " +
                         "<p>If you did not make this request then please ignore this email.</p> " +
                         "<p>Otherwise, please click this link to reset your password:</p> " +
-                        "<a href =\"https://genesis-easy-publishing.vercel.app/reset-password?token=" + token + "\">Reset password</a>");
+                        "<a href =\"http://localhost:3000/auth/reset-password?token=" + token + "\">Reset password</a>");
             }
             catch (Exception ex)
             {
@@ -479,11 +495,11 @@ namespace app.Controllers
             });
         }
 
-        [HttpPut("edit_profile")]
+        [HttpPut("update_profile")]
         public IActionResult EditProfile([FromBody] UserProfileForm data)
         {
             var jwtSecurityToken = new JwtSecurityToken();
-            UserDTO userDTO = null;
+            string accessToken = null;
             try
             {
                 jwtSecurityToken = VerifyToken();
@@ -498,6 +514,18 @@ namespace app.Controllers
                 user.DescriptionMarkdown = data.DescriptionMarkdown;
                 user.DescriptionHtml = data.DescriptionHTML;
                 _context.SaveChanges();
+
+                UserDTO userDTO = new UserDTO
+                {
+                    Id = user.UserId,
+                    Email = user.Email,
+                    Username = user.Username,
+                };
+                accessToken = CreateToken(userDTO);
+                var cookieOptions = new CookieOptions();
+                cookieOptions.Expires = DateTime.Now.AddDays(1);
+                cookieOptions.HttpOnly = true;
+                Response.Cookies.Append("access_token", accessToken, cookieOptions);
             }
             catch (Exception)
             {
@@ -511,6 +539,10 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Save profile successfully",
+                DT = new
+                {
+                    access_token = accessToken
+                }
             });
         }
     }
