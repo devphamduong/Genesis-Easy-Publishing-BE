@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace app.Controllers
 {
@@ -514,33 +515,71 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Danh sách truyện của tác giả", stories);
         }
 
-        [HttpGet("author_manage")]
-        public async Task<ActionResult> GetStoryOfAuthor(int authorid, int page)
+        private JwtSecurityToken VerifyToken()
         {
+            var tokenCookie = Request.Cookies["access_token"];
+            var tokenBearer = extractToken();
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(!String.IsNullOrEmpty(tokenBearer) ? tokenBearer : tokenCookie);
+            return jwtSecurityToken;
+        }
 
-            var stories = await _context.Stories.Where(c => c.AuthorId == authorid)
+        private string extractToken()
+        {
+            if (!String.IsNullOrEmpty(Request.Headers.Authorization) &&
+                Request.Headers.Authorization.ToString().Split(' ')[0] == "Bearer" &&
+                !String.IsNullOrEmpty(Request.Headers.Authorization.ToString().Split(' ')[1]))
+            {
+                return Request.Headers.Authorization.ToString().Split(' ')[1];
+            }
+            return null;
+        }
+
+        [HttpGet("author_manage")]
+        public async Task<ActionResult> GetStoryOfAuthor(string? title, [FromQuery] List<string> sort, int page, int pageSize)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+
+            var stories = await _context.Stories.Where(c => c.AuthorId == userId)
                 .Include(c => c.Categories)
-                .Include(c => c.Chapters)
+                .Include(c => c.Users)
+                .Include(c => c.Chapters).ThenInclude(c => c.Users)
                 .Select(c => new
                 {
                     StoryId = c.StoryId,
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
-                    StoryPrice = c.StoryPrice,
-                    StorySale = c.StorySale,
-                    StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
-                    //StoryChapterNumber = c.Chapters.Count,
-                    //StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
-                    //new
-                    //{
-                    //    c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
-                    //    c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
-                    //    c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
-                    //    c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
-                    //}
+                    StoryCreatime = c.CreateTime,
+                    UserPurchaseStory = c.Users.Count,
+                    UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
                 })
-                .OrderByDescending(c => c.StoryId)
+                //.OrderByDescending(c => c.StoryId)
                 .ToListAsync();
+            stories = String.IsNullOrEmpty(title) ? stories : stories.Where(c => c.StoryTitle.ToLower().Contains(title.ToLower())).ToList();
+            if (sort != null && sort.Any())
+            {
+                if (sort.Contains("storyTitle"))
+                    stories = sort.Contains("-storyTitle") ? stories.OrderByDescending(c => c.StoryTitle).ToList()
+                        : stories.OrderBy(c => c.StoryTitle).ToList();
+                if (sort.Contains("userPurchaseStory"))
+                    stories = sort.Contains("-userPurchaseStory") ? stories.OrderByDescending(c => c.UserPurchaseStory).ToList()
+                        : stories.OrderBy(c => c.UserPurchaseStory).ToList();
+                if (sort.Contains("storyCreatime"))
+                    stories = sort.Contains("-storyCreatime") ? stories.OrderByDescending(c => c.StoryCreatime).ToList()
+                        : stories.OrderBy(c => c.StoryCreatime).ToList();
+            }
+
+            page = page == null || page == 0 ? 1 : page;
+            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
             return _msgService.MsgPagingReturn("Truyện của tác giả",
             stories.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, stories.Count);
         }
