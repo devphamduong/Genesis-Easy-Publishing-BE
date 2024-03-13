@@ -35,7 +35,7 @@ namespace app.Controllers
                     .FirstOrDefault()
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "Story Detail Author Relate", author.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Tác giả liên quan", author.FirstOrDefault());
         }
 
         [HttpGet("author_detail")]
@@ -54,7 +54,7 @@ namespace app.Controllers
                     AuthorStories = c.Stories.Count,
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "Detail Author", author.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Thông tin tác giả", author.FirstOrDefault());
         }
     }
 }

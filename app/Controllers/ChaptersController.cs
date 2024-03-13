@@ -61,7 +61,7 @@ namespace app.Controllers
                 .OrderBy(c => c.ChapterNumber)
                 .ToListAsync();
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
-            return _msgService.MsgPagingReturn("Story Detail Chapter",
+            return _msgService.MsgPagingReturn("Danh sách chương",
                 chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, chapters.Count);
         }
 

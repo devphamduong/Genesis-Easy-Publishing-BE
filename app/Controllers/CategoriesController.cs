@@ -37,7 +37,7 @@ namespace app.Controllers
                     StoriesNumber = c.Stories.Count,
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "Categories successfully", cate);
+            return _msgService.MsgReturn(0, "Các thể loại truyện", cate);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetUser(int id)
@@ -75,7 +75,7 @@ namespace app.Controllers
                     new { Name = "Chưa hoàn thành", Value = 1 }
                 };
 
-            return _msgService.MsgReturn(0, "Categories successfully", new { cate, to, from, status });
+            return _msgService.MsgReturn(0, "Trường tìm kiếm", new { cate, to, from, status });
         }
 
         [HttpPut("{id}")]

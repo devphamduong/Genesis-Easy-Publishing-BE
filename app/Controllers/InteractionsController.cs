@@ -3,6 +3,7 @@ using app.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace app.Controllers
@@ -67,7 +68,7 @@ namespace app.Controllers
                 story_interaction.Like += 1;
                 StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyid, Follow = false, Like = true };
                 _context.StoryFollowLikes.Add(storyFollowLike);
-               
+
             }
 
             _context.Entry(story_interaction).State = EntityState.Modified;
@@ -89,7 +90,7 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Login first");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyid && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
@@ -110,6 +111,48 @@ namespace app.Controllers
             await _context.SaveChangesAsync();
 
             return _msgService.MsgActionReturn(0, "");
+        }
+
+        [HttpGet("author_manage/story")]
+        public async Task<ActionResult> GetStoryData(int storyid)
+        {
+
+            var interaction = await _context.Stories.Where(c => c.StoryId == storyid)
+               .Include(c => c.Users).Include(c => c.StoryInteraction)
+               .Include(c => c.Chapters).ThenInclude(c => c.Users)
+               .Include(c => c.ReportContents)
+               .Select(s => new
+               {
+                   s.StoryId,
+                   s.StoryTitle,
+                   s.StoryInteraction.Like,
+                   s.StoryInteraction.Follow,
+                   s.StoryInteraction.View,
+                   s.StoryInteraction.Read,
+                   PurchaseStory = s.Users.Count,
+                   PurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
+                   ReportStory = s.ReportContents.Count,
+               }).ToListAsync();
+
+            return _msgService.MsgReturn(0, "Truyện của tác giả", interaction.FirstOrDefault());
+        }
+
+        [HttpGet("author_manage/chapter")]
+        public async Task<ActionResult> GetStoryChaptersData(int storyid)
+        {
+
+            var interaction = await _context.Chapters.Where(c => c.StoryId == storyid)
+               .Include(c => c.Users)
+               .Include(c => c.ReportContents)
+               .Select(s => new
+               {
+                   s.ChapterId,
+                   s.ChapterNumber,
+                   PurchaseChapter = s.Users.Count,
+                   ReportChapter = s.ReportContents.Count,
+               }).ToListAsync();
+
+            return _msgService.MsgReturn(0, "Truyện của tác giả", interaction);
         }
     }
 }

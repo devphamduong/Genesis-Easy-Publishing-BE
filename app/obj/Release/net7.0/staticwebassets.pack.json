@@ -537,6 +537,10 @@
       "PackagePath": "staticwebassets\\Pages\\Category.html"
     },
     {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\Report.html",
+      "PackagePath": "staticwebassets\\Pages\\Report.html"
+    },
+    {
       "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Pages\\User.html",
       "PackagePath": "staticwebassets\\Pages\\User.html"
     },
