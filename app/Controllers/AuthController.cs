@@ -72,9 +72,14 @@ namespace app.Controllers
             public string? DescriptionHTML { get; set; }
         }
 
-        public class Avatar
+        public class AvatarForm
         {
             public IFormFile image { get; set; }
+        }
+
+        public class VerifyTokenForm
+        {
+            public string Token { get; set; }
         }
 
         [HttpPost("login")]
@@ -563,7 +568,7 @@ namespace app.Controllers
         }
 
         [HttpPut("update_avatar")]
-        public IActionResult ChangeAvatar([FromForm] Avatar data)
+        public IActionResult ChangeAvatar([FromForm] AvatarForm data)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             try
@@ -610,5 +615,37 @@ namespace app.Controllers
             });
         }
 
+        [HttpPost("verify_token")]
+        public IActionResult VerifyToken([FromBody] VerifyTokenForm data)
+        {
+            string token = data.Token;
+            if (string.IsNullOrEmpty(token))
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "The token is invalid"
+                });
+            }
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            DateTime expirationDate = jwtToken.ValidTo;
+            if (DateTime.UtcNow < expirationDate)
+            {
+                return new JsonResult(new
+                {
+                    EC = 0,
+                    EM = "The token is valid",
+                });
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "The token has expired",
+                });
+            }
+        }
     }
 }
