@@ -74,7 +74,7 @@ namespace app.Controllers
 
         public class Avatar
         {
-            public IFormFile userImage { get; set; }
+            public IFormFile image { get; set; }
         }
 
         [HttpPost("login")]
@@ -566,13 +566,34 @@ namespace app.Controllers
         public IActionResult ChangeAvatar([FromForm] Avatar data)
         {
             var jwtSecurityToken = new JwtSecurityToken();
-            string accessToken = null;
             try
             {
                 jwtSecurityToken = VerifyToken();
                 string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
                 var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
-                _context.SaveChanges();
+                if (data.image.Length > 0)
+                {
+                    string relativePath = "Assets/images/avatar/";
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/images/avatar");
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string fileName = Path.GetFileName(data.image.FileName);
+                    string filePath = Path.Combine(path, fileName);
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        data.image.CopyTo(stream);
+                    }
+                    user.UserImage = Path.Combine(relativePath, fileName); ;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 1,
+                        EM = "File not found"
+                    });
+                }
             }
             catch (Exception)
             {
