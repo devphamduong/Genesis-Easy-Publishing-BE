@@ -148,6 +148,7 @@ namespace app.Controllers
                {
                    s.ChapterId,
                    s.ChapterNumber,
+                   s.ChapterTitle,
                    PurchaseChapter = s.Users.Count,
                    ReportChapter = s.ReportContents.Count,
                }).ToListAsync();
