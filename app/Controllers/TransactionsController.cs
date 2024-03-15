@@ -1,8 +1,10 @@
 using app.Models;
 using app.Service;
+using app.Service.MomoService;
 using app.Service.VNPayService;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
@@ -27,9 +29,9 @@ namespace app.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public class VNPayRequestForm
+        public class PaymentRequestForm
         {
-            public string PaymentContent { get; set; } = "Thanh toan";
+            public string PaymentContent { get; set; } = "Thanh toan hoa don";
             public string PaymentCurrency { get; set; } = "VND";
             public string PaymentRefId { get; set; } = "ORD0001";
             public decimal? RequiredAmount { get; set; }
@@ -570,21 +572,59 @@ namespace app.Controllers
         }
 
         [HttpPost("vnpay_request")]
-        public IActionResult SendVNPayRequest([FromBody] VNPayRequestForm data)
+        public IActionResult SendVNPayRequest([FromBody] PaymentRequestForm data)
         {
             string version = _configuration.GetSection("VNPayConfig:Version").Value;
             string tmnCode = _configuration.GetSection("VNPayConfig:TmnCode").Value;
             string hashSecret = _configuration.GetSection("VNPayConfig:HashSecret").Value;
             string paymentUrl = _configuration.GetSection("VNPayConfig:PaymentUrl").Value;
+            string returnUrl = _configuration.GetSection("VNPayConfig:ReturnUrl").Value;
 
             var vnpayRequest = new VNPayRequest(version,
             tmnCode, DateTime.Now, _httpContextAccessor?.HttpContext?.Connection?.LocalIpAddress?.ToString() ?? string.Empty, data.RequiredAmount ?? 0, data.PaymentCurrency ?? string.Empty,
-                              "other", data.PaymentContent ?? string.Empty, "http://localhost:3000/payment-confirm", DateTime.Now.Ticks.ToString());
+                              "other", data.PaymentContent ?? string.Empty, returnUrl, DateTime.Now.Ticks.ToString());
             paymentUrl = vnpayRequest.GetLink(paymentUrl, hashSecret);
             return new JsonResult(new
             {
                 EC = 0,
                 EM = "Send vnpay request successfully",
+                DT = new
+                {
+                    paymentUrl = paymentUrl
+                }
+            });
+        }
+
+        [HttpPost("momo_request")]
+        public IActionResult SendMomoRequest([FromBody] PaymentRequestForm data)
+        {
+            string partnerCode = _configuration.GetSection("MomoConfig:PartnerCode").Value;
+            string returnUrl = _configuration.GetSection("MomoConfig:ReturnUrl").Value;
+            string ipnUrl = _configuration.GetSection("MomoConfig:IpnUrl").Value;
+            string paymentUrl = _configuration.GetSection("MomoConfig:PaymentUrl").Value;
+            string accessKey = _configuration.GetSection("MomoConfig:AccessKey").Value;
+            string secretKey = _configuration.GetSection("MomoConfig:SecretKey").Value;
+
+            var momoOneTimePayRequest = new MomoRequest(partnerCode, DateTime.Now.Ticks.ToString(), (long)data.RequiredAmount!, DateTime.Now.Ticks.ToString(),
+                                 data.PaymentContent ?? string.Empty, returnUrl, ipnUrl, "captureWallet", string.Empty);
+            momoOneTimePayRequest.MakeSignature(accessKey, secretKey);
+            (bool createMomoLinkResult, string? createMessage) = momoOneTimePayRequest.GetLink(paymentUrl);
+            if (createMomoLinkResult)
+            {
+                paymentUrl = createMessage;
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Send momo request failed"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Send momo request successfully",
                 DT = new
                 {
                     paymentUrl = paymentUrl
