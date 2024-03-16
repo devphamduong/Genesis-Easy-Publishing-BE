@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace app.Controllers
 {
-    [Route("api/v1/story")]
+    [Route("api/v1/wallet")]
     [ApiController]
     public class WalletsController : ControllerBase
     {
