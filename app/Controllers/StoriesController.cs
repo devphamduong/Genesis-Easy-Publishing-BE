@@ -10,6 +10,7 @@ using app.Service;
 using System.Security.Policy;
 using System.IdentityModel.Tokens.Jwt;
 using System.Drawing.Printing;
+using Microsoft.VisualBasic;
 
 namespace app.Controllers
 {
@@ -99,11 +100,18 @@ namespace app.Controllers
                             .Take(3).ToList(),
                             UserPurchaseStory = c.Users.Count,
                             StoryInteraction = c.StoryInteraction,
+                            AuthorOwned = userId == c.AuthorId ? true : false,
                             UserOwned = c.Users.Any(c => c.UserId == userId),
                             UserFollow = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Follow == true),
                             UserLike = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Like == true),
                         })
                         .ToListAsync();
+
+            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            story_interaction.View += 1;
+            _context.Entry(story_interaction).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return _msgService.MsgReturn(0, "Thông tin truyện", stories.FirstOrDefault());
         }
 

@@ -3,6 +3,7 @@ using app.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
 using System.Xml.Linq;
@@ -132,7 +133,7 @@ namespace app.Controllers
             chapter.Status = 1;
             try
             {
-                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId).Select(c=> c.ChapterNumber).DefaultIfEmpty(0).Max()+1;
+                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId).Select(c => c.ChapterNumber).DefaultIfEmpty(0).Max() + 1;
                 chapter.ChapterNumber = nextChapterNum;
                 await _context.Chapters.AddAsync(chapter);
                 _context.SaveChanges();
@@ -182,7 +183,7 @@ namespace app.Controllers
                 return false;
             }
             var user = _context.Users.Include(u => u.Chapters).Include(u => u.Stories).FirstOrDefault(u => u.UserId == userid);
-            if(user == null)
+            if (user == null)
             {
                 return false;
             }
@@ -207,7 +208,8 @@ namespace app.Controllers
 
             long nextChapterNum = NextChapter(chapterNumber, storyid);
 
-            var chapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterNumber == chapterNumber && c.Status > 0)
+            var chapter = _context.Chapters
+                .Where(c => c.StoryId == storyid && c.ChapterNumber == chapterNumber && c.Status > 0)
                 .Include(c => c.Story)
                 .Include(c => c.Comments)
                 .Select(c => new
@@ -224,17 +226,41 @@ namespace app.Controllers
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
                     NextChapterNumber = nextChapterNum,
-                    Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null)
                 }).FirstOrDefault();
 
+            //if (!checkPurchase(userId, chapterNumber, storyid) || chapter.ChapterPrice != 0
+            //    || chapter.ChapterPrice != null || userId != chapter.Author.UserId)
+            //{
+            //    chapter.Content = ""; // Set content to an empty string
+            //}
+
             if (chapter == null)
-            {
                 return new JsonResult(new
                 {
                     EC = -1,
                     EM = "Chapter is not available"
                 });
+
+            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            story_interaction.Read += 1;
+            _context.Entry(story_interaction).State = EntityState.Modified;
+
+            var story_read = await _context.StoryReads.FirstOrDefaultAsync(c => c.UserId == userId && c.StoryId == storyid);
+            if (story_read != null)
+            {
+                story_read.ChapterId = chapter.ChapterId;
+                story_read.ReadTime = DateTime.Now;
+                _context.Entry(story_read).State = EntityState.Modified;
             }
+            else _context.StoryReads.Add(new StoryRead
+            {
+                StoryId = chapter.Story.StoryId,
+                UserId = userId,
+                ChapterId = chapter.ChapterId,
+                ReadTime = DateTime.Now
+            });
+
+            await _context.SaveChangesAsync();
             return _msgService.MsgReturn(0, "Chapter content", chapter);
 
         }
@@ -254,6 +280,6 @@ namespace app.Controllers
                 return -1;
             }
             return nextChapter.ChapterNumber;
-        }        
+        }
     }
 }

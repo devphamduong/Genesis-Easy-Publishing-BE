@@ -590,19 +590,30 @@ namespace app.Controllers
         // get stories owned
         [HttpGet("my_owned")]
         [EnableQuery]
-        public async Task<ActionResult> GetMyOwned(int userid, int page)
+        public async Task<ActionResult> GetMyOwned(int page, int pageSize)
         {
-            var stories = await _context.Stories.Where(c => c.Users.Any(u => u.UserId == userid) && c.Status > 0)
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+
+            var stories = await _context.Stories.Where(c => c.Users.Any(u => u.UserId == userId) && c.Status > 0)
                 .Include(c => c.Users)
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
+                .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
                     StoryTitle = s.StoryTitle,
                     StoryImage = s.StoryImage,
-                    StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
                     StoryChapterNumber = s.Chapters.Count,
@@ -614,24 +625,39 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
                     },
+                    StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
+                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).ToList(),
                     StoryPrice = s.StoryPrice,
                 })
                 .ToListAsync();
-
-            return _msgService.MsgPagingReturn("Stories Owned successfully",
-                stories.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, stories.Count);
+            page = page == null || page == 0 ? 1 : page;
+            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
+            return _msgService.MsgPagingReturn("Truyện đã mua",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
         // get stories follow
         [HttpGet("my_follow")]
         [EnableQuery]
-        public async Task<ActionResult> GetMyFollow(int userid, int page)
+        public async Task<ActionResult> GetMyFollow(int page, int pageSize)
         {
-            var stories = await _context.Stories.Where(c => c.StoryFollowLikes.Any(u => u.UserId == userid) && c.Status > 0)
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+
+            var stories = await _context.Stories.Where(c => c.StoryFollowLikes.Any(u => u.UserId == userId) && c.Status > 0)
                 .Include(c => c.StoryFollowLikes)
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
+                .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -649,12 +675,66 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
                     },
+                    StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
+                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).ToList(),
                     StoryPrice = s.StoryPrice,
                 })
                 .ToListAsync();
 
-            return _msgService.MsgPagingReturn("Stories Follow successfully",
-                stories.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, stories.Count);
+            page = page == null || page == 0 ? 1 : page;
+            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
+            return _msgService.MsgPagingReturn("Truyện theo dõi",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
+
+        [HttpGet("my_read")]
+        [EnableQuery]
+        public async Task<ActionResult> GetMyReadHistory(int page, int pageSize)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+
+            var stories = await _context.Stories.Where(c => c.StoryReads.Any(u => u.UserId == userId) && c.Status > 0)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescription,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
+                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).ToList(),
+                    StoryPrice = s.StoryPrice,
+                })
+                .ToListAsync();
+
+            page = page == null || page == 0 ? 1 : page;
+            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
+            return _msgService.MsgPagingReturn("Truyện theo dõi",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
+        }
+
     }
 }
