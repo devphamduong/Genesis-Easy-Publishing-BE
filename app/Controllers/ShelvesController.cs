@@ -44,6 +44,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
@@ -88,6 +89,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
@@ -118,6 +120,7 @@ namespace app.Controllers
                     StoryImage = s.StoryImage,
                     StoryDescription = s.StoryDescription,
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryInteraction = new
                     {
@@ -152,6 +155,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
@@ -191,6 +195,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
@@ -226,6 +231,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
@@ -261,6 +267,7 @@ namespace app.Controllers
                             s.StoryInteraction.View,
                             s.StoryInteraction.Read,
                         },
+                        StoryCreateTime = s.CreateTime,
                     }).OrderByDescending(s => s.StoryInteraction.Read).ToList(),
                 })
                 .ToListAsync();
@@ -286,6 +293,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     //StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     //new
@@ -324,6 +332,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
@@ -370,6 +379,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
@@ -417,6 +427,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
@@ -464,6 +475,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
@@ -616,6 +628,7 @@ namespace app.Controllers
                     StoryImage = s.StoryImage,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
@@ -666,6 +679,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
@@ -715,6 +729,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryCategories = s.Categories.ToList(),
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
                     StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
                     new
