@@ -61,6 +61,31 @@ namespace app.Controllers
             }
             return null;
         }
+        [HttpGet("get_all_transaction")]
+        public async Task<ActionResult> GetAllTransaction()
+        {
+            var transaction = await _context.Transactions
+                .Include(t=>t.Story)
+                .Include(t=>t.Chapter)
+                .Select(t=> new
+                {
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime,
+                    Status = t.Status,
+                    Description =t.Description
+
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Get All Transaction", transaction);
+        }
+
 
         [HttpGet("get_user_wallet")]
         public async Task<ActionResult> GetUserWallet()
@@ -133,6 +158,7 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = story.StoryPrice,
+                    StoryId = story.StoryId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - story.StoryPrice,
                     RefundAfter = 0,
@@ -145,6 +171,7 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = story.StoryPrice,
+                    StoryId = story.StoryId,
                     FundBefore = 0,
                     FundAfter = 0,
                     RefundAfter = author_wallet.Refund,
@@ -206,6 +233,8 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - (decimal)chapter.ChapterPrice,
                     RefundAfter = 0,
@@ -217,6 +246,8 @@ namespace app.Controllers
                 var author_transaction = new Transaction
                 {
                     WalletId = author_wallet.WalletId,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     Amount = (decimal)chapter.ChapterPrice,
                     FundBefore = 0,
                     FundAfter = 0,
@@ -280,6 +311,7 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = amount,
+                    StoryId = story.StoryId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - amount,
                     RefundAfter = 0,
@@ -293,6 +325,7 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = amount,
+                    StoryId = story.StoryId,
                     FundBefore = 0,
                     FundAfter = 0,
                     RefundAfter = author_wallet.Refund,
@@ -370,6 +403,8 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - (decimal)chapter.ChapterPrice,
                     RefundAfter = 0,
@@ -382,6 +417,8 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     FundBefore = 0,
                     FundAfter = 0,
                     RefundAfter = author_wallet.Refund,
@@ -471,6 +508,8 @@ namespace app.Controllers
                 {
                     TransactionId = c.TransactionId,
                     Amount = c.Amount,
+                    StoryId = c.Story.StoryId,
+                    ChapterId = c.Chapter.ChapterId,
                     FundBefore = c.FundBefore,
                     FundAfter = c.FundAfter,
                     RefundBefore = c.RefundBefore,
@@ -508,6 +547,8 @@ namespace app.Controllers
                 {
                     TransactionId = c.TransactionId,
                     Amount = c.Amount,
+                    StoryId = c.Story.StoryId,
+                    ChapterId = c.Chapter.ChapterId,
                     FundBefore = c.FundBefore,
                     FundAfter = c.FundAfter,
                     RefundBefore = c.RefundBefore,
@@ -546,6 +587,8 @@ namespace app.Controllers
                 {
                     TransactionId = c.TransactionId,
                     Amount = c.Amount,
+                    StoryId = c.Story.StoryId,
+                    ChapterId = c.Chapter.ChapterId,
                     FundBefore = c.FundBefore,
                     FundAfter = c.FundAfter,
                     RefundBefore = c.RefundBefore,

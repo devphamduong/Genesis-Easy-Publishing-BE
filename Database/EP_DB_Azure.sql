@@ -117,6 +117,8 @@ GO
 CREATE TABLE [dbo].[Transaction](
 	[transaction_id] [bigint] IDENTITY(1,1) NOT NULL,
 	[wallet_id] [int] NOT NULL,
+	[story_id] [int] NULL,
+	[chapter_id] [bigint] NULL,
 	[amount] [decimal](10, 2) NOT NULL,
 	[fund_before] [decimal](10, 2) NOT NULL,
 	[fund_after] [decimal](10, 2) NOT NULL,
@@ -1819,7 +1821,19 @@ GO
 		
 SET IDENTITY_INSERT [dbo].[ReportContent] OFF
 GO
-
+SET IDENTITY_INSERT [dbo].[Transaction] ON
+GO
+INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
+     VALUES
+           (1,1 ,12,null,20,30,10,0,0,2022-10-09,null,null),
+		   (2,2 ,13,null,20,30,10,0,0,2022-10-09,null,null),
+		   (3,3 ,14,null,20,50,30,0,0,2022-10-09,null,null),
+		   (4,4 ,15,null,20,32,12,0,0,2022-10-09,null,null),
+		   (5,5 ,10,null,20,35,15,0,0,2022-10-09,null,null),
+		   (6,6 ,09,null,20,40,20,0,0,2022-10-09,null,null)
+GO
+SET IDENTITY_INSERT [dbo].[Transaction] OFF
+GO
 
 ALTER TABLE [dbo].[Wallet]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1828,7 +1842,12 @@ GO
 ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD FOREIGN KEY([wallet_id])
 REFERENCES [dbo].[Wallet] ([wallet_id])
 GO
-
+ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
+GO
 ALTER TABLE [dbo].[Story_Read]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO

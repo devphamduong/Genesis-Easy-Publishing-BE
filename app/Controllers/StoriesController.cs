@@ -57,6 +57,47 @@ namespace app.Controllers
             return null;
         }
 
+        /// GET: api/Stories
+        [HttpGet("get_all_stories")]
+        public async Task<ActionResult> GetStories()
+        {
+            if (_context.Stories == null)
+            {
+                return NotFound();
+            }
+            var stories = await _context.Stories
+                .Include(s => s.Author)
+                .Include(s => s.Comments)
+                .Include(s => s.ReportContents)
+                .Include(s => s.StoryFollowLikes)
+                .Include(s => s.Volumes)
+                .Include(s => s.Chapters)
+                .Include(s => s.StoryInteraction)
+                .Include(s => s.StoryReads)
+                .Include(s => s.Categories)
+                .Select(c => new
+                {
+                    StoryId = c.StoryId,
+                    StoryTitle = c.StoryTitle,
+                    StoryImage = c.StoryImage,
+                    StoryDescription = c.StoryDescriptionHtml,
+                    StoryPrice = c.StoryPrice,
+                    StorySale = c.StorySale,
+                    CreateTime = c.CreateTime,
+                    StoryCategories = string.Join(",", c.Categories.Select(c => c.CategoryName).ToList()),
+                    StoryAuthor = c.Author.UserFullname,
+                    StoryChapterNumber = c.Chapters.Count,
+                    StoryChapters = c.Chapters.Where(c => c.Status > 0).Count(),
+                    StoryReads = c.StoryReads.Count(),
+                    Volumes = c.Volumes.Count(),
+                    UserOwned = c.Users.Count(),
+                    UserFollow = c.StoryFollowLikes.Where(c => c.Follow == true).Count(),
+                    UserLike = c.StoryFollowLikes.Where(c => c.Like == true).Count()
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Thông tin truyện", stories);
+        }
+
         // GET: api/Stories/5
         [HttpGet("story_detail")]
         public async Task<ActionResult> GetStoryDetail(int storyid)
