@@ -417,7 +417,7 @@ CREATE TABLE [dbo].[ReportContent](
 	-- [issue_id] [int] NULL,
 	[comment_id] [int] NULL,
 	-- [report_title] [nvarchar](100) NOT NULL,
-	[report_content] [nvarchar](2000) NOT NULL,
+	[report_content] [nvarchar](2000) NULL,
 	[report_date] [date] NOT NULL,
 	[status] [bit] NULL,
  CONSTRAINT [PK_reportcontent] PRIMARY KEY CLUSTERED 

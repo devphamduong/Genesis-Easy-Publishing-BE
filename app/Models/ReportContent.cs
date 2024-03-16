@@ -17,7 +17,7 @@ public partial class ReportContent
 
     public int? CommentId { get; set; }
 
-    public string ReportContent1 { get; set; } = null!;
+    public string? ReportContent1 { get; set; }
 
     public DateTime ReportDate { get; set; }
 

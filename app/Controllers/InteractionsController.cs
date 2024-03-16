@@ -51,7 +51,7 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Login first");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
 
             var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyid && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
@@ -90,7 +90,7 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
 
             var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyid && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
