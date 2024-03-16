@@ -34,13 +34,13 @@ namespace app.Controllers
             public string PaymentContent { get; set; } = "Thanh toan hoa don";
             public string PaymentCurrency { get; set; } = "VND";
             public string PaymentRefId { get; set; } = "ORD0001";
-            public decimal? RequiredAmount { get; set; }
-            public DateTime? PaymentDate { get; set; } = DateTime.Now;
-            public DateTime? ExpireDate { get; set; } = DateTime.Now.AddMinutes(15);
-            public string? PaymentLanguage { get; set; } = "vn";
-            public string? MerchantId { get; set; } = "MER0001";
-            public string? PaymentDestinationId { get; set; } = "VNPAY";
-            public string? Signature { get; set; } = "EP";
+            public decimal RequiredAmount { get; set; }
+            public DateTime PaymentDate { get; set; } = DateTime.Now;
+            public DateTime ExpireDate { get; set; } = DateTime.Now.AddMinutes(30);
+            public string PaymentLanguage { get; set; } = "vn";
+            public string MerchantId { get; set; } = "MER0001";
+            public string PaymentDestinationId { get; set; } = "VNPAY";
+            public string Signature { get; set; } = "EP";
         }
 
         private JwtSecurityToken VerifyToken()
@@ -581,7 +581,7 @@ namespace app.Controllers
             string returnUrl = _configuration.GetSection("VNPayConfig:ReturnUrl").Value;
 
             var vnpayRequest = new VNPayRequest(version,
-            tmnCode, DateTime.Now, _httpContextAccessor?.HttpContext?.Connection?.LocalIpAddress?.ToString() ?? string.Empty, data.RequiredAmount ?? 0, data.PaymentCurrency ?? string.Empty,
+            tmnCode, data.PaymentDate, data.ExpireDate, _httpContextAccessor?.HttpContext?.Connection?.LocalIpAddress?.ToString() ?? string.Empty, data.RequiredAmount, data.PaymentCurrency ?? string.Empty,
                               "other", data.PaymentContent ?? string.Empty, returnUrl, DateTime.Now.Ticks.ToString());
             paymentUrl = vnpayRequest.GetLink(paymentUrl, hashSecret);
             return new JsonResult(new

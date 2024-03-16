@@ -25,7 +25,7 @@ namespace app.Service.VNPayService
         public SortedList<string, string> requestData
             = new SortedList<string, string>(new VNPayCompare());
         public VNPayRequest() { }
-        public VNPayRequest(string version, string tmnCode, DateTime createDate, string ipAddress,
+        public VNPayRequest(string version, string tmnCode, DateTime createDate, DateTime expireDate, string ipAddress,
             decimal amount, string currCode, string orderType, string orderInfo,
             string returnUrl, string txnRef)
         {
@@ -34,6 +34,7 @@ namespace app.Service.VNPayService
             this.vnp_Version = version;
             this.vnp_CurrCode = currCode;
             this.vnp_CreateDate = createDate.ToString("yyyyMMddHHmmss");
+            this.vnp_ExpireDate = expireDate.ToString("yyyyMMddHHmmss");
             this.vnp_TmnCode = tmnCode;
             this.vnp_Amount = (int)amount * 100;
             this.vnp_Command = "pay";
