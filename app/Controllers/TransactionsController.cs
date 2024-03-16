@@ -39,7 +39,6 @@ namespace app.Controllers
             public DateTime ExpireDate { get; set; } = DateTime.Now.AddMinutes(30);
             public string PaymentLanguage { get; set; } = "vn";
             public string MerchantId { get; set; } = "MER0001";
-            public string PaymentDestinationId { get; set; } = "VNPAY";
             public string Signature { get; set; } = "EP";
         }
 
