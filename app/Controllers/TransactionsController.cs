@@ -13,7 +13,7 @@ using static app.Controllers.AuthController;
 
 namespace app.Controllers
 {
-    [Route("api/vi/transaction")]
+    [Route("api/v1/transaction")]
     [ApiController]
     public class TransactionsController : ControllerBase
     {
