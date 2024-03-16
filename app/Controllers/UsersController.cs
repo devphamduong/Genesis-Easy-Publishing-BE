@@ -10,7 +10,7 @@ using app.Service;
 
 namespace app.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
