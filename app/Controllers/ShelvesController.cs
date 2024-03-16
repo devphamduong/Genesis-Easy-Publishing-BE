@@ -626,7 +626,7 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
-                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).ToList(),
+                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),
                     StoryPrice = s.StoryPrice,
                 })
                 .ToListAsync();
@@ -676,7 +676,7 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
-                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).ToList(),
+                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),
                     StoryPrice = s.StoryPrice,
                 })
                 .ToListAsync();
@@ -725,7 +725,7 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
-                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).ToList(),
+                    .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),
                     StoryPrice = s.StoryPrice,
                 })
                 .ToListAsync();
