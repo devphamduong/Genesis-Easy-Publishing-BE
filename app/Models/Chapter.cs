@@ -38,4 +38,6 @@ public partial class Chapter
     public virtual Volume Volume { get; set; } = null!;
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
+
+    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

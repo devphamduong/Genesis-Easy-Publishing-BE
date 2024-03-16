@@ -358,6 +358,8 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("transaction_time");
             entity.Property(e => e.WalletId).HasColumnName("wallet_id");
+            entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
 
             entity.HasOne(d => d.Wallet).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.WalletId)
