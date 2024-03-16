@@ -216,7 +216,7 @@ namespace app.Controllers
                 {
                     Story = new { c.StoryId, c.Story.StoryTitle, c.Story.StoryPrice },
                     Author = new { c.Story.Author.UserId, c.Story.Author.UserFullname },
-                    Content = c.ChapterContentHtml,
+                    Content = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null || userId == c.Story.Author.UserId) ? c.ChapterContentHtml : null,
                     ChapterId = c.ChapterId,
                     ChapterNumber = c.ChapterNumber,
                     ChapterTitle = c.ChapterTitle,
@@ -226,13 +226,8 @@ namespace app.Controllers
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
                     NextChapterNumber = nextChapterNum,
+                    Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null || userId == c.Story.Author.UserId)
                 }).FirstOrDefault();
-
-            //if (!checkPurchase(userId, chapterNumber, storyid) || chapter.ChapterPrice != 0
-            //    || chapter.ChapterPrice != null || userId != chapter.Author.UserId)
-            //{
-            //    chapter.Content = ""; // Set content to an empty string
-            //}
 
             if (chapter == null)
                 return new JsonResult(new
