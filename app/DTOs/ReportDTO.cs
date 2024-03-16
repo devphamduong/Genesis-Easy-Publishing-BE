@@ -10,7 +10,7 @@
 
         public int? CommentId { get; set; }
 
-        public string ReportContent { get; set; } = null!;
+        public string? ReportContent { get; set; } = null!;
 
     }
 }

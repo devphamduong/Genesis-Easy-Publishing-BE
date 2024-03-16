@@ -68,7 +68,7 @@ namespace app.Controllers
                     Status = r.Status
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "All Report", reports);
+            return _msgService.MsgReturn(0, "Thể loại tố cáo", reports);
         }
 
         [HttpGet("report/{id}")]
@@ -124,7 +124,7 @@ namespace app.Controllers
             };
             _context.ReportContents.Add(report);
             await _context.SaveChangesAsync();
-            return _msgService.MsgActionReturn(0, "Report Succes");
+            return _msgService.MsgActionReturn(0, "Báo cáo thành công");
         }
     }
 }
