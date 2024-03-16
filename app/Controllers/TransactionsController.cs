@@ -1,4 +1,4 @@
-using app.Models;
+﻿using app.Models;
 using app.Service;
 using app.Service.MomoService;
 using app.Service.VNPayService;
@@ -558,7 +558,7 @@ namespace app.Controllers
                 .OrderByDescending(c => c.TransactionTime)
                 .ToListAsync();
                 pageSize = pageSize == null ? 10 : pageSize;
-                return _msgService.MsgPagingReturn("User transaction history",
+                return _msgService.MsgPagingReturn("Lịch sử giao dịch",
                    transactions.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, transactions.Count);
             }
             catch (Exception)
@@ -566,7 +566,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = "Yều cầu đăng nhập"
                 });
             }
         }
@@ -587,7 +587,7 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Send vnpay request successfully",
+                EM = "Gửi request VNPay thành công",
                 DT = new
                 {
                     paymentUrl = paymentUrl
@@ -618,13 +618,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "Send momo request failed"
+                    EM = "Gửi request Momo không thành công"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Send momo request successfully",
+                EM = "Gửi request Momo thành công",
                 DT = new
                 {
                     paymentUrl = paymentUrl
