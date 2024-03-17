@@ -38,9 +38,7 @@ namespace app.Controllers
             }
             return null;
         }
-
-        [HttpPut("story_like")]
-        public async Task<ActionResult> LikeStory(int storyid)
+        private int GetUserId()
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -50,6 +48,13 @@ namespace app.Controllers
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
             catch (Exception) { }
+            return userId;
+        }
+
+        [HttpPut("story_like")]
+        public async Task<ActionResult> LikeStory(int storyid)
+        {
+            int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
 
@@ -81,14 +86,7 @@ namespace app.Controllers
         [HttpPut("story_follow")]
         public async Task<ActionResult> FollowStory(int storyid)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
+            int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
 

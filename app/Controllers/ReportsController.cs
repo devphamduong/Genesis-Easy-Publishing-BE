@@ -38,6 +38,18 @@ namespace app.Controllers
             }
             return null;
         }
+        private int GetUserId()
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            return userId;
+        }
 
         [HttpGet("options")]
         public async Task<ActionResult> GetReportType()
@@ -99,14 +111,7 @@ namespace app.Controllers
         [HttpPost("send")]
         public async Task<ActionResult> SendReport(ReportDTO reportDTO)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
+            int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 

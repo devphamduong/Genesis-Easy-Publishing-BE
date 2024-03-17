@@ -770,25 +770,18 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		### Chương 4: Sứ Mệnh Bảo Vệ
 
 		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
-		N'## Giới Thiệu
-
-		Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là "Rừng Ma Thuật" bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.
-
-		### Chương 1: Sự Tò Mò
-
-		Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.
-
-		### Chương 2: Gặp Gỡ Những Người Bạn
-
-		Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.
-
-		### Chương 3: Khám Phá Bí Mật
-
-		Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.
-
-		### Chương 4: Sứ Mệnh Bảo Vệ
-
-		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
+		N'<h2>Giới Thiệu</h2>
+			<p>Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là &quot;Rừng Ma Thuật&quot; bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.</p>
+			<h3>Chương 1: Sự Tò Mò</h3>
+			<p>Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.</p>
+			<h3>Chương 2: Gặp Gỡ Những Người Bạn</h3>
+			<p>Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.</p>
+			<h3>Chương 3: Khám Phá Bí Mật</h3>
+			<p>Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.</p>
+			<h3>Chương 4: Sứ Mệnh Bảo Vệ</h3>
+			<p>Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.</p>
+			<h3>Chương 5: Kết Thúc</h3>
+			<p>Cuối cùng, sau nhiều thử thách và gian khổ, Alex và nhóm của cậu chiến thắng được sự ác độc và bảo vệ được bí mật của Rừng Ma Thuật. Họ trở về ngôi làng của mình với lòng biết ơn về những trải nghiệm và sự gắn kết mà cuộc phiêu lưu đã mang lại. Rừng Ma Thuật tiếp tục tồn tại, giữ vững sự cân bằng và hòa bình cho thế giới.</p>',
 		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
 		(19, N'Tà Quân', 2, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
 		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
@@ -812,25 +805,18 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		### Chương 4: Sứ Mệnh Bảo Vệ
 
 		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
-		N'## Giới Thiệu
-
-		Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là "Rừng Ma Thuật" bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.
-
-		### Chương 1: Sự Tò Mò
-
-		Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.
-
-		### Chương 2: Gặp Gỡ Những Người Bạn
-
-		Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.
-
-		### Chương 3: Khám Phá Bí Mật
-
-		Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.
-
-		### Chương 4: Sứ Mệnh Bảo Vệ
-
-		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
+		N'<h2>Giới Thiệu</h2>
+			<p>Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là &quot;Rừng Ma Thuật&quot; bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.</p>
+			<h3>Chương 1: Sự Tò Mò</h3>
+			<p>Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.</p>
+			<h3>Chương 2: Gặp Gỡ Những Người Bạn</h3>
+			<p>Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.</p>
+			<h3>Chương 3: Khám Phá Bí Mật</h3>
+			<p>Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.</p>
+			<h3>Chương 4: Sứ Mệnh Bảo Vệ</h3>
+			<p>Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.</p>
+			<h3>Chương 5: Kết Thúc</h3>
+			<p>Cuối cùng, sau nhiều thử thách và gian khổ, Alex và nhóm của cậu chiến thắng được sự ác độc và bảo vệ được bí mật của Rừng Ma Thuật. Họ trở về ngôi làng của mình với lòng biết ơn về những trải nghiệm và sự gắn kết mà cuộc phiêu lưu đã mang lại. Rừng Ma Thuật tiếp tục tồn tại, giữ vững sự cân bằng và hòa bình cho thế giới.</p>',
 		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
 		(20, N'Dị Quân', 2, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
 		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
@@ -854,25 +840,18 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		### Chương 4: Sứ Mệnh Bảo Vệ
 
 		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
-		N'## Giới Thiệu
-
-		Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là "Rừng Ma Thuật" bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.
-
-		### Chương 1: Sự Tò Mò
-
-		Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.
-
-		### Chương 2: Gặp Gỡ Những Người Bạn
-
-		Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.
-
-		### Chương 3: Khám Phá Bí Mật
-
-		Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.
-
-		### Chương 4: Sứ Mệnh Bảo Vệ
-
-		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
+		N'<h2>Giới Thiệu</h2>
+			<p>Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là &quot;Rừng Ma Thuật&quot; bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.</p>
+			<h3>Chương 1: Sự Tò Mò</h3>
+			<p>Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.</p>
+			<h3>Chương 2: Gặp Gỡ Những Người Bạn</h3>
+			<p>Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.</p>
+			<h3>Chương 3: Khám Phá Bí Mật</h3>
+			<p>Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.</p>
+			<h3>Chương 4: Sứ Mệnh Bảo Vệ</h3>
+			<p>Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.</p>
+			<h3>Chương 5: Kết Thúc</h3>
+			<p>Cuối cùng, sau nhiều thử thách và gian khổ, Alex và nhóm của cậu chiến thắng được sự ác độc và bảo vệ được bí mật của Rừng Ma Thuật. Họ trở về ngôi làng của mình với lòng biết ơn về những trải nghiệm và sự gắn kết mà cuộc phiêu lưu đã mang lại. Rừng Ma Thuật tiếp tục tồn tại, giữ vững sự cân bằng và hòa bình cho thế giới.</p>',
 		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
 		(21, N'Ma Quân', 2, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
 		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
@@ -896,25 +875,18 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		### Chương 4: Sứ Mệnh Bảo Vệ
 
 		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
-		N'## Giới Thiệu
-
-		Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là "Rừng Ma Thuật" bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.
-
-		### Chương 1: Sự Tò Mò
-
-		Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.
-
-		### Chương 2: Gặp Gỡ Những Người Bạn
-
-		Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.
-
-		### Chương 3: Khám Phá Bí Mật
-
-		Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.
-
-		### Chương 4: Sứ Mệnh Bảo Vệ
-
-		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
+		N'<h2>Giới Thiệu</h2>
+			<p>Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là &quot;Rừng Ma Thuật&quot; bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.</p>
+			<h3>Chương 1: Sự Tò Mò</h3>
+			<p>Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.</p>
+			<h3>Chương 2: Gặp Gỡ Những Người Bạn</h3>
+			<p>Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.</p>
+			<h3>Chương 3: Khám Phá Bí Mật</h3>
+			<p>Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.</p>
+			<h3>Chương 4: Sứ Mệnh Bảo Vệ</h3>
+			<p>Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.</p>
+			<h3>Chương 5: Kết Thúc</h3>
+			<p>Cuối cùng, sau nhiều thử thách và gian khổ, Alex và nhóm của cậu chiến thắng được sự ác độc và bảo vệ được bí mật của Rừng Ma Thuật. Họ trở về ngôi làng của mình với lòng biết ơn về những trải nghiệm và sự gắn kết mà cuộc phiêu lưu đã mang lại. Rừng Ma Thuật tiếp tục tồn tại, giữ vững sự cân bằng và hòa bình cho thế giới.</p>',
 		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2),
 		(22, N'Dị Thế Tà Quân', 2, CAST(0.0 AS Decimal(10, 2)), 0, N'https://st.nhattruyenbing.com/data/comics/227/di-the-ta-quan.jpg', N'Không giống với một số tác phẩm truyện Tiên Hiệp và Kiếm Hiệp nổi tiếng, nhân vật chính thường có khởi đầu là một yếu nhân nghèo khổ. Nhưng Quân Tà trong tác phẩm Dị Thế Tà Quân của tác giả Phong Lăng Thiên Hạ lại có xuất thân là một sát thủ khét tiếng trong giới hắc đạo, với kỹ năng bắn súng cùng trình độ võ học siêu phàm.
 		Tuy là một sát thủ máu lạnh, giết người vô số nhưng trong thâm tâm hắn vẫn còn lại trái tim con người với lòng cảm thương đối với những người cô thế. Đối với nhiều người, hắn là một kẻ vô cùng hiểm ác nhưng nếu bình tâm nhìn lại sẽ thấy những kẻ mà hắn giết đều là những tên cường hào ác bá, lạm dụng chức quyền hà hiếp người cô thế…
@@ -938,26 +910,20 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		### Chương 4: Sứ Mệnh Bảo Vệ
 
 		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
-		N'## Giới Thiệu
-
-		Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là "Rừng Ma Thuật" bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.
-
-		### Chương 1: Sự Tò Mò
-
-		Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.
-
-		### Chương 2: Gặp Gỡ Những Người Bạn
-
-		Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.
-
-		### Chương 3: Khám Phá Bí Mật
-
-		Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.
-
-		### Chương 4: Sứ Mệnh Bảo Vệ
-
-		Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.',
+		N'<h2>Giới Thiệu</h2>
+			<p>Trong một thung lũng xa xôi nằm giữa những dãy núi đồi xanh mướt, có một khu rừng sâu kín bí. Khu rừng này được gọi là &quot;Rừng Ma Thuật&quot; bởi những câu chuyện về những hiện tượng kỳ bí xảy ra ở đó. Một cậu bé tên là Alex quyết định khám phá bí mật của khu rừng này, và cuộc phiêu lưu của cậu bắt đầu từ đây.</p>
+			<h3>Chương 1: Sự Tò Mò</h3>
+			<p>Alex, một cậu bé tò mò và dũng cảm, nghe về những câu chuyện huyền bí về Rừng Ma Thuật và quyết định rẽ vào khu rừng đó để tìm hiểu sự thật. Người dân địa phương cảnh báo cậu về nguy hiểm nhưng Alex không quan tâm. Cậu bước chân vào khu rừng, không biết rằng cuộc phiêu lưu của mình sắp bắt đầu.</p>
+			<h3>Chương 2: Gặp Gỡ Những Người Bạn</h3>
+			<p>Trong hành trình của mình, Alex gặp gỡ những người bạn mới. Đầu tiên là Mia, một cô bé có khả năng giao tiếp với động vật. Tiếp theo là Jack, một chàng trai có sở thích nghiên cứu về các hiện tượng siêu nhiên. Cùng nhau, họ quyết định khám phá bí mật của Rừng Ma Thuật.</p>
+			<h3>Chương 3: Khám Phá Bí Mật</h3>
+			<p>Trong lúc đi sâu vào khu rừng, nhóm của Alex bắt gặp những hiện tượng kỳ lạ và gặp phải những thách thức đáng sợ. Họ phải đối mặt với những cạm bẫy tự nhiên, giải mã những bí ẩn của rừng và chạm trán với những sinh vật ma thuật đang bảo vệ bí mật của nơi này.</p>
+			<h3>Chương 4: Sứ Mệnh Bảo Vệ</h3>
+			<p>Alex và nhóm của cậu khám phá ra rằng bí mật của Rừng Ma Thuật liên quan đến sự cân bằng tự nhiên và hòa bình của thế giới. Họ nhận ra mình phải bảo vệ bí mật này khỏi những kẻ muốn lợi dụng nó vì mục đích bất lương. Cuộc chiến giữa sự tốt lành và sự ác độc bắt đầu.</p>
+			<h3>Chương 5: Kết Thúc</h3>
+			<p>Cuối cùng, sau nhiều thử thách và gian khổ, Alex và nhóm của cậu chiến thắng được sự ác độc và bảo vệ được bí mật của Rừng Ma Thuật. Họ trở về ngôi làng của mình với lòng biết ơn về những trải nghiệm và sự gắn kết mà cuộc phiêu lưu đã mang lại. Rừng Ma Thuật tiếp tục tồn tại, giữ vững sự cân bằng và hòa bình cho thế giới.</p>',
 		CAST(N'2023-09-01T05:52:10.323' AS DateTime), null, 2)
+		
 SET IDENTITY_INSERT [dbo].[Story] OFF
 GO
 

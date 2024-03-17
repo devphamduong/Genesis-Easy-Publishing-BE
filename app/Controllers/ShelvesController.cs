@@ -546,9 +546,7 @@ namespace app.Controllers
             }
             return null;
         }
-
-        [HttpGet("author_manage")]
-        public async Task<ActionResult> GetStoryOfAuthor(string? title, [FromQuery] List<string> sort, int page, int pageSize)
+        private int GetUserId()
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -558,6 +556,13 @@ namespace app.Controllers
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
             catch (Exception) { }
+            return userId;
+        }
+
+        [HttpGet("author_manage")]
+        public async Task<ActionResult> GetStoryOfAuthor(string? title, [FromQuery] List<string> sort, int page, int pageSize)
+        {
+            int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
@@ -604,14 +609,7 @@ namespace app.Controllers
         [EnableQuery]
         public async Task<ActionResult> GetMyOwned(int page, int pageSize)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
+            int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
@@ -654,14 +652,7 @@ namespace app.Controllers
         [EnableQuery]
         public async Task<ActionResult> GetMyFollow(int page, int pageSize)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
+            int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
@@ -705,14 +696,7 @@ namespace app.Controllers
         [EnableQuery]
         public async Task<ActionResult> GetMyReadHistory(int page, int pageSize)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
+            int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
