@@ -10,4 +10,6 @@ public partial class ReportType
     public string ReportTypeContent { get; set; } = null!;
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
+
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 }

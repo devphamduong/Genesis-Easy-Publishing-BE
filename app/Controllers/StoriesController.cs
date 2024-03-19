@@ -100,7 +100,7 @@ namespace app.Controllers
 
         // GET: api/Stories/5
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryDetail(int storyid)
+        public async Task<ActionResult> GetStoryDetail(int storyId)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -111,7 +111,7 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            var stories = await _context.Stories.Where(c => c.StoryId == storyid && c.Status > 0)
+            var stories = await _context.Stories.Where(c => c.StoryId == storyId && c.Status > 0)
                         .Include(c => c.Author).Include(c => c.StoryInteraction)
                         .Include(c => c.Categories)
                         .Include(c => c.Users) // luot mua truyen
@@ -148,7 +148,7 @@ namespace app.Controllers
                         })
                         .ToListAsync();
 
-            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
             story_interaction.View += 1;
             _context.Entry(story_interaction).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -157,11 +157,11 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail/related")]
-        public async Task<ActionResult> GetStoryDetailRelate(int storyid)
+        public async Task<ActionResult> GetStoryDetailRelate(int storyId)
         {
-            var story = await _context.Stories.Include(c => c.Categories).FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var story = await _context.Stories.Include(c => c.Categories).FirstOrDefaultAsync(c => c.StoryId == storyId);
             var cates = story.Categories.Select(c => c.CategoryId).ToList();
-            var stories = await _context.Stories.Where(c => c.StoryId != storyid && c.Status > 0)
+            var stories = await _context.Stories.Where(c => c.StoryId != storyId && c.Status > 0)
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Select(c => new

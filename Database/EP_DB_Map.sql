@@ -11,6 +11,10 @@ Story_Category
 Volume
 Chapter
 Chapter_Owned
+Chapter_Liked
 Comment
 ReportType
 ReportContent
+
+Review
+Ticket

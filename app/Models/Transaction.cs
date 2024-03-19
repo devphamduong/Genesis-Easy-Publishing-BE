@@ -29,7 +29,9 @@ public partial class Transaction
 
     public string? Description { get; set; }
 
+    public virtual Chapter? Chapter { get; set; }
+
+    public virtual Story? Story { get; set; }
+
     public virtual Wallet Wallet { get; set; } = null!;
-    public virtual Story Story { get; set; } = null!;
-    public virtual Chapter Chapter { get; set; } = null!;
 }

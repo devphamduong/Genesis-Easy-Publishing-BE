@@ -19,9 +19,9 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryRelateAuthor(int storyid)
+        public async Task<ActionResult> GetStoryRelateAuthor(int storyId)
         {
-            var story = await _context.Stories.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var story = await _context.Stories.FirstOrDefaultAsync(c => c.StoryId == storyId);
             var author = await _context.Users.Where(c => c.UserId == story.AuthorId)
                 .Include(c => c.Stories)
                 .Select(c => new
@@ -39,9 +39,9 @@ namespace app.Controllers
         }
 
         [HttpGet("author_detail")]
-        public async Task<ActionResult> GetAuthor(int authorid)
+        public async Task<ActionResult> GetAuthor(int authorId)
         {
-            var author = await _context.Users.Where(c => c.UserId == authorid)
+            var author = await _context.Users.Where(c => c.UserId == authorId)
                 .Include(c => c.Stories)
                 .Select(c => new
                 {

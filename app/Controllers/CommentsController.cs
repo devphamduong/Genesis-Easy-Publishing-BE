@@ -55,11 +55,11 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryComments(int storyid, int page, int pageSize)
+        public async Task<ActionResult> GetStoryComments(int storyId, int page, int pageSize)
         {
             int userId = GetUserId();
-
-            var comments = await _context.Comments.Where(c => c.StoryId == storyid)
+           
+            var comments = await _context.Comments.Where(c => c.StoryId == storyId)
                 .Include(c => c.User)
                 .Select(c => new
                 {
@@ -75,6 +75,29 @@ namespace app.Controllers
             return _msgService.MsgPagingReturn("Bình luận của truyện",
                 comments.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, comments.Count);
         }
+
+        [HttpGet("chapter_content")]
+        public async Task<ActionResult> GetChapterComments(int chapterId, int page, int pageSize)
+        {
+            int userId = GetUserId();
+
+            var comments = await _context.Comments.Where(c => c.StoryId == chapterId)
+                .Include(c => c.User)
+                .Select(c => new
+                {
+                    UserComment = new { c.User.UserId, c.User.UserFullname, c.User.UserImage },
+                    CommentId = c.CommentId,
+                    CommentContent = c.CommentContent,
+                    CommentDate = c.CommentDate,
+                    CommentWriter = userId == c.UserId ? true : false
+                })
+                .OrderByDescending(c => c.CommentId)
+                .ToListAsync();
+            pageSize = pageSize == null ? 10 : pageSize;
+            return _msgService.MsgPagingReturn("Bình luận của chương",
+                comments.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, comments.Count);
+        }
+
 
         [HttpPost("send")]
         public async Task<ActionResult> SendComment(CommentDTO commentDTO)

@@ -27,6 +27,8 @@ public partial class Chapter
 
     public int Status { get; set; }
 
+    public virtual ICollection<ChapterLiked> ChapterLikeds { get; set; } = new List<ChapterLiked>();
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
@@ -35,9 +37,9 @@ public partial class Chapter
 
     public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
 
+    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
     public virtual Volume Volume { get; set; } = null!;
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
-
-    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

@@ -278,9 +278,9 @@ namespace app.Controllers
         // GET: api/Stories : top read shelves cate
         [HttpGet("topcate_read")]
         [EnableQuery]
-        public async Task<ActionResult> GetTopStoriesReadShelves(int cateid)
+        public async Task<ActionResult> GetTopStoriesReadShelves(int cateId)
         {
-            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateid) && c.Status > 0)
+            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateId) && c.Status > 0)
                 .Include(c => c.StoryInteraction)
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
@@ -317,9 +317,9 @@ namespace app.Controllers
         // get stories each cate
         [HttpGet("topcate_shelves")]
         [EnableQuery]
-        public async Task<ActionResult> GetStoriesTopCate(int cateid)
+        public async Task<ActionResult> GetStoriesTopCate(int cateId)
         {
-            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateid) && c.Status > 0)
+            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateId) && c.Status > 0)
                 .Include(c => c.Users)
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
@@ -363,9 +363,9 @@ namespace app.Controllers
         // get stories each cate
         [HttpGet("cate_shelves")]
         [EnableQuery]
-        public async Task<ActionResult> GetStoriesEachCate(int cateid, int page, int pageSize)
+        public async Task<ActionResult> GetStoriesEachCate(int cateId, int page, int pageSize)
         {
-            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateid) && c.Status > 0)
+            var stories = await _context.Stories.Where(c => c.Categories.Any(u => u.CategoryId == cateId) && c.Status > 0)
                 .Include(c => c.Users)
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
@@ -411,9 +411,9 @@ namespace app.Controllers
         // get stories each cate
         [HttpGet("cate_shelves_done")]
         [EnableQuery]
-        public async Task<ActionResult> GetStoriesDoneEachCate(int cateid, int page, int pageSize)
+        public async Task<ActionResult> GetStoriesDoneEachCate(int cateId, int page, int pageSize)
         {
-            var stories = await _context.Stories.Where(c => c.Status == 2 && c.Categories.Any(u => u.CategoryId == cateid))
+            var stories = await _context.Stories.Where(c => c.Status == 2 && c.Categories.Any(u => u.CategoryId == cateId))
                 .Include(c => c.Users)
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
@@ -513,10 +513,10 @@ namespace app.Controllers
         }
 
         [HttpGet("author_detail")]
-        public async Task<ActionResult> GetStoryByAuthorId(int authorid)
+        public async Task<ActionResult> GetStoryByAuthorId(int authorId)
         {
 
-            var stories = await _context.Stories.Where(s => s.AuthorId == authorid && s.Status > 0)
+            var stories = await _context.Stories.Where(s => s.AuthorId == authorId && s.Status > 0)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,

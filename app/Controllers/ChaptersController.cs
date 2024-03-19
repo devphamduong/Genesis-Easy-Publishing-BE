@@ -44,9 +44,9 @@ namespace app.Controllers
         }
 
         [HttpGet("story_detail")]
-        public async Task<ActionResult> GetStoryChapters(int storyid, int page, int pageSize)
+        public async Task<ActionResult> GetStoryChapters(int storyId, int page, int pageSize)
         {
-            var chapters = await _context.Chapters.Where(c => c.StoryId == storyid && c.Status > 0)
+            var chapters = await _context.Chapters.Where(c => c.StoryId == storyId && c.Status > 0)
                 .Include(c => c.Comments)
                 .Include(c => c.Users)
                 .Select(c => new
@@ -231,6 +231,7 @@ namespace app.Controllers
                 .Where(c => c.StoryId == storyid && c.ChapterNumber == chapterNumber && c.Status > 0)
                 .Include(c => c.Story)
                 .Include(c => c.Comments)
+                .Include(c => c.ChapterLikeds)
                 .Select(c => new
                 {
                     Story = new { c.StoryId, c.Story.StoryTitle, c.Story.StoryPrice },
@@ -245,7 +246,8 @@ namespace app.Controllers
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
                     NextChapterNumber = nextChapterNum,
-                    Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null || userId == c.Story.Author.UserId)
+                    Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null || userId == c.Story.Author.UserId),
+                    UserLike = c.ChapterLikeds.Any(c => c.UserId == userId && c.ChapterId == c.ChapterId),
                 }).FirstOrDefault();
 
             if (chapter == null)
@@ -254,27 +256,29 @@ namespace app.Controllers
                     EC = -1,
                     EM = "Chapter is not available"
                 });
-
-            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
-            story_interaction.Read += 1;
-            _context.Entry(story_interaction).State = EntityState.Modified;
-
-            var story_read = await _context.StoryReads.FirstOrDefaultAsync(c => c.UserId == userId && c.StoryId == storyid);
-            if (story_read != null)
+            if (chapter.Owned == true)
             {
-                story_read.ChapterId = chapter.ChapterId;
-                story_read.ReadTime = DateTime.Now;
-                _context.Entry(story_read).State = EntityState.Modified;
+                var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
+                story_interaction.Read += 1;
+                _context.Entry(story_interaction).State = EntityState.Modified;
+
+                var story_read = await _context.StoryReads.FirstOrDefaultAsync(c => c.UserId == userId && c.StoryId == storyid);
+                if (story_read != null)
+                {
+                    story_read.ChapterId = chapter.ChapterId;
+                    story_read.ReadTime = DateTime.Now;
+                    _context.Entry(story_read).State = EntityState.Modified;
+                }
+                else _context.StoryReads.Add(new StoryRead
+                {
+                    StoryId = chapter.Story.StoryId,
+                    UserId = userId,
+                    ChapterId = chapter.ChapterId,
+                    ReadTime = DateTime.Now
+                });
+                await _context.SaveChangesAsync();
             }
-            else _context.StoryReads.Add(new StoryRead
-            {
-                StoryId = chapter.Story.StoryId,
-                UserId = userId,
-                ChapterId = chapter.ChapterId,
-                ReadTime = DateTime.Now
-            });
 
-            await _context.SaveChangesAsync();
             return _msgService.MsgReturn(0, "Chapter content", chapter);
 
         }

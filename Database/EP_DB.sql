@@ -333,6 +333,22 @@ CREATE TABLE [dbo].[Chapter_Owned](
 ) ON [PRIMARY]
 GO
 
+-- table Chapter_Like
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Chapter_Liked](
+	[user_id] [int] NOT NULL,
+	[chapter_id] [bigint] NOT NULL,
+	[status] [bit] NULL,
+ CONSTRAINT [PK_chapter_liked] PRIMARY KEY CLUSTERED 
+(
+	[user_id],[chapter_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- -- table Story_Issue
 -- SET ANSI_NULLS ON
 -- GO
@@ -425,6 +441,43 @@ CREATE TABLE [dbo].[ReportContent](
  CONSTRAINT [PK_reportcontent] PRIMARY KEY CLUSTERED 
 (
 	[report_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- table Review
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Review](
+	[review_id] [int] IDENTITY(1,1) NOT NULL,
+	[story_id] [int] NOT NULL,
+	[spelling_error] [bit] NOT NULL,
+	[length_error] [bit] NOT NULL,
+	[report_type_id] [int] NULL,
+	[review_content] [nvarchar](2000) NULL,
+ CONSTRAINT [PK_review] PRIMARY KEY CLUSTERED 
+(
+	[review_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- table Ticket
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Ticket](
+	[ticket_id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[ticket_date] [date] NOT NULL,
+	[status] [bit] NULL,
+	[seen] [bit] NULL
+ CONSTRAINT [PK_ticket] PRIMARY KEY CLUSTERED 
+(
+	[ticket_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1994,6 +2047,16 @@ INSERT INTO [dbo].[Chapter_Owned]([user_id],[chapter_id]) VALUES
 	(8,10),(9,10),(15,10),
 	(8,12),(9,12),(15,12)
 
+INSERT INTO [dbo].[Chapter_Liked]([user_id],[chapter_id]) VALUES
+	(2,1),(3,1),(4,1),(8,1),
+	(2,3),(5,3),(9,3),(13,3),
+	(7,4),(10,4),
+	-- (6,5),(7,5),
+	(8,6),(9,6),(15,6),
+	(8,7),(9,7),(15,7),
+	(8,8),(9,8),(15,8),
+	(8,10),(9,10),(15,10),
+	(8,12),(9,12),(15,12)
 
 SET IDENTITY_INSERT [dbo].[Comment] ON
 GO
@@ -2180,6 +2243,13 @@ ALTER TABLE [dbo].[Chapter_Owned]  WITH CHECK ADD FOREIGN KEY([chapter_id])
 REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
+ALTER TABLE [dbo].[Chapter_Liked]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
+GO
+
+ALTER TABLE [dbo].[Chapter_Liked]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
+GO
 -- ALTER TABLE [dbo].[Story_Issue]  WITH CHECK ADD FOREIGN KEY([user_id])
 -- REFERENCES [dbo].[User] ([user_id])
 -- GO
@@ -2234,6 +2304,18 @@ GO
 
 ALTER TABLE [dbo].[ReportContent]  WITH CHECK ADD FOREIGN KEY([comment_id])
 REFERENCES [dbo].[Comment] ([comment_id])
+GO
+
+ALTER TABLE [dbo].[Review]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+
+ALTER TABLE [dbo].[Review]  WITH CHECK ADD FOREIGN KEY([report_type_id])
+REFERENCES [dbo].[ReportType] ([report_type_id])
+GO
+
+ALTER TABLE [dbo].[Ticket]  WITH CHECK ADD FOREIGN KEY([user_id])
+REFERENCES [dbo].[User] ([user_id])
 GO
 	
 CREATE TRIGGER trg_InsertStoryInteraction

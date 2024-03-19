@@ -37,17 +37,19 @@ public partial class Story
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
     public virtual ICollection<StoryFollowLike> StoryFollowLikes { get; set; } = new List<StoryFollowLike>();
 
     public virtual StoryInteraction? StoryInteraction { get; set; }
 
     public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();
 
+    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
     public virtual ICollection<Volume> Volumes { get; set; } = new List<Volume>();
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
-
-    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 }

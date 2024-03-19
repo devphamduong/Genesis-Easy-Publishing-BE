@@ -52,14 +52,14 @@ namespace app.Controllers
         }
 
         [HttpPut("story_like")]
-        public async Task<ActionResult> LikeStory(int storyid)
+        public async Task<ActionResult> LikeStory(int storyId)
         {
             int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
 
-            var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyid && c.UserId == userId);
-            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyId && c.UserId == userId);
+            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
 
             if (interaction != null)
             {
@@ -71,7 +71,7 @@ namespace app.Controllers
             else
             {
                 story_interaction.Like += 1;
-                StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyid, Follow = false, Like = true };
+                StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyId, Follow = false, Like = true };
                 _context.StoryFollowLikes.Add(storyFollowLike);
 
             }
@@ -84,14 +84,14 @@ namespace app.Controllers
 
 
         [HttpPut("story_follow")]
-        public async Task<ActionResult> FollowStory(int storyid)
+        public async Task<ActionResult> FollowStory(int storyId)
         {
             int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
 
-            var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyid && c.UserId == userId);
-            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyId && c.UserId == userId);
+            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
 
             if (interaction != null)
             {
@@ -102,7 +102,7 @@ namespace app.Controllers
             else
             {
                 story_interaction.Follow += 1;
-                StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyid, Follow = true, Like = false };
+                StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyId, Follow = true, Like = false };
                 _context.StoryFollowLikes.Add(storyFollowLike);
             }
             _context.Entry(story_interaction).State = EntityState.Modified;
@@ -111,13 +111,42 @@ namespace app.Controllers
             return _msgService.MsgActionReturn(0, "");
         }
 
+        [HttpPut("chapter_like")]
+        public async Task<ActionResult> LikeChapter(int storyId, int chapterNum)
+        {
+            int userId = GetUserId();
+
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
+            var chapter = await _context.Chapters.FirstOrDefaultAsync(c => c.StoryId == storyId && c.ChapterNumber == chapterNum);
+            var interaction = await _context.ChapterLikeds.FirstOrDefaultAsync(c => c.ChapterId == chapter.ChapterId && c.UserId == userId);
+            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
+
+            if (interaction != null)
+            {
+                story_interaction.Like -= 1;
+                _context.ChapterLikeds.Remove(interaction);
+            }
+            else
+            {
+                story_interaction.Like += 1;
+                ChapterLiked chapterLiked = new ChapterLiked { UserId = userId, ChapterId = chapter.ChapterId, Status = null };
+                _context.ChapterLikeds.Add(chapterLiked);
+            }
+
+            _context.Entry(story_interaction).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return _msgService.MsgActionReturn(0, "");
+        }
+
         [HttpGet("author_manage/story")]
-        public async Task<ActionResult> GetStoryData(int storyid)
+        public async Task<ActionResult> GetStoryData(int storyId)
         {
 
-            var interaction = await _context.Stories.Where(c => c.StoryId == storyid)
+            var interaction = await _context.Stories.Where(c => c.StoryId == storyId)
                .Include(c => c.Users).Include(c => c.StoryInteraction)
-               .Include(c => c.Chapters).ThenInclude(c => c.Users)
+               .Include(c => c.Chapters).ThenInclude(c => c.Users).ThenInclude(c => c.Comments).ThenInclude(c => c.ReportContents)
+               .Include(c => c.Comments)
                .Include(c => c.ReportContents)
                .Select(s => new
                {
@@ -129,19 +158,23 @@ namespace app.Controllers
                    s.StoryInteraction.Read,
                    PurchaseStory = s.Users.Count,
                    PurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
+                   CommentStory = s.Comments.Count,
+                   CommentChapter = s.Chapters.SelectMany(c => c.Comments).Count(),
                    ReportStory = s.ReportContents.Count,
+                   ReportChapter = s.Chapters.SelectMany(c => c.ReportContents).Count(),
                }).ToListAsync();
 
             return _msgService.MsgReturn(0, "Truyện của tác giả", interaction.FirstOrDefault());
         }
 
         [HttpGet("author_manage/chapter")]
-        public async Task<ActionResult> GetStoryChaptersData(int storyid, int from, int to)
+        public async Task<ActionResult> GetStoryChaptersData(int storyId, int from, int to)
         {
 
-            var interaction = await _context.Chapters.Where(c => c.StoryId == storyid)
+            var interaction = await _context.Chapters.Where(c => c.StoryId == storyId)
                .OrderBy(c => c.ChapterId)
                .Include(c => c.Users)
+               .Include(c => c.Comments)
                .Include(c => c.ReportContents)
                .Select(s => new
                {
@@ -149,6 +182,7 @@ namespace app.Controllers
                    s.ChapterNumber,
                    s.ChapterTitle,
                    PurchaseChapter = s.Users.Count,
+                   CommentChapter = s.Comments.Count,
                    ReportChapter = s.ReportContents.Count,
                }).ToListAsync();
             if (interaction.Count < 1) return _msgService.MsgReturn(-1, "Truyện chưa có chương", "");
