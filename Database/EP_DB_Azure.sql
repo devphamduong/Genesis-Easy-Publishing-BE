@@ -117,6 +117,8 @@ GO
 CREATE TABLE [dbo].[Transaction](
 	[transaction_id] [bigint] IDENTITY(1,1) NOT NULL,
 	[wallet_id] [int] NOT NULL,
+	[story_id] [int] NULL,
+	[chapter_id] [bigint] NULL,
 	[amount] [decimal](10, 2) NOT NULL,
 	[fund_before] [decimal](10, 2) NOT NULL,
 	[fund_after] [decimal](10, 2) NOT NULL,
@@ -230,6 +232,7 @@ GO
 CREATE TABLE [dbo].[Category](
 	[category_id] [int] IDENTITY(1,1) NOT NULL,
 	[category_name] [nvarchar](100) NULL,
+	[category_description] [nvarchar](500) NULL,
  CONSTRAINT [PK_category] PRIMARY KEY CLUSTERED 
 (
 	[category_id] ASC
@@ -687,23 +690,23 @@ INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 SET IDENTITY_INSERT [dbo].[Category] ON 
 GO
 
-INSERT [dbo].[Category] ([category_id],[category_name]) 
+INSERT [dbo].[Category] ([category_id],[category_name],[category_description]) 
 	VALUES
-		(1, N'Manhwa'),
-		(2, N'Manhua'), 
-		(3, N'Manga'), 
-		(4, N'Truyện ngắn'), 
-		(5, N'Tiểu thuyết'), 
-		(6, N'Comedy'), 
-		(7, N'Kinh dị'), 
-		(8, N'Hành động'), 
-		(9, N'Phiêu lưu'),
-		(10, N'Lãng mạn'), 
-		(11, N'Viễn tưởng'), 
-		(12, N'Bí ẩn'), 
-		(13, N'Khoa học'),
-		(14, N'Tiếng anh'), 
-		(15, N'Tiếng Việt')
+		(1, N'Manhwa',N'Truyện Hàn Quốc'),
+		(2, N'Manhua',N'Truyện của Trung Quốc'), 
+		(3, N'Manga',N'Truyện của Nhật Bản'), 
+		(4, N'Truyện ngắn',N'Những truyện ngắn,thường là 1 vài chapter'), 
+		(5, N'Tiểu thuyết',N'tiểu thuyết là sử thi của đời tư'), 
+		(6, N'Comedy',N'Thể loại có nội dung trong sáng và cảm động, thường có các tình tiết gây cười, các xung đột nhẹ nhàng'), 
+		(7, N'Kinh dị',N'Thể loại dành cho lứa tuổi 17+ bao gồm các pha bạo lực, máu me, chém giết, tình dục ở mức độ vừa'), 
+		(8, N'Hành động',N'Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh'), 
+		(9, N'Phiêu lưu',N'Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật'),
+		(10, N'Lãng mạn',N'Thường là những câu chuyện về tình yêu, tình cảm lãng mạn.'), 
+		(11, N'Viễn tưởng',N'Thể hiện những sức mạnh đáng kinh ngạc và không thể giải thích được, chúng thường đi kèm với những sự kiện trái ngược hoặc thách thức với những định luật vật lý'), 
+		(12, N'Bí ẩn',N'Thể loại thường xuất hiện những điều bí ấn không thể lí giải được và sau đó là những nỗ lực của nhân vật chính nhằm tìm ra câu trả lời thỏa đáng'), 
+		(13, N'Khoa học',N'Truyện liên quan đến vấn đề khoa học'),
+		(14, N'Tiếng anh',N'Truyện viết bằng tiếng anh'), 
+		(15, N'Tiếng Việt',N'Truyện viết bằng tiếng việt')
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
@@ -1818,7 +1821,19 @@ GO
 		
 SET IDENTITY_INSERT [dbo].[ReportContent] OFF
 GO
-
+SET IDENTITY_INSERT [dbo].[Transaction] ON
+GO
+INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
+     VALUES
+           (1,1 ,12,null,20,30,10,0,0,2022-10-09,null,null),
+		   (2,2 ,13,null,20,30,10,0,0,2022-10-09,null,null),
+		   (3,3 ,14,null,20,50,30,0,0,2022-10-09,null,null),
+		   (4,4 ,15,null,20,32,12,0,0,2022-10-09,null,null),
+		   (5,5 ,10,null,20,35,15,0,0,2022-10-09,null,null),
+		   (6,6 ,09,null,20,40,20,0,0,2022-10-09,null,null)
+GO
+SET IDENTITY_INSERT [dbo].[Transaction] OFF
+GO
 
 ALTER TABLE [dbo].[Wallet]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
@@ -1827,7 +1842,12 @@ GO
 ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD FOREIGN KEY([wallet_id])
 REFERENCES [dbo].[Wallet] ([wallet_id])
 GO
-
+ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD FOREIGN KEY([story_id])
+REFERENCES [dbo].[Story] ([story_id])
+GO
+ALTER TABLE [dbo].[Transaction]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
+GO
 ALTER TABLE [dbo].[Story_Read]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO

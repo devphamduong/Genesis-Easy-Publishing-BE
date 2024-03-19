@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace app.Controllers
 {
-    [Route("api/v1/story")]
+    [Route("api/v1/wallet")]
     [ApiController]
     public class WalletsController : ControllerBase
     {
@@ -50,11 +50,11 @@ namespace app.Controllers
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
             catch (Exception) { }
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Login first");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Đăng nhập trước");
 
             var wallet = await _context.Wallets.Where(c => c.UserId == userId)
                     .Select(c => new { c.WalletId, c.Fund }).ToListAsync();
-            return _msgService.MsgReturn(0, "Wallet balance", wallet.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Số dư", wallet.FirstOrDefault());
         }
     }
 }

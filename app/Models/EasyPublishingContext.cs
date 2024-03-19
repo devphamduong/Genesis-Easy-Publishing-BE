@@ -61,6 +61,9 @@ public partial class EasyPublishingContext : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
+            entity.Property(e => e.CategoryDescription)
+                .HasMaxLength(500)
+                .HasColumnName("category_description");
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(100)
                 .HasColumnName("category_name");
@@ -93,8 +96,8 @@ public partial class EasyPublishingContext : DbContext
 
             entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
             entity.Property(e => e.ChapterContentHtml)
-                    .HasColumnType("ntext")
-                    .HasColumnName("chapter_content_html");
+                .HasColumnType("ntext")
+                .HasColumnName("chapter_content_html");
             entity.Property(e => e.ChapterContentMarkdown)
                 .HasColumnType("ntext")
                 .HasColumnName("chapter_content_markdown");
@@ -225,11 +228,11 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnName("create_time");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.StoryDescription)
-                    .HasColumnType("ntext")
-                    .HasColumnName("story_description");
+                .HasColumnType("ntext")
+                .HasColumnName("story_description");
             entity.Property(e => e.StoryDescriptionHtml)
-                    .HasColumnType("ntext")
-                    .HasColumnName("story_description_html");
+                .HasColumnType("ntext")
+                .HasColumnName("story_description_html");
             entity.Property(e => e.StoryDescriptionMarkdown)
                 .HasColumnType("ntext")
                 .HasColumnName("story_description_markdown");
@@ -355,6 +358,8 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("transaction_time");
             entity.Property(e => e.WalletId).HasColumnName("wallet_id");
+            entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
 
             entity.HasOne(d => d.Wallet).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.WalletId)

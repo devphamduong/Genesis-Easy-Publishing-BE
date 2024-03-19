@@ -31,11 +31,30 @@ namespace app.Controllers
                     AuthorImage = c.UserImage,
                     AuthorStories = c.Stories.Count,
                     AuthorNewestStory = c.Stories.Where(c => c.AuthorId == story.AuthorId).OrderByDescending(c => c.StoryId)
-                    .Select(s => new { s.StoryId, s.StoryTitle, s.StoryImage, s.StoryDescriptionHtml })
+                    .Select(s => new { s.StoryId, s.StoryTitle, s.StoryImage, s.StoryDescription ,s.CreateTime})
                     .FirstOrDefault()
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "Story Detail Author Relate", author.FirstOrDefault());
+            return _msgService.MsgReturn(0, "Tác giả liên quan", author.FirstOrDefault());
+        }
+
+        [HttpGet("author_detail")]
+        public async Task<ActionResult> GetAuthor(int authorid)
+        {
+            var author = await _context.Users.Where(c => c.UserId == authorid)
+                .Include(c => c.Stories)
+                .Select(c => new
+                {
+                    AuthorId = c.UserId,
+                    AuthorName = c.UserFullname,
+                    AuthorImage = c.UserImage,
+                    AuthorEmail = c.Email,
+                    AuthorDescriptionHtml = c.DescriptionHtml,
+                    AuthorDescriptionMarkdown = c.DescriptionMarkdown,
+                    AuthorStories = c.Stories.Count,
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Thông tin tác giả", author.FirstOrDefault());
         }
     }
 }

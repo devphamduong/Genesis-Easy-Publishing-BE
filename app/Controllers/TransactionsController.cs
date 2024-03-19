@@ -1,8 +1,10 @@
-using app.Models;
+﻿using app.Models;
 using app.Service;
+using app.Service.MomoService;
 using app.Service.VNPayService;
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
@@ -11,7 +13,7 @@ using static app.Controllers.AuthController;
 
 namespace app.Controllers
 {
-    [Route("api/vi/transaction")]
+    [Route("api/v1/transaction")]
     [ApiController]
     public class TransactionsController : ControllerBase
     {
@@ -27,18 +29,17 @@ namespace app.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public class VNPayRequestForm
+        public class PaymentRequestForm
         {
-            public string PaymentContent { get; set; } = string.Empty;
-            public string PaymentCurrency { get; set; } = string.Empty;
-            public string PaymentRefId { get; set; } = string.Empty;
-            public decimal? RequiredAmount { get; set; }
-            public DateTime? PaymentDate { get; set; } = DateTime.Now;
-            public DateTime? ExpireDate { get; set; } = DateTime.Now.AddMinutes(15);
-            public string? PaymentLanguage { get; set; } = string.Empty;
-            public string? MerchantId { get; set; } = string.Empty;
-            public string? PaymentDestinationId { get; set; } = string.Empty;
-            public string? Signature { get; set; } = string.Empty;
+            public string PaymentContent { get; set; } = "Thanh toan hoa don";
+            public string PaymentCurrency { get; set; } = "VND";
+            public string PaymentRefId { get; set; } = "ORD0001";
+            public decimal RequiredAmount { get; set; }
+            public DateTime PaymentDate { get; set; } = DateTime.Now;
+            public DateTime ExpireDate { get; set; } = DateTime.Now.AddMinutes(30);
+            public string PaymentLanguage { get; set; } = "vn";
+            public string MerchantId { get; set; } = "MER0001";
+            public string Signature { get; set; } = "EP";
         }
 
         private JwtSecurityToken VerifyToken()
@@ -60,6 +61,31 @@ namespace app.Controllers
             }
             return null;
         }
+        [HttpGet("get_all_transaction")]
+        public async Task<ActionResult> GetAllTransaction()
+        {
+            var transaction = await _context.Transactions
+                .Include(t=>t.Story)
+                .Include(t=>t.Chapter)
+                .Select(t=> new
+                {
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime,
+                    Status = t.Status,
+                    Description =t.Description
+
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Get All Transaction", transaction);
+        }
+
 
         [HttpGet("get_user_wallet")]
         public async Task<ActionResult> GetUserWallet()
@@ -132,6 +158,7 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = story.StoryPrice,
+                    StoryId = story.StoryId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - story.StoryPrice,
                     RefundAfter = 0,
@@ -144,6 +171,7 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = story.StoryPrice,
+                    StoryId = story.StoryId,
                     FundBefore = 0,
                     FundAfter = 0,
                     RefundAfter = author_wallet.Refund,
@@ -205,6 +233,8 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - (decimal)chapter.ChapterPrice,
                     RefundAfter = 0,
@@ -216,6 +246,8 @@ namespace app.Controllers
                 var author_transaction = new Transaction
                 {
                     WalletId = author_wallet.WalletId,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     Amount = (decimal)chapter.ChapterPrice,
                     FundBefore = 0,
                     FundAfter = 0,
@@ -279,6 +311,7 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = amount,
+                    StoryId = story.StoryId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - amount,
                     RefundAfter = 0,
@@ -292,6 +325,7 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = amount,
+                    StoryId = story.StoryId,
                     FundBefore = 0,
                     FundAfter = 0,
                     RefundAfter = author_wallet.Refund,
@@ -369,6 +403,8 @@ namespace app.Controllers
                 {
                     WalletId = user_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund - (decimal)chapter.ChapterPrice,
                     RefundAfter = 0,
@@ -381,6 +417,8 @@ namespace app.Controllers
                 {
                     WalletId = author_wallet.WalletId,
                     Amount = (decimal)chapter.ChapterPrice,
+                    StoryId = story.StoryId,
+                    ChapterId = chapter.ChapterId,
                     FundBefore = 0,
                     FundAfter = 0,
                     RefundAfter = author_wallet.Refund,
@@ -470,6 +508,8 @@ namespace app.Controllers
                 {
                     TransactionId = c.TransactionId,
                     Amount = c.Amount,
+                    StoryId = c.Story.StoryId,
+                    ChapterId = c.Chapter.ChapterId,
                     FundBefore = c.FundBefore,
                     FundAfter = c.FundAfter,
                     RefundBefore = c.RefundBefore,
@@ -507,6 +547,8 @@ namespace app.Controllers
                 {
                     TransactionId = c.TransactionId,
                     Amount = c.Amount,
+                    StoryId = c.Story.StoryId,
+                    ChapterId = c.Chapter.ChapterId,
                     FundBefore = c.FundBefore,
                     FundAfter = c.FundAfter,
                     RefundBefore = c.RefundBefore,
@@ -545,6 +587,8 @@ namespace app.Controllers
                 {
                     TransactionId = c.TransactionId,
                     Amount = c.Amount,
+                    StoryId = c.Story.StoryId,
+                    ChapterId = c.Chapter.ChapterId,
                     FundBefore = c.FundBefore,
                     FundAfter = c.FundAfter,
                     RefundBefore = c.RefundBefore,
@@ -556,7 +600,7 @@ namespace app.Controllers
                 .OrderByDescending(c => c.TransactionTime)
                 .ToListAsync();
                 pageSize = pageSize == null ? 10 : pageSize;
-                return _msgService.MsgPagingReturn("User transaction history",
+                return _msgService.MsgPagingReturn("Lịch sử giao dịch",
                    transactions.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, transactions.Count);
             }
             catch (Exception)
@@ -564,27 +608,65 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = "Yều cầu đăng nhập"
                 });
             }
         }
 
         [HttpPost("vnpay_request")]
-        public IActionResult SendVNPayRequest([FromBody] VNPayRequestForm data)
+        public IActionResult SendVNPayRequest([FromBody] PaymentRequestForm data)
         {
             string version = _configuration.GetSection("VNPayConfig:Version").Value;
             string tmnCode = _configuration.GetSection("VNPayConfig:TmnCode").Value;
             string hashSecret = _configuration.GetSection("VNPayConfig:HashSecret").Value;
             string paymentUrl = _configuration.GetSection("VNPayConfig:PaymentUrl").Value;
+            string returnUrl = _configuration.GetSection("VNPayConfig:ReturnUrl").Value;
 
             var vnpayRequest = new VNPayRequest(version,
-            tmnCode, DateTime.Now, _httpContextAccessor?.HttpContext?.Connection?.LocalIpAddress?.ToString() ?? string.Empty, data.RequiredAmount ?? 0, data.PaymentCurrency ?? string.Empty,
-                              "other", data.PaymentContent ?? string.Empty, "https://localhost:44393/PaymentConfirm", DateTime.Now.Ticks.ToString());
+            tmnCode, data.PaymentDate, data.ExpireDate, _httpContextAccessor?.HttpContext?.Connection?.LocalIpAddress?.ToString() ?? string.Empty, data.RequiredAmount, data.PaymentCurrency ?? string.Empty,
+                              "other", data.PaymentContent ?? string.Empty, returnUrl, DateTime.Now.Ticks.ToString());
             paymentUrl = vnpayRequest.GetLink(paymentUrl, hashSecret);
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Send vnpay request successfully",
+                EM = "Gửi request VNPay thành công",
+                DT = new
+                {
+                    paymentUrl = paymentUrl
+                }
+            });
+        }
+
+        [HttpPost("momo_request")]
+        public IActionResult SendMomoRequest([FromBody] PaymentRequestForm data)
+        {
+            string partnerCode = _configuration.GetSection("MomoConfig:PartnerCode").Value;
+            string returnUrl = _configuration.GetSection("MomoConfig:ReturnUrl").Value;
+            string ipnUrl = _configuration.GetSection("MomoConfig:IpnUrl").Value;
+            string paymentUrl = _configuration.GetSection("MomoConfig:PaymentUrl").Value;
+            string accessKey = _configuration.GetSection("MomoConfig:AccessKey").Value;
+            string secretKey = _configuration.GetSection("MomoConfig:SecretKey").Value;
+
+            var momoOneTimePayRequest = new MomoRequest(partnerCode, DateTime.Now.Ticks.ToString(), (long)data.RequiredAmount!, DateTime.Now.Ticks.ToString(),
+                                 data.PaymentContent ?? string.Empty, returnUrl, ipnUrl, "captureWallet", string.Empty);
+            momoOneTimePayRequest.MakeSignature(accessKey, secretKey);
+            (bool createMomoLinkResult, string? createMessage) = momoOneTimePayRequest.GetLink(paymentUrl);
+            if (createMomoLinkResult)
+            {
+                paymentUrl = createMessage;
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Gửi request Momo không thành công"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Gửi request Momo thành công",
                 DT = new
                 {
                     paymentUrl = paymentUrl

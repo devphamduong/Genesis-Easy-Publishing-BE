@@ -9,6 +9,8 @@ using app.Models;
 using app.Service;
 using System.Security.Policy;
 using System.IdentityModel.Tokens.Jwt;
+using System.Drawing.Printing;
+using Microsoft.VisualBasic;
 
 namespace app.Controllers
 {
@@ -55,6 +57,47 @@ namespace app.Controllers
             return null;
         }
 
+        /// GET: api/Stories
+        [HttpGet("get_all_stories")]
+        public async Task<ActionResult> GetStories()
+        {
+            if (_context.Stories == null)
+            {
+                return NotFound();
+            }
+            var stories = await _context.Stories
+                .Include(s => s.Author)
+                .Include(s => s.Comments)
+                .Include(s => s.ReportContents)
+                .Include(s => s.StoryFollowLikes)
+                .Include(s => s.Volumes)
+                .Include(s => s.Chapters)
+                .Include(s => s.StoryInteraction)
+                .Include(s => s.StoryReads)
+                .Include(s => s.Categories)
+                .Select(c => new
+                {
+                    StoryId = c.StoryId,
+                    StoryTitle = c.StoryTitle,
+                    StoryImage = c.StoryImage,
+                    StoryDescription = c.StoryDescriptionHtml,
+                    StoryPrice = c.StoryPrice,
+                    StorySale = c.StorySale,
+                    CreateTime = c.CreateTime,
+                    StoryCategories = string.Join(",", c.Categories.Select(c => c.CategoryName).ToList()),
+                    StoryAuthor = c.Author.UserFullname,
+                    StoryChapterNumber = c.Chapters.Count,
+                    StoryChapters = c.Chapters.Where(c => c.Status > 0).Count(),
+                    StoryReads = c.StoryReads.Count(),
+                    Volumes = c.Volumes.Count(),
+                    UserOwned = c.Users.Count(),
+                    UserFollow = c.StoryFollowLikes.Where(c => c.Follow == true).Count(),
+                    UserLike = c.StoryFollowLikes.Where(c => c.Like == true).Count()
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Thông tin truyện", stories);
+        }
+
         // GET: api/Stories/5
         [HttpGet("story_detail")]
         public async Task<ActionResult> GetStoryDetail(int storyid)
@@ -98,12 +141,19 @@ namespace app.Controllers
                             .Take(3).ToList(),
                             UserPurchaseStory = c.Users.Count,
                             StoryInteraction = c.StoryInteraction,
+                            AuthorOwned = userId == c.AuthorId ? true : false,
                             UserOwned = c.Users.Any(c => c.UserId == userId),
                             UserFollow = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Follow == true),
                             UserLike = c.StoryFollowLikes.Any(c => c.UserId == userId && c.Like == true),
                         })
                         .ToListAsync();
-            return _msgService.MsgReturn(0, "Story Detail", stories.FirstOrDefault());
+
+            var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
+            story_interaction.View += 1;
+            _context.Entry(story_interaction).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return _msgService.MsgReturn(0, "Thông tin truyện", stories.FirstOrDefault());
         }
 
         [HttpGet("story_detail/related")]
@@ -123,6 +173,7 @@ namespace app.Controllers
                     StorySale = c.StorySale,
                     StoryCategories = c.Categories.Select(c => new { c.CategoryId, c.CategoryName }).ToList(),
                     StoryAuthor = new { c.Author.UserId, c.Author.UserFullname },
+                    StoryCreateTime = c.CreateTime,
                     StoryChapterNumber = c.Chapters.Count,
                     StoryLatestChapter = c.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault() == null ? null :
                     new
@@ -136,7 +187,23 @@ namespace app.Controllers
                 .OrderByDescending(c => c.StoryId)
                 .ToListAsync();
             var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
-            return _msgService.MsgReturn(0, "Story Relate", verified.Take(3));
+            return _msgService.MsgReturn(0, "Truyện liên quan", verified.Take(3));
+        }
+
+
+        [HttpGet("GetDataForChart")]
+        public async Task<ActionResult> GetDataForChart(int storyId)
+        {
+            var data = await _context.Stories.Where(s => s.StoryId == storyId)
+                    .Include(s => s.StoryInteraction)
+                    .Select(s => new
+                    {
+                        StoryId = s.StoryId,
+                        StoryTitle = s.StoryTitle,
+                        Like = s.StoryInteraction.Like,
+                        Follow = s.StoryInteraction.Follow,
+                    }).FirstOrDefaultAsync();
+            return _msgService.MsgReturn(0, "List Story", data);
         }
 
         [HttpGet("GetDataForChart")]

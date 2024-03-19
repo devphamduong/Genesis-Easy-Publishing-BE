@@ -1,6 +1,7 @@
 ﻿using app.DTOs;
 using app.Models;
 using app.Service;
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -63,13 +64,22 @@ namespace app.Controllers
         public class UserProfileForm
         {
             public string? UserFullname { get; set; }
-            public bool? Gender { get; set; }
+            public string? Gender { get; set; }
             public DateTime? Dob { get; set; }
             public string? Phone { get; set; }
             public string? Address { get; set; }
-            public string? UserImage { get; set; }
             public string? DescriptionMarkdown { get; set; }
             public string? DescriptionHTML { get; set; }
+        }
+
+        public class AvatarForm
+        {
+            public IFormFile image { get; set; }
+        }
+
+        public class VerifyTokenForm
+        {
+            public string Token { get; set; }
         }
 
         [HttpPost("login")]
@@ -80,7 +90,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "Missing parameters",
+                    EM = "Vui lòng nhập đủ thông tin yêu cầu",
                 });
             }
             var user = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).FirstOrDefault();
@@ -89,7 +99,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "Wrong username or password",
+                    EM = "Thông tin đăng nhập không đúng",
                 });
             };
             string password = user.Password;
@@ -113,7 +123,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "Wrong username or password",
+                    EM = "Thông tin đăng nhập không đúng",
                 });
             }
             UserDTO userDTO = new UserDTO
@@ -140,7 +150,7 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Login successfully",
+                EM = "Đăng nhập thành công",
                 DT = new
                 {
                     user = userResponse,
@@ -157,7 +167,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "Missing required fields",
+                    EM = "Vui lòng nhập đủ thông tin yêu cầu",
                 });
             }
             var user = _context.Users.Where(u => u.Email.Equals(data.Email)).FirstOrDefault();
@@ -166,7 +176,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "This email is already in use by another account",
+                    EM = "Email đã được đăng ký bởi tài khoản khác",
                 });
             }
             user = _context.Users.Where(u => u.Username.Equals(data.Username)).FirstOrDefault();
@@ -175,7 +185,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 3,
-                    EM = "This username is already in use by another account",
+                    EM = "Username đã được đăng ký bởi tài khoản khác",
                 });
             }
             if (!data.Password.Equals(data.ConfirmPassword))
@@ -183,7 +193,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 4,
-                    EM = "Confirm password must match password"
+                    EM = "Xác nhận mật khẩu không khớp với mật khẩu đã nhập"
                 });
             }
             string passwordHash = hashService.Hash(data.Password);
@@ -205,7 +215,7 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Register successfully",
+                EM = "Đăng ký tài khoản thành công",
             });
         }
 
@@ -216,7 +226,7 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Logout successfully"
+                EM = "Đăng xuất thành công"
             });
         }
 
@@ -337,7 +347,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 0,
-                    EM = "Get account successfully",
+                    EM = "Thông tin tài khoản",
                     DT = new
                     {
                         user = user
@@ -349,7 +359,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = "Yêu cầu đăng nhập"
                 });
             }
         }
@@ -363,19 +373,19 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "This email is not registered",
+                    EM = "Email chưa được đăng ký",
                 });
             }
             try
             {
                 string token = CreateForgotPasswordToken(data.Email);
                 mailService.Send(data.Email,
-                        "Easy Publishing: Reset password",
-                        "<b>Hi " + user.Username + ",</b>" +
-                        "<p>There was a request to reset your password! </p> " +
-                        "<p>If you did not make this request then please ignore this email.</p> " +
-                        "<p>Otherwise, please click this link to reset your password:</p> " +
-                        "<a href =\"http://localhost:3000/auth/reset-password?token=" + token + "\">Reset password</a>");
+                        "Easy Publishing: Đặt lại mật khẩu",
+                        "<b>Xin chào " + user.Username + ",</b>" +
+                        "<p>Chúng tôi đã nhận được một yêu cầu đặt lại mật khẩu! </p> " +
+                        "<p>Vui lòng bỏ qua mail này nếu bạn không phải người thực hiện.</p> " +
+                        "<p>Nếu bạn là người thực hiện yêu cầu, vui lòng click vào đường dẫn dưới đây để đặt lại mật khẩu:</p> " +
+                        "<a href =\"http://localhost:3000/auth/reset-password?token=" + token + "\">Đặt lại mật khẩu</a>");
             }
             catch (Exception ex)
             {
@@ -388,24 +398,25 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "We have sent an email to your registered email address, Please follow the instructions to reset your password",
+                EM = "Chúng tôi đã gửi mail đến tài khoản email đã đăng ký của bạn, vui lòng làm theo hướng dẫn để đặt lại mật khẩu",
             });
         }
         [HttpPost("reset_password")]
         public IActionResult ResetPassword([FromBody] ResetPasswordForm data)
         {
+            string email;
             var handler = new JwtSecurityTokenHandler();
             try
             {
                 var token = handler.ReadJwtToken(data.Token);
-                string email = token.Claims.First(c => c.Type == "email").Value;
+                email = token.Claims.First(c => c.Type == "email").Value;
                 var user = _context.Users.FirstOrDefault(u => u.Email.Equals(email));
                 if (user == null)
                 {
                     return new JsonResult(new
                     {
                         EC = 1,
-                        EM = "User does not exist"
+                        EM = "Người dùng không tồn tại"
                     });
                 }
                 if (!data.Password.Equals(data.ConfirmPassword))
@@ -413,7 +424,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = 2,
-                        EM = "Confirm password must match password"
+                        EM = "Xác nhận mật khẩu không khớp với mật khẩu đã nhập"
                     });
                 }
                 user.Password = hashService.Hash(data.Password);
@@ -421,10 +432,10 @@ namespace app.Controllers
                 try
                 {
                     mailService.Send(email,
-                        "Easy Publishing: Reset password",
-                        "<b>Hi " + user.Username + ",</b>" +
-                        "<p>Your password has been reset successfully!</p> " +
-                        "<p>Your new password is: <b>" + data.Password + "</b></p>");
+                        "Easy Publishing: Đặt lại mật khẩu",
+                        "<b>Xin chào " + user.Username + ",</b>" +
+                        "<p>Mật khẩu của bạn đã được đặt lại thành công!</p> " +
+                        "<p>Mật khẩu mới: <b>" + data.Password + "</b></p>");
                 }
                 catch (Exception ex)
                 {
@@ -441,13 +452,17 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = "Yêu cầu đăng nhập"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Reset password successfully",
+                EM = "Đặt lại mật khẩu thành công",
+                DT = new
+                {
+                    email = email
+                }
             });
         }
 
@@ -466,7 +481,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = 1,
-                        EM = "Wrong password"
+                        EM = "Mật khẩu không đúng"
                     });
                 }
                 if (!data.Password.Equals(data.ConfirmPassword))
@@ -474,7 +489,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = 2,
-                        EM = "Confirm password must match password"
+                        EM = "Xác nhận mật khẩu không khớp với mật khẩu đã nhập"
                     });
                 }
                 user.Password = hashService.Hash(data.Password);
@@ -485,13 +500,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = "Yêu cầu đăng nhập"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Change password successfully",
+                EM = "Đổi mật khẩu thành công",
             });
         }
 
@@ -509,8 +524,14 @@ namespace app.Controllers
                 user.Address = data.Address;
                 user.Phone = data.Phone;
                 user.Dob = data.Dob;
-                user.UserImage = data.UserImage;
-                user.Gender = data.Gender;
+                if (data.Gender.ToLower().Equals("male"))
+                {
+                    user.Gender = true;
+                }
+                else
+                {
+                    user.Gender = false;
+                }
                 user.DescriptionMarkdown = data.DescriptionMarkdown;
                 user.DescriptionHtml = data.DescriptionHTML;
                 _context.SaveChanges();
@@ -532,18 +553,99 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = "Yêu cầu đăng nhập"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Save profile successfully",
+                EM = "Cập nhật hồ sơ thành công",
                 DT = new
                 {
                     access_token = accessToken
                 }
             });
+        }
+
+        [HttpPut("update_avatar")]
+        public IActionResult ChangeAvatar([FromForm] AvatarForm data)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
+                var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
+                if (data.image.Length > 0)
+                {
+                    string relativePath = "Assets/images/avatar/";
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/images/avatar");
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string fileName = Path.GetFileName(data.image.FileName);
+                    string filePath = Path.Combine(path, fileName);
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        data.image.CopyTo(stream);
+                    }
+                    user.UserImage = Path.Combine(relativePath, fileName); ;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 1,
+                        EM = "File không tồn tại"
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Yêu cầu đăng nhập"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Cập nhật ảnh đại diện thành công"
+            });
+        }
+
+        [HttpPost("verify_token")]
+        public IActionResult VerifyToken([FromBody] VerifyTokenForm data)
+        {
+            string token = data.Token;
+            if (string.IsNullOrEmpty(token))
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Token không hợp lệ"
+                });
+            }
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            DateTime expirationDate = jwtToken.ValidTo;
+            if (DateTime.UtcNow < expirationDate)
+            {
+                return new JsonResult(new
+                {
+                    EC = 0,
+                    EM = "Token hợp lệ",
+                });
+            }
+            else
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Token đã hết hạn",
+                });
+            }
         }
     }
 }
