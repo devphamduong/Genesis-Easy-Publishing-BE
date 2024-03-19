@@ -126,16 +126,35 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "List volume", volumes);
         }
 
-        [HttpPost("add_chapter")]
-        public async Task<ActionResult> AddChapter(Chapter chapter)
+        public class addChapterForm
         {
-            chapter.CreateTime = DateTime.Now;
-            chapter.Status = 1;
+            public int StoryId { get; set; }
+            public int VolumeId { get; set; }
+            public string ChapterTitle { get; set; } = null!;
+            public string? ChapterContentMarkdown { get; set; }
+            public string? ChapterContentHtml { get; set; }
+            public decimal? ChapterPrice { get; set; }
+        }
+
+        [HttpPost("add_chapter")]
+        public async Task<ActionResult> AddChapter(addChapterForm chapter)
+        {
+            Chapter c = new Chapter()
+            {
+                ChapterContentHtml = chapter.ChapterContentHtml,
+                ChapterContentMarkdown = chapter.ChapterContentMarkdown,
+                StoryId = chapter.StoryId,
+                VolumeId = chapter.VolumeId,
+                ChapterTitle = chapter.ChapterTitle,
+                ChapterPrice = chapter.ChapterPrice
+            };
+            c.CreateTime = DateTime.Now;
+            c.Status = 1;
             try
             {
                 long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId).Select(c => c.ChapterNumber).DefaultIfEmpty(0).Max() + 1;
-                chapter.ChapterNumber = nextChapterNum;
-                await _context.Chapters.AddAsync(chapter);
+                c.ChapterNumber = nextChapterNum;
+                await _context.Chapters.AddAsync(c);
                 _context.SaveChanges();
             }
             catch (Exception)
