@@ -140,6 +140,7 @@ namespace app.Controllers
         {
 
             var interaction = await _context.Chapters.Where(c => c.StoryId == storyid)
+               .OrderBy(c => c.ChapterId)
                .Include(c => c.Users)
                .Include(c => c.ReportContents)
                .Select(s => new
@@ -150,21 +151,14 @@ namespace app.Controllers
                    PurchaseChapter = s.Users.Count,
                    ReportChapter = s.ReportContents.Count,
                }).ToListAsync();
-
+            if (interaction.Count < 1) return _msgService.MsgReturn(-1, "Truyện chưa có chương", "");
+            if (interaction.Count == 1) return _msgService.MsgReturn(0, "Truyện có 1 chương", interaction.FirstOrDefault());
+            var min = interaction.First().ChapterNumber;
+            var max = interaction.Last().ChapterNumber;
             if (from != null && to != null && from < to) interaction = interaction.Where(c => c.ChapterNumber >= from && c.ChapterNumber <= to).ToList();
 
-            return _msgService.MsgReturn(0, "Truyện của tác giả", interaction);
+            return _msgService.MsgReturn(0, "Truyện của tác giả", new { interaction, min, max });
         }
-        [HttpGet("author_manage/chapter_range")]
-        public async Task<ActionResult> GetStoryChaptersRange(int storyid)
-        {
 
-            var chapters = await _context.Chapters.Where(c => c.StoryId == storyid).OrderBy(c => c.ChapterId)
-                .Select(c => c.ChapterNumber).ToListAsync();
-
-            if (chapters.Count < 1) return _msgService.MsgReturn(0, "Truyện chưa có chương", "");
-            if (chapters.Count == 1) return _msgService.MsgReturn(0, "Truyện có 1 chương", chapters.FirstOrDefault());
-            return _msgService.MsgReturn(0, "Truyện của tác giả", new List<object> { chapters.FirstOrDefault(), chapters.LastOrDefault() });
-        }
     }
 }
