@@ -116,7 +116,8 @@ namespace app.Controllers
                 Status = u.Status == true ? "Active" : "Inactive",
                 UserImage = u.UserImage,
                 DescriptionMarkdown = u.DescriptionMarkdown,
-                DescriptionHTML = u.DescriptionHtml
+                DescriptionHTML = u.DescriptionHtml,
+                TLT = u.Wallets.FirstOrDefault().Fund
             }).FirstOrDefault();
             if (!hashService.Verify(password, data.Password))
             {
@@ -342,7 +343,8 @@ namespace app.Controllers
                         Status = u.Status == true ? "Active" : "Inactive",
                         UserImage = u.UserImage,
                         DescriptionMarkdown = u.DescriptionMarkdown,
-                        DescriptionHTML = u.DescriptionHtml
+                        DescriptionHTML = u.DescriptionHtml,
+                        TLT = u.Wallets.FirstOrDefault().Fund
                     }).FirstOrDefault();
                 return new JsonResult(new
                 {
