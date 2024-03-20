@@ -731,7 +731,7 @@ namespace app.Controllers
 
             page = page == null || page == 0 ? 1 : page;
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
-            return _msgService.MsgPagingReturn("Truyện theo dõi",
+            return _msgService.MsgPagingReturn("Truyện đã đọc",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
