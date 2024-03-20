@@ -2140,15 +2140,32 @@ GO
 
 	INSERT INTO [dbo].[ReportContent] ([report_id], [user_id],[report_type_id],[story_id],[chapter_id],[comment_id],[report_content],[report_date],[status])
 	VALUES 
-		(1, 5, 1, 1, null, null, N'Truyện không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(2, 12, 7, 1, null, null, N'không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(3, 14, 5, 4, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(4, 25, 7, 3, null, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(5, 5, 8, null, 1, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(6, 24, 10, null, 4, null, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(7, 16, 3, null, null, 3, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(8, 35, 2, null, null, 14, N' không phù hợp', CAST(N'2023-12-24' AS Date),null),
-		(9, 25, 6, null, null, 24, N' không phù hợp', CAST(N'2023-12-24' AS Date),null)
+		 (1,1 ,12,null,20,30,10,0,0,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 2 AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+		   (2,2 ,13,null,20,30,10,0,0,CAST(N'2024-01-20 20:32:22.103' AS DateTime),1,'Buy 2 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+		   (3,3 ,14,null,20,50,30,0,0,CAST(N'2024-03-23 20:30:22.103' AS DateTime),1,'Buy 2 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+		   (4,4 ,15,null,20,32,12,0,0,CAST(N'2024-03-25 20:33:22.103' AS DateTime),1,'Buy 1 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+		   (5,5 ,10,null,20,35,15,0,0,CAST(N'2024-04-21 20:36:22.103' AS DateTime),1,'Buy 3 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+		   (6,6 ,09,null,20,40,20,0,0,CAST(N'2024-05-20 20:2:22.103' AS DateTime),1,'Buy 5 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+		   (7,1,1,2,5.00,0.00,0.00,5.00,0.00,CAST(N'2024-03-10 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 2 AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+			(8,4,1,2,5.00,15.00,10.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 2 AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
+			(9,4,NULL,NULL,200.00,10.00,210.00,	0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Recharge 200'),
+			(10,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 3 NICK DUNNE in story Gone Girl'),
+			(11,4,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 3 NICK DUNNE in story Gone Girl '),
+			(12,2,2,NULL,12.99,0.00,0.00,34.99,22.00,CAST(N'2024-03-20 21:52:08.117' AS DateTime),1,'Receive TLT from selling stories And Then There Were None'),
+			(13,3,NULL,NULL,200.00,10.00,210.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy story And Then There Were None'),
+			(14,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 3 NICK DUNNE in story Gone Girl'),
+			(15,2,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 3 NICK DUNNE in story Gone Girl '),
+			(16,4,1,NULL,30.00,	147.00,117.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 1 to 20 in story Gone Girl '),
+			(17,1,1,NULL,15.00,	0.00,0.00,85.00,70.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
+			(18,5,1,NULL,30.00,147.00,117.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 3 chapter in story Gone Girl '),
+			(19,6,1,NULL,15.00,132.00,117.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 1 to 20 in story Gone Girl '),
+			(20,1,1,NULL,0.00,0.00,0.00,70.00,70.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
+			(21,7,1,NULL,0.00,132.00,132.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 1 chapter in story Gone Girl '),
+			(22,1,1,NULL,5.00,0.00,0.00,80.00,	75.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
+			(23,12,1,NULL,5.00,127.00,122.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 2 chapter in story Gone Girl '),
+			(24,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
+			(25,9,1,NULL,0.00,127.00,127.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 1 chapter in story Gone Girl '),
+			(26,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl ')
 		
 SET IDENTITY_INSERT [dbo].[ReportContent] OFF
 GO
