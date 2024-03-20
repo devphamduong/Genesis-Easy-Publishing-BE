@@ -286,7 +286,6 @@ namespace app.Controllers
         public class SaveStoryForm
         {
             public int StoryId { get; set; }
-            public int AuthorId { get; set; }
             public string StoryTitle { get; set; } = null!;
             public decimal StoryPrice { get; set; }
 
@@ -313,16 +312,16 @@ namespace app.Controllers
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
             catch (Exception) { }
-            if(story.AuthorId != userId)
+
+            var currentStory = _context.Stories.FirstOrDefault(s => s.StoryId == story.StoryId && s.AuthorId == userId);
+            if(currentStory == null)
             {
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Fail"
+                    EM = "You can't edit this page"
                 });
             }
-
-            var currentStory = _context.Stories.FirstOrDefault(s => s.StoryId == story.StoryId);
             try
             {
                 if (currentStory != null)
