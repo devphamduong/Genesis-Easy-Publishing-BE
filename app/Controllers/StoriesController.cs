@@ -266,14 +266,61 @@ namespace app.Controllers
             });
         }
 
-        [HttpPut("edit_story")]
-        public async Task<ActionResult> EditStory(Story story)
+        public class SaveStoryForm
         {
-            story.UpdateTime = DateTime.Now;
+            public int StoryId { get; set; }
+            public int AuthorId { get; set; }
+            public string StoryTitle { get; set; } = null!;
+            public decimal StoryPrice { get; set; }
+
+            public decimal? StorySale { get; set; }
+
+            public string? StoryImage { get; set; }
+
+            public string? StoryDescriptionMarkdown { get; set; }
+
+            public string? StoryDescriptionHtml { get; set; }
+            public int Status { get; set; }
+            public List<int> CategoryIds { get; set; }
+
+        }
+
+        [HttpPut("edit_story")]
+        public async Task<ActionResult> EditStory(SaveStoryForm story)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
             try
             {
-                _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.SaveChanges();
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            if(story.AuthorId != userId)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Fail"
+                });
+            }
+
+            var currentStory = _context.Stories.FirstOrDefault(s => s.StoryId == story.StoryId);
+            try
+            {
+                if (currentStory != null)
+                {
+                    currentStory.StoryTitle = story.StoryTitle;
+                    currentStory.StoryDescriptionHtml = story.StoryDescriptionHtml;
+                    currentStory.StoryDescriptionMarkdown = story.StoryDescriptionMarkdown;
+                    currentStory.UpdateTime = DateTime.Now;
+                    currentStory.Status = story.Status;
+                    currentStory.StoryPrice = story.StoryPrice;
+                    currentStory.StorySale = story.StorySale;
+                    currentStory.StoryImage = story.StoryImage;
+                }
+                    _context.Entry<Story>(currentStory).State = EntityState.Modified;
+                    _context.SaveChanges();
             }
             catch (Exception)
             {
