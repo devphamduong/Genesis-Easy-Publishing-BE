@@ -171,7 +171,7 @@ public partial class EasyPublishingContext : DbContext
                 .HasMaxLength(2000)
                 .HasColumnName("comment_content");
             entity.Property(e => e.CommentDate)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("comment_date");
             entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");

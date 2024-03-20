@@ -381,7 +381,7 @@ CREATE TABLE [dbo].[Comment](
 	[chapter_id] [bigint] NULL,
 	-- [issue_id] [int] NULL,
 	[comment_content] [nvarchar](2000) NOT NULL,
-	[comment_date] [date] NOT NULL,
+	[comment_date] [datetime] NOT NULL,
  CONSTRAINT [PK_comment] PRIMARY KEY CLUSTERED 
 (
 	[comment_id] ASC
@@ -607,14 +607,14 @@ GO
 INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
 	VALUES
 		(1, 1, 0, 0)
-		,(3, 3, CAST(999999999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
-		,(4, 4, CAST(999999999 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)))
-		,(5, 5, CAST(999999999 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)))
-		,(6, 6, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(7, 7, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(8, 8, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(9, 9, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(10, 10, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(3, 3, CAST(99999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
+		,(4, 4, CAST(99999 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)))
+		,(5, 5, CAST(99999 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)))
+		,(6, 6, CAST(99999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(7, 7, CAST(99999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(8, 8, CAST(99999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(9, 9, CAST(99999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(10, 10, CAST(99999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
 
 	DECLARE @Counter INT = 11; -- Start with the next number after the existing data
 
@@ -2070,7 +2070,7 @@ BEGIN
     WHILE @StoryId <= 17 -- End story_id at 17
     BEGIN
         INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [comment_content], [comment_date])
-        VALUES (@CommentId, @UserId, @StoryId, null, N'Truyện hay quá', CAST(N'2023-09-24' AS Date));
+        VALUES (@CommentId, @UserId, @StoryId, null, N'Truyện hay quá', CAST(N'2023-09-24' AS DateTime));
 
         SET @StoryId = @StoryId + 1; -- Increment story_id
         SET @CommentId = @CommentId + 1; -- Increment comment_id
@@ -2152,19 +2152,8 @@ GO
 		
 SET IDENTITY_INSERT [dbo].[ReportContent] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Transaction] ON
-GO
-INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
-     VALUES
-           (1,1 ,12,null,20,30,10,0,0,2022-10-09,null,null),
-		   (2,2 ,13,null,20,30,10,0,0,2022-10-09,null,null),
-		   (3,3 ,14,null,20,50,30,0,0,2022-10-09,null,null),
-		   (4,4 ,15,null,20,32,12,0,0,2022-10-09,null,null),
-		   (5,5 ,10,null,20,35,15,0,0,2022-10-09,null,null),
-		   (6,6 ,09,null,20,40,20,0,0,2022-10-09,null,null)
-GO
-SET IDENTITY_INSERT [dbo].[Transaction] OFF
-GO
+
+
 ALTER TABLE [dbo].[Wallet]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO
