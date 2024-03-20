@@ -207,20 +207,29 @@ namespace app.Controllers
         }
 
         [HttpGet("story_information")]
-        public async Task<ActionResult> GetStoryInfor(int storyId)
+        public async Task<ActionResult> GetStoryInfor(int storyId, int authorId)
         {
-            var story = await _context.Stories.Where(s => s.StoryId == storyId)
+            var story = await _context.Stories.Where(s => s.StoryId == storyId && s.AuthorId == authorId)
                 .Select(s => new
                 {
                     storyId = s.StoryId,
                     storyTitle = s.StoryTitle,
                     storyDescriptionMarkdown = s.StoryDescriptionMarkdown,
+                    StoryDescriptionHtml = s.StoryDescriptionHtml,
                     storyCategories = s.Categories.ToList(),
                     storyImage = s.StoryImage,
                     storyPrice = s.StoryPrice,
                     storySale = s.StorySale,
                     storyStatus = s.Status
                 }).FirstOrDefaultAsync();
+            if(story == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "You can't get this page"
+                });
+            }
             return _msgService.MsgReturn(0, "Story Detail", story);
         }
 
