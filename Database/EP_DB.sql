@@ -252,6 +252,7 @@ GO
 CREATE TABLE [dbo].[Category](
 	[category_id] [int] IDENTITY(1,1) NOT NULL,
 	[category_name] [nvarchar](100) NULL,
+	[category_banner] [nvarchar](3000) NULL,
 	[category_description] [nvarchar](500) NULL,
  CONSTRAINT [PK_category] PRIMARY KEY CLUSTERED 
 (
@@ -606,15 +607,15 @@ GO
 INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
 	VALUES
 		(1, 1, 0, 0)
-		,(2, 2, CAST(12 AS Decimal(10, 2)), CAST(22 AS Decimal(10, 2)))
-		,(3, 3, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(4, 4, CAST(15 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(5, 5, CAST(22 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(6, 6, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(7, 7, CAST(32 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(8, 8, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(9, 9, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(10, 10, CAST(12 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(2, 2, CAST(220 AS Decimal(10, 2)), CAST(223 AS Decimal(10, 2)))
+		,(3, 3, CAST(123 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
+		,(4, 4, CAST(154 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)))
+		,(5, 5, CAST(225 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)))
+		,(6, 6, CAST(126 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(7, 7, CAST(321 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(8, 8, CAST(122 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(9, 9, CAST(123 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(10, 10, CAST(124 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
 
 	DECLARE @Counter INT = 11; -- Start with the next number after the existing data
 
@@ -1011,23 +1012,23 @@ INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 SET IDENTITY_INSERT [dbo].[Category] ON 
 GO
 
-INSERT [dbo].[Category] ([category_id],[category_name],[category_description]) 
+INSERT [dbo].[Category] ([category_id],[category_name],[category_banner],[category_description]) 
 	VALUES
-		(1, N'Manhwa',N'Truyện Hàn Quốc'),
-		(2, N'Manhua',N'Truyện của Trung Quốc'), 
-		(3, N'Manga',N'Truyện của Nhật Bản'), 
-		(4, N'Truyện ngắn',N'Những truyện ngắn,thường là 1 vài chapter'), 
-		(5, N'Tiểu thuyết',N'tiểu thuyết là sử thi của đời tư'), 
-		(6, N'Comedy',N'Thể loại có nội dung trong sáng và cảm động, thường có các tình tiết gây cười, các xung đột nhẹ nhàng'), 
-		(7, N'Kinh dị',N'Thể loại dành cho lứa tuổi 17+ bao gồm các pha bạo lực, máu me, chém giết, tình dục ở mức độ vừa'), 
-		(8, N'Hành động',N'Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh'), 
-		(9, N'Phiêu lưu',N'Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật'),
-		(10, N'Lãng mạn',N'Thường là những câu chuyện về tình yêu, tình cảm lãng mạn.'), 
-		(11, N'Viễn tưởng',N'Thể hiện những sức mạnh đáng kinh ngạc và không thể giải thích được, chúng thường đi kèm với những sự kiện trái ngược hoặc thách thức với những định luật vật lý'), 
-		(12, N'Bí ẩn',N'Thể loại thường xuất hiện những điều bí ấn không thể lí giải được và sau đó là những nỗ lực của nhân vật chính nhằm tìm ra câu trả lời thỏa đáng'), 
-		(13, N'Khoa học',N'Truyện liên quan đến vấn đề khoa học'),
-		(14, N'Tiếng anh',N'Truyện viết bằng tiếng anh'), 
-		(15, N'Tiếng Việt',N'Truyện viết bằng tiếng việt')
+		(1, N'Manhwa',N'https://yymedia.codeprime.net/media/genre_cover/bg09.jpeg',N'Truyện Hàn Quốc'),
+		(2, N'Manhua',N'https://yymedia.codeprime.net/media/genre_cover/bg01.jpeg',N'Truyện của Trung Quốc'), 
+		(3, N'Manga',N'https://yymedia.codeprime.net/media/genre_cover/bg14.jpeg',N'Truyện của Nhật Bản'), 
+		(4, N'Truyện ngắn',N'https://yystatic.codeprime.net/desktop/page-cover/default-3.jpg',N'Những truyện ngắn,thường là 1 vài chapter'), 
+		(5, N'Tiểu thuyết',N'https://yystatic.codeprime.net/desktop/page-cover/default-4.jpg',N'tiểu thuyết là sử thi của đời tư'), 
+		(6, N'Comedy',N'https://yymedia.codeprime.net/media/genre_cover/bg06.jpeg',N'Thể loại có nội dung trong sáng và cảm động, thường có các tình tiết gây cười, các xung đột nhẹ nhàng'), 
+		(7, N'Kinh dị',N'https://yymedia.codeprime.net/media/genre_cover/bg02.jpeg',N'Thể loại dành cho lứa tuổi 17+ bao gồm các pha bạo lực, máu me, chém giết, tình dục ở mức độ vừa'), 
+		(8, N'Hành động',N'https://yymedia.codeprime.net/media/genre_cover/bg03.jpeg',N'Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh'), 
+		(9, N'Phiêu lưu',N'https://yystatic.codeprime.net/desktop/page-cover/default-2.jpg',N'Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật'),
+		(10, N'Lãng mạn',N'https://yystatic.codeprime.net/desktop/page-cover/default-6.jpg',N'Thường là những câu chuyện về tình yêu, tình cảm lãng mạn.'), 
+		(11, N'Viễn tưởng',N'https://yymedia.codeprime.net/media/genre_cover/bg08.jpeg',N'Thể hiện những sức mạnh đáng kinh ngạc và không thể giải thích được, chúng thường đi kèm với những sự kiện trái ngược hoặc thách thức với những định luật vật lý'), 
+		(12, N'Bí ẩn',N'https://yystatic.codeprime.net/desktop/page-cover/default-6.jpg',N'Thể loại thường xuất hiện những điều bí ấn không thể lí giải được và sau đó là những nỗ lực của nhân vật chính nhằm tìm ra câu trả lời thỏa đáng'), 
+		(13, N'Khoa học',N'https://yymedia.codeprime.net/media/genre_cover/bg08.jpeg',N'Truyện liên quan đến vấn đề khoa học'),
+		(14, N'Tiếng anh',N'https://yymedia.codeprime.net/media/genre_cover/bg09.jpeg',N'Truyện viết bằng tiếng anh'), 
+		(15, N'Tiếng Việt',N'https://yymedia.codeprime.net/media/genre_cover/bg05.jpeg',N'Truyện viết bằng tiếng việt')
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO

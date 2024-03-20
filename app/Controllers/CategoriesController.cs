@@ -50,6 +50,7 @@ namespace app.Controllers
                     c.CategoryId,
                     c.CategoryName,
                     c.CategoryDescription,
+                    c.CategoryBanner
                 })
                 .ToListAsync();
             if (cate == null) return _msgService.MsgReturn(-1, "Không có loại đó", null);

@@ -9,6 +9,8 @@ public partial class Category
 
     public string? CategoryName { get; set; }
 
+    public string? CategoryBanner { get; set; }
+
     public string? CategoryDescription { get; set; }
 
     public virtual ICollection<Story> Stories { get; set; } = new List<Story>();
