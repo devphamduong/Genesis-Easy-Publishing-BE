@@ -1,4 +1,4 @@
-using app.Models;
+﻿using app.Models;
 using app.Service;
 using app.Service.MomoService;
 using app.Service.VNPayService;
@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using static app.Controllers.AuthController;
 
 namespace app.Controllers
@@ -147,7 +146,7 @@ namespace app.Controllers
                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
                    });
                }
-               if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
+               if (userId == author.UserId || user_story.Stories.Contains(story))
                {
                    return new JsonResult(new
                    {
@@ -227,7 +226,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -3,
-                        EM = "This chapter is yours!"
+                        EM = "This story is yours!"
                     });
                 }
                 var user_transaction = new Transaction
@@ -284,12 +283,12 @@ namespace app.Controllers
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
                 var user_story = await _context.Users.Where(u => u.UserId == userId)
-                    .Include(u => u.StoriesNavigation)
-                    .Select(u => new
-                    {
-                        StoriesNavigation = u.StoriesNavigation
-                    })
-                    .FirstOrDefaultAsync();
+                     .Include(u => u.StoriesNavigation)
+                     .Select(u => new
+                     {
+                         Stories = u.StoriesNavigation
+                     })
+                     .FirstOrDefaultAsync();
                 if (user_wallet.Fund < story.StoryPrice)
                 {
                     return new JsonResult(new
@@ -298,7 +297,7 @@ namespace app.Controllers
                         EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
                     });
                 }
-                if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
+                if (userId == author.UserId || user_story.Stories.Contains(story))
                 {
                     return new JsonResult(new
                     {
@@ -337,7 +336,7 @@ namespace app.Controllers
                 };
                 user_wallet.Fund = user_wallet.Fund - amount;
                 author_wallet.Refund = author_wallet.Refund + amount;
-                user.StoriesNavigation.Add(story);
+                user.Stories.Add(story);
                 story.Users.Add(user);
 
                 _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -456,102 +455,9 @@ namespace app.Controllers
             }
         }
 
-        [HttpGet("add_transaction_buy_many_chapters")]
-        public async Task<ActionResult> AddTransactionBuyManyChapters(int chapterStart,int chapterEnd , int storyId)
-        {
-            var jwtSecurityToken = new JwtSecurityToken();
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-                var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-                if(chapterStart > chapterEnd)
-                {
-                    return new JsonResult(new
-                    {
-                        EC = -3,
-                        EM = "Chương bắt đầu cần lướn hơn chương cuối bạn muốn mua"
-                    });
-                }
+        
 
-
-                var chapter_total = await _context.Chapters.Where(ch => ch.ChapterNumber >= chapterStart && ch.ChapterNumber <= chapterEnd && ch.StoryId == storyId).ToListAsync();
-                if(!_context.Chapters.Any(ch=> ch.StoryId == storyId && ch.ChapterNumber == chapterEnd))
-                {
-                    return new JsonResult(new
-                    {
-                        EC = -3,
-                        EM = "Chương bạn mua chưa có"
-                    });
-                }
-                var user_chapter = await _context.Users.Where(u => u.UserId == userId)
-                     .Include(u => u.Chapters)
-                     .Select(u => new
-                     {
-                         Chapter = u.Chapters
-                     })
-                     .FirstOrDefaultAsync();
-
-                var chapter_buy = chapter_total.Except(user_chapter.Chapter);
-                var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
-                var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
-                var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-                var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
-
-                user_wallet.Fund = user_wallet.Fund - 11;
-                author_wallet.Refund = author_wallet.Refund + 11;
-                decimal amount ;
-                foreach (var chapter in chapter_buy)
-                {
-                    user.Chapters.Add(chapter);
-                    chapter.Users.Add(user);
-                    _context.Entry<Chapter>(chapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                }
-                var user_transaction = new Transaction
-                {
-                    WalletId = user_wallet.WalletId,
-                    Amount = (decimal)chapter.ChapterPrice,
-                    StoryId = story.StoryId,
-                    ChapterId = null,
-                    FundBefore = user_wallet.Fund,
-                    FundAfter = user_wallet.Fund - (decimal)chapter.ChapterPrice,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
-                    TransactionTime = DateTime.Now,
-                    Status = true,
-                    Description = $"Buy chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
-                };
-                var author_transaction = new Transaction
-                {
-                    WalletId = author_wallet.WalletId,
-                    Amount = (decimal)chapter.ChapterPrice,
-                    StoryId = story.StoryId,
-                    ChapterId = null,
-                    FundBefore = 0,
-                    FundAfter = 0,
-                    RefundAfter = author_wallet.Refund,
-                    RefundBefore = author_wallet.Refund + (decimal)chapter.ChapterPrice,
-                    TransactionTime = DateTime.Now,
-                    Status = true,
-                    Description = $"Receive TLT from selling chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
-                };
-                _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Entry<Wallet>(author_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Entry<User>(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-
-                return _msgService.MsgReturn(0, "Get Transaction Buy Chapter Detail", chapter_buy.Count());
-            }
-            catch (Exception)
-            {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = "Not authenticated"
-                });
-            }
-        }
-
-        [HttpPost("add_transaction_recharge")]
+         [HttpPost("add_transaction_recharge")]
         public async Task<ActionResult> AddTransactionRecharge(string username,int number_recharge)
         {
             try
