@@ -381,7 +381,7 @@ CREATE TABLE [dbo].[Comment](
 	[chapter_id] [bigint] NULL,
 	-- [issue_id] [int] NULL,
 	[comment_content] [nvarchar](2000) NOT NULL,
-	[comment_date] [date] NOT NULL,
+	[comment_date] [datetime] NOT NULL,
  CONSTRAINT [PK_comment] PRIMARY KEY CLUSTERED 
 (
 	[comment_id] ASC
