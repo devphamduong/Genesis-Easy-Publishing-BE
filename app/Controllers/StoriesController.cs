@@ -302,7 +302,7 @@ namespace app.Controllers
 
         }
 
-        [HttpPut("edit_story")]
+        [HttpPut("update_story")]
         public async Task<ActionResult> EditStory(SaveStoryForm story)
         {
             var jwtSecurityToken = new JwtSecurityToken();
