@@ -79,7 +79,7 @@ namespace app.Controllers
             _context.Entry(story_interaction).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return _msgService.MsgActionReturn(0, "");
+            return _msgService.MsgActionReturn(0, "Bạn đã thích truyện");
         }
 
 
@@ -108,7 +108,7 @@ namespace app.Controllers
             _context.Entry(story_interaction).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return _msgService.MsgActionReturn(0, "");
+            return _msgService.MsgActionReturn(0, "Bạn đã theo dõi truyện");
         }
 
         [HttpPut("chapter_like")]
@@ -136,7 +136,7 @@ namespace app.Controllers
             _context.Entry(story_interaction).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return _msgService.MsgActionReturn(0, "");
+            return _msgService.MsgActionReturn(0, "Bạn đã thích chương");
         }
 
         [HttpGet("author_manage/story")]

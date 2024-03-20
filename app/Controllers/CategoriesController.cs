@@ -39,6 +39,23 @@ namespace app.Controllers
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Các thể loại truyện", cate);
         }
+
+        // GET: api/Categories
+        [HttpGet("cate_shelves_detail")]
+        public async Task<ActionResult> GetCategoriy(int cateId)
+        {
+            var cate = await _context.Categories.Where(c => c.CategoryId == cateId)
+                .Select(c => new
+                {
+                    c.CategoryId,
+                    c.CategoryName,
+                    c.CategoryDescription,
+                    c.CategoryBanner
+                })
+                .ToListAsync();
+            if (cate == null) return _msgService.MsgActionReturn(-1, "Không có loại đó");
+            return _msgService.MsgReturn(0, "Chi tiết thể loại", cate);
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetUser(int id)
         {

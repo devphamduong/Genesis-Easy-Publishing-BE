@@ -217,16 +217,21 @@ namespace app.Controllers
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
             catch (Exception) { }
-            var story = await _context.Stories.Where(s => s.AuthorId == userId)
+
+            var story = await _context.Stories.Where(s => s.StoryId == storyId && s.AuthorId == userId)
                 .Select(s => new
                 {
-                    StoryId = s.StoryId,
-                    StoryTitle = s.StoryTitle,
-                    StoryImage = s.StoryImage,
-                    Status = s.Status,
-                    CreateTime = s.CreateTime
-                }).ToListAsync();
-            return _msgService.MsgReturn(0, "List Story", story);
+                    storyId = s.StoryId,
+                    storyTitle = s.StoryTitle,
+                    storyDescriptionMarkdown = s.StoryDescriptionMarkdown,
+                    storyCategories = s.Categories.ToList(),
+                    storyImage = s.StoryImage,
+                    storyPrice = s.StoryPrice,
+                    storySale = s.StorySale,
+                    storyStatus = s.Status
+                }).FirstOrDefaultAsync();
+            if (story == null) _msgService.MsgActionReturn(-1, "Không tìm thấy trong danh sách truyện của bạn");
+            return _msgService.MsgReturn(0, "Thông tin truyện", story);
         }
 
         public class AddStoryForm
