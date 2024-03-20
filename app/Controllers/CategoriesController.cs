@@ -53,7 +53,7 @@ namespace app.Controllers
                     c.CategoryBanner
                 })
                 .ToListAsync();
-            if (cate == null) return _msgService.MsgReturn(-1, "Không có loại đó", null);
+            if (cate == null) return _msgService.MsgActionReturn(-1, "Không có loại đó");
             return _msgService.MsgReturn(0, "Chi tiết thể loại", cate);
         }
         [HttpGet("{id}")]

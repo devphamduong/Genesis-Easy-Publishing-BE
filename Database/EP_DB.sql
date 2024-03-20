@@ -607,15 +607,14 @@ GO
 INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
 	VALUES
 		(1, 1, 0, 0)
-		,(2, 2, CAST(220 AS Decimal(10, 2)), CAST(223 AS Decimal(10, 2)))
-		,(3, 3, CAST(123 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
-		,(4, 4, CAST(154 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)))
-		,(5, 5, CAST(225 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)))
-		,(6, 6, CAST(126 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(7, 7, CAST(321 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(8, 8, CAST(122 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(9, 9, CAST(123 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(10, 10, CAST(124 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(3, 3, CAST(999999999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
+		,(4, 4, CAST(999999999 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)))
+		,(5, 5, CAST(999999999 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)))
+		,(6, 6, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(7, 7, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(8, 8, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(9, 9, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		,(10, 10, CAST(999999999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
 
 	DECLARE @Counter INT = 11; -- Start with the next number after the existing data
 
