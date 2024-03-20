@@ -228,7 +228,7 @@ namespace app.Controllers
                     storyImage = s.StoryImage,
                     storyPrice = s.StoryPrice,
                     storySale = s.StorySale,
-                    storyStatus = s.Status
+                    status = s.Status
                 }).FirstOrDefaultAsync();
             if(story == null)
             {
