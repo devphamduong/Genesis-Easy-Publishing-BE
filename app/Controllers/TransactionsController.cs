@@ -132,10 +132,10 @@ namespace app.Controllers
                 var user_wallet = await _context.Wallets.Where(w=>w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
                 var user_story = await _context.Users.Where(u => u.UserId == userId)
-                    .Include(u => u.Chapters)
+                    .Include(u => u.StoriesNavigation)
                     .Select(u => new
                     {
-                        Stories = u.Stories
+                        StoriesNavigation = u.StoriesNavigation
                     })
                     .FirstOrDefaultAsync();
                if (user_wallet.Fund < story.StoryPrice)
@@ -283,10 +283,10 @@ namespace app.Controllers
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
                 var user_story = await _context.Users.Where(u => u.UserId == userId)
-                     .Include(u => u.Chapters)
+                     .Include(u => u.StoriesNavigation)
                      .Select(u => new
                      {
-                         Stories = u.Stories
+                         Stories = u.StoriesNavigation
                      })
                      .FirstOrDefaultAsync();
                 if (user_wallet.Fund < story.StoryPrice)
@@ -454,6 +454,8 @@ namespace app.Controllers
                 });
             }
         }
+
+        
 
          [HttpPost("add_transaction_recharge")]
         public async Task<ActionResult> AddTransactionRecharge(string username,int number_recharge)
