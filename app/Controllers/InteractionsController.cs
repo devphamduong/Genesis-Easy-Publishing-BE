@@ -185,8 +185,8 @@ namespace app.Controllers
                    CommentChapter = s.Comments.Count,
                    ReportChapter = s.ReportContents.Count,
                }).ToListAsync();
-            if (interaction.Count < 1) return _msgService.MsgReturn(-1, "Truyện chưa có chương", "");
-            if (interaction.Count == 1) return _msgService.MsgReturn(0, "Truyện có 1 chương", interaction.FirstOrDefault());
+            if (interaction.Count < 1) return _msgService.MsgReturn(-1, "Truyện chưa có chương", new { interaction });
+            if (interaction.Count == 1) return _msgService.MsgReturn(0, "Truyện có 1 chương", new { interaction });
             var min = interaction.First().ChapterNumber;
             var max = interaction.Last().ChapterNumber;
             if (from != null && to != null && from < to) interaction = interaction.Where(c => c.ChapterNumber >= from && c.ChapterNumber <= to).ToList();
