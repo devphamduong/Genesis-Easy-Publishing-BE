@@ -207,9 +207,17 @@ namespace app.Controllers
         }
 
         [HttpGet("story_information")]
-        public async Task<ActionResult> GetStoryInfor(int storyId, int authorId)
+        public async Task<ActionResult> GetStoryInfor(int storyId)
         {
-            var story = await _context.Stories.Where(s => s.StoryId == storyId && s.AuthorId == authorId)
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            var story = await _context.Stories.Where(s => s.StoryId == storyId && s.AuthorId == userId)
                 .Select(s => new
                 {
                     storyId = s.StoryId,
