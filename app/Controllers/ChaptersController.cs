@@ -172,7 +172,47 @@ namespace app.Controllers
             });
         }
 
-        [HttpPut("edit_chapter")]
+        [HttpGet("Chapter_information")]
+        public async Task<ActionResult> GetStoryInfor(int chapterId)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            var user = _context.Users.Include(u => u.Chapters).Include(u => u.Stories).FirstOrDefault(u => u.UserId == userId);
+            if (user == null || !user.Chapters.Any(c => c.ChapterId == chapterId))
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "You can't access this page"
+                });
+            }
+
+
+            var chapter = _context.Chapters.Where(c => c.ChapterId == chapterId).Select(c => new
+            {
+                chapterId = c.ChapterId,
+                chapterContentHtml = c.ChapterContentHtml,
+                ChapterContentMarkdown = c.ChapterContentMarkdown,
+                ChapterNumber = c.ChapterNumber
+            }).FirstOrDefault();
+            if (chapter == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "You can't save story"
+                });
+            }
+            return _msgService.MsgReturn(0, "Story Detail", chapter);
+        }
+
+        [HttpPut("update_chapter")]
         public async Task<ActionResult> EditChapter(Chapter chapter)
         {
             chapter.UpdateTime = DateTime.Now;
