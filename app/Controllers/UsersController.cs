@@ -23,6 +23,25 @@ namespace app.Controllers
             _context = context;
         }
 
+        [HttpPut("SwitchStatus")]
+        public async Task<ActionResult> SwitchStatus(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            try
+            {
+
+
+                user.Status = !user.Status;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return Ok(user);
+        }
+
         [HttpGet("getAllUser")]
         public async Task<ActionResult> GetAllUsers()
         {
