@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Transaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h4 class="page-title">Story Management</h4>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="basic-datatables" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>transactionId</th>
+                                    <th>amount</th>
+                                    <th>storyTitile</th>
+                                    <th>chapterTitle</th>
+                                    <th>fundBefore</th>
+                                    <th>fundAfter</th>
+                                    <th>refundAfter</th>
+                                    <th>refundBefore</th>
+                                    <th>transactionTime</th>
+                                    <th>status</th>
+                                    <th>description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Category Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="categoryInfo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        //async function loadData() {
+        fetch('http://localhost:5188/api/v1/transaction/get_all_transaction')
+            .then(response => response.json())
+            .then(data => {
+                $('#basic-datatables').DataTable({
+                    data: data.dt,
+                    columns: [
+                        {
+                            data: null,
+                            render(data) {
+                                return `<a style="color: blue; cursor: pointer" onclick="openUserInfor(${data.StoryId})"><i class="fas fa-edit"></i></a>`
+                            }
+                        },
+                        { data: 'transactionId' },
+                        { data: 'amount' },
+                        { data: 'storyTitile' },
+                        { data: 'chapterTitle' },
+                        { data: 'fundBefore' },
+                        { data: 'fundAfter' },
+                        { data: 'refundAfter' },
+                        { data: 'refundBefore' },
+                        { data: 'transactionTime' },
+                        { data: 'status' },
+                        { data: 'description' }
+                    ]
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        //}
+    });
+
+    function loadPage(pageName) {
+
+        // Use jQuery to load content from the server
+        $.get(`${pageName}.html`, function () {
+            // Replace the content of the #content div with the loaded data
+
+            $('#basic-datatables').DataTable();
+        });
+    }
+</script>

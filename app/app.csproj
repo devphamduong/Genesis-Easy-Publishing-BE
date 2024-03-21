@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Index.html" />
     <None Include="wwwroot\Assets\css\atlantis.css" />
     <None Include="wwwroot\Assets\css\atlantis.css.map" />
     <None Include="wwwroot\Assets\css\atlantis.min.css" />
@@ -157,10 +156,6 @@
     <None Include="wwwroot\Assets\sass\atlantis\_responsive.scss" />
     <None Include="wwwroot\Assets\sass\atlantis\_typography.scss" />
     <None Include="wwwroot\Assets\sass\atlantis\_variables.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>

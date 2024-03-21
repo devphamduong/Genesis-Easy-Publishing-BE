@@ -11,6 +11,7 @@ using System.Security.Policy;
 using System.IdentityModel.Tokens.Jwt;
 using System.Drawing.Printing;
 using Microsoft.VisualBasic;
+using static app.Controllers.StoriesController;
 
 namespace app.Controllers
 {
@@ -206,42 +207,31 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "List Story", data);
         }
 
-        [HttpGet("GetDataForChart")]
-        public async Task<ActionResult> GetDataForChart(int storyId)
+        [HttpGet("story_information")]
+        public async Task<ActionResult> GetStoryInfor(int storyId, int authorId)
         {
-            var data = await _context.Stories.Where(s => s.StoryId == storyId)
-                    .Include(s => s.StoryInteraction)
-                    .Select(s => new
-                    {
-                        StoryId = s.StoryId,
-                        StoryTitle = s.StoryTitle,
-                        Like = s.StoryInteraction.Like,
-                        Follow = s.StoryInteraction.Follow,
-                    }).FirstOrDefaultAsync();
-            return _msgService.MsgReturn(0, "List Story", data);
-        }
-
-        [HttpGet("GetStoryByAuthor")]
-        public async Task<ActionResult> GetStoryByAuthorId()
-        {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
-            var story = await _context.Stories.Where(s => s.AuthorId == userId)
+            var story = await _context.Stories.Where(s => s.StoryId == storyId && s.AuthorId == authorId)
                 .Select(s => new
                 {
-                    StoryId = s.StoryId,
-                    StoryTitle = s.StoryTitle,
-                    StoryImage = s.StoryImage,
-                    Status = s.Status,
-                    CreateTime = s.CreateTime
-                }).ToListAsync();
-            return _msgService.MsgReturn(0, "List Story", story);
+                    storyId = s.StoryId,
+                    storyTitle = s.StoryTitle,
+                    storyDescriptionMarkdown = s.StoryDescriptionMarkdown,
+                    StoryDescriptionHtml = s.StoryDescriptionHtml,
+                    storyCategories = s.Categories.ToList(),
+                    storyImage = s.StoryImage,
+                    storyPrice = s.StoryPrice,
+                    storySale = s.StorySale,
+                    storyStatus = s.Status
+                }).FirstOrDefaultAsync();
+            if(story == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "You can't save story"
+                });
+            }
+            return _msgService.MsgReturn(0, "Story Detail", story);
         }
 
         public class AddStoryForm
@@ -286,28 +276,126 @@ namespace app.Controllers
             });
         }
 
-        [HttpPut("edit_story")]
-        public async Task<ActionResult> EditStory(Story story)
+        public class SaveStoryForm
         {
-            story.UpdateTime = DateTime.Now;
-            try
+            public int StoryId { get; set; }
+            public int AuthorId { get; set; }
+            public string StoryTitle { get; set; } = null!;
+            public decimal StoryPrice { get; set; }
+
+            public decimal? StorySale { get; set; }
+
+            public string? StoryImage { get; set; }
+
+            public string? StoryDescriptionMarkdown { get; set; }
+
+            public string? StoryDescriptionHtml { get; set; }
+            public int Status { get; set; }
+            public List<int> CategoryIds { get; set; }
+
+        }
+
+        [HttpPut("edit_story")]
+        public async Task<ActionResult> EditStory(SaveStoryForm story)
+        {
+            var currentStory = _context.Stories
+    .Include(s => s.Categories) // Include the Categories navigation property
+    .FirstOrDefault(s => s.StoryId == story.StoryId);
+            return _msgService.MsgReturn(0, "Story Detail", currentStory);
+            //try
+            //{
+            //    //var currentCategories = _context.Stories
+            //    //                           .Where(c => c.StoryId == story.StoryId)
+            //    //                           .Select(s => new
+            //    //                           {
+            //    //                               categoryId = s.Categories.Select(s => s.CategoryId)
+            //    //                           })
+            //    //                           .FirstOrDefault();
+
+            //    //return _msgService.MsgReturn(0, "Story Detail", currentCategories);
+            //    var tempStory = _context.Stories.Where(s => s.StoryId == story.StoryId)
+            //        .Select(s => new
+            //        {
+            //            Story = s,
+            //            Categories = s.Categories
+            //        }).FirstOrDefault();
+            //    //return _msgService.MsgReturn(0, "Story Detail", currentStory);
+            //    var currentStory = tempStory.Story;
+            //    currentStory.Categories = tempStory.Categories;
+
+            //    //return _msgService.MsgReturn(0, "Story Detail", currentStory);
+            //    if (currentStory != null)
+            //    {
+            //        currentStory.StoryTitle = story.StoryTitle;
+            //        currentStory.StoryDescriptionHtml = story.StoryDescriptionHtml;
+            //        currentStory.StoryDescriptionMarkdown = story.StoryDescriptionMarkdown;
+            //        currentStory.UpdateTime = DateTime.Now;
+            //        currentStory.Status = story.Status;
+            //        currentStory.StoryPrice = story.StoryPrice;
+            //        currentStory.StorySale = story.StorySale;
+            //        currentStory.StoryImage = story.StoryImage;
+
+            //        foreach (var category in currentStory.Categories)
+            //        {
+            //            if (!story.CategoryIds.Contains(category.CategoryId))
+            //            {
+            //                currentStory.Categories.Remove(category);
+            //            }
+            //        }
+
+            //        // Fetch and attach new categories based on the provided category IDs
+            //        foreach (var categoryId in story.CategoryIds)
+            //        {
+            //            var category = _context.Categories.Find(categoryId);
+
+            //            if (category != null && !currentStory.Categories.Any(c => c.CategoryId == category.CategoryId))
+            //            {
+            //                currentStory.Categories.Add(category);
+            //            }
+            //        }
+
+            //        _context.Entry(currentStory).State = EntityState.Modified;
+            //        _context.SaveChanges();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return new JsonResult(new
+            //    {
+            //        EC = -1,
+            //        EM = ex.Message
+            //    });
+            //}
+            //return new JsonResult(new
+            //{
+            //    EC = 0,
+            //    EM = "Update story successfully"
+            //});
+        }
+
+        private void UpdateStoryCategory(List<int> CategoryIds, Story story)
+        {
+            var currentCategory = _context.Stories.Where(s => s.StoryId == story.StoryId).Select(s => new
             {
-                _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.SaveChanges();
-            }
-            catch (Exception)
+                categoryId = s.Categories.Select(s => s.CategoryId)
+            }).FirstOrDefault();
+            foreach (var category in _context.Categories)
             {
-                return new JsonResult(new
+                if (CategoryIds.Contains(category.CategoryId))
                 {
-                    EC = -1,
-                    EM = "Edit Fail"
-                });
+                    if (!currentCategory.categoryId.Contains(category.CategoryId))
+                    {
+                        story.Categories.Add(category);
+                    }
+                }
+                else
+                {
+                    if (currentCategory.categoryId.Contains(category.CategoryId))
+                    {
+                        
+                    }
+                }
             }
-            return new JsonResult(new
-            {
-                EC = 0,
-                EM = "Update story successfully"
-            });
         }
 
 

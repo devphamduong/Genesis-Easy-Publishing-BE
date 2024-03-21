@@ -780,3 +780,5 @@ D:\Capstone Project\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.pdb
 D:\Capstone Project\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.genruntimeconfig.cache
 D:\Capstone Project\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\ref\app.dll
 D:\Capstone Project\Genesis-Easy-Publishing-BE\app\bin\Debug\net7.0\app.staticwebassets.runtime.json
+D:\Capstone Project\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.RazorAssemblyInfo.cache
+D:\Capstone Project\Genesis-Easy-Publishing-BE\app\obj\Debug\net7.0\app.RazorAssemblyInfo.cs

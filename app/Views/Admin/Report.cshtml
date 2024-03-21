@@ -1,0 +1,195 @@
+﻿@{
+    ViewData["Title"] = "Report Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <h4 class="card-title">Report Management</h4>
+
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="basic-datatables" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Report Id</th>
+                                    <th>UserName</th>
+                                    <th>Report Type</th>
+                                    <th>Chapter</th>
+                                    <th>Stories</th>
+                                    <th>Comment</th>
+                                    <th>Report Content</th>
+                                    <th>Report Date</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Category Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="categoryInfo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        //async function loadData() {
+        fetch('http://localhost:5188/api/v1/reports/all_report')
+            .then(response => response.json())
+            .then(data => {
+                $('#basic-datatables').DataTable({
+                    data: data.dt,
+                    columns: [
+                        { data: 'reportId' },
+                        { data: 'userName' },
+                        { data: 'reportTypeContent' },
+                        { data: 'chapterTitle' },
+                        { data: 'storyTitle' },
+                        { data: 'commentContent' },
+                        { data: 'reportContent1' },
+                        { data: 'reportDate' },
+                        { data: 'status' },
+                        {
+                            data: null,
+                            render(data) {
+                                return `<a style="color: blue; cursor: pointer" onclick="openReportInfor(${data.reportId})"><i class="fas fa-edit"></i></a>`
+                            }
+                        }
+                    ]
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        //}
+    });
+
+
+    async function openReportInfor(reportId) {
+        const response = await fetch(`http://localhost:5188/api/v1/reports/report/${reportId}`);
+        if (response.ok) {
+            const report = await response.json();
+            console.log(report);
+            if (report.dt.commentContent != null) {
+                if (report.dt.chapterTitle != null) {
+                    document.getElementById('categoryInfo').innerHTML = `
+                        <div class="form-group">
+                            <label for="Fullname">Report Content</label>
+                             <label for="Fullname" class="form-control">${report.dt.reportContent1}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="Fullname">userName</label>
+                             <label for="Fullname" class="form-control">${report.dt.userName}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="Fullname">Report Type</label>
+                             <label for="Fullname" class="form-control">${report.dt.reportTypeContent}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="Fullname">storyTitle</label>
+                             <label for="Fullname" class="form-control">${report.dt.storyTitle}</label>
+                        </div>
+                         <div class="form-group">
+                             <label for="Fullname">chapterTitle</label>
+                              <label for="Fullname" class="form-control">${report.dt.chapterTitle}</label>
+                         </div>
+                          <div class="form-group">
+                              <label for="Fullname">commentContent</label>
+                               <label for="Fullname" class="form-control">${report.dt.commentContent}</label>
+                          </div>
+                        <div class="form-group">
+                            <label for="Fullname">Report Date</label>
+                             <label for="Fullname" class="form-control">${report.dt.reportDate}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="Fullname">status</label>
+                            <input type="text" class="form-control" id="status" value="${report.dt.status}" placeholder="Fullname">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button"  class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div> `;
+                }
+                else {
+                    document.getElementById('categoryInfo').innerHTML = `
+
+                            <div class="form-group">
+                                <label for="Fullname">Report Content</label>
+                                 <label for="Fullname" class="form-control">${report.dt.reportContent1}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="Fullname">user Name</label>
+                                 <label for="Fullname" class="form-control">${report.dt.userName}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="Fullname">Report Type</label>
+                                 <label for="Fullname" class="form-control">${report.dt.reportTypeContent}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="Fullname">story Title</label>
+                                 <label for="Fullname" class="form-control">${report.dt.storyTitle}</label>
+                            </div>
+                             <div class="form-group">
+                                 <label for="Fullname">comment Content</label>
+                                  <label for="Fullname" class="form-control">${report.dt.commentContent}</label>
+                             </div>
+                            <div class="form-group">
+                                <label for="Fullname">report Date</label>
+                                 <label for="Fullname" class="form-control">${report.dt.reportDate}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="Fullname">status</label>
+                                <input type="text" class="form-control" id="status" value="${report.dt.status}" placeholder="Fullname">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button"  class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div> `;
+                }
+            }
+
+
+        }
+        $("#myModal").modal();
+    }
+
+
+    function loadPage(pageName) {
+
+        // Use jQuery to load content from the server
+        $.get(`Pages/${pageName}.html`, function (data) {
+            // Replace the content of the #content div with the loaded data
+            $('#content').html(data);
+
+            $('#basic-datatables').DataTable();
+        });
+    }
+</script>

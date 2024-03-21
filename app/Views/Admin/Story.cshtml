@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Story Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h4 class="page-title">Story Management</h4>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="basic-datatables" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Story Id</th>
+                                    <th>Story Title</th>
+                                    <th>Story Image</th>
+                                    <th>Story Description</th>
+                                    <th>Story Price</th>
+                                    <th>Story Sale</th>
+                                    <th>Create Time</th>
+                                    <th>Story Categories</th>
+                                    <th>Story Author</th>
+                                    <th>Story Chapter</th>
+                                    <th>Story Reads</th>
+                                    <th>Volumes</th>
+                                    <th>User Owned</th>
+                                    <th>User Follow</th>
+                                    <th>User Like</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Category Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="categoryInfo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        //async function loadData() {
+        fetch('http://localhost:5188/api/v1/story/get_all_stories')
+            .then(response => response.json())
+            .then(data => {
+                $('#basic-datatables').DataTable({
+                    data: data.dt,
+                    columns: [
+                        {
+                            data: null,
+                            render(data) {
+                                return `<a style="color: blue; cursor: pointer" onclick="openUserInfor(${data.StoryId})"><i class="fas fa-edit"></i></a>`
+                            }
+                        },
+                        { data: 'storyId' },
+                        { data: 'storyTitle' },
+                        { data: 'storyImage' },
+                        { data: 'storyDescription' },
+                        { data: 'storyPrice' },
+                        { data: 'storySale' },
+                        { data: 'createTime' },
+                        { data: 'storyCategories' },
+                        { data: 'storyAuthor' },
+                        { data: 'storyChapters' },
+                        { data: 'storyReads' },
+                        { data: 'volumes' },
+                        { data: 'userOwned' },
+                        { data: 'userFollow' },
+                        { data: 'userLike' }
+                    ]
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        //}
+    });
+
+    function loadPage(pageName) {
+
+        // Use jQuery to load content from the server
+        $.get(`${pageName}.html`, function () {
+            // Replace the content of the #content div with the loaded data
+
+            $('#basic-datatables').DataTable();
+        });
+    }
+</script>
