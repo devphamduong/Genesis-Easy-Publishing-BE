@@ -344,7 +344,7 @@ namespace app.Controllers
                         UserImage = u.UserImage,
                         DescriptionMarkdown = u.DescriptionMarkdown,
                         DescriptionHTML = u.DescriptionHtml,
-                        TLT = u.Wallets.FirstOrDefault().Fund
+                        TLT = u.Wallets.Select(w => w.Fund).FirstOrDefault()
                     }).FirstOrDefault();
                 return new JsonResult(new
                 {
