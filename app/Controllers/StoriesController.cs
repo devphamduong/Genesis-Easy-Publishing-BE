@@ -11,6 +11,7 @@ using System.Security.Policy;
 using System.IdentityModel.Tokens.Jwt;
 using System.Drawing.Printing;
 using Microsoft.VisualBasic;
+using static app.Controllers.StoriesController;
 
 namespace app.Controllers
 {
@@ -281,6 +282,25 @@ namespace app.Controllers
                 EC = 0,
                 EM = "Save story successfully"
             });
+        }
+
+        public class SaveStoryForm
+        {
+            public int StoryId { get; set; }
+            public int AuthorId { get; set; }
+            public string StoryTitle { get; set; } = null!;
+            public decimal StoryPrice { get; set; }
+
+            public decimal? StorySale { get; set; }
+
+            public string? StoryImage { get; set; }
+
+            public string? StoryDescriptionMarkdown { get; set; }
+
+            public string? StoryDescriptionHtml { get; set; }
+            public int Status { get; set; }
+            public List<int> CategoryIds { get; set; }
+
         }
 
         public class SaveStoryForm

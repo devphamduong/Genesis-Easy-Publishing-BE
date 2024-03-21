@@ -4,6 +4,7 @@ using app.Models;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -56,6 +57,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
@@ -65,6 +68,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Admin}/{action=User}/{id?}");
+
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseCors("AllowAll");
