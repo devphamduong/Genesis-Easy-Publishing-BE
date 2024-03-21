@@ -607,6 +607,7 @@ GO
 INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
 	VALUES
 		(1, 1, 0, 0)
+		,(2, 2, CAST(99999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
 		,(3, 3, CAST(99999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
 		,(4, 4, CAST(99999 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)))
 		,(5, 5, CAST(99999 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)))
