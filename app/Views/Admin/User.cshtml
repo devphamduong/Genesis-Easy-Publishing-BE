@@ -52,13 +52,25 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="modalStatus">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="userStatus">
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-        //async function loadData() {
+        loadData();
+    });
+
+    async function loadData() {
+        $('#basic-datatables').DataTable().destroy();
         fetch('http://localhost:5188/api/v1/Users/getAllUser')
             .then(response => response.json())
             .then(data => {
@@ -69,7 +81,17 @@
                         { data: 'userFullName' },
                         { data: 'email' },
                         { data: 'phone' },
-                        { data: 'status' },
+                        {
+                            data: null,
+                            render(data) {
+                                if (data.status == 'Active') {
+                                    return `<a style="color: blue; cursor: pointer" onclick="adjustStatus('${data.status}', '${data.email}')">${data.status}</a>`
+                                } else {
+                                    return `<a style="color: red; cursor: pointer" onclick="adjustStatus('${data.status}', '${data.email}')">${data.status}</a>`
+                                }
+                            }
+                            //${data.status}
+                        },
                         {
                             data: null,
                             render(data) {
@@ -82,8 +104,7 @@
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-        //}
-    });
+    }
 
 
 
@@ -102,6 +123,58 @@
     //        ]).draw();
     //    });
     //}
+
+     function adjustStatus(status, email) {
+         if(status == 'Active'){
+            document.getElementById('userStatus').innerHTML = `
+                                        <div class="modal-header">
+                                <h2 class="modal-title">Do you want disable user ${email}?</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-footer">
+                                <button type="button" onclick="SwitchStatus('${email}')" class="btn btn-primary">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        </div>
+                            `;
+         }else{
+            document.getElementById('userStatus').innerHTML = `
+                                            <div class="modal-header">
+                                    <h2 class="modal-title">Do you want enable user ${email}?</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-footer">
+                                        <button type="button" onclick="SwitchStatus('${email}')" class="btn btn-primary">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                                `;
+         }
+
+        $("#modalStatus").modal();
+    }
+
+    async function SwitchStatus(email) {
+        try{
+            await fetch(`http://localhost:5188/api/v1/Users/SwitchStatus?email=${email}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            $("#modalStatus").modal('hide');
+
+            loadData();
+        }catch(error){
+            console.error('Unable to update item.', error);
+        }
+
+    }
 
     async function openUserInfor(userId) {
         const response = await fetch(`http://localhost:5188/api/v1/Users/${userId}`);
