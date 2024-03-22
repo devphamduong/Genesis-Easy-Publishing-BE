@@ -217,10 +217,17 @@ namespace app.Controllers
             c.Status = 1;
             try
             {
-                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId).Select(c => c.ChapterNumber).ToList().DefaultIfEmpty(0).Max() + 1;
+                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.VolumeId == chapter.VolumeId).Select(c => c.ChapterNumber).ToList().DefaultIfEmpty(0).Max() + 1;
                 c.ChapterNumber = nextChapterNum;
                 await _context.Chapters.AddAsync(c);
                 _context.SaveChanges();
+                // renumber chapter number
+                var chapters = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.Status == 1).OrderBy(c => c.ChapterNumber).ToList();
+                for(int i =0; i < chapters.Count; i++)
+                {
+                    chapters[i].ChapterNumber = i + 1;
+                }
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
