@@ -102,6 +102,41 @@ namespace app.Controllers
         //    return _msgService.MsgReturn(0, "Story Chapter Relate", chapters);
         //}
 
+        public class AddVolumeForm
+        {
+            public int StoryId { get; set; }
+            public string VolumeTitle { get; set; } = null!;
+        }
+        [HttpPost("add_volume")]
+        public async Task<ActionResult> AddVolume(AddVolumeForm volume)
+        {
+            int volumeNumber = _context.Volumes.Where(v => v.StoryId == volume.StoryId).Select(v => v.VolumeNumber).ToList().DefaultIfEmpty(0).Max() + 1;
+            Volume v = new Volume()
+            {
+                StoryId = volume.StoryId,
+                VolumeTitle = volume.VolumeTitle,
+                VolumeNumber = volumeNumber,
+            };
+            try
+            {
+                await _context.Volumes.AddAsync(v);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Can't add volume"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Add volume successfully"
+            });
+        }
+
         [HttpGet("volume_list")]
         public async Task<ActionResult> GetVolumeName(int storyid)
         {
@@ -167,7 +202,7 @@ namespace app.Controllers
             c.Status = 1;
             try
             {
-                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId).Select(c => c.ChapterNumber).DefaultIfEmpty(0).Max() + 1;
+                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId).Select(c => c.ChapterNumber).ToList().DefaultIfEmpty(0).Max() + 1;
                 c.ChapterNumber = nextChapterNum;
                 await _context.Chapters.AddAsync(c);
                 _context.SaveChanges();
