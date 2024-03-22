@@ -111,6 +111,21 @@ namespace app.Controllers
         public async Task<ActionResult> AddVolume(AddVolumeForm volume)
         {
             int volumeNumber = _context.Volumes.Where(v => v.StoryId == volume.StoryId).Select(v => v.VolumeNumber).ToList().DefaultIfEmpty(0).Max() + 1;
+            if (volumeNumber >= 2)
+            {
+                var h = _context.Volumes.Where(v => v.VolumeNumber == (volumeNumber-1) && v.StoryId == volume.StoryId).Include(v=> v.Chapters).Select(v => new
+                {
+                    numberChapter = v.Chapters.Count()
+                }).FirstOrDefault();
+                if(h == null || h.numberChapter < 2)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -1,
+                        EM = "Can't add more volume"
+                    });
+                }
+            }
             Volume v = new Volume()
             {
                 StoryId = volume.StoryId,
