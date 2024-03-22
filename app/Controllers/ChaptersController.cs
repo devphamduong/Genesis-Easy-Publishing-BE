@@ -102,6 +102,20 @@ namespace app.Controllers
         //    return _msgService.MsgReturn(0, "Story Chapter Relate", chapters);
         //}
 
+        [HttpGet("volume_list")]
+        public async Task<ActionResult> GetVolumeName(int storyid)
+        {
+            var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
+                .Select(v => new
+                {
+                    volumeId = v.VolumeId,
+                    volumeNumber = v.VolumeNumber,
+                    VolumeTitle = v.VolumeTitle
+                })
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "List volume", volumes);
+        }
+
         [HttpGet("story_volume/{storyid}")]
         public async Task<ActionResult> GetVolume(int storyid)
         {
@@ -110,6 +124,7 @@ namespace app.Controllers
                 .Select(v => new
                 {
                     volumeId = v.VolumeId,
+                    volumeNumber = v.VolumeNumber,
                     VolumeTitle = v.VolumeTitle,
                     StoryId = v.StoryId,
                     Chapters = v.Chapters.Where(c => c.Status > 0).Select(c => new
@@ -211,14 +226,43 @@ namespace app.Controllers
             }
             return _msgService.MsgReturn(0, "Story Detail", chapter);
         }
+        public class UpdateChapterForm
+        {
+            public long ChapterId { get; set; }
+
+            public string ChapterTitle { get; set; } = null!;
+
+            public string? ChapterContentMarkdown { get; set; }
+
+            public string? ChapterContentHtml { get; set; }
+
+            public decimal? ChapterPrice { get; set; }
+        }
+
 
         [HttpPut("update_chapter")]
-        public async Task<ActionResult> EditChapter(Chapter chapter)
+        public async Task<ActionResult> EditChapter(UpdateChapterForm chapter)
         {
-            chapter.UpdateTime = DateTime.Now;
+            var currentChapter = _context.Chapters.FirstOrDefault(c => c.ChapterId == chapter.ChapterId);
             try
             {
-                _context.Entry<Chapter>(chapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                if(currentChapter != null)
+                {
+                    currentChapter.ChapterTitle = chapter.ChapterTitle;
+                    currentChapter.ChapterContentHtml = chapter.ChapterContentHtml;
+                    currentChapter.ChapterContentMarkdown = chapter.ChapterContentMarkdown;
+                    currentChapter.ChapterPrice = chapter.ChapterPrice;
+                    currentChapter.UpdateTime = DateTime.Now;
+                }
+                else
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -1,
+                        EM = "Update Fail"
+                    });
+                }
+                _context.Entry<Chapter>(currentChapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.SaveChanges();
             }
             catch (Exception)
