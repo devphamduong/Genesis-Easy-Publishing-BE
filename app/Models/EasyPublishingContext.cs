@@ -541,6 +541,7 @@ public partial class EasyPublishingContext : DbContext
 
             entity.Property(e => e.VolumeId).HasColumnName("volume_id");
             entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.VolumeNumber).HasColumnName("volume_number");
             entity.Property(e => e.VolumeTitle)
                 .HasMaxLength(100)
                 .HasColumnName("volume_title");

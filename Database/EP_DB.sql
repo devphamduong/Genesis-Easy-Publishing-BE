@@ -1,3 +1,5 @@
+
+
 USE [master]
 GO
 /****** Object:  Database [Easy_Publishing]    Script Date: 10/3/2022 12:24:24 AM ******/
@@ -283,6 +285,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Volume](
 	[volume_id] [int] IDENTITY(1,1) NOT NULL,
+	[volume_number] [int] NOT NULL,
 	[story_id] [int] NOT NULL,
 	[volume_title] [nvarchar](100) NOT NULL,
     -- [volume_description] [nvarchar](2000) NOT NULL,
@@ -1061,33 +1064,33 @@ INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
 SET IDENTITY_INSERT [dbo].[Volume] ON 
 GO
 
-INSERT [dbo].[Volume] ([volume_id] ,[story_id], [volume_title])
+INSERT [dbo].[Volume] ([volume_id] , [volume_number], [story_id], [volume_title])
 	VALUES 
-		(1, 1, N'Marriage can be a real killer.'),
-		(2, 1, N'Twin sister'),
-		(3, 1, N'Turns a domestic'),
-		(4, 17, N'Tà quân Quân Tà'),
-		(5, 17, N'Quân Mạc Tà'),
-		(6, 17, N'Quân Vô Ý'),
-		(7, 2, N'Nine little boys'),
-		(8, 3, N' A famous painter'),
-		(9, 4, N' Commuter train'),
-		(10, 5, N' Waking up'),
-		(11, 6, N' One chopped'),
-		(12, 7, N' One chopped'),
-		(13, 8, N' One chopped'),
-		(14, 9, N' One chopped'),
-		(15, 10, N' One chopped'),
-		(16, 11, N' One chopped'),
-		(17, 12, N' One chopped'),
-		(18, 13, N' One chopped'),
-		(19, 1, N'Turns a domestic'),
-		(20, 1, N'Turns a domestic'),
-		(21, 1, N'Turns a domestic'),
-		(22, 1, N'Turns a domestic'),
-		(23, 1, N'Turns a domestic'),
-		(24, 1, N'Turns a domestic'),
-		(25, 1, N'Turns a domestic')
+		(1, 1, 1, N'Marriage can be a real killer.'),
+		(2, 2, 1, N'Twin sister'),
+		(3, 3, 1, N'Turns a domestic'),
+		(4, 1, 17, N'Tà quân Quân Tà'),
+		(5, 2, 17, N'Quân Mạc Tà'),
+		(6, 3, 17, N'Quân Vô Ý'),
+		(7, 1, 2, N'Nine little boys'),
+		(8, 1, 3, N' A famous painter'),
+		(9, 1, 4, N' Commuter train'),
+		(10, 1, 5, N' Waking up'),
+		(11, 1, 6, N' One chopped'),
+		(12, 1, 7, N' One chopped'),
+		(13, 1, 8, N' One chopped'),
+		(14, 1, 9, N' One chopped'),
+		(15, 1, 10, N' One chopped'),
+		(16, 1, 11, N' One chopped'),
+		(17, 1, 12, N' One chopped'),
+		(18, 1, 13, N' One chopped'),
+		(19, 1, 1, N'Turns a domestic 1'),
+		(20, 2, 1, N'Turns a domestic 2'),
+		(21, 3, 1, N'Turns a domestic 3'),
+		(22, 4, 1, N'Turns a domestic 4'),
+		(23, 5, 1, N'Turns a domestic 5'),
+		(24, 6, 1, N'Turns a domestic 6'),
+		(25, 7, 1, N'Turns a domestic 7')
 		
 SET IDENTITY_INSERT [dbo].[Volume] OFF
 GO
