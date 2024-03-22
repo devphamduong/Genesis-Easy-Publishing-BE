@@ -166,7 +166,7 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "List volume", volumes);
         }
 
-        [HttpGet("story_volume/{storyid}")]
+        [HttpGet("story_volume")]
         public async Task<ActionResult> GetVolume(int storyid)
         {
             var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
@@ -334,6 +334,47 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Save chapter successfully"
+            });
+        }
+
+        [HttpPut("delete_chapter")]
+        public async Task<ActionResult> DeleteChapter(int chapterId)
+        {
+            var currentChapter = _context.Chapters.FirstOrDefault(c => c.ChapterId == chapterId);
+            int storyId = currentChapter.StoryId;
+            try
+            {
+                if(currentChapter == null)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -1,
+                        EM = "Delete Fail"
+                    });
+                }
+                currentChapter.Status = 0;
+                _context.Entry<Chapter>(currentChapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _context.SaveChanges();
+
+                var chapters = _context.Chapters.Where(c => c.StoryId == storyId && c.Status == 1).OrderBy(c => c.ChapterNumber).ToList();
+                for (int i = 0; i < chapters.Count; i++)
+                {
+                    chapters[i].ChapterNumber = i + 1;
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Delete Fail"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Delete chapter successfully"
             });
         }
         private bool checkPurchase(int? userid, long chapterNum, int storyid)

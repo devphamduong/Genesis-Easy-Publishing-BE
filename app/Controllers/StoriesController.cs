@@ -354,6 +354,47 @@ namespace app.Controllers
             });
         }
 
+        [HttpPut("delete_story")]
+        public async Task<ActionResult> DeleteStory(int storyId)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+
+            var currentStory = _context.Stories.FirstOrDefault(s => s.StoryId == storyId && s.AuthorId == userId);
+            if (currentStory == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "You can't implement this function"
+                });
+            }
+            try
+            {
+                currentStory.Status = 0;
+                _context.Entry<Story>(currentStory).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Edit Fail"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Update story successfully"
+            });
+        }
 
         //// PUT: api/Stories/5
         //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
