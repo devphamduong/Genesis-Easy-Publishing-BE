@@ -1,4 +1,4 @@
-
+drop database Easy_Publishing
 
 USE [master]
 GO
@@ -288,6 +288,8 @@ CREATE TABLE [dbo].[Volume](
 	[volume_number] [int] NOT NULL,
 	[story_id] [int] NOT NULL,
 	[volume_title] [nvarchar](100) NOT NULL,
+	[create_time] [datetime] NOT NULL,
+	[update_time] [datetime] NULL
     -- [volume_description] [nvarchar](2000) NOT NULL,
     -- [status] [bit] NULL,
   CONSTRAINT [PK_volume] PRIMARY KEY CLUSTERED 
@@ -1064,33 +1066,33 @@ INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
 SET IDENTITY_INSERT [dbo].[Volume] ON 
 GO
 
-INSERT [dbo].[Volume] ([volume_id] , [volume_number], [story_id], [volume_title])
+INSERT [dbo].[Volume] ([volume_id] , [volume_number], [story_id], [volume_title], [create_time])
 	VALUES 
-		(1, 1, 1, N'Marriage can be a real killer.'),
-		(2, 2, 1, N'Twin sister'),
-		(3, 3, 1, N'Turns a domestic'),
-		(4, 1, 17, N'Tà quân Quân Tà'),
-		(5, 2, 17, N'Quân Mạc Tà'),
-		(6, 3, 17, N'Quân Vô Ý'),
-		(7, 1, 2, N'Nine little boys'),
-		(8, 1, 3, N' A famous painter'),
-		(9, 1, 4, N' Commuter train'),
-		(10, 1, 5, N' Waking up'),
-		(11, 1, 6, N' One chopped'),
-		(12, 1, 7, N' One chopped'),
-		(13, 1, 8, N' One chopped'),
-		(14, 1, 9, N' One chopped'),
-		(15, 1, 10, N' One chopped'),
-		(16, 1, 11, N' One chopped'),
-		(17, 1, 12, N' One chopped'),
-		(18, 1, 13, N' One chopped'),
-		(19, 4, 1, N'Turns a domestic 1'),
-		(20, 5, 1, N'Turns a domestic 2'),
-		(21, 6, 1, N'Turns a domestic 3'),
-		(22, 7, 1, N'Turns a domestic 4'),
-		(23, 8, 1, N'Turns a domestic 5'),
-		(24, 9, 1, N'Turns a domestic 6'),
-		(25, 10, 1, N'Turns a domestic 7')
+		(1, 1, 1, N'Marriage can be a real killer.', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(2, 2, 1, N'Twin sister', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(3, 3, 1, N'Turns a domestic', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(4, 1, 17, N'Tà quân Quân Tà', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(5, 2, 17, N'Quân Mạc Tà', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(6, 3, 17, N'Quân Vô Ý', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(7, 1, 2, N'Nine little boys', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(8, 1, 3, N' A famous painter', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(9, 1, 4, N' Commuter train', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(10, 1, 5, N' Waking up', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(11, 1, 6, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(12, 1, 7, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(13, 1, 8, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(14, 1, 9, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(15, 1, 10, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(16, 1, 11, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(17, 1, 12, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(18, 1, 13, N' One chopped', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(19, 4, 1, N'Turns a domestic 1', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(20, 5, 1, N'Turns a domestic 2', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(21, 6, 1, N'Turns a domestic 3', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(22, 7, 1, N'Turns a domestic 4', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(23, 8, 1, N'Turns a domestic 5', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(24, 9, 1, N'Turns a domestic 6', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
+		(25, 10, 1, N'Turns a domestic 7', CAST(N'2022-01-01T05:52:10.323' AS DateTime))
 		
 SET IDENTITY_INSERT [dbo].[Volume] OFF
 GO

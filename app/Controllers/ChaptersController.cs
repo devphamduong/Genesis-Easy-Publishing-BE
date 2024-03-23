@@ -131,6 +131,7 @@ namespace app.Controllers
                 StoryId = volume.StoryId,
                 VolumeTitle = volume.VolumeTitle,
                 VolumeNumber = volumeNumber,
+                CreateTime = DateTime.Now
             };
             try
             {
@@ -177,6 +178,7 @@ namespace app.Controllers
                     volumeNumber = v.VolumeNumber,
                     VolumeTitle = v.VolumeTitle,
                     StoryId = v.StoryId,
+                    CreateTime = v.CreateTime,
                     Chapters = v.Chapters.Where(c => c.Status > 0).Select(c => new
                     {
                         c.ChapterId,
@@ -184,7 +186,6 @@ namespace app.Controllers
                         c.ChapterTitle,
                         c.ChapterPrice,
                         c.CreateTime
-
                     }).OrderBy(c => c.ChapterNumber).ToList()
                 }).OrderBy(v => v.volumeNumber)
                 .ToListAsync();
@@ -356,7 +357,7 @@ namespace app.Controllers
                 _context.Entry<Chapter>(currentChapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.SaveChanges();
 
-                var chapters = _context.Chapters.Where(c => c.StoryId == storyId && c.Status == 1).OrderBy(c => c.ChapterNumber).ToList();
+                var chapters = _context.Chapters.Where(c => c.StoryId == storyId && c.Status == 1).OrderBy(c => c.Volume.VolumeNumber).ThenBy(c => c.ChapterNumber).ToList();
                 for (int i = 0; i < chapters.Count; i++)
                 {
                     chapters[i].ChapterNumber = i + 1;

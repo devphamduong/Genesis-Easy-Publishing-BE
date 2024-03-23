@@ -314,7 +314,7 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            var currentStory = _context.Stories.FirstOrDefault(s => s.StoryId == story.StoryId && s.AuthorId == userId);
+            var currentStory = _context.Stories.Include(s => s.Categories).FirstOrDefault(s => s.StoryId == story.StoryId && s.AuthorId == userId);
             if(currentStory == null)
             {
                 return new JsonResult(new
@@ -335,9 +335,33 @@ namespace app.Controllers
                     currentStory.StoryPrice = story.StoryPrice;
                     currentStory.StorySale = story.StorySale;
                     currentStory.StoryImage = story.StoryImage;
+                    var existingCategories = currentStory.Categories.Select(c => c.CategoryId).ToList();
+
+                    var categoriesToAdd = story.CategoryIds.Except(existingCategories).ToList();
+                    var categoriesToRemove = existingCategories.Except(story.CategoryIds).ToList();
+
+                    foreach (var categoryId in categoriesToAdd)
+                    {
+                        var category = await _context.Categories.FindAsync(categoryId);
+                        if (category != null)
+                        {
+                            currentStory.Categories.Add(category);
+                        }
+                    }
+
+                    // Remove existing categories from the story
+                    foreach (var categoryId in categoriesToRemove)
+                    {
+                        var categoryToRemove = currentStory.Categories.FirstOrDefault(c => c.CategoryId == categoryId);
+                        if (categoryToRemove != null)
+                        {
+                            currentStory.Categories.Remove(categoryToRemove);
+                        }
+                    }
+
                 }
-                    _context.Entry<Story>(currentStory).State = EntityState.Modified;
-                    _context.SaveChanges();
+                _context.Entry<Story>(currentStory).State = EntityState.Modified;
+                 await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
