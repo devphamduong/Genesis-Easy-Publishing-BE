@@ -54,7 +54,7 @@ namespace app.Controllers
                 })
                 .ToListAsync();
             if (cate == null) return _msgService.MsgActionReturn(-1, "Không có loại đó");
-            return _msgService.MsgReturn(0, "Chi tiết thể loại", cate);
+            return _msgService.MsgReturn(0, "Chi tiết thể loại", cate.FirstOrDefault());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetUser(int id)
