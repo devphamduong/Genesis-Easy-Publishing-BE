@@ -153,6 +153,49 @@ namespace app.Controllers
             });
         }
 
+        public class UpdateVolumeForm
+        {
+            public int VolumeId { get; set; }
+            public string VolumeTitle { get; set; } = null!;
+        }
+
+        [HttpPut("update_volume")]
+        public async Task<ActionResult> UpdateChapter(UpdateVolumeForm volume)
+        {
+            var currentVolume = _context.Volumes.FirstOrDefault(v => v.VolumeId == volume.VolumeId);
+            try
+            {
+                if (currentVolume != null)
+                {
+                    currentVolume.VolumeTitle = volume.VolumeTitle;
+                    currentVolume.UpdateTime = DateTime.Now;
+                }
+                else
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -1,
+                        EM = "Update Fail"
+                    });
+                }
+                _context.Entry<Volume>(currentVolume).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Edit Fail"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Update volume successfully"
+            });
+        }
+
         [HttpGet("volume_list")]
         public async Task<ActionResult> GetVolumeName(int storyid)
         {
@@ -328,13 +371,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Edit Fail"
+                    EM = "Update Fail"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Save chapter successfully"
+                EM = "Update chapter successfully"
             });
         }
 
