@@ -1017,21 +1017,21 @@ GO
 
 INSERT [dbo].[Category] ([category_id],[category_name],[category_banner],[category_description]) 
 	VALUES
-		(1, N'Manhwa',N'https://yymedia.codeprime.net/media/genre_cover/bg09.jpeg',N'Truyện Hàn Quốc'),
-		(2, N'Manhua',N'https://yymedia.codeprime.net/media/genre_cover/bg01.jpeg',N'Truyện của Trung Quốc'), 
-		(3, N'Manga',N'https://yymedia.codeprime.net/media/genre_cover/bg14.jpeg',N'Truyện của Nhật Bản'), 
+		(1, N'Truyện Manhwa',N'https://yymedia.codeprime.net/media/genre_cover/bg09.jpeg',N'Truyện Hàn Quốc'),
+		(2, N'Truyện Manhua',N'https://yymedia.codeprime.net/media/genre_cover/bg01.jpeg',N'Truyện của Trung Quốc'), 
+		(3, N'Truyện Manga',N'https://yymedia.codeprime.net/media/genre_cover/bg14.jpeg',N'Truyện của Nhật Bản'), 
 		(4, N'Truyện ngắn',N'https://yystatic.codeprime.net/desktop/page-cover/default-3.jpg',N'Những truyện ngắn,thường là 1 vài chapter'), 
-		(5, N'Tiểu thuyết',N'https://yystatic.codeprime.net/desktop/page-cover/default-4.jpg',N'tiểu thuyết là sử thi của đời tư'), 
-		(6, N'Comedy',N'https://yymedia.codeprime.net/media/genre_cover/bg06.jpeg',N'Thể loại có nội dung trong sáng và cảm động, thường có các tình tiết gây cười, các xung đột nhẹ nhàng'), 
-		(7, N'Kinh dị',N'https://yymedia.codeprime.net/media/genre_cover/bg02.jpeg',N'Thể loại dành cho lứa tuổi 17+ bao gồm các pha bạo lực, máu me, chém giết, tình dục ở mức độ vừa'), 
-		(8, N'Hành động',N'https://yymedia.codeprime.net/media/genre_cover/bg03.jpeg',N'Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh'), 
-		(9, N'Phiêu lưu',N'https://yystatic.codeprime.net/desktop/page-cover/default-2.jpg',N'Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật'),
-		(10, N'Lãng mạn',N'https://yystatic.codeprime.net/desktop/page-cover/default-6.jpg',N'Thường là những câu chuyện về tình yêu, tình cảm lãng mạn.'), 
-		(11, N'Viễn tưởng',N'https://yymedia.codeprime.net/media/genre_cover/bg08.jpeg',N'Thể hiện những sức mạnh đáng kinh ngạc và không thể giải thích được, chúng thường đi kèm với những sự kiện trái ngược hoặc thách thức với những định luật vật lý'), 
-		(12, N'Bí ẩn',N'https://yystatic.codeprime.net/desktop/page-cover/default-6.jpg',N'Thể loại thường xuất hiện những điều bí ấn không thể lí giải được và sau đó là những nỗ lực của nhân vật chính nhằm tìm ra câu trả lời thỏa đáng'), 
-		(13, N'Khoa học',N'https://yymedia.codeprime.net/media/genre_cover/bg08.jpeg',N'Truyện liên quan đến vấn đề khoa học'),
-		(14, N'Tiếng anh',N'https://yymedia.codeprime.net/media/genre_cover/bg09.jpeg',N'Truyện viết bằng tiếng anh'), 
-		(15, N'Tiếng Việt',N'https://yymedia.codeprime.net/media/genre_cover/bg05.jpeg',N'Truyện viết bằng tiếng việt')
+		(5, N'Truyện Tiểu thuyết',N'https://yystatic.codeprime.net/desktop/page-cover/default-4.jpg',N'tiểu thuyết là sử thi của đời tư'), 
+		(6, N'Truyện Comedy',N'https://yymedia.codeprime.net/media/genre_cover/bg06.jpeg',N'Thể loại có nội dung trong sáng và cảm động, thường có các tình tiết gây cười, các xung đột nhẹ nhàng'), 
+		(7, N'Truyện Kinh dị',N'https://yymedia.codeprime.net/media/genre_cover/bg02.jpeg',N'Thể loại dành cho lứa tuổi 17+ bao gồm các pha bạo lực, máu me, chém giết, tình dục ở mức độ vừa'), 
+		(8, N'Truyện Hành động',N'https://yymedia.codeprime.net/media/genre_cover/bg03.jpeg',N'Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh'), 
+		(9, N'Truyện Phiêu lưu',N'https://yystatic.codeprime.net/desktop/page-cover/default-2.jpg',N'Thể loại phiêu lưu, mạo hiểm, thường là hành trình của các nhân vật'),
+		(10, N'Truyện Lãng mạn',N'https://yystatic.codeprime.net/desktop/page-cover/default-6.jpg',N'Thường là những câu chuyện về tình yêu, tình cảm lãng mạn.'), 
+		(11, N'Truyện Viễn tưởng',N'https://yymedia.codeprime.net/media/genre_cover/bg08.jpeg',N'Thể hiện những sức mạnh đáng kinh ngạc và không thể giải thích được, chúng thường đi kèm với những sự kiện trái ngược hoặc thách thức với những định luật vật lý'), 
+		(12, N'Truyện Bí ẩn',N'https://yystatic.codeprime.net/desktop/page-cover/default-6.jpg',N'Thể loại thường xuất hiện những điều bí ấn không thể lí giải được và sau đó là những nỗ lực của nhân vật chính nhằm tìm ra câu trả lời thỏa đáng'), 
+		(13, N'TruyệnKhoa học',N'https://yymedia.codeprime.net/media/genre_cover/bg08.jpeg',N'Truyện liên quan đến vấn đề khoa học'),
+		(14, N'Truyện Tiếng anh',N'https://yymedia.codeprime.net/media/genre_cover/bg09.jpeg',N'Truyện viết bằng tiếng anh'), 
+		(15, N'Truyện Tiếng Việt',N'https://yymedia.codeprime.net/media/genre_cover/bg05.jpeg',N'Truyện viết bằng tiếng việt')
 
 SET IDENTITY_INSERT [dbo].[Category] OFF
 GO
