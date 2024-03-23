@@ -24,6 +24,14 @@ namespace app.Controllers
         private MsgService _msgService = new MsgService();
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private string ErrorAuthenMessage = "Yều cầu đăng nhập";
+        private string ErrorAuthorMessage = "Bạn đã có truyện(chương) này!";
+        private string NotEnoughMoney = "Banj không đủ THL! Hãy nạp tiền";
+        private string BuyStory(string story)  => $"Mua truyện {story }";
+        private string BuyChapter(long chapter , string story) => $"Mua chương {chapter} của truyện {story}";
+        private string BuyManyChapter(long chapter , string story) => $"Mua {chapter} chương của truyện {story}";
+        private string RecieveMoney(string story) => $"Nhận TLH từ truyện {story}";
+
 
         public TransactionsController(EasyPublishingContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
@@ -116,7 +124,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -146,7 +154,7 @@ namespace app.Controllers
                    return new JsonResult(new
                    {
                        EC = -2,
-                       EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                       EM = NotEnoughMoney
                    });
                }
                if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
@@ -154,7 +162,7 @@ namespace app.Controllers
                    return new JsonResult(new
                    {
                        EC = -3,
-                       EM = "This story is yours!"
+                       EM = ErrorAuthorMessage
                    });
                }
                 var user_transaction = new Transaction
@@ -168,7 +176,7 @@ namespace app.Controllers
                     RefundBefore = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Buy story {story.StoryTitle}"
+                    Description =BuyStory(story.StoryTitle)
                 };
                 var author_transaction = new Transaction
                 {
@@ -181,7 +189,7 @@ namespace app.Controllers
                     RefundBefore = author_wallet.Refund + story.StoryPrice,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Receive TLT from selling stories {story.StoryTitle}"
+                    Description = RecieveMoney(story.StoryTitle)
                 };
                 return _msgService.MsgReturn(0, "Get Transaction Buy Story Detail", user_transaction);
             }
@@ -190,7 +198,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -221,7 +229,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -2,
-                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                        EM = NotEnoughMoney
                     });
                 }
                 if (userId == author.UserId|| user_chapter.Chapter.Contains(chapter))
@@ -229,7 +237,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -3,
-                        EM = "This chapter is yours!"
+                        EM = ErrorAuthorMessage
                     });
                 }
                 var user_transaction = new Transaction
@@ -244,7 +252,7 @@ namespace app.Controllers
                     RefundBefore = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Buy chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
+                    Description = BuyChapter(chapter.ChapterNumber,story.StoryTitle)
                 };
                 var author_transaction = new Transaction
                 {
@@ -258,7 +266,7 @@ namespace app.Controllers
                     RefundBefore = author_wallet.Refund + (decimal)chapter.ChapterPrice,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Receive TLT from selling chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
+                    Description = RecieveMoney(story.StoryTitle)
                 };
               
                 return _msgService.MsgReturn(0, "Get Transaction Buy Chapter Detail", user_transaction);
@@ -268,7 +276,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -297,7 +305,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -2,
-                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                        EM = NotEnoughMoney
                     });
                 }
                 if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
@@ -305,7 +313,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -3,
-                        EM = "This story is yours!"
+                        EM = ErrorAuthorMessage
                     });
                 }
                 decimal amount = (decimal)(story.StoryPrice - (story.StoryPrice * story.StorySale / 100));
@@ -321,7 +329,7 @@ namespace app.Controllers
                     RefundBefore = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Buy story {story.StoryTitle}"
+                    Description = BuyStory(story.StoryTitle)
                 };
                 
                 var author_transaction = new Transaction
@@ -335,7 +343,7 @@ namespace app.Controllers
                     RefundBefore = author_wallet.Refund + amount,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Receive TLT from selling stories {story.StoryTitle}"
+                    Description = RecieveMoney(story.StoryTitle)
                 };
                 user_wallet.Fund = user_wallet.Fund - amount;
                 author_wallet.Refund = author_wallet.Refund + amount;
@@ -352,7 +360,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 0,
-                    EM = $"Buy Story {story.StoryTitle} successful"
+                    EM = BuyStory(story.StoryTitle) + " thành công"
                 });
             }
             catch (Exception)
@@ -360,10 +368,12 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
+
+
 
         [HttpPost("add_transaction_buy_chapter")]
         public async Task<ActionResult> AddTransactionBuyChapter(int chapterId)
@@ -391,7 +401,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -2,
-                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                        EM = NotEnoughMoney
                     });
                 }
                 if (userId == author.UserId || user_chapter.Chapter.Contains(chapter))
@@ -399,7 +409,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -3,
-                        EM = "This story is yours!"
+                        EM = ErrorAuthorMessage
                     });
                 }
                 var user_transaction = new Transaction
@@ -414,7 +424,7 @@ namespace app.Controllers
                     RefundBefore = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Buy chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
+                    Description = BuyChapter(chapter.ChapterNumber,story.StoryTitle)
                 };
                 var author_transaction = new Transaction
                 {
@@ -453,7 +463,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -512,7 +522,21 @@ namespace app.Controllers
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
-
+                var user_story = await _context.Users.Where(u => u.UserId == userId)
+                     .Include(u => u.StoriesNavigation)
+                     .Select(u => new
+                     {
+                         StoriesNavigation = u.StoriesNavigation
+                     })
+                     .FirstOrDefaultAsync();
+                if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -3,
+                        EM = ErrorAuthorMessage
+                    });
+                }
                 user_wallet.Fund = user_wallet.Fund - Amount;
                 author_wallet.Refund = author_wallet.Refund + Amount;
                 
@@ -568,7 +592,45 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
+                });
+            }
+        }
+        [HttpGet("get_information_to_buy_stories")]
+        public async Task<ActionResult> GetInformationToBuyStories( int storyId)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
+                var user_chapter = await _context.Users.Where(u => u.UserId == userId)
+                     .Include(u => u.Chapters)
+                     .Select(u => new
+                     {
+                         Chapter = u.Chapters.Where(ch => ch.StoryId == storyId)
+                     })
+                     .FirstOrDefaultAsync();
+                var chapter_story = await _context.Chapters.Where(ch => ch.StoryId == storyId).ToListAsync();
+                var chapternumbermax = await _context.Chapters.Where(ch => ch.ChapterNumber == chapter_story.Count()).FirstOrDefaultAsync();
+
+                var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
+                var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+                return new JsonResult(new
+                {
+                    chapter_story_max = chapternumbermax.ChapterNumber,
+                    user_chapter = user_chapter.Chapter.Count(),
+                    user_wallet = user_wallet.Fund,
+                });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -620,15 +682,17 @@ namespace app.Controllers
                 {
                     Amount += (decimal)chapter.ChapterPrice;
                 }
-                var chapter_story = await _context.Chapters.Where(ch =>  ch.StoryId == storyId).ToListAsync();
-                var chapternumbermax = await _context.Chapters.Where(ch => ch.ChapterNumber == chapter_story.Count()).FirstOrDefaultAsync();
-               
                 var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-
-
-              
+                if (user_wallet.Fund < Amount)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -2,
+                        EM = NotEnoughMoney
+                    });
+                }
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -641,15 +705,12 @@ namespace app.Controllers
                     RefundBefore = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Buy {chapter_buy.Count()} chapter in story {story.StoryTitle}"
+                    Description =BuyManyChapter(chapter_buy.Count(),story.StoryTitle)
                 };
                
                 return new JsonResult(new
                 {
-                    chapter_story_max = chapternumbermax.ChapterNumber,
-                    chapter_buy = chapter_buy.Count(),
                     Amount = Amount,
-                    user_chapter = user_chapter.Chapter.Count(),
                     transaction = user_transaction
                 });
             }
@@ -658,17 +719,17 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
 
-        [HttpPost("add_transaction_recharge")]
-        public async Task<ActionResult> AddTransactionRecharge(string username,int number_recharge)
+        [HttpPost("add_transaction_top_up")]
+        public async Task<ActionResult> AddTransactionTopUp(int userId,int number_recharge)
         {
             try
             {
-                var user = await _context.Users.Where(u => u.Username == username).FirstOrDefaultAsync();
+                var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
                 var user_transaction = new Transaction
                 {
@@ -680,7 +741,7 @@ namespace app.Controllers
                     RefundBefore = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Recharge {number_recharge}"
+                    Description = $"Nạp {number_recharge}"
                 };
                 user_wallet.Fund = user_wallet.Fund + number_recharge;
                 _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -689,7 +750,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 0,
-                    EM = $"Recharge {number_recharge} : {user.UserFullname} successfull"
+                    EM = $"Nạp tiền {number_recharge} : {user.UserFullname} thành công"
                 });
             }
             catch (Exception)
@@ -739,7 +800,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -780,7 +841,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -793,7 +854,7 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var transactions = await _context.Transactions
-                .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Recharge"))
+                .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Nạp"))
                  .Include(t => t.Story)
                 .Include(t => t.Chapter)
                 .Select(t => new
@@ -821,7 +882,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Not authenticated"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
@@ -835,7 +896,7 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var transactions = await _context.Transactions
-                .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Buy"))
+                .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Mua"))
                 .Include(t => t.Story)
                 .Include(t => t.Chapter)
                 .Select(t => new
@@ -863,7 +924,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Yều cầu đăng nhập"
+                    EM = ErrorAuthenMessage
                 });
             }
         }
