@@ -113,7 +113,7 @@ namespace app.Controllers
                 StoryId = commentDTO.StoryId,
                 ChapterId = commentDTO.ChapterId,
                 CommentContent = commentDTO.CommentContent,
-                CommentDate = DateTime.UtcNow,
+                CommentDate = DateTime.Now,
             };
             _context.Comments.Add(cmt);
             await _context.SaveChangesAsync();

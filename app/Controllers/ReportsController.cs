@@ -124,7 +124,7 @@ namespace app.Controllers
                 ChapterId = reportDTO.ChapterId,
                 CommentId = reportDTO.CommentId,
                 ReportContent1 = reportDTO.ReportContent,
-                ReportDate = DateTime.UtcNow,
+                ReportDate = DateTime.Now,
                 Status = null,
             };
             _context.ReportContents.Add(report);
