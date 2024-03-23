@@ -712,19 +712,62 @@ namespace app.Controllers
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId)
-                .Select(c => new
+                 .Include(t => t.Story)
+                .Include(t => t.Chapter)
+                .Select(t => new
                 {
-                    TransactionId = c.TransactionId,
-                    Amount = c.Amount,
-                    StoryId = c.Story.StoryId,
-                    ChapterId = c.Chapter.ChapterId,
-                    FundBefore = c.FundBefore,
-                    FundAfter = c.FundAfter,
-                    RefundBefore = c.RefundBefore,
-                    RefundAfter = c.RefundAfter,
-                    TransactionTime = c.TransactionTime,
-                    Status = c.Status,
-                    Description = c.Description,
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime,
+                    Status = t.Status,
+                    Description = t.Description
+                })
+                .OrderByDescending(c => c.TransactionTime)
+                .ToListAsync();
+                pageSize = pageSize == null ? 10 : pageSize;
+                return _msgService.MsgPagingReturn("User transaction history",
+                    transactions.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, transactions.Count);
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Not authenticated"
+                });
+            }
+        }
+        [HttpGet("user_story_transaction_history")]
+        public async Task<ActionResult> GetUserStoryTransactionHistory(int page, int pageSize,int storyId)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var transactions = await _context.Transactions
+                .Where(c => c.Wallet.UserId == userId && c.StoryId == storyId)
+                 .Include(t => t.Story)
+                .Include(t => t.Chapter)
+                .Select(t => new
+                {
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime,
+                    Status = t.Status,
+                    Description = t.Description
                 })
                 .OrderByDescending(c => c.TransactionTime)
                 .ToListAsync();
@@ -751,19 +794,21 @@ namespace app.Controllers
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Recharge"))
-                .Select(c => new
+                 .Include(t => t.Story)
+                .Include(t => t.Chapter)
+                .Select(t => new
                 {
-                    TransactionId = c.TransactionId,
-                    Amount = c.Amount,
-                    StoryId = c.Story.StoryId,
-                    ChapterId = c.Chapter.ChapterId,
-                    FundBefore = c.FundBefore,
-                    FundAfter = c.FundAfter,
-                    RefundBefore = c.RefundBefore,
-                    RefundAfter = c.RefundAfter,
-                    TransactionTime = c.TransactionTime,
-                    Status = c.Status,
-                    Description = c.Description,
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime,
+                    Status = t.Status,
+                    Description = t.Description
                 })
                 .OrderByDescending(c => c.TransactionTime)
                 .ToListAsync();
@@ -791,21 +836,23 @@ namespace app.Controllers
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Buy"))
-                .Select(c => new
+                .Include(t => t.Story)
+                .Include(t => t.Chapter)
+                .Select(t => new
                 {
-                    TransactionId = c.TransactionId,
-                    Amount = c.Amount,
-                    StoryId = c.Story.StoryId,
-                    ChapterId = c.Chapter.ChapterId,
-                    FundBefore = c.FundBefore,
-                    FundAfter = c.FundAfter,
-                    RefundBefore = c.RefundBefore,
-                    RefundAfter = c.RefundAfter,
-                    TransactionTime = c.TransactionTime,
-                    Status = c.Status,
-                    Description = c.Description,
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime,
+                    Status = t.Status,
+                    Description = t.Description
                 })
-                .OrderByDescending(c => c.TransactionTime)
+                .OrderByDescending(c=>c.TransactionTime)
                 .ToListAsync();
                 pageSize = pageSize == null ? 10 : pageSize;
                 return _msgService.MsgPagingReturn("Lịch sử giao dịch",
