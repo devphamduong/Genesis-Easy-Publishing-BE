@@ -288,8 +288,8 @@ namespace app.Controllers
             });
         }
 
-        [HttpGet("Chapter_information")]
-        public async Task<ActionResult> GetStoryInfor(int chapterId)
+        [HttpGet("chapter_information")]
+        public async Task<ActionResult> GetChapterInfor(int chapterId)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -305,7 +305,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "You can't access this page"
+                    EM = "Bạn không được quyền vào trang này"
                 });
             }
 
@@ -313,19 +313,24 @@ namespace app.Controllers
             var chapter = _context.Chapters.Where(c => c.ChapterId == chapterId).Select(c => new
             {
                 chapterId = c.ChapterId,
+                storyTitle = c.Story.StoryTitle,
+                ChapterTitle = c.ChapterTitle,
                 chapterContentHtml = c.ChapterContentHtml,
                 ChapterContentMarkdown = c.ChapterContentMarkdown,
-                ChapterNumber = c.ChapterNumber
+                ChapterNumber = c.ChapterNumber,
+                volumeId = c.VolumeId,
+                chapterPrice = c.ChapterPrice,
+
             }).FirstOrDefault();
             if (chapter == null)
             {
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "You can't save story"
+                    EM = "Fail"
                 });
             }
-            return _msgService.MsgReturn(0, "Story Detail", chapter);
+            return _msgService.MsgReturn(0, "Chapter Infor", chapter);
         }
         public class UpdateChapterForm
         {
