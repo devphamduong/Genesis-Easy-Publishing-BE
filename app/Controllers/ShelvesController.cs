@@ -575,7 +575,7 @@ namespace app.Controllers
                     StoryId = c.StoryId,
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
-                    StoryCreatime = c.CreateTime,
+                    StoryCreateTime = c.CreateTime,
                     UserPurchaseStory = c.Users.Count,
                     UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
                 })
@@ -593,9 +593,9 @@ namespace app.Controllers
                     stories = sort.Contains("-userPurchaseStory") ? stories.OrderByDescending(c => c.UserPurchaseStory).ToList()
                         : stories.OrderBy(c => c.UserPurchaseStory).ToList();
 
-                if (sort.Any(c => c.Contains("storyCreatime")))
-                    stories = sort.Contains("-storyCreatime") ? stories.OrderByDescending(c => c.StoryCreatime).ToList()
-                        : stories.OrderBy(c => c.StoryCreatime).ToList();
+                if (sort.Any(c => c.Contains("storyCreateTime")))
+                    stories = sort.Contains("-storyCreateTime") ? stories.OrderByDescending(c => c.StoryCreateTime).ToList()
+                        : stories.OrderBy(c => c.StoryCreateTime).ToList();
             }
 
             page = page == null || page == 0 ? 1 : page;
