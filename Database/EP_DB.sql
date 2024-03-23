@@ -1,5 +1,3 @@
-drop database Easy_Publishing
-
 USE [master]
 GO
 /****** Object:  Database [Easy_Publishing]    Script Date: 10/3/2022 12:24:24 AM ******/
