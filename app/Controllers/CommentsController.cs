@@ -58,7 +58,7 @@ namespace app.Controllers
         public async Task<ActionResult> GetStoryComments(int storyId, int page, int pageSize)
         {
             int userId = GetUserId();
-           
+
             var comments = await _context.Comments.Where(c => c.StoryId == storyId)
                 .Include(c => c.User)
                 .Select(c => new
@@ -121,8 +121,13 @@ namespace app.Controllers
             return _msgService.MsgActionReturn(0, "Bình luận thành công");
         }
 
+        public class CommentUpdateModel
+        {
+            public string CommentContent { get; set; }
+        }
+
         [HttpPost("edit")]
-        public async Task<ActionResult> EditComment(int commentId,[FromBody] string commentContent)
+        public async Task<ActionResult> EditComment(int commentId, [FromBody] CommentUpdateModel cmtUpdate)
         {
             int userId = GetUserId();
 
@@ -130,10 +135,10 @@ namespace app.Controllers
 
             Comment cmt = await _context.Comments.FirstOrDefaultAsync(c => c.UserId == userId && c.CommentId == commentId);
             if (cmt == null) return _msgService.MsgActionReturn(-1, "Không có comment");
-            if (String.IsNullOrEmpty(commentContent)) _context.Comments.Remove(cmt);
+            if (String.IsNullOrEmpty(cmtUpdate.CommentContent)) _context.Comments.Remove(cmt);
             else
             {
-                cmt.CommentContent = commentContent;
+                cmt.CommentContent = cmtUpdate.CommentContent;
                 _context.Entry(cmt).State = EntityState.Modified;
             }
 

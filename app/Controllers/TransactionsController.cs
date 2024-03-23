@@ -68,9 +68,9 @@ namespace app.Controllers
         public async Task<ActionResult> GetAllTransaction()
         {
             var transaction = await _context.Transactions
-                .Include(t => t.Story)
-                .Include(t => t.Chapter)
-                .Select(t => new
+                .Include(t=>t.Story)
+                .Include(t=>t.Chapter)
+                .Select(t=> new
                 {
                     TransactionId = t.TransactionId,
                     Amount = t.Amount,
@@ -82,7 +82,7 @@ namespace app.Controllers
                     RefundBefore = t.RefundBefore,
                     TransactionTime = t.TransactionTime,
                     Status = t.Status,
-                    Description = t.Description
+                    Description =t.Description
 
                 })
                 .ToListAsync();
@@ -99,10 +99,10 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var wallet = await _context.Wallets.Where(w => w.UserId == userId)
-                    .Include(w => w.Transactions)
+                    .Include(w=> w.Transactions)
                     .Select(w => new
                     {
-                        WalletId = w.WalletId,
+                        WalletId= w.WalletId,
                         UserId = w.UserId,
                         Fund = w.Fund,
                         Refund = w.Refund,
@@ -122,17 +122,17 @@ namespace app.Controllers
         }
 
         [HttpGet("transaction_buy_story")]
-        public async Task<ActionResult> GetTransactionBuyStory(int storyId)
+        public async  Task<ActionResult> GetTransactionBuyStory(int storyId)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             try
             {
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-                var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-                var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
-                var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
-                var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+                var user =await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                var story = await _context.Stories.Where(s=>s.StoryId == storyId).FirstOrDefaultAsync();
+                var author = await _context.Users.Where(a=>a.UserId == story.AuthorId).FirstOrDefaultAsync();
+                var user_wallet = await _context.Wallets.Where(w=>w.UserId == userId).FirstOrDefaultAsync();
                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
                 var user_story = await _context.Users.Where(u => u.UserId == userId)
                     .Include(u => u.StoriesNavigation)
@@ -141,22 +141,22 @@ namespace app.Controllers
                         StoriesNavigation = u.StoriesNavigation
                     })
                     .FirstOrDefaultAsync();
-                if (user_wallet.Fund < story.StoryPrice)
-                {
-                    return new JsonResult(new
-                    {
-                        EC = -2,
-                        EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
-                    });
-                }
-                if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
-                {
-                    return new JsonResult(new
-                    {
-                        EC = -3,
-                        EM = "This story is yours!"
-                    });
-                }
+               if (user_wallet.Fund < story.StoryPrice)
+               {
+                   return new JsonResult(new
+                   {
+                       EC = -2,
+                       EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
+                   });
+               }
+               if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
+               {
+                   return new JsonResult(new
+                   {
+                       EC = -3,
+                       EM = "This story is yours!"
+                   });
+               }
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -224,7 +224,7 @@ namespace app.Controllers
                         EM = "Your's Wallet not enoung pay this chapter!Please Recharge!"
                     });
                 }
-                if (userId == author.UserId || user_chapter.Chapter.Contains(chapter))
+                if (userId == author.UserId|| user_chapter.Chapter.Contains(chapter))
                 {
                     return new JsonResult(new
                     {
@@ -260,7 +260,7 @@ namespace app.Controllers
                     Status = true,
                     Description = $"Receive TLT from selling chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
                 };
-
+              
                 return _msgService.MsgReturn(0, "Get Transaction Buy Chapter Detail", user_transaction);
             }
             catch (Exception)
@@ -323,7 +323,7 @@ namespace app.Controllers
                     Status = true,
                     Description = $"Buy story {story.StoryTitle}"
                 };
-
+                
                 var author_transaction = new Transaction
                 {
                     WalletId = author_wallet.WalletId,
@@ -374,7 +374,7 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-                var chapter = await _context.Chapters.Where(ch => ch.ChapterId == chapterId).FirstOrDefaultAsync();
+                var chapter = await _context.Chapters.Where(ch=>ch.ChapterId == chapterId).FirstOrDefaultAsync();
                 var story = await _context.Stories.Where(s => s.StoryId == chapter.StoryId).FirstOrDefaultAsync();
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
@@ -459,7 +459,7 @@ namespace app.Controllers
         }
 
         [HttpPost("add_transaction_buy_many_chapters")]
-        public async Task<ActionResult> AddTransactionBuyManyChapters(int chapterStart, int chapterEnd, int storyId)
+        public async Task<ActionResult> AddTransactionBuyManyChapters(int chapterStart,int chapterEnd , int storyId)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             try
@@ -467,7 +467,7 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-                if (chapterStart > chapterEnd)
+                if(chapterStart > chapterEnd)
                 {
                     return new JsonResult(new
                     {
@@ -475,8 +475,10 @@ namespace app.Controllers
                         EM = "Chương bắt đầu cần lướn hơn chương cuối bạn muốn mua"
                     });
                 }
+
+
                 var chapter_total = await _context.Chapters.Where(ch => ch.ChapterNumber >= chapterStart && ch.ChapterNumber <= chapterEnd && ch.StoryId == storyId).ToListAsync();
-                if (!_context.Chapters.Any(ch => ch.StoryId == storyId && ch.ChapterNumber == chapterEnd))
+                if(!_context.Chapters.Any(ch=> ch.StoryId == storyId && ch.ChapterNumber == chapterEnd))
                 {
                     return new JsonResult(new
                     {
@@ -488,12 +490,11 @@ namespace app.Controllers
                      .Include(u => u.Chapters)
                      .Select(u => new
                      {
-                         Chapter = u.Chapters
+                         Chapter = u.Chapters.Where(ch => ch.StoryId == storyId)
                      })
                      .FirstOrDefaultAsync();
-
                 var chapter_buy = chapter_total.Except(user_chapter.Chapter);
-                if (chapter_buy.Count() == 0)
+                if(chapter_buy.Count() == 0)
                 {
                     return new JsonResult(new
                     {
@@ -501,11 +502,12 @@ namespace app.Controllers
                         EM = "Bạn đã mua hết các chương bạn muốn mua"
                     });
                 }
-                decimal Amount = 0;
+                decimal Amount =0;
                 foreach (var chapter in chapter_buy)
                 {
                     Amount += (decimal)chapter.ChapterPrice;
                 }
+                
                 var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
@@ -513,7 +515,7 @@ namespace app.Controllers
 
                 user_wallet.Fund = user_wallet.Fund - Amount;
                 author_wallet.Refund = author_wallet.Refund + Amount;
-
+                
                 foreach (var chapter in chapter_buy)
                 {
                     user.Chapters.Add(chapter);
@@ -601,10 +603,9 @@ namespace app.Controllers
                      .Include(u => u.Chapters)
                      .Select(u => new
                      {
-                         Chapter = u.Chapters
+                         Chapter = u.Chapters.Where(ch=> ch.StoryId == storyId)
                      })
                      .FirstOrDefaultAsync();
-
                 var chapter_buy = chapter_total.Except(user_chapter.Chapter);
                 if (chapter_buy.Count() == 0)
                 {
@@ -619,9 +620,15 @@ namespace app.Controllers
                 {
                     Amount += (decimal)chapter.ChapterPrice;
                 }
+                var chapter_story = await _context.Chapters.Where(ch =>  ch.StoryId == storyId).ToListAsync();
+                var chapternumbermax = await _context.Chapters.Where(ch => ch.ChapterNumber == chapter_story.Count()).FirstOrDefaultAsync();
+               
                 var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+
+
+              
                 var user_transaction = new Transaction
                 {
                     WalletId = user_wallet.WalletId,
@@ -636,9 +643,10 @@ namespace app.Controllers
                     Status = true,
                     Description = $"Buy {chapter_buy.Count()} chapter in story {story.StoryTitle}"
                 };
-
+               
                 return new JsonResult(new
                 {
+                    chapter_story_max = chapternumbermax.ChapterNumber,
                     chapter_buy = chapter_buy.Count(),
                     Amount = Amount,
                     user_chapter = user_chapter.Chapter.Count(),
@@ -656,7 +664,7 @@ namespace app.Controllers
         }
 
         [HttpPost("add_transaction_recharge")]
-        public async Task<ActionResult> AddTransactionRecharge(string username, int number_recharge)
+        public async Task<ActionResult> AddTransactionRecharge(string username,int number_recharge)
         {
             try
             {
