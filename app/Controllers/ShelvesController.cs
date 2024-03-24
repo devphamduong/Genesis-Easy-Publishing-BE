@@ -570,12 +570,20 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Users)
                 .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                .Include(c => c.StoryInteraction)
                 .Select(c => new
                 {
                     StoryId = c.StoryId,
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
                     StoryCreateTime = c.CreateTime,
+                    StoryInteraction = new
+                    {
+                        c.StoryInteraction.Like,
+                        c.StoryInteraction.Follow,
+                        c.StoryInteraction.View,
+                        c.StoryInteraction.Read,
+                    },
                     UserPurchaseStory = c.Users.Count,
                     UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
                 })
@@ -619,6 +627,7 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -635,6 +644,13 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
                     .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),
@@ -662,6 +678,7 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -679,6 +696,13 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
                     .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),
@@ -705,6 +729,7 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -722,6 +747,13 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
                     .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),

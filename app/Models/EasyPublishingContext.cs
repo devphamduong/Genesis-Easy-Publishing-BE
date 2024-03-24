@@ -47,6 +47,7 @@ public partial class EasyPublishingContext : DbContext
 
     public virtual DbSet<Wallet> Wallets { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -540,15 +541,14 @@ public partial class EasyPublishingContext : DbContext
             entity.ToTable("Volume");
 
             entity.Property(e => e.VolumeId).HasColumnName("volume_id");
-            entity.Property(e => e.StoryId).HasColumnName("story_id");
-            entity.Property(e => e.VolumeNumber).HasColumnName("volume_number");
             entity.Property(e => e.CreateTime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("create_time");
+                .HasColumnType("datetime")
+                .HasColumnName("create_time");
+            entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.UpdateTime)
-                    .HasColumnType("datetime")
-                    .HasColumnName("update_time");
-
+                .HasColumnType("datetime")
+                .HasColumnName("update_time");
+            entity.Property(e => e.VolumeNumber).HasColumnName("volume_number");
             entity.Property(e => e.VolumeTitle)
                 .HasMaxLength(100)
                 .HasColumnName("volume_title");

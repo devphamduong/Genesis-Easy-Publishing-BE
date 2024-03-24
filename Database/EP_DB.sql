@@ -314,7 +314,7 @@ CREATE TABLE [dbo].[Chapter](
 	[chapter_price] [decimal](10, 2) NULL,
 	[create_time] [datetime] NOT NULL,
 	[update_time] [datetime] NULL,
-	[status] [int] NOT NULL,
+	[status] [int] NULL,
   CONSTRAINT [PK_chapter] PRIMARY KEY CLUSTERED 
 (
 	[chapter_id] ASC

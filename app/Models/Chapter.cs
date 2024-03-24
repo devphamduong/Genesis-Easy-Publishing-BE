@@ -25,7 +25,7 @@ public partial class Chapter
 
     public DateTime? UpdateTime { get; set; }
 
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     public virtual ICollection<ChapterLiked> ChapterLikeds { get; set; } = new List<ChapterLiked>();
 

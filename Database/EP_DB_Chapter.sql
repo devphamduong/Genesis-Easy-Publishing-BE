@@ -282,7 +282,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			“Ta đi nhĩ đại gia, thật là lãng phí biểu tình, Bản vương đang cùng ngươi nói chuyện, nhĩ có còn hay không điểm lễ phép, nhĩ”
 			Nhưng mà sau một khắc, Huyết Nguyệt ngừng chửi rủa, chết nhìn chòng chọc Tử Hàn bóng người, thiếu chút nữa liền xuống ba cũng kinh điệu, lúc này Tử Hàn lại đang Luyện bàn tay, phảng phất trước học qua một dạng tự học, sau một khắc trong tay trường kiếm, trường kiếm trong tay hoành vũ lên, trên không trung vạch qua một vệt độ cong
 			Chỉ lưu lại Huyết Nguyệt ở trong gió xốc xếch, nhìn Tử Hàn, Huyết Nguyệt đôi mắt trở nên thâm thúy đứng lên.
-			“Trời sinh thánh mạch, coi là thật bất phàm”'),
+			“Trời sinh thánh mạch, coi là thật bất phàm”')
 		
 
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
