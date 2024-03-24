@@ -288,8 +288,8 @@ namespace app.Controllers
             });
         }
 
-        [HttpGet("Chapter_information")]
-        public async Task<ActionResult> GetStoryInfor(int chapterId)
+        [HttpGet("chapter_information")]
+        public async Task<ActionResult> GetChapterInfor(int chapterId)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -300,32 +300,51 @@ namespace app.Controllers
             }
             catch (Exception) { }
             var user = _context.Users.Include(u => u.Chapters).Include(u => u.Stories).FirstOrDefault(u => u.UserId == userId);
-            if (user == null || !user.Chapters.Any(c => c.ChapterId == chapterId))
-            {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = "You can't access this page"
-                });
-            }
-
 
             var chapter = _context.Chapters.Where(c => c.ChapterId == chapterId).Select(c => new
             {
                 chapterId = c.ChapterId,
+                storyId = c.Story.StoryId,
+                storyTitle = c.Story.StoryTitle,
+                ChapterTitle = c.ChapterTitle,
                 chapterContentHtml = c.ChapterContentHtml,
                 ChapterContentMarkdown = c.ChapterContentMarkdown,
-                ChapterNumber = c.ChapterNumber
+                ChapterNumber = c.ChapterNumber,
+                volumeId = c.VolumeId,
+                chapterPrice = c.ChapterPrice,
+
             }).FirstOrDefault();
             if (chapter == null)
             {
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "You can't save story"
+                    EM = "Chương không tồn tại"
                 });
             }
-            return _msgService.MsgReturn(0, "Story Detail", chapter);
+            if(user == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Bạn phải đăng nhập trước"
+                });
+            }
+            if (!user.Stories.Any(s => s.StoryId == chapter.storyId))
+            {
+                if (!user.Chapters.Any(c => c.ChapterId == chapterId))
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -1,
+                        EM = "Bạn không được quyền vào trang này"
+                    });
+                }
+            }
+            
+
+            
+            return _msgService.MsgReturn(0, "Chapter Infor", chapter);
         }
         public class UpdateChapterForm
         {
