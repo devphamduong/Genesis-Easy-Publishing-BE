@@ -596,8 +596,8 @@ namespace app.Controllers
                 });
             }
         }
-        [HttpGet("get_information_to_buy_stories")]
-        public async Task<ActionResult> GetInformationToBuyStories( int storyId)
+        [HttpGet("get_information_to_buy_chapters")]
+        public async Task<ActionResult> GetInformationToBuyChapter( int storyId)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             try
