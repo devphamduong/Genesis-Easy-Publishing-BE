@@ -725,7 +725,7 @@ namespace app.Controllers
                 });
             }
         }
-
+         [HttpPost("add_transaction_top_up")]
         public async Task<ActionResult> AddTransactionTopUp(int userId, int top_up_amount)
          {
              try
