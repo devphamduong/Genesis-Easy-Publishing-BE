@@ -708,13 +708,13 @@ namespace app.Controllers
                     Description =BuyManyChapter(chapter_buy.Count(),story.StoryTitle)
                 };
                
-            return new JsonResult(new
+                return _msgService.MsgReturn(0, "get transaction buy chapters", new
                 {
                     number_chapter_buy = chapter_buy.Count(),
-                    chapter_buy = chapter_buy.Select(c => new {ChapterNumber = c.ChapterNumber}),
+                    chapter_buy = chapter_buy.Select(c => new { ChapterNumber = c.ChapterNumber }),
                     amount = Amount,
                     transaction = user_transaction
-                }) ;
+                });
             }
             catch (Exception)
             {
