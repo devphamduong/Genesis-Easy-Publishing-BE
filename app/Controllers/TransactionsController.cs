@@ -618,7 +618,7 @@ namespace app.Controllers
 
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-                return new JsonResult(new
+                return _msgService.MsgReturn(0, "get information to buy chapters in story",  new
                 {
                     chapter_story_max = chapternumbermax.ChapterNumber,
                     user_chapter = user_chapter.Chapter.Count(),
