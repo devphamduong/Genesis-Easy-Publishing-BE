@@ -744,7 +744,7 @@ namespace app.Controllers
                      Status = true,
                      Description = $"Nạp {top_up_amount}"
                  };
-                 user_wallet.Fund = user_wallet.Fund + top_up_amount/10;
+                 user_wallet.Fund = user_wallet.Fund + top_up_amount;
                  _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                  _context.Transactions.Add(user_transaction);
                  await _context.SaveChangesAsync();
