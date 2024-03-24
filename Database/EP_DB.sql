@@ -991,6 +991,32 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		,N'<p>Cô vẫn luôn hi vọng đêm tân hôn có thể đem thứ quý giá của bản thân tặng cho hắn, tuy rằng ngượng ngùng nhưng cô vẫn hi vọng như vậy,
 			mà hắn lại muốn xuất ngoại đào tạo chuyên sâu... Nhưng khi cô cầm chìa khóa bạn thân đưa cho mình, một đêm qua đi, lại phát hiện người đàn ông bên cạnh cô là một người lạ!!</p>
 			<h3>Chúc bạn có những giây phút vui vẻ khi đọc truyện CEO nhất định muốn cưới tôi!</h3>'
+		,CAST(N'2024-01-01T05:52:10.323' AS DateTime), null, 1),
+		(24, N'Bất Diệt Kiếm Quân', 3, CAST(110.0 AS Decimal(10, 2)), 0, N'https://yymedia.codeprime.net/media/novels/359afd3548.jpg',
+		N'"Cái gì Thiên Kiêu, cái gì Thiên Tài, không bại được ta; ta tất bất bại..." "Nếu ta là Ma, đem san bằng Thiên Huyền, thương sinh thì lại làm sao, thiên địa phụ ta, ta liền tàn sát
+		hết mảnh thiên địa này " -Công pháp chia làm Phàm giai, Huyền Giai, Linh Giai, Thần Giai, Thánh Giai; mỗi cấp bậc chia làm Thượng, Trung, Hạ. -Binh khí chia làm Phàm giai, Huyền Giai,
+		Linh Giai, Bán Thần cấp, Thần Giai, Bán Thánh cấp, Thánh Giai, ~~~~~TRUYỆN HAY KHÔNG LO CHI HỐ~~~~~ + Không có tác phẩm nào gọi là tuyệt phẩm, không có cảnh giới nào gọi là đỉnh cao, 
+		cũng không có cái gì trọn vẹn cả, đọc là giải trí; cảm thấy không tốt đóng tab đừng nói lời cay đắng... thank ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		-Để ủng hộ corvert : + VOTE 10* ở dưới tên truyện + Đọc Tích Cực Và Vote (9~10) ở cuối mỗi chương nếu có nhé..! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		P/s 1: truyện xuyên suốt pk -> xem sướng P/s2 : truyện đã set vip những bạn ủng hộ thì mình cảm ơn, nếu những bạn không có đậu thì chịu khó 7 ngày sau unvip chương
+		
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Bất Diệt Kiếm Quân!'
+		,N'"Cái gì Thiên Kiêu, cái gì Thiên Tài, không bại được ta; ta tất bất bại..." "Nếu ta là Ma, đem san bằng Thiên Huyền, thương sinh thì lại làm sao, thiên địa phụ ta, ta liền tàn sát
+		hết mảnh thiên địa này " -Công pháp chia làm Phàm giai, Huyền Giai, Linh Giai, Thần Giai, Thánh Giai; mỗi cấp bậc chia làm Thượng, Trung, Hạ. -Binh khí chia làm Phàm giai, Huyền Giai,
+		Linh Giai, Bán Thần cấp, Thần Giai, Bán Thánh cấp, Thánh Giai, ~~~~~TRUYỆN HAY KHÔNG LO CHI HỐ~~~~~ + Không có tác phẩm nào gọi là tuyệt phẩm, không có cảnh giới nào gọi là đỉnh cao, 
+		cũng không có cái gì trọn vẹn cả, đọc là giải trí; cảm thấy không tốt đóng tab đừng nói lời cay đắng... thank ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		-Để ủng hộ corvert : + VOTE 10* ở dưới tên truyện + Đọc Tích Cực Và Vote (9~10) ở cuối mỗi chương nếu có nhé..! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		P/s 1: truyện xuyên suốt pk -> xem sướng P/s2 : truyện đã set vip những bạn ủng hộ thì mình cảm ơn, nếu những bạn không có đậu thì chịu khó 7 ngày sau unvip chương
+		
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Bất Diệt Kiếm Quân!'
+		,N'<p>"Cái gì Thiên Kiêu, cái gì Thiên Tài, không bại được ta; ta tất bất bại..." "Nếu ta là Ma, đem san bằng Thiên Huyền, thương sinh thì lại làm sao, thiên địa phụ ta, ta liền tàn sát
+			hết mảnh thiên địa này " -Công pháp chia làm Phàm giai, Huyền Giai, Linh Giai, Thần Giai, Thánh Giai; mỗi cấp bậc chia làm Thượng, Trung, Hạ. -Binh khí chia làm Phàm giai, Huyền Giai,
+			Linh Giai, Bán Thần cấp, Thần Giai, Bán Thánh cấp, Thánh Giai, ~~~~~TRUYỆN HAY KHÔNG LO CHI HỐ~~~~~ + Không có tác phẩm nào gọi là tuyệt phẩm, không có cảnh giới nào gọi là đỉnh cao, 
+			cũng không có cái gì trọn vẹn cả, đọc là giải trí; cảm thấy không tốt đóng tab đừng nói lời cay đắng... thank ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ </p>
+			<h3>-Để ủng hộ corvert : + VOTE 10* ở dưới tên truyện + Đọc Tích Cực Và Vote (9~10) ở cuối mỗi chương nếu có nhé..! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ </h3>
+			<h3>P/s 1: truyện xuyên suốt pk -> xem sướng P/s2 : truyện đã set vip những bạn ủng hộ thì mình cảm ơn, nếu những bạn không có đậu thì chịu khó 7 ngày sau unvip chương</h3>
+			
+			<h3>Chúc bạn có những giây phút vui vẻ khi đọc truyện Bất Diệt Kiếm Quân!</h3>'
 		,CAST(N'2024-01-01T05:52:10.323' AS DateTime), null, 1)
 		
 SET IDENTITY_INSERT [dbo].[Story] OFF
@@ -1020,7 +1046,8 @@ INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 		(20 ,13 ,14 ,14 ,28),
 		(21 ,13 ,14 ,14 ,28),
 		(22 ,13 ,14 ,14 ,28),
-		(23 ,78 ,33 ,64 ,78)
+		(23 ,78 ,33 ,64 ,78),
+		(24 ,128 ,73 ,24 ,128)
 
 
 
@@ -1072,7 +1099,8 @@ INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
 	(1,20),(2,20),(3,20),(4,20),(5,20),(6,20),(7,20),(8,20),(9,20),(10,20),(11,20),(12,20),(13,20),(14,20),(15,20),
 	(1,21),(2,21),(3,21),(4,21),(5,21),(6,21),(7,21),(8,21),(9,21),(10,21),(11,21),(12,21),(13,21),(14,21),(15,21),
 	(1,22),(2,22),(3,22),(4,22),(5,22),(6,22),(7,22),(8,22),(9,22),(10,22),(11,22),(12,22),(13,22),(14,22),(15,22),
-	(5,23),(10,23),(15,23)
+	(5,23),(10,23),(15,23),
+	(5,24),(7,24),(8,24),(9,24),(12,24),(15,24)
 
 SET IDENTITY_INSERT [dbo].[Volume] ON 
 GO
@@ -2071,7 +2099,9 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		Lâm Tiểu Nhã cùng nhau uống rượu, vì buổi tối Tiểu Nhã sẽ bay đến Milan tham gia trình diễn thời trang, vì để chúc mừng cô ấy lần nữa được bước lên sân khấu quốc tế, 
 		đồng thời chúc mừng sinh nhật của cô.<p>Cô đã uống hơi nhiều, Tiểu Nhã lại không ngừng xúi giục cô nhanh chóng bắt Triệu Trạch Cương lại, dù sao Triệu Trạch Cương sẽ xuất ngoại hai năm,
 		Tư Tư như bị ma xui quỷ khiến liền đồng ý, sau đó cầm thẻ phòng Tiểu Nhã đưa, quẹt thẻ đi vào.<p>Nhưng tại sao người đàn ông trong phòng lại không phải là Triệu Trạch Cương!
-		<p>"Cái gì mà bao nhiêu tiền? Triệu Trạch Cương đâu!"<p>Doãn Tư Thần nhíu mày, người phụ nữ trước mắt này dường như có chút kỳ quái, trước đó hình như cô cũng nói một câu "Trạch Cương"?
+		'),
+		(45, 2, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		N'"Cái gì mà bao nhiêu tiền? Triệu Trạch Cương đâu!"<p>Doãn Tư Thần nhíu mày, người phụ nữ trước mắt này dường như có chút kỳ quái, trước đó hình như cô cũng nói một câu "Trạch Cương"?
 		Lẽ nào bọn họ thật sự bị tính kế!<p>Đêm qua hắn rõ ràng hẹn Dina, có người quẹt thẻ vào phòng, lúc ấy trong phòng không bật đèn, mà cô gái trước mắt có hương nước hoa giống của Dina, 
 		hắn đương nhiên cho rằng cô là Dina, nhưng cuối cùng lại là cô gái này.<p>Hắn định mở miệng hỏi thì điện thoại liền vang lên, là Dina gọi đến.<p>"Dina, chuyện gì vậy?"<p>Giọn của Dina 
 		trong điện thoại tràn đầy áy náy: "Tư Thần, em thật sự xin lỗi, hôm qua em nhận được lời mời từ Milan, bọn họ muốn mời em làm người mẫu chính. Tối hôm qua em đã bay đến Milan lúc 8 giờ, 
@@ -2079,9 +2109,74 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		thường, anh có hài lòng không?"<p>"Quà?" Ánh mắt Doãn Tư Thần trầm xuống, nhìn thoáng qua cô gái khoác áo choàng tắm tìm Triệu Trạch Cương trong phòng, ý tứ trong mắt có chút không rõ.
 		<p>"Đúng vậy, món quà này em đã chọn lựa rất kỹ. Cô ấy còn là xử nữ, trải nghiệm đêm qua có phải không tệ không?"<p>"Đương nhiên không tệ, có một cô người yêu chu đáo như vậy, sao có thể 
 		giận chứ? Nếu em đã thích làm người mẫu như vậy, vậy thì ở Milan biểu diễn thật tốt đi." Doan Tư Thần nói xong câu này lập tức tắt điện thoại.<p>Cố Tư Tư lúc này lục lọi khắp phòng cũng 
-		không thấy Triệu Trạch Cương, cô đã không thể bình tĩnh được nữa!<p>Cô thế nào lại cùng một người đàn ông xa lạ ngủ một đêm, sau này cô còn mặt mũi gì tìm Trạch Cương đây.<p>Nước mắt cô cứ vậy mà rơi xuống, cô ngồi xổm ở góc tường, nức nở khóc không thành tiếng, không để ý đến người đàn ông kia vẫn dùng ánh mắt phức tạp nhìn cô.<p>Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.<p>Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?**</div>
+		không thấy Triệu Trạch Cương, cô đã không thể bình tĩnh được nữa!<p>Cô thế nào lại cùng một người đàn ông xa lạ ngủ một đêm, sau này cô còn mặt mũi gì tìm Trạch Cương đây.
+		<p>Nước mắt cô cứ vậy mà rơi xuống, cô ngồi xổm ở góc tường, nức nở khóc không thành tiếng, không để ý đến người đàn ông kia vẫn dùng ánh mắt phức tạp nhìn cô.
+		<p>Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. 
+		Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.<p>Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?
+		'),
+		(46, 3, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		N'<p>"Cốc cốc cốc.." lúc ngày bên ngoài truyền đến tiếng gõ cửa, "Chào Doãn tiên sinh, tôi là nhân viên phục vụ khách sạn, tôi mang bữa sáng cho ngài."<p>Doãn Tư Thần nhíu mày, 
+		đặt chi phiếu lên giường rồi đi mở cửa.<p>Bữa sáng vô cùng phong phú, Doãn Tư Thần nhìn cô gái trong góc nói: "Đến ăn trước đi đã."<p>Kết quả, cô gái vẫn ngồi khóc.
+		Doãn Tư Thần cũng không nói nhiều, liền tự mình ăn, vừa ăn vừa nói: "Chuyện tối qua, tôi sẽ cho cô một lời giải thích, tôi cho cô năm trăm vạn, chuyện của chúng ta, cô không được tiết lộ 
+		với bất kỳ ai."<p>Cố Tư Tư lúc này ngẩng đầu lên! Cô sợ hãi nhìn người đàn ông xa lạ này, cái gì mà năm trăm vạn? Anh ta cho rằng cô bán thân sao?<p>Người đàn ông này không biết 
+		làm cách nào đuổi Trạch Cương đi, rồi chạy đến đây cùng với cô…..Bây giờ lại còn muốn dùng tiền để làm nhục cô…<p>Cố Tư Tư càng nghĩ càng đau lòng, cho dù cô thật sự ngủ với hắn, 
+		cô cũng kiên quyết không nhận số tiền này.<p>"Anh yên tâm, chuyện này tôi sẽ không nói ra."<p>Cô làm sao có thể nói ra được!<p>Cô lặng lẽ nhặt quần áo trên mặt đất lên, 
+		xoay người vào nhà tắm.<p>Nhìn mái tóc rối bù trong gương, hai mắt đỏ bừng, trông cô vô cùng chật vật. Thật không nghĩ mọi chuyện sẽ thành ra thế này.<p>Lúc Cố Tư Tư đi, 
+		Doãn Tư Thần còn đang nhàn nhã ăn bánh mì, dường như không thèm để ý đến việc cô rời đi, chỉ là tấm chi phiếu kia vẫn còn nằm trên giường, không biết là đang trêu ngươi ai.
+		<p>Vừa rời khỏi khách sạn Hilton, điện thoại của Cố Tư Tư vang lên, là tin nhắn của Triệu Trạch Cương.<p>"Tư Tư, hôm qua anh ở trong phòng đợi em cả đêm, em cũng không đến. 
+		Em là vì có chuyện nên đến muộn sao? Không sao, anh sẽ tiếp tục chờ. Anh chuẩn bị cất cánh, chờ anh về nước sẽ mang quà cho em. Yêu em, Trạch Cương.<p>Cố Tư Tư sửng sốt, hắn căn bản là
+		không ở trong phòng, sao lại nói là ở trong phòng chờ cả đêm? Rốt cuộc là sai ở điểm nào?<p>Lẽ nào Tiểu Nhã đưa nhầm thẻ phòng? Vẫn là…không, không có khả năng, Tiểu Nhã làm sao có thể 
+		làm loại chuyện này.<p>Cố Tư Tư cất điện thoại di động, nhìn xe cộ qua lại trên đường bỗng nhiên có chút bi thương, chờ Trạch về nước, bọn họ có lẽ cũng không thể quay lại nữa?<p>
+		Có lẽ, cứ kết thúc như vậy cũng tốt.<p>Cố Tư Tư vừa nghĩ đến việc phải rời xa Trạch Cương, trong lòng không khỏi đau đớn, run rẩy.<p>Tất cả mọi chuyện, đều vì tối hôm qua.<p>Tiểu Nhã, 
+		thật sự là cậu làm sao?<p>Đầu dây bên kia tuyền đến giọng nói điện tử quen thuộc "Người bạn gọi hiện đã tắt máy", lúc này Cố Tư Tư phát hiện bản thân mình đã gọi cho Lâm Tiểu Nhã.<p>
+		'),
+		(47, 4, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		N'Nhưng tiếc là không ai trả lời.<p>Cô bước trên đường, nhớ lại tất cả chuyện của mình và Triệu Trạch Cương.<p>Từ lúc bắt đầu yêu nhau, cho đến sự khẩn trương vui sướng của ngày hôm qua, 
+		tất cả đều là ký ức tốt đẹp, giống như một thước phim tua ngược, từng cảnh từng cảnh đều sống động như thật, dần trở nên xa vời không thể với đến.<p>Hôm qua bọn họ còn nói đùa về hôn lễ 
+		tương lai, hắn còn cam đoan với cô trong vòng hai năm, mỗi ngày sẽ đều gọi điện thoại, gửi wechat, để cô có thể được nghe giọng của hắn, nhìn thấy gương mặt của hắn.<p>Nhưng tất cả những 
+		điều này, đều trở thành nguyện vọng không thể thực hiện.<p>Cô thật sự còn có thể xem như chưa từng xảy ra chuyện gì, cùng hắn nói chuyện điện thoại, gửi tin nhắn wechat sao?<p>Không thể 
+		nữa rồi…<p>Bọn họ cũng không thể có hôn lễ, không thể có con…<p>Không có, cái gì cũng không có…<p>Mội loạt tiếng thắng xe cùng tiếng chuông điện thoại dồn dập cắt đứt dòng suy nghĩ của 
+		cô, cô chợt giật mình phát hiện mình đang đứng giữa đường, một chiếc xe đang dừng rất gần cô, gần đến mức suýt thì đụng vào.<p>Cố Tư Tư rất nhanh thanh tỉnh lại, lùi về phía sau, nhìn xe 
+		hơi lần nữa đi nhanh.<p>Chuông điện thoại vẫn vang lên, cô xem, là mẹ của Triệu Trạch Cường gọi đến.<p>Cô nhanh chóng lau nước mắt, bắt máy: "Dì…"<p>Không đợi Cố Tư Tư nói xong, đầu dây 
+		bên kia lạnh như băng cắt ngang lời nói của cô.<p>"Cô Cố, cô cũng thấy đấy, Trạch Cương của chúng tôi hiện đã được công ty cử sang nước ngoài để đào tạo chuyên sâu, chờ nó từ nước ngoài 
+		trở về, giá trị con người của nó đương nhiên sẽ khác. Trước kia hai đứa ở bên nhau, tôi vốn không đồng ý, chỉ vì Trạch Cương nhà chúng tôi thích cô, nên tôi mới không nói gì.Hiện tại nếu 
+		hai người đã không ở cùng một thành phố, hi vọng cô Cố có thể chủ động rời khỏi Trạch Cương của chúng tôi, đừng dây dưa với nó nữa."<p>Tay cầm điện thoại của Cố Tư Tư hơi run lên.<p>"Tôi 
+		cũng không giấu cô, lần này Trạch Cương ra nước ngoài, bên cạnh còn có một cô gái khác. Cô gái đó gia thế rất tốt, tương lai sẽ trợ giúp Trạch Cương nhà chúng tôi. Hơn nữa con bé cũng 
+		rất thích Trạch Cương, cơ hội ra nước ngoài lần này chính là cô ấy mang lại, nên chúng tôi đều mong cô ấy sẽ là con dâu tương lại của Triệu gia. Cô Cố đến từ nông thôn phải không? 
+		Thân phận như vậy sao có thể xứng với Trạch Cương nhà chúng tôi? Nếu chúng tôi ngăn cản, Trạch Cương sẽ không đồng ý chia tay, nhưng nếu là cô Cố chủ động nói chia tay..."<p>Mẹ Triệu 
+		Trạch Cương nói đến đây thì không nói nữa. Tất cả đều là người thông minh, cho dù không nói, cũng sẽ hiểu ý tứ của lời nói đó là gì.<p>Cô và Trạch Cương rõ ràng là thật lòng yêu nhau, 
+		tại sao mọi người đều muốn chia rẽ bọn họ?
+		'),
+		(48, 5, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		N'Cô đã bị hủy hoại, cô đã không còn tương lai nữa rồi, sớm muộn gì cô và Trạch Cương cũng sẽ phải chia tay, cuộc điện thoại này chỉ là để ngày đó đến sớm hơn mà thôi.<p>Cố Tư Tư cố nén
+		nước mắt nghẹn ngào, nói qua điện thoại: "Cháu hiểu rồi. Cháu sẽ làm theo ý dì."<p>Đối phương nghe được câu trả lời của Cố Tư Tư lúc này mới hài lòng cúp máy. Cúp điện thoại,
+		Cố Tư Tư đứng dưới ánh mặt trời chói chang, ngẩng cao đầu, không để cho nước mắt tràn mi.<p>Cô cảm thấy toàn thân mình rất lạnh, lạnh như chưa từng.<p>Mặt trời chói chang trên đầu,
+		lòng cô lại lạnh như băng.<p>Liên tiếp xảy ra những chuyện như vậy, Cố Tư Tư thật sự không còn cách nào có thể ép bản thân mình sống thoải mái.<p>Cô đến công ty xin nghỉ, kéo lê thân
+		thể mệt mọi, mang theo mộ trái tim đã vụn vỡ, ngồi xe đường dài về quê.<p>Cô vốn cho rằng, khi cô về đến nhà, ít ra còn có thể tìm được một tia an ủi.<p>Nhưng khi cô mở cửa phòng, 
+		cô đã biết, đây chỉ là hy vọng xa vời.<p>"Tiện nhân quả nhiên chỉ có thể sinh ra tiểu tiện nhân! Nhìn xem con gái ngoan của cô, tuổi còn nhỏ mà đã cùng đàn ông đi thuê phòng!"
+		<p>Mẹ cô quỳ trên mặt đất, bà nội ném một sấp ảnh lên mặt bà.<p>Mẹ cô đã lảo đảo sắp ngã, quả nhiên là bà đã quỳ rất lâu, trên mặt còn bị thương, trán còn bị tím bầm, rõ ràng là do 
+		dập đầu.<p>Bà nội lại khi dễ mẹ cô, chỉ là lần này không biết là vì điều gì.<p>"Mẹ----" Cố Tư Tư ném túi xách trong tay xuống đất, cô nhào đến cùng mẹ cô quỳ gối trước mặt bà nội:
+		"Bà nội, mẹ con lại làm sai chuyện gì, sao lại đánh bà ấy?"<p>Bà Cố khinh bỉ nhìn cô, bà cầm một tấm ảnh trên bàn, hung hăng ném vào mặt cô.<p>"Mày còn mặt mũi để hỏi đã làm sai điều 
+		gì sao? Mẹ của mày ngay cả một đứa con cũng không sinh được, đây chính là sai lầm lớn nhất! Nuôi thứ tạp chủng ở bên ngoài cũng chẳng phải là thứ tốt đẹp gì!" Bà Cố chán ghét đảo mắt
+		nhìn mẹ con cô một cái, đáy mắt không giấu được sự khinh bỉ: "Hôm nay có người trực tiếp mang những tấm ảnh này đến nhà! Nói mày cùng một tên đàn ông đi uống rượu mướn phòng? Đồ hạ 
+		tiện, bại hoại, thật là làm ô nhục Cố gia của ta!"<p>Nghe được những lời này, mặt Cố Tư Tư không còn một giọt máu, cô cầm tấm ảnh trên mặt đất lên nhìn, trên đó rõ ràng là hình ảnh
+		của cô và người đàn ông đó cùng nhau ân ái!<p>Cô đem ảnh chụp ném thật xa! Đây là thứ gì! Sao lại có những bức ảnh này?!<p>Hơn nữa...những bức ảnh này sao lại ở trong tay bà nội!<p>
+		"Bà nội..." Cô mở miệng muốn giải thích, lại phát hiện mình lời nào cũng không thốt ra được, bởi vì tất cả trên ảnh đều là sự thật!<p>Mẹ cô cố gắng giải thích: "Mẹ, mẹ...."<p>
+		'),
+		(49, 6, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		N'Lời của mẹ cô còn chưa nói xong, bà Cố nóng giận đập bàn quát to: "Ai cho cô lá gan, dám ngụy biện! Ảnh chụp người ta đã gửi đến tận cửa rồi, chẳng lẽ còn có thể hãm hại con gái của cô
+		sao? Lớn là gà không đẻ trứng, nhỏ thì không đứng đắn!"<p>Bà Cố cầm chén trà ném mạnh vào trán mẹ Cố Tư Tư.<p>Cố Tư Tư thấy bà nội lại muốn ném đồ, xoay người ôm lấy mẹ.<p>
+		"Choang---" tách trà trực tiếp rơi xuống sau lưng Cố Tư Tư, vỡ nát.<p>Cố Tư Tư chỉ cảm thấy phía sau vô cùng nóng và đau nhức, toàn bộ phía sau lưng đều trở nên nóng bỏng, 
+		phảng phất đau tựa như không phải là cơ thể của cô.<p>"Tư Tư..." Mẹ cô thấy Cố Tư Tư dùng cơ thể đỡ chén trà cho bà, hốc mắt liền đỏ bừng: "Con có đau không?"<p>Cố Tư Tư khẽ lắc đầu,
+		hốc mắt cô cũng đỏ lên.<p>Chút đau này có là gì?<p>Nhiều năm như vậy, nỗi đau mà mẹ cô phải chịu đựng còn nhiều hơn thế này.<p>Bà Cố hừ lạnh một tiếng, bà không muốn xem hai người họ 
+		tiếp tục diễn cảnh mẹ con tình thâm.<p>Lúc này, trong TV rốt cuộc cũng kết thúc quãng cáo, trực tiếp phát một đoạn tin tức ngắn, từng tấm ảnh chụp được tung lên.<p>"Sáng sớm hôm nay,
+		người thừa kế tập đoàn Doãn Thị - Doãn Tư Thần đã cùng một cô gái thuê phòng và bị chụp ảnh lại, nhìn ảnh chụp chúng ta có thể thấy phòng vô cùng lộn xộn, quần áo đầy trên mặt đất..."
+		<p>Bà Cố nhìn ảnh Cố Tư Tư trên TV, nhất thời tức giận không chịu nổi, cầm gậy trong tay lên, vung về phía hai mẹ con.<p>"Nghiệp chướng! Thuê phòng cũng có thể lên TV! Thật là mất mặt,
+		Cố gia chúng ta sao lại nuôi ra một tiểu tiện nhân như mày! Các người cút hết cho ta! Cút!"<p>Cố Tư Tư không ngờ chuyện này lại lên TV, nhưng hiện tại cô không có thời gian nghĩ đến 
+		tin tức, cô và mẹ gắt gao ôm nhau, cắn răng chịu đựng, không dám phản kháng, lại càng không dám bước ra khỏi căn nhà này.<p>Bởi vì chỉ cần một bước rời khỏi đây, thật sự sẽ không thể 
+		trở vệ.<p>Vừa lúc đó, ngoài cửa có một người bước nhanh vào, vừa vào cửa đã kêu lên: "Mẹ..."<p>Cố Tư Tư nghe được giọng nói, ánh mắt liền hiện lên một tia hy vọng: Ba về rồi!<p>Cô lập 
+		tức dùng ánh mắt tràn ngập mong chờ nhìn ba, hy vọng ông có thể mở miệng cầu xin thay mẹ.
 		')
-		
 
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
 GO
@@ -2117,7 +2212,7 @@ DECLARE @StoryId INT = 1; -- Start story_id from 1
 
 WHILE @UserId <= 20 -- End user_id at 20
 BEGIN
-    WHILE @StoryId <= 17 -- End story_id at 17
+    WHILE @StoryId <= 23 -- End story_id at 17
     BEGIN
         INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [comment_content], [comment_date])
         VALUES (@CommentId, @UserId, @StoryId, null, N'Truyện hay quá', CAST(N'2023-09-24' AS DateTime));
