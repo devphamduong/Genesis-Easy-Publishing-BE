@@ -726,45 +726,43 @@ namespace app.Controllers
             }
         }
 
-        [HttpPost("add_transaction_top_up")]
-        public async Task<ActionResult> AddTransactionTopUp(int userId,int number_recharge)
-        {
-            try
-            {
-                var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-                var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
-                var user_transaction = new Transaction
-                {
-                    WalletId = user_wallet.WalletId,
-                    Amount = number_recharge,
-                    FundBefore = user_wallet.Fund,
-                    FundAfter = user_wallet.Fund + number_recharge,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
-                    TransactionTime = DateTime.Now,
-                    Status = true,
-                    Description = $"Nạp {number_recharge}"
-                };
-                user_wallet.Fund = user_wallet.Fund + number_recharge;
-                _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Transactions.Add(user_transaction);
-                await _context.SaveChangesAsync();
-                return new JsonResult(new
-                {
-                    EC = 0,
-                    EM = $"Nạp tiền {number_recharge} : {user.UserFullname} thành công"
-                });
-            }
-            catch (Exception)
-            {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = "Recharge fail"
-                });
-            }
-        }
-
+        public async Task<ActionResult> AddTransactionTopUp(int userId, int top_up_amount)
+         {
+             try
+             {
+                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                 var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
+                 var user_transaction = new Transaction
+                 {
+                     WalletId = user_wallet.WalletId,
+                     Amount = top_up_amount,
+                     FundBefore = user_wallet.Fund,
+                     FundAfter = user_wallet.Fund + top_up_amount,
+                     RefundAfter = 0,
+                     RefundBefore = 0,
+                     TransactionTime = DateTime.Now,
+                     Status = true,
+                     Description = $"Nạp {top_up_amount}"
+                 };
+                 user_wallet.Fund = user_wallet.Fund + top_up_amount/10;
+                 _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 _context.Transactions.Add(user_transaction);
+                 await _context.SaveChangesAsync();
+                 return new JsonResult(new
+                 {
+                     EC = 0,
+                     EM = $"Nạp {top_up_amount }000 VND thành  {top_up_amount} TLT : {user.UserFullname} thành công"
+                 });
+             }
+             catch (Exception)
+             {
+                 return new JsonResult(new
+                 {
+                     EC = -1,
+                     EM = "Lỗi nạp tiền"
+                 });
+             }
+         }
         [HttpGet("transaction_history")]
         public async Task<ActionResult> GetUserTransactionHistory(int page, int pageSize)
         {
@@ -847,8 +845,8 @@ namespace app.Controllers
                 });
             }
         }
-        [HttpGet("get_transaction_recharge")]
-        public async Task<ActionResult> GetTransactionRecharge(int page, int pageSize)
+        [HttpGet("get_transaction_top_up")]
+        public async Task<ActionResult> GetTransactionTopUp(int page, int pageSize)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             try
