@@ -60,7 +60,7 @@ namespace app.Controllers
 
             var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyId && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
-
+            var msg = interaction == null || interaction.Follow == false ? "Bạn đã thích truyện" : "Bạn đã bỏ thích truyện";
             if (interaction != null)
             {
                 story_interaction.Like = interaction.Like == true ? story_interaction.Like - 1 : story_interaction.Like + 1;
@@ -92,7 +92,7 @@ namespace app.Controllers
 
             var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyId && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
-
+            var msg = interaction == null || interaction.Follow == false ? "Bạn đã theo dõi truyện" : "Bạn đã bỏ theo dõi truyện";
             if (interaction != null)
             {
                 story_interaction.Follow = interaction.Follow == true ? story_interaction.Follow - 1 : story_interaction.Follow + 1;
@@ -108,7 +108,7 @@ namespace app.Controllers
             _context.Entry(story_interaction).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return _msgService.MsgActionReturn(0, "Bạn đã theo dõi truyện");
+            return _msgService.MsgActionReturn(0, msg);
         }
 
         [HttpPut("chapter_like")]
@@ -121,6 +121,7 @@ namespace app.Controllers
             var interaction = await _context.ChapterLikeds.FirstOrDefaultAsync(c => c.ChapterId == chapter.ChapterId && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
 
+            var msg = interaction == null ? "Bạn đã thích chương" : "Bạn đã bỏ thích chương";
             if (interaction != null)
             {
                 story_interaction.Like -= 1;
@@ -136,7 +137,7 @@ namespace app.Controllers
             _context.Entry(story_interaction).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return _msgService.MsgActionReturn(0, "Bạn đã thích chương");
+            return _msgService.MsgActionReturn(0, msg);
         }
 
         [HttpGet("author_manage/story")]

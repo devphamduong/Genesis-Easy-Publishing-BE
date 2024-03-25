@@ -513,7 +513,7 @@ namespace app.Controllers
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
-        [HttpGet("author_detail")]
+        [HttpGet("author_detail/written")]
         public async Task<ActionResult> GetStoryByAuthorId(int authorId)
         {
 
@@ -828,7 +828,7 @@ namespace app.Controllers
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
-            var stories = await _context.Stories.Where(c => c.StoryFollowLikes.Any(u => u.UserId == userId) && c.Status > 0)
+            var stories = await _context.Stories.Where(c => c.StoryFollowLikes.Any(u => u.UserId == userId && u.Follow == true) && c.Status > 0)
                 .Include(c => c.StoryFollowLikes)
                 .Include(c => c.Author)
                 .Include(c => c.Categories)
