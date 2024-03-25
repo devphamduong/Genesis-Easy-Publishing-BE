@@ -502,7 +502,7 @@ namespace app.Controllers
                 var admin_wallet = await _context.Wallets.FirstOrDefaultAsync();
                 var admin_transaction = new Transaction
                 {
-                    WalletId = user_wallet.WalletId,
+                    WalletId = admin_wallet.WalletId,
                     Amount = amount,
                     FundBefore = admin_wallet.Fund,
                     FundAfter = admin_wallet.Fund + amount,
