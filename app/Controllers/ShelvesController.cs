@@ -32,10 +32,11 @@ namespace app.Controllers
         public async Task<ActionResult> GetTopFamousStories(int page)
         {
             var stories = await _context.Stories.Where(c => c.Status > 0)
-                .Include(c => c.Author).Include(c => c.StoryInteraction)
+                .Include(c => c.Author)
                 .Include(c => c.Categories)
                 .Include(c => c.Users) // luot mua truyen
                 .Include(c => c.Chapters).ThenInclude(c => c.Users) // luot mua chuong
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -517,13 +518,168 @@ namespace app.Controllers
         {
 
             var stories = await _context.Stories.Where(s => s.AuthorId == authorId && s.Status > 0)
+                .Include(c => c.Users)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters)
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
                     StoryTitle = s.StoryTitle,
                     StoryImage = s.StoryImage,
-                    CreateTime = s.CreateTime
+                    StoryDescription = s.StoryDescriptionHtml,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryCreateTime = s.CreateTime,
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
                 }).OrderByDescending(c => c.StoryId).ToListAsync();
+            return _msgService.MsgReturn(0, "Danh sách truyện của tác giả", stories);
+        }
+
+        [HttpGet("author_detail/top_famous")]
+        public async Task<ActionResult> GetStoryFamousByAuthorId(int authorId)
+        {
+
+            var stories = await _context.Stories.Where(s => s.AuthorId == authorId && s.Status > 0)
+                .Include(c => c.Users)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                .Include(c => c.StoryInteraction)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescriptionHtml,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryCreateTime = s.CreateTime,
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                    UserPurchaseStory = s.Users.Count,
+                    UserPurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
+                }).OrderByDescending(s => s.UserPurchaseStory) // top famous compare
+                .ThenByDescending(s => s.UserPurchaseChapter)
+                .ThenByDescending(s => s.StoryInteraction.Read).ThenByDescending(s => s.StoryInteraction.Follow)
+                .ThenByDescending(s => s.StoryInteraction.Like)
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Danh sách truyện của tác giả", stories);
+        }
+
+        [HttpGet("author_detail/top_purchase")]
+        public async Task<ActionResult> GetStoryPurchaseByAuthorId(int authorId)
+        {
+
+            var stories = await _context.Stories.Where(s => s.AuthorId == authorId && s.Status > 0)
+                .Include(c => c.Users)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                .Include(c => c.StoryInteraction)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescriptionHtml,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryCreateTime = s.CreateTime,
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                    UserPurchaseStory = s.Users.Count,
+                    UserPurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
+                }).OrderByDescending(s => s.UserPurchaseStory) // top famous compare
+                .ThenByDescending(s => s.UserPurchaseChapter)
+                .ToListAsync();
+            return _msgService.MsgReturn(0, "Danh sách truyện của tác giả", stories);
+        }
+
+        [HttpGet("author_detail/top_newest_by_chapter")]
+        public async Task<ActionResult> GetStoryNewestByAuthorId(int authorId)
+        {
+
+            var stories = await _context.Stories.Where(s => s.AuthorId == authorId && s.Status > 0)
+                .Include(c => c.Users)
+                .Include(c => c.Author)
+                .Include(c => c.Categories)
+                .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                .Include(c => c.StoryInteraction)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryDescription = s.StoryDescriptionHtml,
+                    StoryCategories = s.Categories.ToList(),
+                    StoryCreateTime = s.CreateTime,
+                    StoryChapterNumber = s.Chapters.Count,
+                    StoryLatestChapter = s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterId).FirstOrDefault() == null ? null :
+                    new
+                    {
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterId,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
+                        s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryPrice = s.StoryPrice,
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                    UserPurchaseStory = s.Users.Count,
+                    UserPurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
+                }).OrderByDescending(s => s.StoryLatestChapter.ChapterId) // top famous compare
+                .ThenByDescending(s => s.StoryId)
+                .ToListAsync();
             return _msgService.MsgReturn(0, "Danh sách truyện của tác giả", stories);
         }
 
@@ -570,12 +726,20 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Users)
                 .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                .Include(c => c.StoryInteraction)
                 .Select(c => new
                 {
                     StoryId = c.StoryId,
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
                     StoryCreateTime = c.CreateTime,
+                    StoryInteraction = new
+                    {
+                        c.StoryInteraction.Like,
+                        c.StoryInteraction.Follow,
+                        c.StoryInteraction.View,
+                        c.StoryInteraction.Read,
+                    },
                     UserPurchaseStory = c.Users.Count,
                     UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
                 })
@@ -619,6 +783,7 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -635,6 +800,13 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
                     .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),
@@ -662,6 +834,7 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -679,6 +852,13 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
                     .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),
@@ -705,6 +885,7 @@ namespace app.Controllers
                 .Include(c => c.Categories)
                 .Include(c => c.Chapters)
                 .Include(c => c.StoryReads).ThenInclude(c => c.Chapter)
+                .Include(c => c.StoryInteraction)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -722,6 +903,13 @@ namespace app.Controllers
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterNumber,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().ChapterTitle,
                         s.Chapters.Where(c => c.Status > 0).OrderByDescending(c => c.ChapterNumber).FirstOrDefault().CreateTime
+                    },
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
                     },
                     StoryReadChapter = s.StoryReads.Where(c => c.UserId == userId && s.StoryId == c.StoryId)
                     .Select(c => new { c.ChapterId, c.Chapter.ChapterNumber, c.Chapter.ChapterTitle, c.Chapter.CreateTime, c.ReadTime }).FirstOrDefault(),

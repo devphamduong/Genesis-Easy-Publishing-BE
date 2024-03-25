@@ -280,98 +280,122 @@ namespace app.Controllers
                 });
             }
         }
-        [HttpPost("add_transaction_buy_story")]
-        public async Task<ActionResult> AddTransactionBuyStory(int storyId)
-        {
-            var jwtSecurityToken = new JwtSecurityToken();
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-                var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-                var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
-                var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
-                var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-                var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
-                var user_story = await _context.Users.Where(u => u.UserId == userId)
-                    .Include(u => u.StoriesNavigation)
-                    .Select(u => new
-                    {
-                        StoriesNavigation = u.StoriesNavigation
-                    })
-                    .FirstOrDefaultAsync();
-                if (user_wallet.Fund < story.StoryPrice)
-                {
-                    return new JsonResult(new
-                    {
-                        EC = -2,
-                        EM = NotEnoughMoney
-                    });
-                }
-                if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
-                {
-                    return new JsonResult(new
-                    {
-                        EC = -3,
-                        EM = ErrorAuthorMessage
-                    });
-                }
-                decimal amount = (decimal)(story.StoryPrice - (story.StoryPrice * story.StorySale / 100));
-
-                var user_transaction = new Transaction
-                {
-                    WalletId = user_wallet.WalletId,
-                    Amount = amount,
-                    StoryId = story.StoryId,
-                    FundBefore = user_wallet.Fund,
-                    FundAfter = user_wallet.Fund - amount,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
-                    TransactionTime = DateTime.Now,
-                    Status = true,
-                    Description = BuyStory(story.StoryTitle)
-                };
+         [HttpPost("add_transaction_buy_story")]
+         public async Task<ActionResult> AddTransactionBuyStory(int storyId)
+         {
+             var jwtSecurityToken = new JwtSecurityToken();
+             try
+             {
+                 jwtSecurityToken = VerifyToken();
+                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                 var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
+                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
+                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+                 var author_wallet = await _context.Wallets.Where(w => w.UserId == author.UserId).FirstOrDefaultAsync();
+                 var user_story = await _context.Users.Where(u => u.UserId == userId)
+                     .Include(u => u.StoriesNavigation)
+                     .Select(u => new
+                     {
+                         StoriesNavigation = u.StoriesNavigation
+                     })
+                     .FirstOrDefaultAsync();
+                 var chapter_story = await _context.Chapters.Where(ch => ch.StoryId == storyId).ToListAsync(); 
+                 if (user_wallet.Fund < story.StoryPrice)
+                 {
+                     return new JsonResult(new
+                     {
+                         EC = -2,
+                         EM = NotEnoughMoney
+                     });
+                 }
+                 if (userId == author.UserId || user_story.StoriesNavigation.Contains(story))
+                 {
+                     return new JsonResult(new
+                     {
+                         EC = -3,
+                         EM = ErrorAuthorMessage
+                     });
+                 }
+                 var user_chapter = await _context.Users.Where(u => u.UserId == userId)
+                   .Include(u => u.Chapters)
+                   .Select(u => new
+                   {
+                       Chapter = u.Chapters.Where(ch => ch.StoryId == storyId)
+                   })
+                   .FirstOrDefaultAsync();
+        
+                 var chapter_remain = chapter_story.Except(user_chapter.Chapter);
+                 if(chapter_remain.Count() ==0) {
+                     return new JsonResult(new
+                     {
+                         EC = -1,
+                         EM = "Bạn đã sở hữu hết các chương của truyện này"
+                     });
+        
+                 }
+                 decimal amount = (decimal)(story.StoryPrice - (story.StoryPrice * story.StorySale / 100));
+        
+                 var user_transaction = new Transaction
+                 {
+                     WalletId = user_wallet.WalletId,
+                     Amount = amount,
+                     StoryId = story.StoryId,
+                     FundBefore = user_wallet.Fund,
+                     FundAfter = user_wallet.Fund - amount,
+                     RefundAfter = 0,
+                     RefundBefore = 0,
+                     TransactionTime = DateTime.Now,
+                     Status = true,
+                     Description = BuyStory(story.StoryTitle)
+                 };
+                 
+                 var author_transaction = new Transaction
+                 {
+                     WalletId = author_wallet.WalletId,
+                     Amount = amount,
+                     StoryId = story.StoryId,
+                     FundBefore = 0,
+                     FundAfter = 0,
+                     RefundAfter = author_wallet.Refund,
+                     RefundBefore = author_wallet.Refund + amount,
+                     TransactionTime = DateTime.Now,
+                     Status = true,
+                     Description = RecieveMoney(story.StoryTitle)
+                 };
+                 foreach(var chapter in chapter_remain)
+                 {
+                     user.Chapters.Add(chapter);
+                     chapter.Users.Add(user);
+                     _context.Entry<Chapter>(chapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 }
+                 user_wallet.Fund = user_wallet.Fund - amount;
+                 author_wallet.Refund = author_wallet.Refund + amount;
+                 user.StoriesNavigation.Add(story);
+                 story.Users.Add(user);
                 
-                var author_transaction = new Transaction
-                {
-                    WalletId = author_wallet.WalletId,
-                    Amount = amount,
-                    StoryId = story.StoryId,
-                    FundBefore = 0,
-                    FundAfter = 0,
-                    RefundAfter = author_wallet.Refund,
-                    RefundBefore = author_wallet.Refund + amount,
-                    TransactionTime = DateTime.Now,
-                    Status = true,
-                    Description = RecieveMoney(story.StoryTitle)
-                };
-                user_wallet.Fund = user_wallet.Fund - amount;
-                author_wallet.Refund = author_wallet.Refund + amount;
-                user.StoriesNavigation.Add(story);
-                story.Users.Add(user);
-
-                _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Entry<Wallet>(author_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Entry<User>(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Transactions.Add(author_transaction);
-                _context.Transactions.Add(user_transaction);
-                _context.SaveChangesAsync();
-                return new JsonResult(new
-                {
-                    EC = 0,
-                    EM = BuyStory(story.StoryTitle) + " thành công"
-                });
-            }
-            catch (Exception)
-            {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = ErrorAuthenMessage
-                });
-            }
-        }
+                 _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 _context.Entry<Wallet>(author_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 _context.Entry<User>(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 _context.Entry<Story>(story).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 _context.Transactions.Add(author_transaction);
+                 _context.Transactions.Add(user_transaction);
+                 _context.SaveChangesAsync();
+                 return new JsonResult(new
+                 {
+                     EC = 0,
+                     EM = BuyStory(story.StoryTitle) + " thành công"
+                 });
+             }
+             catch (Exception)
+             {
+                 return new JsonResult(new
+                 {
+                     EC = -1,
+                     EM = ErrorAuthenMessage
+                 });
+             }
+         }
 
 
 
@@ -618,7 +642,7 @@ namespace app.Controllers
 
                 var author = await _context.Users.Where(a => a.UserId == story.AuthorId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-                return new JsonResult(new
+                return _msgService.MsgReturn(0, "get information to buy chapters in story",  new
                 {
                     chapter_story_max = chapternumbermax.ChapterNumber,
                     user_chapter = user_chapter.Chapter.Count(),
@@ -708,13 +732,13 @@ namespace app.Controllers
                     Description =BuyManyChapter(chapter_buy.Count(),story.StoryTitle)
                 };
                
-            return new JsonResult(new
+                return _msgService.MsgReturn(0, "get transaction buy chapters", new
                 {
                     number_chapter_buy = chapter_buy.Count(),
-                    chapter_buy = chapter_buy.Select(c => new {ChapterNumber = c.ChapterNumber}),
+                    chapter_buy = chapter_buy.Select(c => new { ChapterNumber = c.ChapterNumber }),
                     amount = Amount,
                     transaction = user_transaction
-                }) ;
+                });
             }
             catch (Exception)
             {
@@ -725,46 +749,44 @@ namespace app.Controllers
                 });
             }
         }
-
-        [HttpPost("add_transaction_top_up")]
-        public async Task<ActionResult> AddTransactionTopUp(int userId,int number_recharge)
-        {
-            try
-            {
-                var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-                var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
-                var user_transaction = new Transaction
-                {
-                    WalletId = user_wallet.WalletId,
-                    Amount = number_recharge,
-                    FundBefore = user_wallet.Fund,
-                    FundAfter = user_wallet.Fund + number_recharge,
-                    RefundAfter = 0,
-                    RefundBefore = 0,
-                    TransactionTime = DateTime.Now,
-                    Status = true,
-                    Description = $"Nạp {number_recharge}"
-                };
-                user_wallet.Fund = user_wallet.Fund + number_recharge;
-                _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                _context.Transactions.Add(user_transaction);
-                await _context.SaveChangesAsync();
-                return new JsonResult(new
-                {
-                    EC = 0,
-                    EM = $"Nạp tiền {number_recharge} : {user.UserFullname} thành công"
-                });
-            }
-            catch (Exception)
-            {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = "Recharge fail"
-                });
-            }
-        }
-
+         [HttpPost("add_transaction_top_up")]
+        public async Task<ActionResult> AddTransactionTopUp(int userId, int top_up_amount)
+         {
+             try
+             {
+                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+                 var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
+                 var user_transaction = new Transaction
+                 {
+                     WalletId = user_wallet.WalletId,
+                     Amount = top_up_amount,
+                     FundBefore = user_wallet.Fund,
+                     FundAfter = user_wallet.Fund + top_up_amount,
+                     RefundAfter = 0,
+                     RefundBefore = 0,
+                     TransactionTime = DateTime.Now,
+                     Status = true,
+                     Description = $"Nạp {top_up_amount}"
+                 };
+                 user_wallet.Fund = user_wallet.Fund + top_up_amount;
+                 _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                 _context.Transactions.Add(user_transaction);
+                 await _context.SaveChangesAsync();
+                 return new JsonResult(new
+                 {
+                     EC = 0,
+                     EM = $"Nạp {top_up_amount }000 VND thành  {top_up_amount} TLT : {user.UserFullname} thành công"
+                 });
+             }
+             catch (Exception)
+             {
+                 return new JsonResult(new
+                 {
+                     EC = -1,
+                     EM = "Lỗi nạp tiền"
+                 });
+             }
+         }
         [HttpGet("transaction_history")]
         public async Task<ActionResult> GetUserTransactionHistory(int page, int pageSize)
         {
@@ -847,8 +869,8 @@ namespace app.Controllers
                 });
             }
         }
-        [HttpGet("get_transaction_recharge")]
-        public async Task<ActionResult> GetTransactionRecharge(int page, int pageSize)
+        [HttpGet("get_transaction_top_up")]
+        public async Task<ActionResult> GetTransactionTopUp(int page, int pageSize)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             try

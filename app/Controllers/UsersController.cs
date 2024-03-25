@@ -29,8 +29,6 @@ namespace app.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
             try
             {
-
-
                 user.Status = !user.Status;
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
@@ -87,7 +85,7 @@ namespace app.Controllers
                    Status = u.Status,
                    Address = u.Address,
                    Wallets = u.Wallets.ToList(),
-                  
+
                })
                .OrderBy(s => s.UserId) // top famous compare
                .ToListAsync();

@@ -314,7 +314,7 @@ CREATE TABLE [dbo].[Chapter](
 	[chapter_price] [decimal](10, 2) NULL,
 	[create_time] [datetime] NOT NULL,
 	[update_time] [datetime] NULL,
-	[status] [int] NOT NULL,
+	[status] [int] NULL,
   CONSTRAINT [PK_chapter] PRIMARY KEY CLUSTERED 
 (
 	[chapter_id] ASC
@@ -991,6 +991,32 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 		,N'<p>Cô vẫn luôn hi vọng đêm tân hôn có thể đem thứ quý giá của bản thân tặng cho hắn, tuy rằng ngượng ngùng nhưng cô vẫn hi vọng như vậy,
 			mà hắn lại muốn xuất ngoại đào tạo chuyên sâu... Nhưng khi cô cầm chìa khóa bạn thân đưa cho mình, một đêm qua đi, lại phát hiện người đàn ông bên cạnh cô là một người lạ!!</p>
 			<h3>Chúc bạn có những giây phút vui vẻ khi đọc truyện CEO nhất định muốn cưới tôi!</h3>'
+		,CAST(N'2024-01-01T05:52:10.323' AS DateTime), null, 1),
+		(24, N'Bất Diệt Kiếm Quân', 3, CAST(110.0 AS Decimal(10, 2)), 0, N'https://yymedia.codeprime.net/media/novels/359afd3548.jpg',
+		N'"Cái gì Thiên Kiêu, cái gì Thiên Tài, không bại được ta; ta tất bất bại..." "Nếu ta là Ma, đem san bằng Thiên Huyền, thương sinh thì lại làm sao, thiên địa phụ ta, ta liền tàn sát
+		hết mảnh thiên địa này " -Công pháp chia làm Phàm giai, Huyền Giai, Linh Giai, Thần Giai, Thánh Giai; mỗi cấp bậc chia làm Thượng, Trung, Hạ. -Binh khí chia làm Phàm giai, Huyền Giai,
+		Linh Giai, Bán Thần cấp, Thần Giai, Bán Thánh cấp, Thánh Giai, ~~~~~TRUYỆN HAY KHÔNG LO CHI HỐ~~~~~ + Không có tác phẩm nào gọi là tuyệt phẩm, không có cảnh giới nào gọi là đỉnh cao, 
+		cũng không có cái gì trọn vẹn cả, đọc là giải trí; cảm thấy không tốt đóng tab đừng nói lời cay đắng... thank ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		-Để ủng hộ corvert : + VOTE 10* ở dưới tên truyện + Đọc Tích Cực Và Vote (9~10) ở cuối mỗi chương nếu có nhé..! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		P/s 1: truyện xuyên suốt pk -> xem sướng P/s2 : truyện đã set vip những bạn ủng hộ thì mình cảm ơn, nếu những bạn không có đậu thì chịu khó 7 ngày sau unvip chương
+		
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Bất Diệt Kiếm Quân!'
+		,N'"Cái gì Thiên Kiêu, cái gì Thiên Tài, không bại được ta; ta tất bất bại..." "Nếu ta là Ma, đem san bằng Thiên Huyền, thương sinh thì lại làm sao, thiên địa phụ ta, ta liền tàn sát
+		hết mảnh thiên địa này " -Công pháp chia làm Phàm giai, Huyền Giai, Linh Giai, Thần Giai, Thánh Giai; mỗi cấp bậc chia làm Thượng, Trung, Hạ. -Binh khí chia làm Phàm giai, Huyền Giai,
+		Linh Giai, Bán Thần cấp, Thần Giai, Bán Thánh cấp, Thánh Giai, ~~~~~TRUYỆN HAY KHÔNG LO CHI HỐ~~~~~ + Không có tác phẩm nào gọi là tuyệt phẩm, không có cảnh giới nào gọi là đỉnh cao, 
+		cũng không có cái gì trọn vẹn cả, đọc là giải trí; cảm thấy không tốt đóng tab đừng nói lời cay đắng... thank ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		-Để ủng hộ corvert : + VOTE 10* ở dưới tên truyện + Đọc Tích Cực Và Vote (9~10) ở cuối mỗi chương nếu có nhé..! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+		P/s 1: truyện xuyên suốt pk -> xem sướng P/s2 : truyện đã set vip những bạn ủng hộ thì mình cảm ơn, nếu những bạn không có đậu thì chịu khó 7 ngày sau unvip chương
+		
+		Chúc bạn có những giây phút vui vẻ khi đọc truyện Bất Diệt Kiếm Quân!'
+		,N'<p>"Cái gì Thiên Kiêu, cái gì Thiên Tài, không bại được ta; ta tất bất bại..." "Nếu ta là Ma, đem san bằng Thiên Huyền, thương sinh thì lại làm sao, thiên địa phụ ta, ta liền tàn sát
+			hết mảnh thiên địa này " -Công pháp chia làm Phàm giai, Huyền Giai, Linh Giai, Thần Giai, Thánh Giai; mỗi cấp bậc chia làm Thượng, Trung, Hạ. -Binh khí chia làm Phàm giai, Huyền Giai,
+			Linh Giai, Bán Thần cấp, Thần Giai, Bán Thánh cấp, Thánh Giai, ~~~~~TRUYỆN HAY KHÔNG LO CHI HỐ~~~~~ + Không có tác phẩm nào gọi là tuyệt phẩm, không có cảnh giới nào gọi là đỉnh cao, 
+			cũng không có cái gì trọn vẹn cả, đọc là giải trí; cảm thấy không tốt đóng tab đừng nói lời cay đắng... thank ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ </p>
+			<h3>-Để ủng hộ corvert : + VOTE 10* ở dưới tên truyện + Đọc Tích Cực Và Vote (9~10) ở cuối mỗi chương nếu có nhé..! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ </h3>
+			<h3>P/s 1: truyện xuyên suốt pk -> xem sướng P/s2 : truyện đã set vip những bạn ủng hộ thì mình cảm ơn, nếu những bạn không có đậu thì chịu khó 7 ngày sau unvip chương</h3>
+			
+			<h3>Chúc bạn có những giây phút vui vẻ khi đọc truyện Bất Diệt Kiếm Quân!</h3>'
 		,CAST(N'2024-01-01T05:52:10.323' AS DateTime), null, 1)
 		
 SET IDENTITY_INSERT [dbo].[Story] OFF
@@ -1020,7 +1046,8 @@ INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 		(20 ,13 ,14 ,14 ,28),
 		(21 ,13 ,14 ,14 ,28),
 		(22 ,13 ,14 ,14 ,28),
-		(23 ,78 ,33 ,64 ,78)
+		(23 ,78 ,33 ,64 ,78),
+		(24 ,128 ,73 ,24 ,128)
 
 
 
@@ -1072,7 +1099,8 @@ INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
 	(1,20),(2,20),(3,20),(4,20),(5,20),(6,20),(7,20),(8,20),(9,20),(10,20),(11,20),(12,20),(13,20),(14,20),(15,20),
 	(1,21),(2,21),(3,21),(4,21),(5,21),(6,21),(7,21),(8,21),(9,21),(10,21),(11,21),(12,21),(13,21),(14,21),(15,21),
 	(1,22),(2,22),(3,22),(4,22),(5,22),(6,22),(7,22),(8,22),(9,22),(10,22),(11,22),(12,22),(13,22),(14,22),(15,22),
-	(5,23),(10,23),(15,23)
+	(5,23),(10,23),(15,23),
+	(5,24),(7,24),(8,24),(9,24),(12,24),(15,24)
 
 SET IDENTITY_INSERT [dbo].[Volume] ON 
 GO
@@ -1106,8 +1134,13 @@ INSERT [dbo].[Volume] ([volume_id] , [volume_number], [story_id], [volume_title]
 		(25, 10, 1, N'Turns a domestic 7', CAST(N'2022-01-01T05:52:10.323' AS DateTime)),
 		(26, 1, 23, N'Ngủ Với Người Lạ', CAST(N'2024-01-01T05:52:10.323' AS DateTime)),
 		(27, 2, 23, N'Đây Không Phải Là Giao Dịch', CAST(N'2024-01-01T05:52:10.323' AS DateTime)),
-		(28, 3, 23, N'Bị Ép Chia Tay', CAST(N'2024-01-01T05:52:10.323' AS DateTime))
-		
+		(28, 3, 23, N'Bị Ép Chia Tay', CAST(N'2024-01-01T05:52:10.323' AS DateTime)),
+		(29, 1, 24, N'Trời sinh Song Mạch', CAST(N'2024-01-02T05:52:10.323' AS DateTime)),
+		(30, 2, 24, N'Phần thưởng ngươi', CAST(N'2024-01-03T05:52:10.324' AS DateTime)),
+		(31, 3, 24, N'4 ngồi đều kinh hãi', CAST(N'2024-01-04T05:52:10.324' AS DateTime)),
+		(32, 4, 24, N'Bạch Ngọc Thiên Thê', CAST(N'2024-01-05T05:52:10.324' AS DateTime)),
+		(33, 5, 24, N'Rung động', CAST(N'2024-01-06T05:52:10.323' AS DateTime))
+
 SET IDENTITY_INSERT [dbo].[Volume] OFF
 GO
 
@@ -2053,35 +2086,6 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 				END
 		END;
 
-	INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
-	VALUES
-		(44, 1, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
-		N'<p>Cố Tư Tư cảm nhận được sự ấm ấp trong lòng đối phương, không nhịn được mà rúc vào lòng người nọ. Tuy rằng cả đêm qua đều không được nghỉ ngơi, khiến toàn thân cô đau nhức, nhưng cô một chút cũng không hối hận.
-		<p>Cô chuẩn bị lâu như vậy, chính là muốn đem mình trở thành món quà quý giá nhất tặng cho hắn!<p>Cô và Triệu Trạch yêu nhau hai năm, mỗi lần Triệu Trạch muốn cùng cô thân mật đều sẽ bị cô cự tuyệt, 
-		cô không muốn bản thân mình tùy tiện như vậy.<p>Nhưng lần này thì khác, ngày mai Triệu Trạch sẽ xuất ngoại và đây cũng là sinh nhật hai mươi ba tuổi của cô!
-		<p>Trong ngày quan trọng như vậy, bạn thân kịch liệt đề nghị cô đặt phòng sang trọng của khách sạn Hilton, đem lần đầu tiên của cô tặng cho bạn trai.<p>Cố Tư Tư vui vẻ ôm eo đối phương,
-		thật không ngờ dáng người của Triệu Trạch Cương lại tốt như vậy.<p>Không gầy không béo.<p>Quả thực là vừa đẹp a~!<p>"Ừm, Dina, em tỉnh rồi sao?" Người đàn ông trên đỉnh đầu nói: 
-		"Đêm qua vất vả cho em rồi."<p>"Anh vạn lần đừng nói như vậy, Trạch Cương, là em cam tâm tình nguyện." Cố Tư Tư dùng sức ôm eo đối phương ngọt ngào trả lời.<p>Dina…?<p>Trạch Cương….?
-		<p>Cố Tư Tư và người đàn ông kia đồng thời ngẩn ra, dừng lại ba giây thì đột ngột tách nhau ra, Cố Tư Tư hoảng loạn xoay người mở đèn.<p>Đèn vừa bật lên, Cố Tư Tư nhìn thấy một gương mặt
-		hoàn toàn xa lạ, nhất thời sợ hãi hét lên: "Anh là ai!"<p>Cô kéo chăn che kín toàn thân, "Sao anh lại ở đây?"<p>"Đây là phòng của tôi! Cô là ai? Tại sao cô lại ở đây?" Trên mặt 
-		người đàn ông cũng tràn ngập sự bất ngờ.<p>Cố Tư Tư toàn thân lạnh toát, một cảm giác bất an khó tả dâng lên trong lòng, "Đây là phòng 1216, bạn thân tôi đã đưa thẻ cho tôi,
-		người đàn ông phải đây lẽ ra phải là bạn trai của tôi…"<p>"À!" Doãn Tư Thần cảm thấy đây là lí do ngu ngốc nhất mà hắn từng nghe, đối với giá trị con người của hắn, bao nhiêu phụ nữ
-		đều muốn leo lên người hắn, hôm nay lại gặp phải một người kêu oan! "Cô ngay cả số phòng của tôi cũng điều tra rõ như vậy, lẽ nào không phải vì để trèo lên giường của tôi? Cô còn viện lí
-		do gì, nói đi, cô muốn bao nhiêu tiền?"<p>Tên đàn ông hung hăng giễu cợt đâm vào lòng Cố Tư Tư khiến cô bình tĩnh lại, đêm qua rốt cuộc đã xảy ra chuyện gì?<p>Cô nhớ rõ, cô và bạn thân
-		Lâm Tiểu Nhã cùng nhau uống rượu, vì buổi tối Tiểu Nhã sẽ bay đến Milan tham gia trình diễn thời trang, vì để chúc mừng cô ấy lần nữa được bước lên sân khấu quốc tế, 
-		đồng thời chúc mừng sinh nhật của cô.<p>Cô đã uống hơi nhiều, Tiểu Nhã lại không ngừng xúi giục cô nhanh chóng bắt Triệu Trạch Cương lại, dù sao Triệu Trạch Cương sẽ xuất ngoại hai năm,
-		Tư Tư như bị ma xui quỷ khiến liền đồng ý, sau đó cầm thẻ phòng Tiểu Nhã đưa, quẹt thẻ đi vào.<p>Nhưng tại sao người đàn ông trong phòng lại không phải là Triệu Trạch Cương!
-		<p>"Cái gì mà bao nhiêu tiền? Triệu Trạch Cương đâu!"<p>Doãn Tư Thần nhíu mày, người phụ nữ trước mắt này dường như có chút kỳ quái, trước đó hình như cô cũng nói một câu "Trạch Cương"?
-		Lẽ nào bọn họ thật sự bị tính kế!<p>Đêm qua hắn rõ ràng hẹn Dina, có người quẹt thẻ vào phòng, lúc ấy trong phòng không bật đèn, mà cô gái trước mắt có hương nước hoa giống của Dina, 
-		hắn đương nhiên cho rằng cô là Dina, nhưng cuối cùng lại là cô gái này.<p>Hắn định mở miệng hỏi thì điện thoại liền vang lên, là Dina gọi đến.<p>"Dina, chuyện gì vậy?"<p>Giọn của Dina 
-		trong điện thoại tràn đầy áy náy: "Tư Thần, em thật sự xin lỗi, hôm qua em nhận được lời mời từ Milan, bọn họ muốn mời em làm người mẫu chính. Tối hôm qua em đã bay đến Milan lúc 8 giờ, 
-		anh biết làm người mẫu chính luôn là ước mơ từ lâu của em, em không muốn bỏ lỡ cơ hội này, anh có thể tha thứ cho em không? À, đúng rồi, tối qua em tặng anh một món quà, xem như là bồi 
-		thường, anh có hài lòng không?"<p>"Quà?" Ánh mắt Doãn Tư Thần trầm xuống, nhìn thoáng qua cô gái khoác áo choàng tắm tìm Triệu Trạch Cương trong phòng, ý tứ trong mắt có chút không rõ.
-		<p>"Đúng vậy, món quà này em đã chọn lựa rất kỹ. Cô ấy còn là xử nữ, trải nghiệm đêm qua có phải không tệ không?"<p>"Đương nhiên không tệ, có một cô người yêu chu đáo như vậy, sao có thể 
-		giận chứ? Nếu em đã thích làm người mẫu như vậy, vậy thì ở Milan biểu diễn thật tốt đi." Doan Tư Thần nói xong câu này lập tức tắt điện thoại.<p>Cố Tư Tư lúc này lục lọi khắp phòng cũng 
-		không thấy Triệu Trạch Cương, cô đã không thể bình tĩnh được nữa!<p>Cô thế nào lại cùng một người đàn ông xa lạ ngủ một đêm, sau này cô còn mặt mũi gì tìm Trạch Cương đây.<p>Nước mắt cô cứ vậy mà rơi xuống, cô ngồi xổm ở góc tường, nức nở khóc không thành tiếng, không để ý đến người đàn ông kia vẫn dùng ánh mắt phức tạp nhìn cô.<p>Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.<p>Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?**</div>
-		')
-		
 
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
 GO
@@ -2117,7 +2121,7 @@ DECLARE @StoryId INT = 1; -- Start story_id from 1
 
 WHILE @UserId <= 20 -- End user_id at 20
 BEGIN
-    WHILE @StoryId <= 17 -- End story_id at 17
+    WHILE @StoryId <= 23 -- End story_id at 17
     BEGIN
         INSERT INTO [dbo].[Comment] ([comment_id], [user_id], [story_id], [chapter_id], [comment_content], [comment_date])
         VALUES (@CommentId, @UserId, @StoryId, null, N'Truyện hay quá', CAST(N'2023-09-24' AS DateTime));
