@@ -58,7 +58,7 @@ namespace app.Controllers
                    PassWord = u.Password,
                    DoB = u.Dob.ToString(),
                    UserImage = u.UserImage,
-                   Status = u.Status,
+                   Status = (u.Status == true ? "Active": "Inactive"),
                    Address = u.Address,
                    Wallets = u.Wallets.ToList(),
                })

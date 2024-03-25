@@ -122,7 +122,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -1,
-                        EM = "Can't add more volume"
+                        EM = "Không thể tạo thêm tập mới"
                     });
                 }
             }
@@ -143,13 +143,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Can't add volume"
+                    EM = "Thêm tập thất bại"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Add volume successfully"
+                EM = "Thêm tập mới thành công"
             });
         }
 
@@ -175,7 +175,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -1,
-                        EM = "Update Fail"
+                        EM = "Tập không tồn tại"
                     });
                 }
                 _context.Entry<Volume>(currentVolume).State = EntityState.Modified;
@@ -186,13 +186,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Edit Fail"
+                    EM = "Cập nhật thất bại"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Update volume successfully"
+                EM = "Cập nhật thành công"
             });
         }
 
@@ -207,7 +207,7 @@ namespace app.Controllers
                     VolumeTitle = v.VolumeTitle
                 })
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "List volume", volumes);
+            return _msgService.MsgReturn(0, "Danh sách tập", volumes);
         }
 
         [HttpGet("story_volume")]
@@ -232,7 +232,7 @@ namespace app.Controllers
                     }).OrderBy(c => c.ChapterNumber).ToList()
                 }).OrderBy(v => v.volumeNumber)
                 .ToListAsync();
-            return _msgService.MsgReturn(0, "List volume", volumes);
+            return _msgService.MsgReturn(0, "Danh sách tập cụ thể", volumes);
         }
 
         public class addChapterForm
@@ -278,13 +278,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Can't add chapter"
+                    EM = "Thêm chương mới thất bại!"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Add chapter successfully"
+                EM = "Thêm chương mới thành công"
             });
         }
 
@@ -344,7 +344,7 @@ namespace app.Controllers
             
 
             
-            return _msgService.MsgReturn(0, "Chapter Infor", chapter);
+            return _msgService.MsgReturn(0, "Thông tin chương", chapter);
         }
         public class UpdateChapterForm
         {
@@ -379,7 +379,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -1,
-                        EM = "Update Fail"
+                        EM = "Cập nhật thất bại"
                     });
                 }
                 _context.Entry<Chapter>(currentChapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -390,13 +390,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Update Fail"
+                    EM = "Cập nhật thất bại"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Update chapter successfully"
+                EM = "Cập nhật thành công"
             });
         }
 
@@ -412,7 +412,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -1,
-                        EM = "Delete Fail"
+                        EM = "Chương không tồn tại"
                     });
                 }
                 currentChapter.Status = 0;
@@ -431,13 +431,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Delete Fail"
+                    EM = "Xóa chương thất bại!"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Delete chapter successfully"
+                EM = "Xóa chương thành công!"
             });
         }
         private bool checkPurchase(int? userid, long chapterNum, int storyid)
@@ -499,7 +499,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Chapter is not available"
+                    EM = "Chương không tồn tại"
                 });
             if (chapter.Owned == true)
             {
@@ -524,7 +524,7 @@ namespace app.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return _msgService.MsgReturn(0, "Chapter content", chapter);
+            return _msgService.MsgReturn(0, "Nội dung chương", chapter);
 
         }
 

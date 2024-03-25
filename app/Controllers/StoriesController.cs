@@ -236,7 +236,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "You can't get this page"
+                    EM = "Bạn không thể truy cập trang này"
                 });
             }
             return _msgService.MsgReturn(0, "Story Detail", story);
@@ -274,13 +274,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Can't save story"
+                    EM = "Lưu truyện thất bại"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Save story successfully"
+                EM = "Lưu truyện thành công!"
             });
         }
 
@@ -320,7 +320,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "You can't edit this page"
+                    EM = "Bạn không có quyền truy cập trang này"
                 });
             }
             try
@@ -368,13 +368,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Edit Fail"
+                    EM = "Cập nhật thất bại!"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Update story successfully"
+                EM = "Cập nhật truyện thành công!"
             });
         }
 
@@ -396,7 +396,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "You can't implement this function"
+                    EM = "Bạn không có quyền dùng chức năng này"
                 });
             }
             try
@@ -410,13 +410,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Edit Fail"
+                    EM = "Xóa truyện thất bại!"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Update story successfully"
+                EM = "Xóa truyện thành công"
             });
         }
 
