@@ -1,9 +1,11 @@
-﻿
+﻿@{
+    var user = Context.User;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Tables - Atlantis Lite Bootstrap 4 Admin Dashboard</title>
+    <title>Admin Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="~/Assets/img/icon.ico" type="image/x-icon" />
 
@@ -258,10 +260,10 @@
                                 <div class="dropdown-user-scroll scrollbar-outer">
                                 <li>
                                     <div class="user-box">
-                                        <div class="avatar-lg"><img src="~/Assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+                                        <div class="avatar-lg"><img src="" id="userImage" alt="image profile" class="avatar-img rounded"></div>
                                         <div class="u-text">
-                                            <h4>Hizrian</h4>
-                                            <p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                            <h4 id="username"></h4>
+                                            <p class="text-muted" id="email"></p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                         </div>
                                     </div>
                                 </li>
@@ -512,6 +514,15 @@
     <script src="~/Assets/js/atlantis.min.js"></script>
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     <script src="~/Assets/js/setting-demo2.js"></script>
-    
+    <script>
+        var user = JSON.parse(localStorage.getItem('user'));
+
+        if (user) {
+            document.getElementById('username').textContent = user.userFullname;
+            document.getElementById('email').textContent = user.email;
+            document.getElementById('userImage').src = user.userImage
+            
+        }
+    </script>
 </body>
 </html>
