@@ -276,8 +276,8 @@ namespace app.Controllers
                     ChapterId = chapter.ChapterId,
                     FundBefore = 0,
                     FundAfter = 0,
-                    RefundAfter = author_wallet.Refund,
-                    RefundBefore = author_wallet.Refund + (decimal)chapter.ChapterPrice,
+                    RefundAfter = author_wallet.Refund + (decimal)chapter.ChapterPrice,
+                    RefundBefore = author_wallet.Refund,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Receive TLT from selling chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
@@ -377,8 +377,8 @@ namespace app.Controllers
                     ChapterId = null,
                     FundBefore = 0,
                     FundAfter = 0,
-                    RefundAfter = author_wallet.Refund,
-                    RefundBefore = author_wallet.Refund + Amount,
+                    RefundAfter = author_wallet.Refund + Amount,
+                    RefundBefore = author_wallet.Refund ,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Receive TLT from selling  chapter in story {story.StoryTitle}"
