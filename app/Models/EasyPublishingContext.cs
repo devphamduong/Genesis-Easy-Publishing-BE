@@ -29,6 +29,8 @@ public partial class EasyPublishingContext : DbContext
 
     public virtual DbSet<Review> Reviews { get; set; }
 
+    public virtual DbSet<Role> Roles { get; set; }
+
     public virtual DbSet<Story> Stories { get; set; }
 
     public virtual DbSet<StoryFollowLike> StoryFollowLikes { get; set; }
@@ -84,11 +86,11 @@ public partial class EasyPublishingContext : DbContext
                     r => r.HasOne<Story>().WithMany()
                         .HasForeignKey("StoryId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Story_Cat__story__5629CD9C"),
+                        .HasConstraintName("FK__Story_Cat__story__571DF1D5"),
                     l => l.HasOne<Category>().WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Story_Cat__categ__571DF1D5"),
+                        .HasConstraintName("FK__Story_Cat__categ__5812160E"),
                     j =>
                     {
                         j.HasKey("CategoryId", "StoryId").HasName("PK_story_category");
@@ -131,12 +133,12 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.Story).WithMany(p => p.Chapters)
                 .HasForeignKey(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Chapter__story_i__59063A47");
+                .HasConstraintName("FK__Chapter__story_i__59FA5E80");
 
             entity.HasOne(d => d.Volume).WithMany(p => p.Chapters)
                 .HasForeignKey(d => d.VolumeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Chapter__volume___59FA5E80");
+                .HasConstraintName("FK__Chapter__volume___5AEE82B9");
         });
 
         modelBuilder.Entity<ChapterLiked>(entity =>
@@ -152,12 +154,12 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.Chapter).WithMany(p => p.ChapterLikeds)
                 .HasForeignKey(d => d.ChapterId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Chapter_L__chapt__5DCAEF64");
+                .HasConstraintName("FK__Chapter_L__chapt__5EBF139D");
 
             entity.HasOne(d => d.User).WithMany(p => p.ChapterLikeds)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Chapter_L__user___5CD6CB2B");
+                .HasConstraintName("FK__Chapter_L__user___5DCAEF64");
         });
 
         modelBuilder.Entity<Comment>(entity =>
@@ -179,16 +181,16 @@ public partial class EasyPublishingContext : DbContext
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.ChapterId)
-                .HasConstraintName("FK__Comment__chapter__60A75C0F");
+                .HasConstraintName("FK__Comment__chapter__619B8048");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.StoryId)
-                .HasConstraintName("FK__Comment__story_i__5FB337D6");
+                .HasConstraintName("FK__Comment__story_i__60A75C0F");
 
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comment__user_id__5EBF139D");
+                .HasConstraintName("FK__Comment__user_id__5FB337D6");
         });
 
         modelBuilder.Entity<ReportContent>(entity =>
@@ -213,25 +215,25 @@ public partial class EasyPublishingContext : DbContext
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.ReportContents)
                 .HasForeignKey(d => d.ChapterId)
-                .HasConstraintName("FK__ReportCon__chapt__6477ECF3");
+                .HasConstraintName("FK__ReportCon__chapt__656C112C");
 
             entity.HasOne(d => d.Comment).WithMany(p => p.ReportContents)
                 .HasForeignKey(d => d.CommentId)
-                .HasConstraintName("FK__ReportCon__comme__656C112C");
+                .HasConstraintName("FK__ReportCon__comme__66603565");
 
             entity.HasOne(d => d.ReportType).WithMany(p => p.ReportContents)
                 .HasForeignKey(d => d.ReportTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ReportCon__repor__628FA481");
+                .HasConstraintName("FK__ReportCon__repor__6383C8BA");
 
             entity.HasOne(d => d.Story).WithMany(p => p.ReportContents)
                 .HasForeignKey(d => d.StoryId)
-                .HasConstraintName("FK__ReportCon__story__6383C8BA");
+                .HasConstraintName("FK__ReportCon__story__6477ECF3");
 
             entity.HasOne(d => d.User).WithMany(p => p.ReportContents)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ReportCon__user___619B8048");
+                .HasConstraintName("FK__ReportCon__user___628FA481");
         });
 
         modelBuilder.Entity<ReportType>(entity =>
@@ -253,22 +255,43 @@ public partial class EasyPublishingContext : DbContext
             entity.ToTable("Review");
 
             entity.Property(e => e.ReviewId).HasColumnName("review_id");
+            entity.Property(e => e.DistortHistoryError).HasColumnName("distort history_error");
             entity.Property(e => e.LengthError).HasColumnName("length_error");
-            entity.Property(e => e.ReportTypeId).HasColumnName("report_type_id");
+            entity.Property(e => e.OffensiveContentError).HasColumnName("offensive_content_error");
+            entity.Property(e => e.PoliticalContentError).HasColumnName("political_content_error");
             entity.Property(e => e.ReviewContent)
                 .HasMaxLength(2000)
                 .HasColumnName("review_content");
+            entity.Property(e => e.ReviewDate)
+                .HasColumnType("datetime")
+                .HasColumnName("review_date");
+            entity.Property(e => e.SecretContentError).HasColumnName("secret_content_error");
             entity.Property(e => e.SpellingError).HasColumnName("spelling_error");
             entity.Property(e => e.StoryId).HasColumnName("story_id");
-
-            entity.HasOne(d => d.ReportType).WithMany(p => p.Reviews)
-                .HasForeignKey(d => d.ReportTypeId)
-                .HasConstraintName("FK__Review__report_t__6754599E");
+            entity.Property(e => e.UnhealthyContentError).HasColumnName("unhealthy_content_error");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Review__story_id__66603565");
+                .HasConstraintName("FK__Review__story_id__47DBAE45");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Reviews)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Review__reviewer__6E01572D");
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC6FE32BAA");
+
+            entity.ToTable("Role");
+
+            entity.Property(e => e.RoleId).HasColumnName("role_id");
+            entity.Property(e => e.RoleName)
+                .HasMaxLength(50)
+                .HasColumnName("role_name");
         });
 
         modelBuilder.Entity<Story>(entity =>
@@ -312,7 +335,7 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.Author).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.AuthorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Story__author_id__5441852A");
+                .HasConstraintName("FK__Story__author_id__5535A963");
         });
 
         modelBuilder.Entity<StoryFollowLike>(entity =>
@@ -329,12 +352,12 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.Story).WithMany(p => p.StoryFollowLikes)
                 .HasForeignKey(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Story_Fol__story__5070F446");
+                .HasConstraintName("FK__Story_Fol__story__5165187F");
 
             entity.HasOne(d => d.User).WithMany(p => p.StoryFollowLikes)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Story_Fol__user___5165187F");
+                .HasConstraintName("FK__Story_Fol__user___52593CB8");
         });
 
         modelBuilder.Entity<StoryInteraction>(entity =>
@@ -354,7 +377,7 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.Story).WithOne(p => p.StoryInteraction)
                 .HasForeignKey<StoryInteraction>(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Story_Int__story__5535A963");
+                .HasConstraintName("FK__Story_Int__story__5629CD9C");
         });
 
         modelBuilder.Entity<StoryRead>(entity =>
@@ -373,17 +396,17 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.Chapter).WithMany(p => p.StoryReads)
                 .HasForeignKey(d => d.ChapterId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Story_Rea__chapt__4F7CD00D");
+                .HasConstraintName("FK__Story_Rea__chapt__5070F446");
 
             entity.HasOne(d => d.Story).WithMany(p => p.StoryReads)
                 .HasForeignKey(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Story_Rea__story__4E88ABD4");
+                .HasConstraintName("FK__Story_Rea__story__4F7CD00D");
 
             entity.HasOne(d => d.User).WithMany(p => p.StoryReads)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Story_Rea__user___4D94879B");
+                .HasConstraintName("FK__Story_Rea__user___4E88ABD4");
         });
 
         modelBuilder.Entity<Ticket>(entity =>
@@ -396,7 +419,7 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.Seen).HasColumnName("seen");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TicketDate)
-                .HasColumnType("date")
+                .HasColumnType("datetime")
                 .HasColumnName("ticket_date");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -439,16 +462,16 @@ public partial class EasyPublishingContext : DbContext
 
             entity.HasOne(d => d.Chapter).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.ChapterId)
-                .HasConstraintName("FK__Transacti__chapt__4CA06362");
+                .HasConstraintName("FK__Transacti__chapt__4D94879B");
 
             entity.HasOne(d => d.Story).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.StoryId)
-                .HasConstraintName("FK__Transacti__story__4BAC3F29");
+                .HasConstraintName("FK__Transacti__story__4CA06362");
 
             entity.HasOne(d => d.Wallet).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.WalletId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Transacti__walle__4AB81AF0");
+                .HasConstraintName("FK__Transacti__walle__4BAC3F29");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -482,6 +505,9 @@ public partial class EasyPublishingContext : DbContext
                 .HasMaxLength(11)
                 .IsUnicode(false)
                 .HasColumnName("phone");
+            entity.Property(e => e.RoleId)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("role_id");
             entity.Property(e => e.Status)
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("status");
@@ -495,17 +521,22 @@ public partial class EasyPublishingContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("username");
 
+            entity.HasOne(d => d.Role).WithMany(p => p.Users)
+                .HasForeignKey(d => d.RoleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__User__role_id__6D0D32F4");
+
             entity.HasMany(d => d.Chapters).WithMany(p => p.Users)
                 .UsingEntity<Dictionary<string, object>>(
                     "ChapterOwned",
                     r => r.HasOne<Chapter>().WithMany()
                         .HasForeignKey("ChapterId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Chapter_O__chapt__5BE2A6F2"),
+                        .HasConstraintName("FK__Chapter_O__chapt__5CD6CB2B"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Chapter_O__user___5AEE82B9"),
+                        .HasConstraintName("FK__Chapter_O__user___5BE2A6F2"),
                     j =>
                     {
                         j.HasKey("UserId", "ChapterId").HasName("PK_chapter_owned");
@@ -520,11 +551,11 @@ public partial class EasyPublishingContext : DbContext
                     r => r.HasOne<Story>().WithMany()
                         .HasForeignKey("StoryId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Story_Own__story__52593CB8"),
+                        .HasConstraintName("FK__Story_Own__story__534D60F1"),
                     l => l.HasOne<User>().WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Story_Own__user___534D60F1"),
+                        .HasConstraintName("FK__Story_Own__user___5441852A"),
                     j =>
                     {
                         j.HasKey("UserId", "StoryId").HasName("PK_story_owned");
@@ -556,7 +587,7 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.Story).WithMany(p => p.Volumes)
                 .HasForeignKey(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Volume__story_id__5812160E");
+                .HasConstraintName("FK__Volume__story_id__59063A47");
         });
 
         modelBuilder.Entity<Wallet>(entity =>
@@ -579,7 +610,7 @@ public partial class EasyPublishingContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Wallets)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Wallet__user_id__49C3F6B7");
+                .HasConstraintName("FK__Wallet__user_id__4AB81AF0");
         });
 
         OnModelCreatingPartial(modelBuilder);
