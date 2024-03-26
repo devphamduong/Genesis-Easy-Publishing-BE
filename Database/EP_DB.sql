@@ -2210,32 +2210,53 @@ SET IDENTITY_INSERT [dbo].[Transaction] ON
 GO
 INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
      VALUES
-           (1,1 ,12,null,20,30,10,0,0,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 2 AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	   (2,2 ,13,null,20,30,10,0,0,CAST(N'2024-01-20 20:32:22.103' AS DateTime),1,'Buy 2 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	   (3,3 ,14,null,20,50,30,0,0,CAST(N'2024-03-23 20:30:22.103' AS DateTime),1,'Buy 2 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	   (4,4 ,15,null,20,32,12,0,0,CAST(N'2024-03-25 20:33:22.103' AS DateTime),1,'Buy 1 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	   (5,5 ,10,null,20,35,15,0,0,CAST(N'2024-04-21 20:36:22.103' AS DateTime),1,'Buy 3 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	   (6,6 ,09,null,20,40,20,0,0,CAST(N'2024-05-20 20:2:22.103' AS DateTime),1,'Buy 5 chapter AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	   (7,1,1,2,5.00,0.00,0.00,5.00,0.00,CAST(N'2024-03-10 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 2 AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	(8,4,1,2,5.00,15.00,10.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 2 AMY ELLIOTT JANUARY 8, 2005 in story Gone Girl '),
-	(9,4,NULL,NULL,200.00,10.00,210.00,	0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Recharge 200'),
-	(10,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 3 NICK DUNNE in story Gone Girl'),
-	(11,4,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 3 NICK DUNNE in story Gone Girl '),
-	(12,2,2,NULL,12.99,0.00,0.00,34.99,22.00,CAST(N'2024-03-20 21:52:08.117' AS DateTime),1,'Receive TLT from selling stories And Then There Were None'),
-	(13,3,NULL,NULL,200.00,10.00,210.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy story And Then There Were None'),
-	(14,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling chapter 3 NICK DUNNE in story Gone Girl'),
-	(15,2,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 3 NICK DUNNE in story Gone Girl '),
-	(16,4,1,NULL,30.00,	147.00,117.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 1 to 20 in story Gone Girl '),
-	(17,1,1,NULL,15.00,	0.00,0.00,85.00,70.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
-	(18,5,1,NULL,30.00,147.00,117.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 3 chapter in story Gone Girl '),
-	(19,6,1,NULL,15.00,132.00,117.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy chapter 1 to 20 in story Gone Girl '),
-	(20,1,1,NULL,0.00,0.00,0.00,70.00,70.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
-	(21,7,1,NULL,0.00,132.00,132.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 1 chapter in story Gone Girl '),
-	(22,1,1,NULL,5.00,0.00,0.00,80.00,	75.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
-	(23,12,1,NULL,5.00,127.00,122.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 2 chapter in story Gone Girl '),
-	(24,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl '),
-	(25,9,1,NULL,0.00,127.00,127.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Buy 1 chapter in story Gone Girl '),
-	(26,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,'Receive TLT from selling  chapter in story Gone Girl ')
+           (1,1 ,12,null,20,30,10,0,0,CAST(N'2023-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+	   (2,2 ,13,null,20,30,10,0,0,CAST(N'2023-01-20 20:32:22.103' AS DateTime),1,N'Mua 2 chương của truyện Gone Girl '),
+	   (3,3 ,14,null,20,50,30,0,0,CAST(N'2023-03-23 20:30:22.103' AS DateTime),1,N'Mua 2 chương của truyện Gone Girl '),
+	   (4,4 ,15,null,20,32,12,0,0,CAST(N'2023-03-25 20:33:22.103' AS DateTime),1,N'Mua 1 chương của truyện Gone Girl '),
+	   (5,5 ,10,null,20,35,15,0,0,CAST(N'2023-04-21 20:36:22.103' AS DateTime),1,N'Mua 3 chương của truyện Gone Girl '),
+	   (6,6 ,09,null,20,40,20,0,0,CAST(N'2024-05-20 20:2:22.103' AS DateTime),1,N'Mua 5 chương của truyện Gone Girl '),
+	   (7,1,1,2,5.00,0.00,0.00,5.00,0.00,CAST(N'2024-04-10 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+	(8,4,1,2,5.00,15.00,10.00,0.00,0.00,CAST(N'2024-05-20 20:30:22.103' AS DateTime),1,N'Mua chương 2 của truyện Gone Girl '),
+	(10,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-05-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl'),
+	(11,4,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2025-03-20 20:30:22.103' AS DateTime),1,N'Mua chương 3 NICK DUNNE in story Gone Girl '),
+	(12,2,2,NULL,12.99,0.00,0.00,34.99,22.00,CAST(N'2024-02-20 21:52:08.117' AS DateTime),1,N'Nhận TLH từ truyện And Then There Were None'),
+	(13,3,NULL,NULL,200.00,10.00,210.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,N'Mua truyện And Then There Were None'),
+	(14,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl'),
+	(15,2,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Mua chương 3 của truyện Gone Girl '),
+	(16,4,1,NULL,30.00,	147.00,117.00,0.00,0.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Buy chapter 1 to 20 in story Gone Girl '),
+	(17,1,1,NULL,15.00,	0.00,0.00,85.00,70.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+	(18,5,1,NULL,30.00,147.00,117.00,0.00,0.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Mua 3 chương của truyện Gone Girl '),
+	(19,6,1,NULL,15.00,132.00,117.00,0.00,0.00,CAST(N'2024-04-20 20:30:22.103' AS DateTime),1,N'Mua chương 1 to 20 in story Gone Girl '),
+	(20,1,1,NULL,0.00,0.00,0.00,70.00,70.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+	(21,7,1,NULL,0.00,132.00,132.00,0.00,0.00,CAST(N'2024-09-20 20:30:22.103' AS DateTime),1,N'Mua 1 chương của truyện Gone Girl '),
+	(22,1,1,NULL,5.00,0.00,0.00,80.00,	75.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+	(23,12,1,NULL,5.00,127.00,122.00,0.00,0.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Mua 2 chương của truyện Gone Girl '),
+	(24,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+	(25,9,1,NULL,0.00,127.00,127.00,0.00,0.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Mua 1 chương của truyện Gone Girl '),
+	(26,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl ')
+DECLARE @transaction_id INT = 27; -- Start comment_id from 1
+DECLARE @wallet_id INT = 2; -- Start user_id from 1
+DECLARE @transaction_time datetime = CAST(N'2024-01-20 20:30:22.103' AS DateTime);
+DECLARE @wallet_admin INT = 0;
+
+WHILE @wallet_id <= 20 -- End user_id at 20
+BEGIN
+    BEGIN
+        INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
+        VALUES 
+		(@transaction_id, @wallet_id, null, null, 200, 0.00,200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200'),
+		(@transaction_id+1, @wallet_id, null, null, 200, @wallet_admin, @wallet_admin +200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200 vào hệ thống'),
+		(@transaction_id+2,@wallet_id,NuLL,NULL,50.00,0.00,0.00,200.00,150.00,@transaction_time + 20,1,N'Rút 50'),
+		(@transaction_id+3,@wallet_id,NuLL,NULL,50.00,0.00,0.00,@wallet_admin +200.00,@wallet_admin +200.00 -50,@transaction_time+20,1,N'Rút 50 từ hệ thống')
+		;
+        SET @transaction_id = @transaction_id + 4; -- Increment comment_id
+		SET @wallet_admin = @wallet_admin + 200 - 50;
+		SET @transaction_time = @transaction_time + 1
+    END
+    SET @wallet_id = @wallet_id + 1; -- Increment user_id
+END
+
 GO
 SET IDENTITY_INSERT [dbo].[Transaction] OFF
 GO
