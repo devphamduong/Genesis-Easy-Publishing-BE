@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Category Management";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -44,12 +44,16 @@
                                                 <label>Category Description</label>
                                                 <input id="addCategoryDescription" type="text" class="form-control" placeholder="Fill Category Description">
                                             </div>
+                                            <div class="form-group">
+                                                <label>Category Banner</label>
+                                                <input id="addCategoryBanner" type="text" class="form-control" placeholder="Fill Category Banner">
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer no-bd">
-                                <button type="button" id="addCategoryButton" class="btn btn-primary">Add</button>
+                                <button type="button" onclick="addCategoryButton()" class="btn btn-primary">Add</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
@@ -63,6 +67,7 @@
                                     <th>Category Id</th>
                                     <th>Category Name</th>
                                     <th>Category Name</th>
+                                    <th>Category Banner</th>
                                     <th>Stories Number</th>
                                     <th></th>
                                 </tr>
@@ -106,6 +111,7 @@
                         { data: 'categoryId' },
                         { data: 'categoryName' },
                         { data: 'categoryDescription' },
+                        { data: 'categoryBanner' },
                         { data: 'storiesNumber' },
                         {
                             data: null,
@@ -130,32 +136,38 @@
             const category = await response.json();
             console.log(category);
             document.getElementById('categoryInfo').innerHTML = `
-                                    <div class="form-group">
-                                        <label for="Fullname">Category Name</label>
-                                        <input type="text" class="form-control" id="UpdateCategoryName" value="${category.categoryName}" placeholder="Fullname">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Fullname">Category Description</label>
-                                        <input type="text" class="form-control" id="UpdateCategoryDescription" value="${category.categoryDescription}" placeholder="Fullname">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" onclick="UpdateCategoryInfor(${categoryId})" class="btn btn-primary">Save changes</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                `;
+                                        <div class="form-group">
+                                            <label for="Fullname">Category Name</label>
+                                            <input type="text" class="form-control" id="UpdateCategoryName" value="${category.categoryName}" placeholder="Fullname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Fullname">Category Description</label>
+                                            <input type="text" class="form-control" id="UpdateCategoryDescription" value="${category.categoryDescription}" placeholder="Fullname">
+                                        </div>
+                                            <div class="form-group">
+                                                <label for="Fullname">Category Banneer</label>
+                                                <input type="text" class="form-control" id="UpdateCategoryBanner" value="${category.categoryBanner}" placeholder="Fullname">
+                                                                      <button onclick="window.open('${category.categoryBanner}', '_blank')">View image</button>
+                                            </div>
+                                        <div class="modal-footer">
+                                            <button type="button" onclick="UpdateCategoryInfor(${categoryId})" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    `;
         }
         $("#myModal").modal();
     }
-
     async function UpdateCategoryInfor(categoryId) {
         console.log(categoryId);
         const Id = document.getElementById('UpdateCategoryId');
         const Name = document.getElementById('UpdateCategoryName');
         const Description = document.getElementById('UpdateCategoryDescription');
+        const Banner = document.getElementById('UpdateCategoryBanner');
         const item = {
             categoryId: categoryId,
             categoryName: Name.value.trim(),
-            categoryDescription: Description.value.trim()
+            categoryDescription: Description.value.trim(),
+            categoryBanner: Banner.value.trim()
         }
         console.log(item);
         console.log(`http://localhost:5188/api/v1/category/${parseInt(categoryId, 10)}`);
@@ -169,16 +181,19 @@
         }).then(response => response.json())
             .catch(error => console.error('Unable to update item.', error));
         $("#myModal").modal('hide');
+        window.location.reload();
 
     }
-
-    $('#addCategoryButton').click(function () {
+    async function addCategoryButton() {
         const Name = document.getElementById('addCategoryName');
         const Description = document.getElementById('addCategoryDescription');
+        const Banner = document.getElementById('addCategoryBanner');
         const item = {
             categoryName: Name.value.trim(),
-            categoryDescription: Description.value.trim()
+            categoryDescription: Description.value.trim(),
+            categoryBanner: Banner.value.trim()
         }
+        console.log(item);
         fetch('http://localhost:5188/api/v1/category', {
             method: 'POST',
             headers: {
@@ -190,17 +205,7 @@
             .catch(error => console.error('Unable to add item.', error));
 
         $('#addRowModal').modal('hide');
-    });
-
-
-
-    function loadPage(pageName) {
-
-        // Use jQuery to load content from the server
-        $.get(`${pageName}.html`, function () {
-            // Replace the content of the #content div with the loaded data
-
-            $('#basic-datatables').DataTable();
-        });
+        window.location.reload();
     }
+
 </script>
