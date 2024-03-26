@@ -160,6 +160,17 @@ namespace app.Controllers
             });
         }
 
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("access_token");
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Đăng xuất thành công"
+            });
+        }
+
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterForm data)
         {
@@ -217,17 +228,6 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Đăng ký tài khoản thành công",
-            });
-        }
-
-        [HttpPost("logout")]
-        public IActionResult Logout()
-        {
-            Response.Cookies.Delete("access_token");
-            return new JsonResult(new
-            {
-                EC = 0,
-                EM = "Đăng xuất thành công"
             });
         }
 
@@ -321,51 +321,6 @@ namespace app.Controllers
             return jwtSecurityToken;
         }
 
-        [HttpGet("account")]
-        public IActionResult GetAccount()
-        {
-            var jwtSecurityToken = new JwtSecurityToken();
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-                var user = _context.Users.Where(u => u.UserId == userId)
-                    .Select(u => new
-                    {
-                        UserId = u.UserId,
-                        Email = u.Email,
-                        Username = u.Username,
-                        UserFullname = u.UserFullname,
-                        Gender = u.Gender == true ? "Male" : "Female",
-                        Dob = u.Dob,
-                        Address = u.Address,
-                        Phone = u.Phone,
-                        Status = u.Status == true ? "Active" : "Inactive",
-                        UserImage = u.UserImage,
-                        DescriptionMarkdown = u.DescriptionMarkdown,
-                        DescriptionHTML = u.DescriptionHtml,
-                        TLT = u.Wallets.Select(w => w.Fund).FirstOrDefault()
-                    }).FirstOrDefault();
-                return new JsonResult(new
-                {
-                    EC = 0,
-                    EM = "Thông tin tài khoản",
-                    DT = new
-                    {
-                        user = user
-                    },
-                });
-            }
-            catch (Exception)
-            {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = "Yêu cầu đăng nhập"
-                });
-            }
-        }
-
         [HttpPost("forgot_password")]
         public IActionResult SendMailConfirm([FromBody] ForgotPasswordForm data)
         {
@@ -403,6 +358,7 @@ namespace app.Controllers
                 EM = "Chúng tôi đã gửi mail đến tài khoản email đã đăng ký của bạn, vui lòng làm theo hướng dẫn để đặt lại mật khẩu",
             });
         }
+
         [HttpPost("reset_password")]
         public IActionResult ResetPassword([FromBody] ResetPasswordForm data)
         {
@@ -468,34 +424,40 @@ namespace app.Controllers
             });
         }
 
-        [HttpPost("change_password")]
-        public IActionResult ChangePassword([FromBody] ChangePasswordForm data)
+        [HttpGet("account")]
+        public IActionResult GetAccount()
         {
             var jwtSecurityToken = new JwtSecurityToken();
-            UserDTO userDTO = null;
             try
             {
                 jwtSecurityToken = VerifyToken();
-                string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
-                var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
-                if (!hashService.Verify(user.Password, data.OldPassword))
-                {
-                    return new JsonResult(new
+                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var user = _context.Users.Where(u => u.UserId == userId)
+                    .Select(u => new
                     {
-                        EC = 1,
-                        EM = "Mật khẩu không đúng"
-                    });
-                }
-                if (!data.Password.Equals(data.ConfirmPassword))
+                        UserId = u.UserId,
+                        Email = u.Email,
+                        Username = u.Username,
+                        UserFullname = u.UserFullname,
+                        Gender = u.Gender == true ? "Male" : "Female",
+                        Dob = u.Dob,
+                        Address = u.Address,
+                        Phone = u.Phone,
+                        Status = u.Status == true ? "Active" : "Inactive",
+                        UserImage = u.UserImage,
+                        DescriptionMarkdown = u.DescriptionMarkdown,
+                        DescriptionHTML = u.DescriptionHtml,
+                        TLT = u.Wallets.Select(w => w.Fund).FirstOrDefault()
+                    }).FirstOrDefault();
+                return new JsonResult(new
                 {
-                    return new JsonResult(new
+                    EC = 0,
+                    EM = "Thông tin tài khoản",
+                    DT = new
                     {
-                        EC = 2,
-                        EM = "Xác nhận mật khẩu không khớp với mật khẩu đã nhập"
-                    });
-                }
-                user.Password = hashService.Hash(data.Password);
-                _context.SaveChanges();
+                        user = user
+                    },
+                });
             }
             catch (Exception)
             {
@@ -505,11 +467,6 @@ namespace app.Controllers
                     EM = "Yêu cầu đăng nhập"
                 });
             }
-            return new JsonResult(new
-            {
-                EC = 0,
-                EM = "Đổi mật khẩu thành công",
-            });
         }
 
         [HttpPut("update_profile")]
@@ -614,6 +571,50 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Cập nhật ảnh đại diện thành công"
+            });
+        }
+
+        [HttpPost("change_password")]
+        public IActionResult ChangePassword([FromBody] ChangePasswordForm data)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            UserDTO userDTO = null;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                string userId = jwtSecurityToken.Claims.First(c => c.Type == "userId").Value;
+                var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
+                if (!hashService.Verify(user.Password, data.OldPassword))
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 1,
+                        EM = "Mật khẩu không đúng"
+                    });
+                }
+                if (!data.Password.Equals(data.ConfirmPassword))
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 2,
+                        EM = "Xác nhận mật khẩu không khớp với mật khẩu đã nhập"
+                    });
+                }
+                user.Password = hashService.Hash(data.Password);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Yêu cầu đăng nhập"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Đổi mật khẩu thành công",
             });
         }
 
