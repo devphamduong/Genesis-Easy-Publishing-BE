@@ -114,7 +114,10 @@ namespace app.Controllers
                         UserId = w.UserId,
                         Fund = w.Fund,
                         Refund = w.Refund,
-                        Transaction = w.Transactions
+                        amount_received = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.RefundAfter > t.RefundBefore ).Sum(t=>t.Amount),
+                        amount_spent = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.FundAfter < t.FundBefore ).Sum(t => t.Amount),
+                        amount_top_up = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.FundAfter > t.FundBefore ).Sum(t => t.Amount),
+                        amount_withdrawn = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.RefundAfter < t.RefundBefore ).Sum(t => t.Amount)
                     })
                     .FirstOrDefaultAsync();
                 return _msgService.MsgReturn(0, "Get Transaction Buy Story Detail", wallet);
