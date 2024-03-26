@@ -31,11 +31,17 @@ public partial class User
 
     public string? DescriptionHtml { get; set; }
 
+    public int RoleId { get; set; }
+
     public virtual ICollection<ChapterLiked> ChapterLikeds { get; set; } = new List<ChapterLiked>();
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
+
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+    public virtual Role Role { get; set; } = null!;
 
     public virtual ICollection<Story> Stories { get; set; } = new List<Story>();
 

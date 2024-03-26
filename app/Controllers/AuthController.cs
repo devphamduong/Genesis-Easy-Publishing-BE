@@ -106,6 +106,7 @@ namespace app.Controllers
             var userResponse = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
                 UserId = u.UserId,
+                Role = u.Role.RoleName,
                 Email = u.Email,
                 Username = u.Username,
                 UserFullname = u.UserFullname,
@@ -436,6 +437,7 @@ namespace app.Controllers
                     .Select(u => new
                     {
                         UserId = u.UserId,
+                        Role = u.Role.RoleName,
                         Email = u.Email,
                         Username = u.Username,
                         UserFullname = u.UserFullname,
