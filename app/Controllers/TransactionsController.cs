@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using OfficeOpenXml;
 using System;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
@@ -88,13 +89,86 @@ namespace app.Controllers
                     FundAfter = t.FundAfter,
                     RefundAfter = t.RefundAfter,
                     RefundBefore = t.RefundBefore,
-                    TransactionTime = t.TransactionTime,
+                    TransactionTime = t.TransactionTime.ToString("dd/MM/yyyy"),
                     Status = t.Status,
                     Description =t.Description
 
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Get All Transaction", transaction);
+        }
+
+        [HttpGet("ExportOrdersToExcel")]
+        public async Task<ActionResult> ExportOrdersToExcel(DateTime? fromDate, DateTime? toDate)
+        {
+            try
+            {
+                var transaction = await _context.Transactions.Where(o => (!fromDate.HasValue || o.TransactionTime >= fromDate) && (!toDate.HasValue || o.TransactionTime <= toDate))
+                .Include(t => t.Story)
+                .Include(t => t.Chapter)
+                .Select(t => new
+                {
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime.ToString("dd/MM/yyyy"),
+                    Status = t.Status,
+                    Description = t.Description
+
+                })
+                .ToListAsync();
+
+                var stream = new MemoryStream();
+
+                using (var package = new ExcelPackage(stream))
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Transactions");
+
+                    // Headers
+                    worksheet.Cells[1, 1].Value = "TransactionId";
+                    worksheet.Cells[1, 2].Value = "Amount";
+                    worksheet.Cells[1, 3].Value = "StoryTitile";
+                    worksheet.Cells[1, 4].Value = "ChapterTitle";
+                    worksheet.Cells[1, 5].Value = "FundBefore";
+                    worksheet.Cells[1, 6].Value = "FundAfter";
+                    worksheet.Cells[1, 7].Value = "RefundAfter";
+                    worksheet.Cells[1, 8].Value = "RefundBefore";
+                    worksheet.Cells[1, 9].Value = "TransactionTime";
+                    worksheet.Cells[1, 10].Value = "Status";
+                    worksheet.Cells[1, 11].Value = "Description";
+
+                    // Data
+                    for (int i = 0; i < transaction.Count; i++)
+                    {
+                        worksheet.Cells[i + 2, 1].Value = transaction[i].TransactionId;
+                        worksheet.Cells[i + 2, 2].Value = transaction[i].Amount;
+                        worksheet.Cells[i + 2, 3].Value = transaction[i].StoryTitile;
+                        worksheet.Cells[i + 2, 4].Value = transaction[i].ChapterTitle;
+                        worksheet.Cells[i + 2, 5].Value = transaction[i].FundBefore;
+                        worksheet.Cells[i + 2, 6].Value = transaction[i].FundAfter;
+                        worksheet.Cells[i + 2, 7].Value = transaction[i].RefundAfter;
+                        worksheet.Cells[i + 2, 8].Value = transaction[i].RefundBefore;
+                        worksheet.Cells[i + 2, 9].Value = transaction[i].TransactionTime;
+                        worksheet.Cells[i + 2, 10].Value = transaction[i].Status;
+                        worksheet.Cells[i + 2, 11].Value = transaction[i].Description;
+                    }
+
+                    package.Save();
+                }
+
+                stream.Position = 0;
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Transaction.xlsx");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
         }
 
 
