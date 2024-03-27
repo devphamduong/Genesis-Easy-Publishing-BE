@@ -14,11 +14,42 @@ namespace app.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly EasyPublishingContext _context;
-        private TokenService tokenService = new TokenService();
 
         public TicketsController(EasyPublishingContext context, IConfiguration configuration)
         {
             _context = context;
+        }
+
+        private JwtSecurityToken VerifyToken()
+        {
+            var tokenCookie = Request.Cookies["access_token"];
+            var tokenBearer = extractToken();
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(!String.IsNullOrEmpty(tokenBearer) ? tokenBearer : tokenCookie);
+            return jwtSecurityToken;
+        }
+
+        private string extractToken()
+        {
+            if (!String.IsNullOrEmpty(Request.Headers.Authorization) &&
+                Request.Headers.Authorization.ToString().Split(' ')[0] == "Bearer" &&
+                !String.IsNullOrEmpty(Request.Headers.Authorization.ToString().Split(' ')[1]))
+            {
+                return Request.Headers.Authorization.ToString().Split(' ')[1];
+            }
+            return null;
+        }
+        private int GetUserId()
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            return userId;
         }
 
         [HttpGet("all_ticket")]
@@ -27,7 +58,7 @@ namespace app.Controllers
             var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = tokenService.VerifyToken();
+                jwtSecurityToken = VerifyToken();
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
                 if (user.Role.RoleId != 0)
@@ -86,54 +117,50 @@ namespace app.Controllers
         }
 
         [HttpPost("send")]
-        public async Task<ActionResult> SendRequest(int storyId)
+        public async Task<ActionResult> SendRequest()
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            try
-            {
-                jwtSecurityToken = tokenService.VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-                var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-                if (user.Role.RoleId == 2)
-                {
-                    return new JsonResult(new
-                    {
-                        EC = 1,
-                        EM = "Bạn hiện đã là Reviewer"
-                    });
-                }
-                var ticket = _context.Tickets.Where(t => t.UserId == userId).FirstOrDefault();
-                if (ticket != null)
-                {
-                    return new JsonResult(new
-                    {
-                        EC = 2,
-                        EM = "Hiện đã có 1 yêu cầu của bạn đang chờ xử lý, vui lòng đợi phản hồi từ chúng tôi"
-                    });
-                }
-                Ticket newTicket = new Ticket()
-                {
-                    UserId = userId,
-                    Status = false,
-                    Seen = false,
-                    TicketDate = DateTime.Now,
-                };
-                _context.Tickets.Add(newTicket);
-                await _context.SaveChangesAsync();
-                return new JsonResult(new
-                {
-                    EC = 0,
-                    EM = "Gửi yêu cầu trờ thành reviewer thành công, vui lòng chờ phản hồi từ chúng tôi"
-                });
-            }
-            catch (Exception)
+
+            int userId = GetUserId();
+            if (userId == 0)
             {
                 return new JsonResult(new
                 {
                     EC = -1,
                     EM = "Yêu cầu đăng nhập"
                 });
+            };
+            var user = _context.Users.Include(u => u.Role).Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.Role.RoleId == 2)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Bạn hiện đã là Reviewer"
+                });
             }
+            var ticket = _context.Tickets.Where(t => t.UserId == userId).FirstOrDefault();
+            if (ticket != null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Hiện đã có 1 yêu cầu của bạn đang chờ xử lý, vui lòng đợi phản hồi từ chúng tôi"
+                });
+            }
+            Ticket newTicket = new Ticket()
+            {
+                UserId = userId,
+                Status = false,
+                Seen = false,
+                TicketDate = DateTime.Now,
+            };
+            _context.Tickets.Add(newTicket);
+            await _context.SaveChangesAsync();
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Gửi yêu cầu trờ thành reviewer thành công, vui lòng chờ phản hồi từ chúng tôi"
+            });
         }
     }
 }
