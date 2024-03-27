@@ -55,65 +55,60 @@ namespace app.Controllers
         [HttpGet("all_ticket")]
         public async Task<ActionResult> GetAllTickets()
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-                var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-                if (user.Role.RoleId != 0)
-                {
-                    return new JsonResult(new
-                    {
-                        EC = 1,
-                        EM = "Không có quyền quản trị viên"
-                    });
-                }
-                var tickets = await _context.Tickets.Where(t => t.UserId > 0)
-               .Include(t => t.User)
-               .Select(t => new
-               {
-                   TicketId = t.TicketId,
-                   Status = t.Status,
-                   Seen = t.Seen,
-                   TicketDate = t.TicketDate,
-                   User = new
-                   {
-                       UserId = t.UserId,
-                       Role = t.User.Role.RoleName,
-                       Email = t.User.Email,
-                       Username = t.User.Username,
-                       UserFullname = t.User.UserFullname,
-                       Gender = t.User.Gender == true ? "Male" : "Female",
-                       Dob = t.User.Dob,
-                       Address = t.User.Address,
-                       Phone = t.User.Phone,
-                       Status = t.User.Status == true ? "Active" : "Inactive",
-                       UserImage = t.User.UserImage,
-                       DescriptionMarkdown = t.User.DescriptionMarkdown,
-                       DescriptionHTML = t.User.DescriptionHtml,
-                   }
-               })
-               .OrderByDescending(t => t.TicketDate)
-               .ToListAsync();
-                return new JsonResult(new
-                {
-                    EC = 0,
-                    EM = "Tất cả ticket",
-                    DT = new
-                    {
-                        tickets = tickets
-                    }
-                });
-            }
-            catch (Exception)
+            int userId = GetUserId();
+            if (userId == 0)
             {
                 return new JsonResult(new
                 {
                     EC = -1,
                     EM = "Yêu cầu đăng nhập"
                 });
+            };
+            var user = _context.Users.Include(u => u.Role).Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.Role.RoleId != 1)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Không có quyền quản trị viên"
+                });
             }
+            var tickets = await _context.Tickets.Where(t => t.UserId > 0)
+           .Include(t => t.User)
+           .Select(t => new
+           {
+               TicketId = t.TicketId,
+               Status = t.Status,
+               Seen = t.Seen,
+               TicketDate = t.TicketDate,
+               User = new
+               {
+                   UserId = t.UserId,
+                   Role = t.User.Role.RoleName,
+                   Email = t.User.Email,
+                   Username = t.User.Username,
+                   UserFullname = t.User.UserFullname,
+                   Gender = t.User.Gender == true ? "Male" : "Female",
+                   Dob = t.User.Dob,
+                   Address = t.User.Address,
+                   Phone = t.User.Phone,
+                   Status = t.User.Status == true ? "Active" : "Inactive",
+                   UserImage = t.User.UserImage,
+                   DescriptionMarkdown = t.User.DescriptionMarkdown,
+                   DescriptionHTML = t.User.DescriptionHtml,
+               }
+           })
+           .OrderByDescending(t => t.TicketDate)
+           .ToListAsync();
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Tất cả ticket",
+                DT = new
+                {
+                    tickets = tickets
+                }
+            });
         }
 
         [HttpPost("send")]
@@ -130,7 +125,7 @@ namespace app.Controllers
                 });
             };
             var user = _context.Users.Include(u => u.Role).Where(u => u.UserId == userId).FirstOrDefault();
-            if (user.Role.RoleId == 2)
+            if (user.Role.RoleId == 3)
             {
                 return new JsonResult(new
                 {

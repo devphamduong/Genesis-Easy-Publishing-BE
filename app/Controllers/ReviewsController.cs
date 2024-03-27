@@ -85,7 +85,7 @@ namespace app.Controllers
                 });
             };
             var user = _context.Users.Include(u => u.Role).Where(u => u.UserId == userId).FirstOrDefault();
-            if (user.Role.RoleId != 2)
+            if (user.Role.RoleId != 3)
             {
                 return new JsonResult(new
                 {
