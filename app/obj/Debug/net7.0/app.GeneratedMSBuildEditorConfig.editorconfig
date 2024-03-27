@@ -10,6 +10,8 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = app
 build_property.RootNamespace = app
 build_property.ProjectDir = D:\code\Genesis-Easy-Publishing-BE\app\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
@@ -18,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 
 [D:/code/Genesis-Easy-Publishing-BE/app/Views/Admin/Category.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2F0ZWdvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/Genesis-Easy-Publishing-BE/app/Views/Admin/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/code/Genesis-Easy-Publishing-BE/app/Views/Admin/Login.cshtml]

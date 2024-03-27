@@ -110,6 +110,25 @@ CREATE TABLE [dbo].[User](
 ) ON [PRIMARY]
 GO
 
+-- table Refund_Request
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Refund_Request](
+	[request_id] [bigint] IDENTITY(1,1) NOT NULL,
+	[wallet_id] [int] NOT NULL,
+	[amount] [decimal](10, 2) NOT NULL,
+	[request_time] [datetime] NOT NULL,
+	[response_time] [datetime] NULL,
+	[status] [bit] NULL,
+ CONSTRAINT [PK_refund] PRIMARY KEY CLUSTERED 
+(
+	[request_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- table Wallet
 SET ANSI_NULLS ON
 GO
@@ -120,6 +139,8 @@ CREATE TABLE [dbo].[Wallet](
 	[user_id] [int] NOT NULL,
 	[fund] [decimal] NOT NULL DEFAULT '0.00',
 	[refund] [decimal] NOT NULL DEFAULT '0.00',
+	[bank_id] [nvarchar](50) NULL,
+	[bank_account] [nvarchar](50) NULL,
  CONSTRAINT [PK_wallet] PRIMARY KEY CLUSTERED 
 (
 	[wallet_id] ASC
@@ -2261,7 +2282,9 @@ GO
 SET IDENTITY_INSERT [dbo].[Transaction] OFF
 GO
 
-
+ALTER TABLE [dbo].[Refund_Request]  WITH CHECK ADD FOREIGN KEY([wallet_id])
+REFERENCES [dbo].[Wallet] ([wallet_id])
+GO
 
 ALTER TABLE [dbo].[Wallet]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])

@@ -119,7 +119,7 @@ namespace app.Controllers
                     StoryId = s.StoryId,
                     StoryTitle = s.StoryTitle,
                     StoryImage = s.StoryImage,
-                    StoryDescription = s.StoryDescriptionHtml,
+                    StoryDescription = s.StoryDescription,
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
                     StoryCreateTime = s.CreateTime,
                     StoryChapterNumber = s.Chapters.Count,
