@@ -628,18 +628,18 @@ GO
 SET IDENTITY_INSERT [dbo].[Wallet] ON 
 GO
 
-INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
+INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund] ,[bank_id] ,[bank_account])  
 	VALUES
-		(1, 1, 0, 0)
-		,(2, 2, CAST(22999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
-		,(3, 3, CAST(22999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)))
-		,(4, 4, CAST(22999 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)))
-		,(5, 5, CAST(22999 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)))
-		,(6, 6, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(7, 7, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(8, 8, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(9, 9, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
-		,(10, 10, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
+		(1, 1, 0, 0, null, null)
+		,(2, 2, CAST(22999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)), N'bidv' , N'0921321321322')
+		,(3, 3, CAST(22999 AS Decimal(10, 2)), CAST(24 AS Decimal(10, 2)), N'vcb' , N'0921321321322')
+		,(4, 4, CAST(22999 AS Decimal(10, 2)), CAST(52 AS Decimal(10, 2)), N'bidv' , N'0921321321322')
+		,(5, 5, CAST(22999 AS Decimal(10, 2)), CAST(32 AS Decimal(10, 2)), N'mb' , N'0921321321322')
+		,(6, 6, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)), N'bidv' , N'0921321321322')
+		,(7, 7, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)), N'tech' , N'0921321321322')
+		,(8, 8, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)), N'bidv' , N'0921321321322')
+		,(9, 9, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)), N'agb' , N'0921321321322')
+		,(10, 10, CAST(22999 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)), N'bidv' , N'0921321321322')
 
 	DECLARE @Counter INT = 11; -- Start with the next number after the existing data
 
