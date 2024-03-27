@@ -73,30 +73,6 @@ namespace app.Controllers
             }
             return null;
         }
-        [HttpGet("get_all_transaction")]
-        public async Task<ActionResult> GetAllTransaction()
-        {
-            var transaction = await _context.Transactions
-                .Include(t => t.Story)
-                .Include(t => t.Chapter)
-                .Select(t => new
-                {
-                    TransactionId = t.TransactionId,
-                    Amount = t.Amount,
-                    StoryTitile = t.Story.StoryTitle,
-                    ChapterTitle = t.Chapter.ChapterTitle,
-                    FundBefore = t.FundBefore,
-                    FundAfter = t.FundAfter,
-                    RefundAfter = t.RefundAfter,
-                    RefundBefore = t.RefundBefore,
-                    TransactionTime = t.TransactionTime.ToString("dd/MM/yyyy"),
-                    Status = t.Status,
-                    Description = t.Description
-
-                })
-                .ToListAsync();
-            return _msgService.MsgReturn(0, "Get All Transaction", transaction);
-        }
 
         [HttpGet("ExportOrdersToExcel")]
         public async Task<ActionResult> ExportOrdersToExcel(DateTime? fromDate, DateTime? toDate)
@@ -188,10 +164,10 @@ namespace app.Controllers
                         UserId = w.UserId,
                         Fund = w.Fund,
                         Refund = w.Refund,
-                        amount_received = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.RefundAfter > t.RefundBefore ).Sum(t=>t.Amount),
-                        amount_spent = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.FundAfter < t.FundBefore ).Sum(t => t.Amount),
-                        amount_top_up = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.FundAfter > t.FundBefore ).Sum(t => t.Amount),
-                        amount_withdrawn = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.RefundAfter < t.RefundBefore ).Sum(t => t.Amount)
+                        amount_received = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.RefundAfter > t.RefundBefore).Sum(t => t.Amount),
+                        amount_spent = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.FundAfter < t.FundBefore).Sum(t => t.Amount),
+                        amount_top_up = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.FundAfter > t.FundBefore).Sum(t => t.Amount),
+                        amount_withdrawn = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.RefundAfter < t.RefundBefore).Sum(t => t.Amount)
                     })
                     .FirstOrDefaultAsync();
                 return _msgService.MsgReturn(0, "Get Transaction Buy Story Detail", wallet);
@@ -454,8 +430,8 @@ namespace app.Controllers
                     ChapterId = null,
                     FundBefore = 0,
                     FundAfter = 0,
+                    RefundBefore = author_wallet.Refund,
                     RefundAfter = author_wallet.Refund + Amount,
-                    RefundBefore = author_wallet.Refund ,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Receive TLT from selling  chapter in story {story.StoryTitle}"
@@ -538,7 +514,7 @@ namespace app.Controllers
                 decimal Amount = (decimal)chapter_buy.Select(c => c.ChapterPrice).Sum();
 
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-                
+
                 return _msgService.MsgReturn(0, "Thông tin giao dịch mua nhiều chương", new
                 {
                     number_chapter_buy = chapter_buy.Count(),
@@ -568,8 +544,8 @@ namespace app.Controllers
                     Amount = amount,
                     FundBefore = user_wallet.Fund,
                     FundAfter = user_wallet.Fund + amount,
-                    RefundAfter = 0,
                     RefundBefore = 0,
+                    RefundAfter = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Nạp {amount}"
@@ -583,8 +559,8 @@ namespace app.Controllers
                     Amount = amount,
                     FundBefore = admin_wallet.Fund,
                     FundAfter = admin_wallet.Fund + amount,
-                    RefundAfter = 0,
                     RefundBefore = 0,
+                    RefundAfter = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Nạp {amount} vào hệ thống"
@@ -603,6 +579,55 @@ namespace app.Controllers
             {
                 return _msgService.MsgActionReturn(-1, "Lỗi nạp tiền");
             }
+        }
+
+        [HttpPost("withdraw")]
+        public async Task<ActionResult> AddTransactionWithdraw(int amount)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+
+            jwtSecurityToken = VerifyToken();
+            int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+            var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
+
+            var user_transaction = new Transaction
+            {
+                WalletId = user_wallet.WalletId,
+                Amount = amount,
+                FundBefore = 0,
+                FundAfter = 0,
+                RefundBefore = user_wallet.Refund,
+                RefundAfter = user_wallet.Refund - amount,
+                TransactionTime = DateTime.Now,
+                Status = true,
+                Description = $"Rút {amount}"
+            };
+            user_wallet.Fund = user_wallet.Fund - amount;
+
+            var admin_wallet = await _context.Wallets.FirstOrDefaultAsync();
+            var admin_transaction = new Transaction
+            {
+                WalletId = admin_wallet.WalletId,
+                Amount = amount,
+                FundBefore = 0,
+                FundAfter = 0,
+                RefundBefore = admin_wallet.Fund,
+                RefundAfter = admin_wallet.Fund - amount,
+                TransactionTime = DateTime.Now,
+                Status = true,
+                Description = $"Rút {amount} khỏi hệ thống"
+            };
+            admin_wallet.Fund = admin_wallet.Fund - amount;
+
+            _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry<Wallet>(admin_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Transactions.Add(user_transaction);
+            _context.Transactions.Add(admin_transaction);
+            await _context.SaveChangesAsync();
+
+            return _msgService.MsgReturn(0, $"Nạp {amount}000 VND thành  {amount} TLT : {user.UserFullname} thành công", new { amount });
+
         }
 
         [HttpGet("transaction_history")]

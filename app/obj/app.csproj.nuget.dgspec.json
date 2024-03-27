@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {}
+    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {}
   },
   "projects": {
-    "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
+    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "projectUniqueName": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
         "projectName": "app",
-        "projectPath": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
-        "packagesPath": "C:\\Users\\huyvi\\.nuget\\packages\\",
-        "outputPath": "D:\\Capstone Project\\Genesis-Easy-Publishing-BE\\app\\obj\\",
+        "projectPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\huyvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -101,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
