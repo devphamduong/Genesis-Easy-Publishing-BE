@@ -34,6 +34,7 @@ namespace app.Controllers
                     c.CategoryId,
                     c.CategoryName,
                     c.CategoryDescription,
+                    c.CategoryBanner,
                     StoriesNumber = c.Stories.Count,
                 })
                 .ToListAsync();
