@@ -223,6 +223,7 @@ namespace app.Controllers
                 {
                     storyId = s.StoryId,
                     storyTitle = s.StoryTitle,
+                    storyDescription = s.StoryDescription,
                     storyDescriptionMarkdown = s.StoryDescriptionMarkdown,
                     StoryDescriptionHtml = s.StoryDescriptionHtml,
                     storyCategories = s.Categories.ToList(),
@@ -294,6 +295,7 @@ namespace app.Controllers
 
             public string? StoryImage { get; set; }
 
+            public string? StoryDescription { get; set; }
             public string? StoryDescriptionMarkdown { get; set; }
 
             public string? StoryDescriptionHtml { get; set; }
@@ -327,6 +329,7 @@ namespace app.Controllers
             {
                 if (currentStory != null)
                 {
+                    currentStory.StoryDescription = story.StoryDescription;
                     currentStory.StoryTitle = story.StoryTitle;
                     currentStory.StoryDescriptionHtml = story.StoryDescriptionHtml;
                     currentStory.StoryDescriptionMarkdown = story.StoryDescriptionMarkdown;
