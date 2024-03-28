@@ -84,8 +84,8 @@ namespace app.Controllers
                     EM = "Yêu cầu đăng nhập"
                 });
             };
-            var user = _context.Users.Include(u => u.Role).Where(u => u.UserId == userId).FirstOrDefault();
-            if (user.Role.RoleId != 3)
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId != 3)
             {
                 return new JsonResult(new
                 {

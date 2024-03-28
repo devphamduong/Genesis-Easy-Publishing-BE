@@ -14,10 +14,16 @@ namespace app.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly EasyPublishingContext _context;
+        private MailService mailService = new MailService();
 
         public TicketsController(EasyPublishingContext context, IConfiguration configuration)
         {
             _context = context;
+        }
+
+        public class ApproveForm
+        {
+            public int TicketId { get; set; }
         }
 
         private JwtSecurityToken VerifyToken()
@@ -64,8 +70,8 @@ namespace app.Controllers
                     EM = "Yêu cầu đăng nhập"
                 });
             };
-            var user = _context.Users.Include(u => u.Role).Where(u => u.UserId == userId).FirstOrDefault();
-            if (user.Role.RoleId != 1)
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId != 1)
             {
                 return new JsonResult(new
                 {
@@ -125,7 +131,7 @@ namespace app.Controllers
                 });
             };
             var user = _context.Users.Include(u => u.Role).Where(u => u.UserId == userId).FirstOrDefault();
-            if (user.Role.RoleId == 3)
+            if (user.RoleId == 3)
             {
                 return new JsonResult(new
                 {
@@ -155,6 +161,70 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Gửi yêu cầu trờ thành reviewer thành công, vui lòng chờ phản hồi từ chúng tôi"
+            });
+        }
+
+        [HttpPost("approve")]
+        public async Task<ActionResult> ApproveRequest([FromBody] ApproveForm data)
+        {
+
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Yêu cầu đăng nhập"
+                });
+            };
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId != 1)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Không có quyền quản trị viên"
+                });
+            }
+            var ticket = _context.Tickets.Where(t => t.TicketId == data.TicketId).FirstOrDefault();
+            if (ticket.Status == true)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Yêu cầu đã được phê duyệt rồi"
+                });
+            }
+            ticket.Status = true;
+            var ticketUser = _context.Users.Where(u => u.UserId == ticket.UserId).FirstOrDefault();
+            if (ticketUser.RoleId == 3) {
+                return new JsonResult(new
+                {
+                    EC = 3,
+                    EM = "Người dùng hiện đã là reviewer"
+                });
+            }
+            ticketUser.RoleId = 3;
+            try
+            {
+                mailService.Send(ticketUser.Email,
+                        "Easy Publishing: Yêu cầu trở thành reviewer đã được phê duyệt",
+                        "<b>Chúc mừng " + ticketUser.Username + ",</b>" +
+                        "<p>Bạn đã được phê duyệt trở thành reviewer.</p>");
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    EC = 4,
+                    EM = "Error: " + ex.Message
+                });
+            }
+            await _context.SaveChangesAsync();
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Phê duyệt yêu cầu trờ thành reviewer thành công"
             });
         }
     }
