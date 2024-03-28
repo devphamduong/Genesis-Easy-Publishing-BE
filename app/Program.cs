@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Text.Json.Serialization;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 builder.Services.AddHttpContextAccessor();
 // db

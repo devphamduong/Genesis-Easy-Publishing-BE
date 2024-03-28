@@ -275,7 +275,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Account Setting</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Logout</a>
+                                    <a class="dropdown-item" href="#" onclick="logout(event)">Logout</a>
                                 </li>
                 </div>
                 </ul>
@@ -522,6 +522,27 @@
             document.getElementById('email').textContent = user.email;
             document.getElementById('userImage').src = user.userImage
             
+        }
+
+        function logout(event) {
+            event.preventDefault();
+
+            fetch('http://localhost:5188/api/v1/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                        localStorage.removeItem('jwtToken');
+                        localStorage.removeItem('user');
+                        window.location.href = 'http://localhost:5188/Admin/Login'; // Redirect to login page
+                   
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
     </script>
 </body>
