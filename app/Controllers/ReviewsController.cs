@@ -102,13 +102,13 @@ namespace app.Controllers
                     EM = "Truyện không tồn tại"
                 });
             }
-            var review = _context.Reviews.Where(r => r.UserId == userId && r.StoryId == data.StoryId).FirstOrDefault();
+            var review = _context.Reviews.Where(r => r.StoryId == data.StoryId).FirstOrDefault();
             if (review != null)
             {
                 return new JsonResult(new
                 {
                     EC = 3,
-                    EM = "Bạn đã review truyện này rồi"
+                    EM = "Truyện này đã được review"
                 });
             }
             // story status
@@ -195,7 +195,10 @@ namespace app.Controllers
                 });
             };
             var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            var review = _context.Reviews.Where(r => r.StoryId == storyId && r.Story.AuthorId == userId)
+            var story = _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefault();
+            var review = _context.Reviews.Where(r => r.StoryId == storyId)
+                .Include(r => r.User)
+                .Include(r => r.Story)
                 .Select(r => new
                 {
                     ReviewDate = r.ReviewDate,
@@ -228,7 +231,15 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "Không thể truy cập"
+                    EM = "Truyện chưa được review"
+                });
+            }
+            if (story.AuthorId != userId && review.Reviewer.UserId != userId)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Bạn không có quyền truy cập"
                 });
             }
             return new JsonResult(new
