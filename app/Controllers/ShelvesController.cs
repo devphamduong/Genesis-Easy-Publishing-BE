@@ -761,7 +761,6 @@ namespace app.Controllers
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
                     StoryCreateTime = c.CreateTime,
-                    StoryStatus = statusList[c.Status],
                     StoryInteraction = new
                     {
                         c.StoryInteraction.Like,
