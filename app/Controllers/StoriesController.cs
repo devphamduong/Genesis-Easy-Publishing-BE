@@ -197,14 +197,16 @@ namespace app.Controllers
         }
 
         [HttpGet("search_global")]
-        public async Task<ActionResult> SearchGlobal(string? key, int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
+        public async Task<ActionResult> SearchGlobal(string? search, int? authorId,int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
         {
-            if(key != null)
+            if(search != null)
             {
-                key = key.ToLower();
+                search = search.ToLower();
             }
+
             var stories = await _context.Stories
-                .Where(s => s.Status > 0 && (key == null || s.StoryTitle.ToLower().Contains(key) || s.Author.UserFullname.ToLower().Contains(key)) 
+                .Where(s => s.Status > 0 && (search == null || s.StoryTitle.ToLower().Contains(search)) 
+                && (!authorId.HasValue || s.AuthorId == authorId)
                 && (!status.HasValue || s.Status == status) && (!from.HasValue || s.StoryPrice >= from) && (!to.HasValue || s.StoryPrice <= to))
                 .Include(s => s.Author)
                 .Include(s => s.Categories)
@@ -218,7 +220,8 @@ namespace app.Controllers
                     StoryCreateTime = s.CreateTime,
                     StoryCategories = s.Categories.ToList(),
                     Status = s.Status,
-                    StoryRead = s.StoryInteraction.Read
+                    StoryRead = s.StoryInteraction.Read,
+                    StoryPrice = s.StoryPrice
                 }).OrderByDescending(s => s.StoryRead)
                 .ToListAsync();
 
