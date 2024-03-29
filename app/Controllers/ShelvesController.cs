@@ -749,7 +749,7 @@ namespace app.Controllers
             int userId = GetUserId();
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-
+            string[] statusList = { "Chưa đủ điều kiện", "Chưa hoàn thành", "Hoàn thành" };
             var stories = await _context.Stories.Where(c => c.AuthorId == userId && c.Status > 0)
                 .Include(c => c.Categories)
                 .Include(c => c.Users)
@@ -761,6 +761,7 @@ namespace app.Controllers
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
                     StoryCreateTime = c.CreateTime,
+                    StoryStatus = statusList[c.Status],
                     StoryInteraction = new
                     {
                         c.StoryInteraction.Like,
