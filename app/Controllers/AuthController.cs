@@ -540,6 +540,7 @@ namespace app.Controllers
         public IActionResult ChangeAvatar([FromForm] AvatarForm data)
         {
             var jwtSecurityToken = new JwtSecurityToken();
+            string fileUploaded = "";
             try
             {
                 jwtSecurityToken = VerifyToken();
@@ -547,7 +548,6 @@ namespace app.Controllers
                 var user = _context.Users.FirstOrDefault(u => u.UserId == int.Parse(userId));
                 if (data.image.Length > 0)
                 {
-                    string relativePath = "Assets/images/avatar/";
                     string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/images/avatar");
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
@@ -557,7 +557,8 @@ namespace app.Controllers
                     {
                         data.image.CopyTo(stream);
                     }
-                    user.UserImage = Path.Combine(relativePath, fileName); ;
+                    user.UserImage = fileName + DateTime.Now;
+                    fileUploaded = user.UserImage;
                     _context.SaveChanges();
                 }
                 else
@@ -580,7 +581,10 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Cập nhật ảnh đại diện thành công"
+                EM = "Cập nhật ảnh đại diện thành công",
+                DT = new {
+                    fileUploaded = fileUploaded
+                }
             });
         }
 
