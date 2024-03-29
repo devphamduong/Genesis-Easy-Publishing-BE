@@ -196,6 +196,37 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "List Story", data);
         }
 
+        [HttpGet("search_global")]
+        public async Task<ActionResult> SearchGlobal(string? key, int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
+        {
+            if(key != null)
+            {
+                key = key.ToLower();
+            }
+            var stories = await _context.Stories
+                .Where(s => s.Status > 0 && (key == null || s.StoryTitle.ToLower().Contains(key) || s.Author.UserFullname.ToLower().Contains(key)) 
+                && (!status.HasValue || s.Status == status) && (!from.HasValue || s.StoryPrice >= from) && (!to.HasValue || s.StoryPrice <= to))
+                .Include(s => s.Author)
+                .Include(s => s.Categories)
+                .Include(s => s.StoryInteraction)
+                .Select(s => new
+                {
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryDescription = s.StoryDescription,
+                    StoryCreateTime = s.CreateTime,
+                    StoryCategories = s.Categories.ToList(),
+                    Status = s.Status,
+                    StoryRead = s.StoryInteraction.Read
+                }).OrderByDescending(s => s.StoryRead)
+                .ToListAsync();
+
+            stories = categoryIds == null || categoryIds.Count() == 0 ? stories :
+                stories.Where(c => categoryIds.All(categoryId => c.StoryCategories.Any(sc => sc.CategoryId == categoryId))).ToList();
+            return _msgService.MsgReturn(0, "Kết quả tìm kiếm", stories);
+        }
+
         [HttpGet("story_information")]
         public async Task<ActionResult> GetStoryInfor(int storyId)
         {
