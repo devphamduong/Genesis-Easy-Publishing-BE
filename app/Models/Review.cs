@@ -7,15 +7,13 @@ public partial class Review
 {
     public int ReviewId { get; set; }
 
-    public int UserId { get; set; }
-
     public int StoryId { get; set; }
-
-    public DateTime ReviewDate { get; set; }
 
     public bool SpellingError { get; set; }
 
     public bool LengthError { get; set; }
+
+    public string? ReviewContent { get; set; }
 
     public bool PoliticalContentError { get; set; }
 
@@ -27,7 +25,9 @@ public partial class Review
 
     public bool UnhealthyContentError { get; set; }
 
-    public string? ReviewContent { get; set; }
+    public int UserId { get; set; }
+
+    public DateTime ReviewDate { get; set; }
 
     public virtual Story Story { get; set; } = null!;
 

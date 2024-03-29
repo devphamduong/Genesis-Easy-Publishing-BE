@@ -255,7 +255,7 @@ CREATE TABLE [dbo].[Story](
 	[story_description_html] [ntext] NULL,
 	[create_time] [datetime] NOT NULL,
 	[update_time] [datetime] NULL,
-	[status] [int] NOT NULL,
+	[status] [int] NULL,
  CONSTRAINT [PK_story] PRIMARY KEY CLUSTERED 
 (
 	[story_id] ASC

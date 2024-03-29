@@ -768,6 +768,7 @@ namespace app.Controllers
                         c.StoryInteraction.View,
                         c.StoryInteraction.Read,
                     },
+                    StoryStatus = c.Status,
                     UserPurchaseStory = c.Users.Count,
                     UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
                 })
