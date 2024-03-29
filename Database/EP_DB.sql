@@ -2260,6 +2260,50 @@ GO
 		
 SET IDENTITY_INSERT [dbo].[ReportContent] OFF
 GO
+
+SET IDENTITY_INSERT [dbo].[Ticket] ON 
+GO
+
+INSERT INTO [dbo].[Ticket]
+           ([ticket_id]
+		   ,[user_id]
+           ,[ticket_date]
+           ,[status]
+           ,[seen])
+     VALUES
+           (1, 2, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (2, 3, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (3, 4, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (4, 5, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (5, 6, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (6, 7, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (7, 8, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (8, 9, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (9, 10, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (10, 11, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (11, 12, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (12, 13, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (13, 14, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (14, 15, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (15, 16, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (16, 17, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (17, 18, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (18, 19, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (19, 20, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 1 , 1),
+           (20, 21, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (21, 22, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (22, 23, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (23, 24, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (24, 25, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (25, 26, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (26, 27, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (27, 28, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (28, 29, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1),
+           (29, 30, CAST(N'2023-01-01T05:52:10.323' AS DateTime), 0 , 1)
+GO
+SET IDENTITY_INSERT [dbo].[Ticket] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Transaction] ON
 GO
 INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])

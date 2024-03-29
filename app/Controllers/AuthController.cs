@@ -102,6 +102,14 @@ namespace app.Controllers
                     EM = "Thông tin đăng nhập không đúng",
                 });
             };
+            if (user.Status == false)
+            {
+                return new JsonResult(new
+                {
+                    EC = 3,
+                    EM = "Tài khoản không khả dụng",
+                });
+            }
             string password = user.Password;
             var userResponse = _context.Users.Where(u => u.Username.Equals(data.EmailOrUsername) || u.Email.Equals(data.EmailOrUsername)).Select(u => new
             {
