@@ -196,6 +196,36 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "List Story", data);
         }
 
+        [HttpGet("searchOptions")]
+        public async Task<ActionResult> GetOptionFilter()
+        {
+            var author = await _context.Users.Where(u => u.Stories.Any())
+                .Select(a => new
+            {
+                    AuthorId = a.UserId,
+                    AuthorName = a.UserFullname
+            }).ToListAsync();
+            var cate = await _context.Categories
+                .Include(c => c.Stories)
+                .Select(c => new
+                {
+                    c.CategoryId,
+                    c.CategoryName,
+                    c.CategoryDescription
+                })
+                .ToListAsync();
+            var stories = await _context.Stories.Select(s => new { s.StoryPrice, }).OrderByDescending(s => s.StoryPrice).ToListAsync();
+            var to = stories.Max(c => c.StoryPrice);
+            var from = stories.Min(c => c.StoryPrice);
+            var status = new List<object>
+                {
+                    new { Name = "Hoàn thành", Value = 2 },
+                    new { Name = "Chưa hoàn thành", Value = 1 }
+                };
+
+            return _msgService.MsgReturn(0, "Trường tìm kiếm", new { author, cate, to, from, status });
+        }
+
         [HttpGet("search_global")]
         public async Task<ActionResult> SearchGlobal(string? search, int? authorId,int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
         {
