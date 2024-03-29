@@ -5,6 +5,7 @@ using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace app.Controllers
@@ -15,7 +16,7 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MailService mailService = new MailService();
-
+        private MsgService _msgService = new MsgService();
         public TicketsController(EasyPublishingContext context, IConfiguration configuration)
         {
             _context = context;
@@ -197,7 +198,8 @@ namespace app.Controllers
             }
             ticket.Status = true;
             var ticketUser = _context.Users.Where(u => u.UserId == ticket.UserId).FirstOrDefault();
-            if (ticketUser.RoleId == 3) {
+            if (ticketUser.RoleId == 3)
+            {
                 return new JsonResult(new
                 {
                     EC = 3,
@@ -226,6 +228,138 @@ namespace app.Controllers
                 EC = 0,
                 EM = "Phê duyệt yêu cầu trờ thành reviewer thành công"
             });
+        }
+
+        public class Refund
+        {
+            public string BankId { get; set; }
+            public string BankAccount { get; set; }
+            public decimal Amount { get; set; }
+        }
+        [HttpPost("refund_send")]
+        public async Task<ActionResult> SendRefund([FromBody] Refund refund)
+        {
+            int userId = GetUserId();
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+
+            var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+            if (refund.Amount > user_wallet.Refund) return _msgService.MsgActionReturn(-2, "Bạn không đủ số dư");
+            user_wallet.BankId = refund.BankId;
+            user_wallet.BankId = refund.BankAccount;
+            _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            RefundRequest request = new RefundRequest()
+            {
+                WalletId = user_wallet.WalletId,
+                Amount = refund.Amount,
+                RequestTime = DateTime.Now,
+                ResponseTime = DateTime.Now,
+                Status = null,
+            };
+            _context.RefundRequests.Add(request);
+            await _context.SaveChangesAsync();
+            return _msgService.MsgActionReturn(0, "Yêu cầu rút tiền của bạn đã được gửi đi");
+        }
+
+        [HttpGet("all_refund")]
+        public async Task<ActionResult> GetAllRefund(int page)
+        {
+            int userId = GetUserId();
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+
+            var requests = await _context.RefundRequests.Where(c => c.Status == null)
+           .Include(c => c.Wallet).ThenInclude(c => c.User)
+           .Select(c => new
+           {
+               c.RequestId,
+               c.Wallet.User.UserFullname,
+               c.WalletId,
+               c.Wallet.BankId,
+               c.Wallet.BankAccount,
+               c.Amount,
+               c.RequestTime,
+               c.Status,
+           })
+           .OrderByDescending(c => c.RequestTime).ToListAsync();
+            var pagesize = 10;
+            page = page == null || page == 0 ? 1 : page;
+            return _msgService.MsgPagingReturn("Yêu cầu rút tiền",
+                requests.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, requests.Count);
+        }
+
+        [HttpPut("refund_approve")]
+        public async Task<ActionResult> ApproveRefund(int requestId)
+        {
+
+            int userId = GetUserId();
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+
+            var request = _context.RefundRequests.Where(c => c.RequestId == requestId).FirstOrDefault();
+            if (request.Status == true) return _msgService.MsgActionReturn(2, "Yêu cầu đã được phê duyệt rồi");
+
+            request.Status = true;
+
+            var user_wallet = await _context.Wallets.Where(w => w.WalletId == request.WalletId).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(c => c.UserId == user_wallet.UserId).FirstOrDefaultAsync();
+            var user_transaction = new Transaction
+            {
+                WalletId = user_wallet.WalletId,
+                Amount = request.Amount,
+                FundBefore = 0,
+                FundAfter = 0,
+                RefundBefore = user_wallet.Refund,
+                RefundAfter = user_wallet.Refund - request.Amount,
+                TransactionTime = DateTime.Now,
+                Status = true,
+                Description = $"Rút {request.Amount}"
+            };
+            user_wallet.Refund = user_wallet.Refund - request.Amount;
+
+            var admin_wallet = await _context.Wallets.FirstOrDefaultAsync();
+            var admin_transaction = new Transaction
+            {
+                WalletId = admin_wallet.WalletId,
+                Amount = request.Amount,
+                FundBefore = 0,
+                FundAfter = 0,
+                RefundBefore = admin_wallet.Refund,
+                RefundAfter = admin_wallet.Refund - +request.Amount,
+                TransactionTime = DateTime.Now,
+                Status = true,
+                Description = $"Rút {request.Amount} khỏi hệ thống"
+            };
+            admin_wallet.Refund = admin_wallet.Refund - request.Amount;
+            var name = user.UserFullname == null ? user.Email : user.UserFullname;
+            try
+            {
+                mailService.Send(user.Email,
+                        "Yêu cầu rút tiền của bạn đã được phê duyệt",
+                        "<p>Easy Publishing Xin chào <b> " + name + "</b>,</p>" +
+                        "<b>Thông tin giao dịch Quý khách vừa thực hiện như sau:</b>" +
+                        "<p>Ngân hàng: <b>" + user_wallet.BankId + "</b></p>" +
+                        "<p>Số thẻ: <b>" + user_wallet.BankAccount + "</b></p>" +
+                        "<p>Giao dịch: <b>Rút tiền khỏi hệ thống</b> </p>" +
+                        "<p>Trạng thái giao dịch: <b>Thành công</b> </p>" +
+                        "<p>Số tiền giao dịch: <b>" + (int)request.Amount + " TLT</b></p>" +
+                        "<p>Số tiền sau quy đổi: <b>" + (int)request.Amount + ".000đ</b></p>" +
+                        "<p>Số tiền giao dịch nhận được: <b>" + (int)(request.Amount * (decimal)0.85) + ".000đ</b></p>" +
+                        "<p>Vào lúc: <b>" + DateTime.Now + "</b></p>" +
+                        "<p>Cảm ơn bạn đã tin tưởng.</p>");
+            }
+            catch (Exception ex)
+            {
+                return _msgService.MsgActionReturn(-4, "Error: " + ex.Message);
+            }
+            _context.Entry<RefundRequest>(request).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry<Wallet>(admin_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Transactions.Add(user_transaction);
+            _context.Transactions.Add(admin_transaction);
+            await _context.SaveChangesAsync();
+            return _msgService.MsgActionReturn(0, "Phê duyệt rút tiền");
         }
     }
 }

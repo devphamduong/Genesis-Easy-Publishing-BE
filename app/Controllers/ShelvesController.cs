@@ -750,7 +750,7 @@ namespace app.Controllers
 
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
-            var stories = await _context.Stories.Where(c => c.AuthorId == userId && c.Status > 0)
+            var stories = await _context.Stories.Where(c => c.AuthorId == userId)
                 .Include(c => c.Categories)
                 .Include(c => c.Users)
                 .Include(c => c.Chapters).ThenInclude(c => c.Users)
