@@ -557,7 +557,7 @@ namespace app.Controllers
                     {
                         data.image.CopyTo(stream);
                     }
-                    user.UserImage = Path.Combine(relativePath, fileName); ;
+                    user.UserImage = fileName + DateTime.Now;
                     _context.SaveChanges();
                 }
                 else

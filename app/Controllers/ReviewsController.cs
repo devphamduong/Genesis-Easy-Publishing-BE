@@ -13,6 +13,8 @@ namespace app.Controllers
     {
         private readonly EasyPublishingContext _context;
         private MailService mailService = new MailService();
+        private MsgService msgService = new MsgService();
+        private int pagesize = 10;
 
         public ReviewsController(EasyPublishingContext context, IConfiguration configuration)
         {
@@ -182,8 +184,51 @@ namespace app.Controllers
             });
         }
 
-        [HttpGet("story_review")]
-        public async Task<ActionResult> getStoryReview(int storyId)
+        [HttpGet("stories_review")]
+        public async Task<ActionResult> getStoryReview(int page, int pageSize)
+        {
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            }
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId != 3)
+            {
+                return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
+            }
+            var stories = await _context.Stories.Where(c => c.Status == 0)
+                .Include(c => c.Categories)
+                .Include(c => c.Users)
+                .Include(c => c.Chapters).ThenInclude(c => c.Users)
+                .Include(c => c.StoryInteraction)
+                .Select(c => new
+                {
+                    StoryId = c.StoryId,
+                    StoryTitle = c.StoryTitle,
+                    StoryImage = c.StoryImage,
+                    StoryCreateTime = c.CreateTime,
+                    StoryStatus = c.Status,
+                    StoryInteraction = new
+                    {
+                        c.StoryInteraction.Like,
+                        c.StoryInteraction.Follow,
+                        c.StoryInteraction.View,
+                        c.StoryInteraction.Read,
+                    },
+                    UserPurchaseStory = c.Users.Count,
+                    UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
+                })
+                .ToListAsync();
+            page = page == null || page == 0 ? 1 : page;
+            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
+            return msgService.MsgPagingReturn("Truyện cần review",
+                stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
+        }
+
+
+        [HttpGet("review_detail")]
+        public async Task<ActionResult> getReviewDetail(int storyId)
         {
             int userId = GetUserId();
             if (userId == 0)
