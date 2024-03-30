@@ -70,7 +70,7 @@ namespace app.Controllers
                     StoryId = c.StoryId,
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
-                    StoryDescription = c.StoryDescriptionHtml,
+                    StoryDescription = c.StoryDescriptionHtml.Substring(0,90)+"...",
                     StoryPrice = c.StoryPrice,
                     StorySale = c.StorySale,
                     CreateTime = c.CreateTime,
