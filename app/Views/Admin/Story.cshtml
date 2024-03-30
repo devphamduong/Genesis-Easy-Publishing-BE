@@ -77,7 +77,12 @@
                         },
                         { data: 'storyId' },
                         { data: 'storyTitle' },
-                        { data: 'storyImage' },
+                        {
+                             data: null,
+                             render(data) {
+                                 return `<img src = "${data.storyImage}" alt = "story image" style="width:100px;height:180px;">`
+                             }
+                         },
                         { data: 'storyDescription' },
                         { data: 'storyPrice' },
                         { data: 'storySale' },
