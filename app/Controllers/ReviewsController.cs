@@ -87,7 +87,7 @@ namespace app.Controllers
                 });
             };
             var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            if (user.RoleId != 3)
+            if (user.RoleId == 2)
             {
                 return new JsonResult(new
                 {
@@ -123,14 +123,13 @@ namespace app.Controllers
                     data.OffensiveContentError,
                     data.UnhealthyContentError,
              };
-            int storyStatus = 1;
             bool hasError = false;
             foreach (var item in errorList)
             {
                 if (item)
                 {
                     hasError = true;
-                    storyStatus = 0;
+                    break;
                 }
             }
             if (hasError && string.IsNullOrEmpty(data.ReviewContent))
@@ -141,7 +140,11 @@ namespace app.Controllers
                     EM = "Yêu cầu nhập nội dung review"
                 });
             }
-            story.Status = storyStatus;
+            if (hasError)
+            {
+                story.Status = null;
+            }
+            story.Status = 1;
             // new review
             Review newReview = new Review()
             {
@@ -185,7 +188,7 @@ namespace app.Controllers
         }
 
         [HttpGet("stories_review")]
-        public async Task<ActionResult> getStoryReview(int page, int pageSize)
+        public async Task<ActionResult> GetStoriesReview(int page, int pageSize)
         {
             int userId = GetUserId();
             if (userId == 0)
@@ -193,7 +196,7 @@ namespace app.Controllers
                 return msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
             }
             var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            if (user.RoleId != 3)
+            if (user.RoleId == 2)
             {
                 return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
             }
@@ -222,10 +225,46 @@ namespace app.Controllers
                 .ToListAsync();
             page = page == null || page == 0 ? 1 : page;
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
-            return msgService.MsgPagingReturn("Truyện cần review",
+            return msgService.MsgPagingReturn("Danh sách truyện cần review",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
+        [HttpGet("stories_review/detail")]
+        public async Task<ActionResult> GetVolume(int storyid)
+        {
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            }
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId == 2)
+            {
+                return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
+            }
+            var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
+                .Include(v => v.Chapters)
+                .Select(v => new
+                {
+                    volumeId = v.VolumeId,
+                    volumeNumber = v.VolumeNumber,
+                    VolumeTitle = v.VolumeTitle,
+                    StoryId = v.StoryId,
+                    CreateTime = v.CreateTime,
+                    Chapters = v.Chapters.Where(c => c.Status > 0).Select(c => new
+                    {
+                        c.ChapterId,
+                        c.ChapterNumber,
+                        c.ChapterTitle,
+                        c.ChapterPrice,
+                        c.CreateTime,
+                        c.ChapterContentMarkdown,
+                        c.ChapterContentHtml,
+                    }).OrderBy(c => c.ChapterNumber).ToList()
+                }).OrderBy(v => v.volumeNumber)
+                .ToListAsync();
+            return msgService.MsgReturn(0, "Danh sách các tập của truyện", volumes);
+        }
 
         [HttpGet("review_detail")]
         public async Task<ActionResult> getReviewDetail(int storyId)
