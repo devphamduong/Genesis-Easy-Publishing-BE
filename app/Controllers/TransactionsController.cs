@@ -333,7 +333,7 @@ namespace app.Controllers
                     RefundBefore = author_wallet.Refund,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Receive TLT from selling chapter {chapter.ChapterNumber} {chapter.ChapterTitle} in story {story.StoryTitle}"
+                    Description = RecieveMoney(story.StoryTitle)
                 };
 
                 user_wallet.Fund = user_wallet.Fund - (decimal)chapter.ChapterPrice;
@@ -420,7 +420,7 @@ namespace app.Controllers
                     RefundBefore = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Buy {chapter_buy.Count()} chapter in story {story.StoryTitle}"
+                    Description = BuyManyChapter(chapter_buy.Count(), story.StoryTitle)
                 };
                 var author_transaction = new Transaction
                 {
@@ -434,7 +434,7 @@ namespace app.Controllers
                     RefundAfter = author_wallet.Refund + Amount,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Receive TLT from selling  chapter in story {story.StoryTitle}"
+                    Description = RecieveMoney(story.StoryTitle)
                 };
 
                 _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
