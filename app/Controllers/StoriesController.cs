@@ -405,7 +405,10 @@ namespace app.Controllers
                     currentStory.Status = story.Status;
                     currentStory.StoryPrice = story.StoryPrice;
                     currentStory.StorySale = story.StorySale;
-                    currentStory.StoryImage = story.StoryImage;
+                    if(story.StoryImage != null)
+                    {
+                        currentStory.StoryImage = story.StoryImage;
+                    }
                     var existingCategories = currentStory.Categories.Select(c => c.CategoryId).ToList();
 
                     var categoriesToAdd = story.CategoryIds.Except(existingCategories).ToList();
