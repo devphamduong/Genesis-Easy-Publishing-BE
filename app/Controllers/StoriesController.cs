@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Drawing.Printing;
 using Microsoft.VisualBasic;
 using static app.Controllers.StoriesController;
+using static app.Controllers.AuthController;
 
 namespace app.Controllers
 {
@@ -201,10 +202,10 @@ namespace app.Controllers
         {
             var author = await _context.Users.Where(u => u.Stories.Any())
                 .Select(a => new
-            {
+                {
                     AuthorId = a.UserId,
                     AuthorName = a.UserFullname
-            }).ToListAsync();
+                }).ToListAsync();
             var cate = await _context.Categories
                 .Include(c => c.Stories)
                 .Select(c => new
@@ -227,15 +228,15 @@ namespace app.Controllers
         }
 
         [HttpGet("search_global")]
-        public async Task<ActionResult> SearchGlobal(string? search, int? authorId,int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
+        public async Task<ActionResult> SearchGlobal(string? search, int? authorId, int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
         {
-            if(search != null)
+            if (search != null)
             {
                 search = search.ToLower();
             }
 
             var stories = await _context.Stories
-                .Where(s => s.Status > 0 && (search == null || s.StoryTitle.ToLower().Contains(search)) 
+                .Where(s => s.Status > 0 && (search == null || s.StoryTitle.ToLower().Contains(search))
                 && (!authorId.HasValue || s.AuthorId == authorId)
                 && (!status.HasValue || s.Status == status) && (!from.HasValue || s.StoryPrice >= from) && (!to.HasValue || s.StoryPrice <= to))
                 .Include(s => s.Author)
@@ -285,7 +286,7 @@ namespace app.Controllers
                     storySale = s.StorySale,
                     status = s.Status
                 }).FirstOrDefaultAsync();
-            if(story == null)
+            if (story == null)
             {
                 return new JsonResult(new
                 {
@@ -304,6 +305,12 @@ namespace app.Controllers
             public string? StoryDescriptionMarkdown { get; set; }
             public string? StoryDescriptionHtml { get; set; }
             public List<int> CategoryIds { get; set; }
+        }
+
+        public class StoryImageForm
+        {
+            public int storyId { get; set; }
+            public IFormFile image { get; set; }
         }
 
         [HttpPost("save_story")]
@@ -372,7 +379,7 @@ namespace app.Controllers
             catch (Exception) { }
 
             var currentStory = _context.Stories.Include(s => s.Categories).FirstOrDefault(s => s.StoryId == story.StoryId && s.AuthorId == userId);
-            if(currentStory == null)
+            if (currentStory == null)
             {
                 return new JsonResult(new
                 {
@@ -419,7 +426,7 @@ namespace app.Controllers
 
                 }
                 _context.Entry<Story>(currentStory).State = EntityState.Modified;
-                 await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -475,6 +482,66 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Xóa truyện thành công"
+            });
+        }
+
+        [HttpPut("update_storyimage")]
+        public IActionResult ChangeAvatar([FromForm] StoryImageForm data)
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            string fileUploaded = "";
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                int userId = int.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                var story = _context.Stories.Include(s => s.Categories).FirstOrDefault(s => s.StoryId == data.storyId && s.AuthorId == userId);
+                if (story == null) {
+                    return new JsonResult(new
+                    {
+                        EC = 1,
+                        EM = "Không thể truy cập truyện này"
+                    });
+                }
+                if (data.image.Length > 0)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/images/story");
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string fileName = Path.GetFileName(data.image.FileName);
+                    string filePath = Path.Combine(path, fileName);
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        data.image.CopyTo(stream);
+                    }
+                    story.StoryImage = fileName + DateTime.Now;
+                    fileUploaded = story.StoryImage;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 2,
+                        EM = "File không tồn tại"
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Yêu cầu đăng nhập"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Cập nhật ảnh truyện thành công",
+                DT = new
+                {
+                    fileUploaded = fileUploaded
+                }
             });
         }
     }
