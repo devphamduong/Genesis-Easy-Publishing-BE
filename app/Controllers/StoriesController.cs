@@ -245,14 +245,21 @@ namespace app.Controllers
                 {
                     StoryId = s.StoryId,
                     StoryTitle = s.StoryTitle,
-                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryImage = s.StoryImage,
                     StoryDescription = s.StoryDescription,
-                    StoryCreateTime = s.CreateTime,
                     StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
+                    StoryPrice = s.StoryPrice,
                     Status = s.Status,
-                    StoryRead = s.StoryInteraction.Read,
-                    StoryPrice = s.StoryPrice
-                }).OrderByDescending(s => s.StoryRead)
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                }).OrderByDescending(s => s.StoryInteraction.Read)
                 .ToListAsync();
 
             stories = categoryIds == null || categoryIds.Count() == 0 ? stories :
