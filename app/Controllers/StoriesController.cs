@@ -227,7 +227,7 @@ namespace app.Controllers
         }
 
         [HttpGet("search_global")]
-        public async Task<ActionResult> SearchGlobal(string? search, int? authorId, int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
+        public async Task<ActionResult> SearchGlobal(string? search, int? authorId, int? from, int? to, int? status, [FromQuery] List<int> cates)
         {
             if (search != null)
             {
@@ -262,8 +262,8 @@ namespace app.Controllers
                 }).OrderByDescending(s => s.StoryInteraction.Read)
                 .ToListAsync();
 
-            stories = categoryIds == null || categoryIds.Count() == 0 ? stories :
-                stories.Where(c => categoryIds.All(categoryId => c.StoryCategories.Any(sc => sc.CategoryId == categoryId))).ToList();
+            stories = cates == null || cates.Count() == 0 ? stories :
+                stories.Where(c => cates.All(categoryId => c.StoryCategories.Any(sc => sc.CategoryId == categoryId))).ToList();
             return _msgService.MsgReturn(0, "Kết quả tìm kiếm", stories);
         }
 
