@@ -74,7 +74,7 @@ namespace app.Controllers
             return null;
         }
 
-        [HttpGet("ExportOrdersToExcel")]
+        [HttpGet("ExportTransactionToExcel")]
         public async Task<ActionResult> ExportOrdersToExcel(DateTime? fromDate, DateTime? toDate)
         {
             try
