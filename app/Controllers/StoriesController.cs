@@ -12,7 +12,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Drawing.Printing;
 using Microsoft.VisualBasic;
 using static app.Controllers.StoriesController;
-using static app.Controllers.AuthController;
 
 namespace app.Controllers
 {
