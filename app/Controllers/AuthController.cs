@@ -551,13 +551,15 @@ namespace app.Controllers
                     string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/images/avatar");
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
-                    string fileName = Path.GetFileName(data.image.FileName);
+                    var ext = Path.GetExtension(data.image.FileName);
+                    var name = Path.GetFileNameWithoutExtension(data.image.FileName);
+                    var fileName = name + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ext;
                     string filePath = Path.Combine(path, fileName);
                     using (FileStream stream = new FileStream(filePath, FileMode.Create))
                     {
                         data.image.CopyTo(stream);
                     }
-                    user.UserImage = fileName + DateTime.Now;
+                    user.UserImage = fileName;
                     fileUploaded = user.UserImage;
                     _context.SaveChanges();
                 }
@@ -582,7 +584,8 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Cập nhật ảnh đại diện thành công",
-                DT = new {
+                DT = new
+                {
                     fileUploaded = fileUploaded
                 }
             });
