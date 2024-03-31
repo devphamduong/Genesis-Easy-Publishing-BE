@@ -506,13 +506,15 @@ namespace app.Controllers
                     string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/images/story");
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
-                    string fileName = Path.GetFileName(data.image.FileName);
+                    var ext = Path.GetExtension(data.image.FileName);
+                    var name = Path.GetFileNameWithoutExtension(data.image.FileName);
+                    var fileName = name + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ext;
                     string filePath = Path.Combine(path, fileName);
                     using (FileStream stream = new FileStream(filePath, FileMode.Create))
                     {
                         data.image.CopyTo(stream);
                     }
-                    story.StoryImage = fileName + DateTime.Now;
+                    story.StoryImage = fileName;
                     fileUploaded = story.StoryImage;
                     _context.SaveChanges();
                 }
