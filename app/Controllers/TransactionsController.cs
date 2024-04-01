@@ -513,15 +513,6 @@ namespace app.Controllers
             }
         }
 
-        [HttpGet("payment_method")]
-        public async Task<ActionResult> GetPaymentMethod()
-        {
-            int userId = GetUserId();
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-            return _msgService.MsgReturn(0, "Phương thức thanh toán ", user_wallet);
-        }
-
         [HttpGet("history")]
         public async Task<ActionResult> GetUserTransactionHistory(int page, int pageSize)
         {
@@ -531,7 +522,7 @@ namespace app.Controllers
                 if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId)
-                .Include(t=>t.Wallet)
+                .Include(t => t.Wallet)
                 .Include(t => t.Story)
                 .Include(t => t.Chapter)
                 .Select(t => new

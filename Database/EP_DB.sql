@@ -134,6 +134,8 @@ GO
 CREATE TABLE [dbo].[Refund_Request](
 	[request_id] [bigint] IDENTITY(1,1) NOT NULL,
 	[wallet_id] [int] NOT NULL,
+	[bank_id] [nvarchar](50) NULL,
+	[bank_account] [nvarchar](50) NULL,
 	[amount] [decimal](10, 2) NOT NULL,
 	[request_time] [datetime] NOT NULL,
 	[response_time] [datetime] NULL,
@@ -155,9 +157,6 @@ CREATE TABLE [dbo].[Wallet](
 	[user_id] [int] NOT NULL,
 	[fund] [decimal] NOT NULL DEFAULT '0.00',
 	[refund] [decimal] NOT NULL DEFAULT '0.00',
-	[bank_id] [nvarchar](50) NULL,
-	[bank_image] [nvarchar](4000) NULL,
-	[bank_account] [nvarchar](50) NULL,
  CONSTRAINT [PK_wallet] PRIMARY KEY CLUSTERED 
 (
 	[wallet_id] ASC
@@ -533,21 +532,21 @@ GO
 SET IDENTITY_INSERT [dbo].[Refund_Request] ON 
 GO
 
-INSERT [dbo].[Refund_Request] ([request_id], [wallet_id], [amount], [request_time], [response_time], [status]) VALUES 
-	(1, 2, CAST(251.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:28:50.127' AS DateTime), CAST(N'2024-03-29T23:28:50.127' AS DateTime), 1),
-	(2, 3, CAST(251.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:28:51.147' AS DateTime), CAST(N'2024-03-29T23:28:51.147' AS DateTime), 1),
-	(3, 2, CAST(1324.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:28:57.853' AS DateTime), CAST(N'2024-03-29T23:28:57.853' AS DateTime), 1),
-	(4, 2, CAST(13.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:01.000' AS DateTime), CAST(N'2024-03-29T23:29:01.000' AS DateTime), 1),
-	(5, 3, CAST(33.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
-	(6, 3, CAST(43.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
-	(7, 4, CAST(33.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
-	(8, 10, CAST(323.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
-	(9, 2, CAST(313.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
-	(10, 10, CAST(33.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
-	(11, 2, CAST(350.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:16:18.863' AS DateTime), NULL, NULL),
-	(12, 3, CAST(350.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:17:42.787' AS DateTime), NULL, NULL),
-	(13, 4, CAST(245.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:18:13.683' AS DateTime), NULL, NULL),
-	(14, 10, CAST(245.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:18:55.787' AS DateTime), NULL, NULL)
+INSERT [dbo].[Refund_Request] ([request_id], [wallet_id], [bank_id], [bank_account], [amount], [request_time], [response_time], [status]) VALUES 
+	(1, 2, N'bidv', N'0921321321322', CAST(251.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:28:50.127' AS DateTime), CAST(N'2024-03-29T23:28:50.127' AS DateTime), 1),
+	(2, 3, N'vietcombank', N'01121321322', CAST(251.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:28:51.147' AS DateTime), CAST(N'2024-03-29T23:28:51.147' AS DateTime), 1),
+	(3, 2, N'bidv', N'0921321321322', CAST(1324.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:28:57.853' AS DateTime), CAST(N'2024-03-29T23:28:57.853' AS DateTime), 1),
+	(4, 2, N'bidv', N'0921321321322', CAST(13.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:01.000' AS DateTime), CAST(N'2024-03-29T23:29:01.000' AS DateTime), 1),
+	(5, 3, N'bidv', N'0221321321322', CAST(33.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
+	(6, 3, N'bidv', N'0221321321322', CAST(43.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
+	(7, 4, N'mb', N'1921321321322', CAST(33.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
+	(8, 10, N'mb', N'3341321322', CAST(323.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
+	(9, 2, N'bidv', N'0921321321322',CAST(313.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
+	(10, 10, N'tpbank', N'09213321322', CAST(33.00 AS Decimal(10, 2)), CAST(N'2024-03-29T23:29:23.750' AS DateTime), CAST(N'2024-03-29T23:29:23.750' AS DateTime), 1),
+	(11, 2, N'bidv', N'441321321322', CAST(350.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:16:18.863' AS DateTime), NULL, NULL),
+	(12, 3, N'tpbank', N'052134321322', CAST(350.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:17:42.787' AS DateTime), NULL, NULL),
+	(13, 4, N'bidv', N'551321321322', CAST(245.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:18:13.683' AS DateTime), NULL, NULL),
+	(14, 10, N'bidv', N'551321321322', CAST(245.00 AS Decimal(10, 2)), CAST(N'2024-04-01T03:18:55.787' AS DateTime), NULL, NULL)
 
 SET IDENTITY_INSERT [dbo].[Refund_Request] OFF
 GO
@@ -685,18 +684,18 @@ GO
 SET IDENTITY_INSERT [dbo].[Wallet] ON 
 GO
 
-INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund] ,[bank_id] ,[bank_image],[bank_account])  
+INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])  
 	VALUES
-		(1, 1, 0, CAST(97383 AS Decimal(10, 2)), null, null,null)
-		,(2, 2, CAST(22999 AS Decimal(10, 2)), CAST(98099 AS Decimal(10, 2)), N'bidv' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/bidv.svg', N'0921321321322')
-		,(3, 3, CAST(22999 AS Decimal(10, 2)), CAST(11973 AS Decimal(10, 2)), N'vietcombank' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/vietcombank.svg', N'01121321322')
-		,(4, 4, CAST(22999 AS Decimal(10, 2)), CAST(52178 AS Decimal(10, 2)), N'bidv' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/bidv.svg', N'0221321321322')
-		,(5, 5, CAST(22999 AS Decimal(10, 2)), CAST(1322 AS Decimal(10, 2)), N'mb' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/mbbank.svg', N'1921321321322')
-		,(6, 6, CAST(22999 AS Decimal(10, 2)), CAST(234 AS Decimal(10, 2)), N'bidv' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/bidv.svg', N'551321321322')
-		,(7, 7, CAST(22999 AS Decimal(10, 2)), CAST(5223 AS Decimal(10, 2)), N'tpbank' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/tpbank.svg', N'052134321322')
-		,(8, 8, CAST(22999 AS Decimal(10, 2)), CAST(1123 AS Decimal(10, 2)), N'bidv' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/bidv.svg', N'441321321322')
-		,(9, 9, CAST(22999 AS Decimal(10, 2)), CAST(42255 AS Decimal(10, 2)), N'tpbank' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/tpbank.svg', N'09213321322')
-		,(10, 10, CAST(22999 AS Decimal(10, 2)), CAST(1146 AS Decimal(10, 2)), N'mb' ,N'https://sandbox.vnpayment.vn/paymentv2/images/img/logos/bank/big/mbbank.svg', N'3341321322')
+		(1, 1, 0, CAST(97383 AS Decimal(10, 2)))
+		,(2, 2, CAST(22999 AS Decimal(10, 2)), CAST(98099 AS Decimal(10, 2)))
+		,(3, 3, CAST(22999 AS Decimal(10, 2)), CAST(11973 AS Decimal(10, 2)))
+		,(4, 4, CAST(22999 AS Decimal(10, 2)), CAST(52178 AS Decimal(10, 2)))
+		,(5, 5, CAST(22999 AS Decimal(10, 2)), CAST(1322 AS Decimal(10, 2)))
+		,(6, 6, CAST(22999 AS Decimal(10, 2)), CAST(234 AS Decimal(10, 2)))
+		,(7, 7, CAST(22999 AS Decimal(10, 2)), CAST(5223 AS Decimal(10, 2)))
+		,(8, 8, CAST(22999 AS Decimal(10, 2)), CAST(1123 AS Decimal(10, 2)))
+		,(9, 9, CAST(22999 AS Decimal(10, 2)), CAST(42255 AS Decimal(10, 2)))
+		,(10, 10, CAST(22999 AS Decimal(10, 2)), CAST(1146 AS Decimal(10, 2)))
 
 	DECLARE @Counter INT = 11; -- Start with the next number after the existing data
 

@@ -13,12 +13,6 @@ public partial class Wallet
 
     public decimal Refund { get; set; }
 
-    public string? BankId { get; set; }
-
-    public string? BankImage { get; set; }
-
-    public string? BankAccount { get; set; }
-
     public virtual ICollection<RefundRequest> RefundRequests { get; set; } = new List<RefundRequest>();
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();

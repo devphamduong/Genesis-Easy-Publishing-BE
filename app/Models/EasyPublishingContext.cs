@@ -52,15 +52,8 @@ public partial class EasyPublishingContext : DbContext
     public virtual DbSet<Wallet> Wallets { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var conf = new ConfigurationBuilder()
-              .SetBasePath(Directory.GetCurrentDirectory())
-              .AddJsonFile("appsettings.json").Build();
-            optionsBuilder.UseSqlServer(conf.GetConnectionString("MyCnn"));
-        }
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("server = DESKTOP-D0J2I3U\\SQLEXPRESS;database = Easy_Publishing;uid=sa;pwd=1001;TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -204,6 +197,12 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.Amount)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("amount");
+            entity.Property(e => e.BankAccount)
+                .HasMaxLength(50)
+                .HasColumnName("bank_account");
+            entity.Property(e => e.BankId)
+                .HasMaxLength(50)
+                .HasColumnName("bank_id");
             entity.Property(e => e.RequestTime)
                 .HasColumnType("datetime")
                 .HasColumnName("request_time");
@@ -310,7 +309,7 @@ public partial class EasyPublishingContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CCCD686508");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CCEFDBAC92");
 
             entity.ToTable("Role");
 
@@ -621,15 +620,6 @@ public partial class EasyPublishingContext : DbContext
             entity.ToTable("Wallet");
 
             entity.Property(e => e.WalletId).HasColumnName("wallet_id");
-            entity.Property(e => e.BankAccount)
-                .HasMaxLength(50)
-                .HasColumnName("bank_account");
-            entity.Property(e => e.BankId)
-                .HasMaxLength(50)
-                .HasColumnName("bank_id");
-            entity.Property(e => e.BankImage)
-                .HasMaxLength(4000)
-                .HasColumnName("bank_image");
             entity.Property(e => e.Fund)
                 .HasDefaultValueSql("('0.00')")
                 .HasColumnType("decimal(18, 0)")

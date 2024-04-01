@@ -232,9 +232,8 @@ namespace app.Controllers
 
         public class Refund
         {
-            public string? BankId { get; set; }
-            public string? BankImage { get; set; }
-            public string? BankAccount { get; set; }
+            public string BankId { get; set; }
+            public string BankAccount { get; set; }
             public decimal Amount { get; set; }
         }
         [HttpPost("refund_send")]
@@ -248,14 +247,12 @@ namespace app.Controllers
             var request_exist = await _context.RefundRequests.Where(w => w.WalletId == user_wallet.WalletId && w.Status == null).FirstOrDefaultAsync();
             if (request_exist != null) return _msgService.MsgActionReturn(-2, "Yêu cầu trước đó của bạn vẫn đang xử lý");
 
-            user_wallet.BankId = refund.BankId == null ? user_wallet.BankId : refund.BankId;
-            user_wallet.BankImage = refund.BankImage == null ? user_wallet.BankImage : refund.BankImage;
-            user_wallet.BankId = refund.BankAccount == null ? user_wallet.BankAccount : refund.BankAccount;
-
             _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             RefundRequest request = new RefundRequest()
             {
                 WalletId = user_wallet.WalletId,
+                BankId = refund.BankId,
+                BankAccount = refund.BankAccount,
                 Amount = refund.Amount,
                 RequestTime = DateTime.Now,
                 ResponseTime = null,
@@ -281,8 +278,8 @@ namespace app.Controllers
                c.RequestId,
                c.Wallet.User.UserFullname,
                c.WalletId,
-               c.Wallet.BankId,
-               c.Wallet.BankAccount,
+               c.BankId,
+               c.BankAccount,
                c.Amount,
                c.RequestTime,
                c.Status,
@@ -349,8 +346,8 @@ namespace app.Controllers
                             "Yêu cầu rút tiền của bạn đã được phê duyệt",
                             "<p>Easy Publishing Xin chào <b> " + name + "</b>,</p>" +
                             "<b>Thông tin giao dịch Quý khách vừa thực hiện như sau:</b>" +
-                            "<p>Ngân hàng: <b>" + user_wallet.BankId + "</b></p>" +
-                            "<p>Số thẻ: <b>" + user_wallet.BankAccount + "</b></p>" +
+                            "<p>Ngân hàng: <b>" + request.BankId + "</b></p>" +
+                            "<p>Số thẻ: <b>" + request.BankAccount + "</b></p>" +
                             "<p>Giao dịch: <b>Rút tiền khỏi hệ thống</b> </p>" +
                             "<p>Trạng thái giao dịch: <b>Thành công</b> </p>" +
                             "<p>Số tiền giao dịch: <b>" + (int)request.Amount + " TLT</b></p>" +

@@ -9,6 +9,10 @@ public partial class RefundRequest
 
     public int WalletId { get; set; }
 
+    public string? BankId { get; set; }
+
+    public string? BankAccount { get; set; }
+
     public decimal Amount { get; set; }
 
     public DateTime RequestTime { get; set; }
