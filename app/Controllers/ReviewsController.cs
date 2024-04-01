@@ -272,7 +272,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 3,
-                    EM = "Truyện chưa được review"
+                    EM = "Chương chưa được review"
                 });
             }
             if (story.AuthorId != userId && review.Reviewer.UserId != userId)
@@ -286,7 +286,7 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Thông tin review của truyện",
+                EM = "Thông tin review của chương",
                 DT = new
                 {
                     review = review
@@ -350,7 +350,7 @@ namespace app.Controllers
             {
                 return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
             }
-            var volumes = await _context.Volumes.Where(v => v.StoryId == storyid)
+            var volumes = await _context.Volumes.Where(v => v.StoryId == storyid && v.Chapters.Any(c => c.Status == 0))
                 .Include(v => v.Chapters)
                 .Select(v => new
                 {
@@ -370,6 +370,10 @@ namespace app.Controllers
                     }).OrderBy(c => c.ChapterNumber).ToList()
                 }).OrderBy(v => v.volumeNumber)
                 .ToListAsync();
+            if (volumes.Count() == 0)
+            {
+                return msgService.MsgActionReturn(2, "Không có tập chứa chương cần review");
+            }
             return msgService.MsgReturn(0, "Danh sách các tập của truyện", volumes);
         }
 
@@ -405,12 +409,9 @@ namespace app.Controllers
             {
                 return msgService.MsgActionReturn(3, "Chương không tồn tại");
             }
-            if (!user.Stories.Any(s => s.StoryId == chapter.storyId))
+            if (chapter.chapterStatus != 0)
             {
-                if (!user.Chapters.Any(c => c.ChapterId == chapterId))
-                {
-                    return msgService.MsgActionReturn(4, "Bạn không được quyền vào trang này");
-                }
+                return msgService.MsgActionReturn(4, "Chương đã được review");
             }
             return msgService.MsgReturn(0, "Thông tin chương", chapter);
         }
