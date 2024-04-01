@@ -15,6 +15,8 @@ public partial class Wallet
 
     public string? BankId { get; set; }
 
+    public string? BankImage { get; set; }
+
     public string? BankAccount { get; set; }
 
     public virtual ICollection<RefundRequest> RefundRequests { get; set; } = new List<RefundRequest>();

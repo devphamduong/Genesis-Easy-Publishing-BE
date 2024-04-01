@@ -232,8 +232,9 @@ namespace app.Controllers
 
         public class Refund
         {
-            public string BankId { get; set; }
-            public string BankAccount { get; set; }
+            public string? BankId { get; set; }
+            public string? BankImage { get; set; }
+            public string? BankAccount { get; set; }
             public decimal Amount { get; set; }
         }
         [HttpPost("refund_send")]
@@ -248,6 +249,7 @@ namespace app.Controllers
             if (request_exist != null) return _msgService.MsgActionReturn(-2, "Yêu cầu trước đó của bạn vẫn đang xử lý");
 
             user_wallet.BankId = refund.BankId == null ? user_wallet.BankId : refund.BankId;
+            user_wallet.BankImage = refund.BankImage == null ? user_wallet.BankImage : refund.BankImage;
             user_wallet.BankId = refund.BankAccount == null ? user_wallet.BankAccount : refund.BankAccount;
 
             _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

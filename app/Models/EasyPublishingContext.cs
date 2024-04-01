@@ -310,7 +310,7 @@ public partial class EasyPublishingContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC379A69D3");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CCCD686508");
 
             entity.ToTable("Role");
 
@@ -627,6 +627,9 @@ public partial class EasyPublishingContext : DbContext
             entity.Property(e => e.BankId)
                 .HasMaxLength(50)
                 .HasColumnName("bank_id");
+            entity.Property(e => e.BankImage)
+                .HasMaxLength(4000)
+                .HasColumnName("bank_image");
             entity.Property(e => e.Fund)
                 .HasDefaultValueSql("('0.00')")
                 .HasColumnType("decimal(18, 0)")

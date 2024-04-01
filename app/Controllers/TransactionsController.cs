@@ -74,17 +74,26 @@ namespace app.Controllers
             return null;
         }
 
-
-
+        private int GetUserId()
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            return userId;
+        }
 
         [HttpGet("wallet")]
         public async Task<ActionResult> GetUserWallet()
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var wallet = await _context.Wallets.Where(w => w.UserId == userId)
                     .Include(w => w.Transactions)
                     .Select(w => new
@@ -114,11 +123,10 @@ namespace app.Controllers
         [HttpPost("purchase_story")]
         public async Task<ActionResult> AddTransactionBuyStory(int storyId)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
                 var story = await _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
@@ -212,11 +220,10 @@ namespace app.Controllers
         [HttpPost("purchase_chapter")]
         public async Task<ActionResult> AddTransactionBuyChapter(int chapterId)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
                 var chapter = await _context.Chapters.Where(ch => ch.ChapterId == chapterId).FirstOrDefaultAsync();
                 var story = await _context.Stories.Where(s => s.StoryId == chapter.StoryId).FirstOrDefaultAsync();
@@ -288,11 +295,10 @@ namespace app.Controllers
         [HttpPost("purchase_many_chapters")]
         public async Task<ActionResult> AddTransactionBuyManyChapters(int chapterStart, int chapterEnd, int storyId)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
                 if (chapterStart > chapterEnd)
                     return _msgService.MsgActionReturn(-3, "Chương bắt đầu cần lớn hơn chương cuối bạn muốn mua");
@@ -389,11 +395,10 @@ namespace app.Controllers
         [HttpGet("get_information_to_buy_chapters")]
         public async Task<ActionResult> GetInformationToBuyChapter(int storyId)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var user_chapter = await _context.Users.Where(u => u.UserId == userId)
                      .Include(u => u.Chapters)
                      .Select(u => new
@@ -417,11 +422,10 @@ namespace app.Controllers
         [HttpGet("get_transaction_buy_many_chapters")]
         public async Task<ActionResult> GetTransactionBuyManyChapters(int chapterStart, int chapterEnd, int storyId)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 if (chapterStart > chapterEnd)
                     return _msgService.MsgActionReturn(-3, "Chương bắt đầu cần lớn hơn chương cuối bạn muốn mua");
 
@@ -460,11 +464,10 @@ namespace app.Controllers
         [HttpPost("top_up")]
         public async Task<ActionResult> AddTransactionTopUp(int amount)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
                 var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
                 var user_transaction = new Transaction
@@ -486,10 +489,10 @@ namespace app.Controllers
                 {
                     WalletId = admin_wallet.WalletId,
                     Amount = amount,
-                    FundBefore = admin_wallet.Fund,
-                    FundAfter = admin_wallet.Fund + amount,
-                    RefundBefore = 0,
-                    RefundAfter = 0,
+                    FundBefore = 0,
+                    FundAfter = 0,
+                    RefundBefore = admin_wallet.Refund,
+                    RefundAfter = admin_wallet.Refund + amount,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Nạp {amount} vào hệ thống"
@@ -510,63 +513,22 @@ namespace app.Controllers
             }
         }
 
-        [HttpPost("withdraw")]
-        public async Task<ActionResult> AddTransactionWithdraw(int amount)
+        [HttpGet("payment_method")]
+        public async Task<ActionResult> GetPaymentMethod()
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-
-            jwtSecurityToken = VerifyToken();
-            int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
-            var user_wallet = await _context.Wallets.Where(w => w.UserId == user.UserId).FirstOrDefaultAsync();
-
-            var user_transaction = new Transaction
-            {
-                WalletId = user_wallet.WalletId,
-                Amount = amount,
-                FundBefore = 0,
-                FundAfter = 0,
-                RefundBefore = user_wallet.Refund,
-                RefundAfter = user_wallet.Refund - amount,
-                TransactionTime = DateTime.Now,
-                Status = true,
-                Description = $"Rút {amount}"
-            };
-            user_wallet.Fund = user_wallet.Fund - amount;
-
-            var admin_wallet = await _context.Wallets.FirstOrDefaultAsync();
-            var admin_transaction = new Transaction
-            {
-                WalletId = admin_wallet.WalletId,
-                Amount = amount,
-                FundBefore = 0,
-                FundAfter = 0,
-                RefundBefore = admin_wallet.Fund,
-                RefundAfter = admin_wallet.Fund - amount,
-                TransactionTime = DateTime.Now,
-                Status = true,
-                Description = $"Rút {amount} khỏi hệ thống"
-            };
-            admin_wallet.Fund = admin_wallet.Fund - amount;
-
-            _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _context.Entry<Wallet>(admin_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _context.Transactions.Add(user_transaction);
-            _context.Transactions.Add(admin_transaction);
-            await _context.SaveChangesAsync();
-
-            return _msgService.MsgReturn(0, $"Nạp {amount}000 VND thành  {amount} TLT : {user.UserFullname} thành công", new { amount });
-
+            int userId = GetUserId();
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
+            return _msgService.MsgReturn(0, "Phương thức thanh toán ", user_wallet);
         }
 
         [HttpGet("history")]
         public async Task<ActionResult> GetUserTransactionHistory(int page, int pageSize)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId)
                 .Include(t=>t.Wallet)
@@ -606,11 +568,10 @@ namespace app.Controllers
         [HttpGet("user_story_transaction_history")]
         public async Task<ActionResult> GetUserStoryTransactionHistory(int page, int pageSize, int storyId)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId && c.StoryId == storyId)
                  .Include(t => t.Story)
@@ -647,11 +608,10 @@ namespace app.Controllers
         [HttpGet("get_transaction_top_up")]
         public async Task<ActionResult> GetTransactionTopUp(int page, int pageSize)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Nạp"))
                  .Include(t => t.Story)
@@ -689,11 +649,10 @@ namespace app.Controllers
         [HttpGet("get_buy_transaction")]
         public async Task<ActionResult> GetBuyTransaction(int page, int pageSize)
         {
-            var jwtSecurityToken = new JwtSecurityToken();
             try
             {
-                jwtSecurityToken = VerifyToken();
-                int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+                int userId = GetUserId();
+                if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId && c.Description.StartsWith("Mua"))
                 .Include(t => t.Story)
@@ -731,9 +690,7 @@ namespace app.Controllers
         [HttpGet("admin_history")]
         public async Task<ActionResult> GetAdminTransactionHistory()
         {
-            var jwtSecurityToken = new JwtSecurityToken();
-            jwtSecurityToken = VerifyToken();
-            //int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            int userId = GetUserId();
             //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
