@@ -203,7 +203,8 @@ namespace app.Controllers
                 .Select(a => new
                 {
                     AuthorId = a.UserId,
-                    AuthorName = a.UserFullname
+                    AuthorName = a.UserFullname,
+                    AuthorImage = a.UserImage,
                 }).ToListAsync();
             var cate = await _context.Categories
                 .Include(c => c.Stories)

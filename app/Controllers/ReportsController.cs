@@ -77,7 +77,7 @@ namespace app.Controllers
                     CommentContent = r.Comment.CommentContent,
                     ReportContent1 = r.ReportContent1,
                     ReportDate = r.ReportDate,
-                    Status = r.Status
+                    Status = r.Status == null ? "Unsolved": "Solved"
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Thể loại tố cáo", reports);
