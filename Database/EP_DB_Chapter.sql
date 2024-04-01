@@ -282,7 +282,206 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			“Ta đi nhĩ đại gia, thật là lãng phí biểu tình, Bản vương đang cùng ngươi nói chuyện, nhĩ có còn hay không điểm lễ phép, nhĩ”
 			Nhưng mà sau một khắc, Huyết Nguyệt ngừng chửi rủa, chết nhìn chòng chọc Tử Hàn bóng người, thiếu chút nữa liền xuống ba cũng kinh điệu, lúc này Tử Hàn lại đang Luyện bàn tay, phảng phất trước học qua một dạng tự học, sau một khắc trong tay trường kiếm, trường kiếm trong tay hoành vũ lên, trên không trung vạch qua một vệt độ cong
 			Chỉ lưu lại Huyết Nguyệt ở trong gió xốc xếch, nhìn Tử Hàn, Huyết Nguyệt đôi mắt trở nên thâm thúy đứng lên.
-			“Trời sinh thánh mạch, coi là thật bất phàm”')
+			“Trời sinh thánh mạch, coi là thật bất phàm”'),
+			(55, 5, 24, 29, 7, N'Ác Nô Khi Chủ',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			N'Đêm đã khuya, Huyết Nguyệt ngáp một cái, nghiêng dựa vào bên cây nhìn phía xa Tử Hàn, trong tay múa kiếm chính Luyện phi thường cao hứng, trong lúc mơ hồ hội tụ ra một loại Kiếm Thế, trên mũi kiếm có từng luồng kiếm khí lưu chuyển, trường kiếm hiện ra sắc bén ý, Tử Hàn lúc này khí chất đại biến đã là có dần dần lộ phong mang cảm giác.</p>
+			<p>Làm Tử Hàn thu hồi trường kiếm, nhìn đến trường kiếm trong tay, càng xem càng là hoan hỉ, bàn tay nhẹ nhàng ma sát thân kiếm, ngẩng đầu nhìn liếc mắt sắc trời, hướng Tử gia trang viên đi tới.</p>
+			<p>“Ai, thiếu niên Lang, ngươi không đợi Bản vương?”</p>
+			<p>Tử Hàn nghe vậy, nhất thời quay đầu, Huyết Nguyệt đạp nước cánh đi tới Tử Hàn trước mặt, nhảy đến Tử Hàn đầu vai.</p>
+			<p>Tử Hàn nghiêng đầu nhìn trên bả vai mình Kê Tử Nhi nói “Nguyên lai ngươi còn chưa đi à?”</p>
+			<p>“Đi? Ngươi để cho Bản vương đi thì sao? Ai, ngươi sẽ không cần qua sông rút cầu đi, Bản vương bây giờ nhưng là tuyệt lộ, lại nói Bản vương còn phải dẫn ngươi lăn lộn đâu rồi, làm sao có thể đi”</p>
+			<p>Tử Hàn nghe vậy, có chút cau mày, nói “Ta còn tưởng rằng ta giống như lão trong dân cư cố sự như thế, gặp phải một cái cao thủ tuyệt thế, sau đó lấy được nghịch thiên truyền thừa, sau đó cao nhân tuyệt trần rời đi, không được xuất bản tục đây”</p>
+			<p>“Đó là cố sự, cho nên sau này ngươi phải thật tốt đi theo Bản vương, lại nói nếu như không có Bản vương dạy dỗ, ngươi thế nào Ngạo Thị Thiên Hạ, đi đâu tìm nhiều như vậy nghịch thiên vũ kỹ?”</p>
+			<p>“Cũng là” Tử Hàn gật đầu, rồi sau đó nhìn Huyết Nguyệt, nghiêm túc nói “Nhưng là có một việc, ngươi phải rõ ràng”</p>
+			<p>Huyết Nguyệt trên cánh một cái lông chim móc lỗ mũi, ngạo mạn nói “Chuyện gì?”</p>
+			<p>“Là ngươi đi theo ta, không phải là ta theo đến ngươi”</p>
+			<p>Tử Hàn lòng tràn đầy hoan hỉ đi tới cửa trang viên, xa xa nhìn lại, trang viên to lớn, là cả hoa rơi thành xa xỉ nhất một tòa trang viên, cả thành hoa rơi lên, mà tòa trang viên này cũng là Lưu Vân Hoàng Triều một trong tứ đại gia tộc Tử Tộc mạch chỗ, Tự Nhiên sang trọng.</p>
+			<p>Huyết Nguyệt nhìn xa xa trang viên nói “Cũng không tệ lắm, căn này nhà nhỏ so với Bản vương trong cung điện nhà vệ sinh cũng chênh lệch không bao nhiêu, bất quá loại này thâm sơn cùng cốc địa phương, Bản vương cũng chỉ có thể tạm đến ở”</p>
+			<p>“Nhà ngươi nhà vệ sinh lớn như vậy a” Tử Hàn nghe Huyết Nguyệt lời nói, khóe miệng nhẹ nhàng co quắp, lại bắt đầu thói quen con gà này tử mà nói mạnh miệng, dần dần cảm giác không có gì kỳ quái.</p>
+			<p>Tử Hàn vừa nói đi tới cửa, làm Tử Hàn vừa muốn bước lên nấc thang thời điểm, hai thanh trường mâu tương giao, vang vang chi tiếng vang lên, ngăn trở đường đi, Tử Hàn nhướng mày một cái, ngẩng đầu nhìn lại, hai trung niên nam nhân lúc này đứng ở cửa, một người mở miệng mang theo nghiêm nghị, nói “Tới người nào, lại ban đêm xông vào Tử Phủ không muốn sống”</p>
+			<p>Tử Hàn khẽ cau mày, sắc mặt nhất thời trở nên âm trầm, có chút nổi nóng.</p>
+			<p>Thủ môn người tên là Tử Lực chỉ là Tử gia nô tài, bởi vì đem em gái mình hiến tặng cho Tử Lạc phong lưu một đêm mới đổi lấy một cái thủ môn chức vị, hơn nữa Tử Lực thường xuyên ỷ thế hiếp người, mười phần tiểu nhân mặt nhọn.</p>
+			<p>Tử Lực biết rất rõ ràng người đến là ai, lại cố ý ngăn lại hắn đi đường, chẳng qua là là cho hắn khó chịu, đi tới hoa rơi thành mấy năm này Tử Hàn tựa như ư đã thành thói quen, toàn bộ mạch trên dưới từ gia chủ khi đến người không người để mắt hắn.</p>
+			<p>Có thể là đối với những thứ này Tử Hàn chỉ có thể im hơi lặng tiếng, chính mình cái gì làm không, bởi vì hắn không có thực lực.</p>
+			<p>“Ta là Tử Hàn”</p>
+			<p>Tử Hàn mở miệng, ngẩng đầu nhìn về phía hai người, Tử Lực làm bộ xít lại gần nhìn Tử Hàn liếc mắt, như có sở ngộ nói “Nguyên lai là Tử Hàn thiếu gia a, thế nào trễ như vậy mới trở về”</p>
+			<p>Tử Lực vừa nói lại không có chút nào nhường đường ý tứ, như cũ cư cao lâm hạ nhìn Tử Hàn, khóe miệng mang theo cười khẽ, ánh mắt liếc xéo nhìn hắn.</p>
+			<p>“Thiếu niên Lang, đây không phải là nhà ngươi sao?”</p>
+			<p>“Đây không phải là nhà ta”</p>
+			<p>“Ngươi thế nào thảm như vậy, không thể tu luyện coi như, vẫn như thế nghèo, ngay cả như vậy một căn phòng hư tử ngươi cũng không có”</p>
+			<p>Tử Hàn sắc mặt càng âm trầm, ngẩng đầu nhìn hai cái Người giữ cửa, lần nữa mở miệng nói “Ta đi chỗ nào có liên quan gì tới ngươi, tránh ra”</p>
+			<p>Tử Lực nghe được Tử Hàn lời nói, có chút quái dị nhìn Tử Hàn, không nghĩ tới hôm nay Tử Hàn như thế này mà ngạnh khí, ngay sau đó cười lạnh nói "Ta chỉ là quan tâm một chút Tử Hàn thiếu gia,</p>
+			<p>Dù sao Tử Hàn thiếu gia ngươi nhưng là chủ nhà tới thiếu gia, nếu như có sơ xuất gì lời nói, chúng ta có thể đảm đương không nổi "</p>
+			<p>“Lời này thật chua”</p>
+			<p>Huyết Nguyệt âm thanh âm vang lên, Tử Lực mặt lộ vẻ kinh dị, lại cũng không có ngạc nhiên, như cũ cản trở Tử Hàn đường đi, không có thả Tử Hàn đi qua ý tứ.</p>
+			<p>“Các ngươi có nhường hay không, không để cho cũng đừng trách ta không khách khí”</p>
+			<p>Tử Hàn thanh âm trở nên lạnh giá, nắm trường kiếm tay, đang nhẹ nhàng ma sát chuôi kiếm, tựa hồ chuẩn bị một món chặt xuống trước mắt Tử Lực đầu.</p>
+			<p>“Ồ, Tử Hàn Đại thiếu gia đây là tới đây là muốn ở trước mặt chúng ta đùa bỡn thiếu gia tính khí đây? Thật là đáng sợ a” Tử Lực vừa nói, trong thanh âm mang theo chế giễu, cố gắng làm ra một bộ sợ hãi vẻ mặt, sau đó lộ ra một vệt vẻ trào phúng.</p>
+			<p>Tử Hàn nhất thời giận dữ, mắng “Cẩu nô tài, ngươi là cái thá gì, có tư cách gì ở Bản Thiếu Gia trước mặt châm chọc”</p>
+			<p>Tử Lực nghe vậy, sắc mặt nhất thời trầm xuống, cười lạnh, nói “Tử Hàn, ngươi thật đúng là đem mình làm món đồ, không phải là một phế vật sao? Chẳng lẽ ngươi còn muốn ỷ vào chủ nhà thiếu gia thân phận tới đùa bỡn uy phong hay sao?”</p>
+			<p>“Ô kìa ta đi, thiếu niên Lang, ngươi này lăn lộn cũng không ai, đều bị nô tài cỡi ở trên cổ đi ị”</p>
+			<p>Huyết Nguyệt dứt lời ở Tử Hàn trong tai, Tử Hàn nhìn Tử Lực, lạnh lùng nói “Cẩu nô tài”</p>
+			<p>Ba!</p>
+			<p>Tử Hàn đưa tay đang lúc một cái tát ở Tử Lực trên mặt, thanh thúy ba tiếng vỗ tay vang lên, Tử Lực kịp phản ứng trừng mắt to nhìn Tử Hàn, nắm trường mâu thủ ở khẽ run, trong mắt tóe ra tức giận, tựa hồ được bao lớn khuất nhục.</p>
+			<p>“Ngươi dám đánh ta?”</p>
+			<p>Tử Lực lớn tiếng nói.</p>
+			<p>“Đánh ngươi thì thế nào, ngươi bất quá là một nô tài mà thôi, ngươi còn muốn cùng ta động thủ hay sao?”</p>
+			<p>Tử Hàn trường kiếm trong tay một lăng, nhìn Tử Lực không sợ chút nào, nếu là đổi thành lúc trước Tử Hàn căn bản không có dũng khí đánh ra Nadic bàn tay, nhưng là lúc này đã không giống ngày xưa.</p>
+			<p>“Ngươi cái phế vật, hôm nay ta không giáo huấn ngươi, ngươi cũng không phân rõ mình là ai”</p>
+			<p>Tử Hàn sau lùi một bước, nhìn Tử Lực, lúc này Tử Lực trong tay trường mâu vũ động, hướng Tử Hàn chặt chém tới, trường mâu hiện lên hàn quang, Tử Hàn không ngừng lùi lại đến, né tránh trường mâu.</p>
+			<p>“Tử Lực, ngươi bất quá là một nô tài, lại dám động thủ với ta”</p>
+			<p>Tử Hàn biết rõ mình nói là nói nhảm, nhưng là đây là hắn cố ý nói ra, Tử Lực lại cười lạnh một tiếng nói “Ra tay với ngươi thì thế nào, chỉ cần không đem ngươi đánh chết, gia chủ thì sẽ không để ý tới, ngươi bất quá là một phế vật thôi, có cái gì tốt phách lối”</p>
+			<p>Tử Lực nói trong tay trường mâu hướng Tử Hàn đâm tới, Tử Hàn sắc mặt nhất thời lạnh lẻo, trường kiếm trong tay chém ngang ngăn trở trường mâu, Tử Lực cảm thấy trong lòng giật mình, có chút khó tin nhìn Tử Hàn, Tử Hàn thu hồi trường kiếm chém xuống một kiếm, Tử Lực thu hồi trường mâu hoành ngăn hồ sơ đang lúc, một vệt kiếm quang chợt lóe, trường mâu trực tiếp bị chém đứt.</p>
+			<p>Tử Lực nắm bị chém đứt trường mâu, không ngừng lùi lại “Không thể nào, ngươi cái phế vật này làm sao có thể chống đỡ được ta, ta nhưng là Thông Linh cảnh sơ kỳ cường giả”</p>
+			<p>Tử Hàn thu kiếm, lạnh lùng nói “Mở miệng một tiếng phế vật, nói đủ chưa?”</p>
+			<p>Huyết Nguyệt mặt đầy khinh bỉ nhìn Tử Lực nói “Lúc nào Thông Linh cảnh sơ kỳ đều được cường giả?”</p>
+			<p>Oành!</p>
+			<p>Tử Hàn tiến lên một cước đá vào Tử Lực trên mặt, đạp Tử Lực luôn miệng gào thét bi thương, mặc dù Tử Lực là Thông Linh cảnh sơ kỳ cùng Tử Hàn một cảnh giới, tuy nhiên lại căn bản không phải Tử Hàn đối thủ, Tử Hàn trường kiếm trong tay sắc bén, để cho hắn bất ngờ, lúc này Tử Hàn thừa thắng xông lên, để cho Tử Lực vội vàng không kịp chuẩn bị.</p>
+			<p>Tử Hàn tiến lên một cái tát lần nữa phiến ở Tử Lực trên mặt, một đạo huyết thủy hoành bay ra ngoài, không tưởng tượng nổi nhìn Tử Hàn, giống như nhìn quái vật.</p>
+			<p>“Ngươi làm sao có thể, ngươi không phải là không thể tu hành sao?”</p>
+			<p>“Mắc mớ gì tới ngươi, Lão Tử nhẫn đủ”</p>
+			<p>Tử Hàn vừa nói một cước giẫm ở Tử Lực trên mặt, quan sát Tử Lực lúc cảm nhận được một loại khoan dung, loại cảm giác này rất vi diệu, để cho hắn có chút hoảng hốt, hơi nhún chân đạp đi, lạnh lùng nói “Ta hiện ngày sẽ dạy ngươi làm gì nô tài”</p>
+			<p>Tử Hàn vừa nói một cước đem Tử Lực đá bay ra ngoài, bước chân đạp một cái đi tới Tử Lực bên cạnh một cước lần nữa giẫm đạp ở trên người hắn, trường kiếm trong tay nhấc lên nhìn Tử Lực.</p>
+			<p>“Ngươi, không thể giết ta, ngươi giết ta Tử Lạc thiếu gia sẽ không bỏ qua cho ngươi”</p>
+			<p>“Giết ngươi? Ta sợ bẩn ta kiếm, hơn nữa ai đi quan tâm ngươi tên nô tài này sống chết”</p>
+			<p>Tử Lực kinh hoàng nhìn Tử Hàn, hắn đột nhiên nhướng mày một cái ánh mắt lộ ra vẻ hàn quang, vận chuyển linh lực, một chưởng hướng Tử Hàn đánh.</p>
+			<p>Tử Hàn cau mày, trường kiếm trong tay vót ngang tới, một đạo huyết thủy văng lên.</p>
+			<p>“A!”</p>
+			<p>Tử Lực kêu thảm thiết, bàn tay hắn rơi ở một bên, cánh tay còn đang không ngừng chảy máu tươi.</p>
+			<p>“Ngươi cái phế vật, ta sẽ nhượng cho Tử Lạc thiếu gia giết ngươi”</p>
+			<p>“A!”</p>
+			<p>Tử Lực lần nữa kêu thảm một tiếng, Tử Hàn trường kiếm trong tay chặt đứt hắn một chân, một cước đưa hắn đá bay ra ngoài, lạnh lùng nói “Tử Lạc là cái thá gì, chẳng qua chỉ là Tử Tộc chi nhánh người thôi”</p>
+			<p>Tử Hàn nói đến trường kiếm trong tay lần nữa nâng lên, Tử Lực đáy mắt lộ ra vẻ hoảng sợ, lập tức hô lớn “Tử Hàn thiếu gia tha mạng, tiểu nhân không dám, không dám, ngài đại nhân có đại lượng tha ta mạng chó đi”</p>
+			<p>Tử Hàn lạnh lùng liếc hắn một cái, do dự một chút trường kiếm trong tay từ đầu đến cuối không có hạ xuống, Tử Hàn một cước nặng nề đá ở trên người hắn, Tử Lực lần nữa bay ra, Tử Hàn thu hồi ánh mắt lạnh lùng nhìn một gã khác Người giữ cửa, lạnh lùng nói “Bây giờ ngươi còn dám ngăn cản ta sao?”</p>
+			<p>Một tên khác Người giữ cửa nhất thời quỳ xuống, hắn nghe rất rõ, Tử Hàn nói chuyện không phải là còn muốn, mà là còn dám, lập tức sợ hãi, mang theo ý cầu khẩn nói “Tiểu nhân không dám”</p>
+			<p>Tử Hàn thủ đoạn ngay cả Huyết Nguyệt nhìn cũng có chút kinh ngạc, hắn cũng không nghĩ tới Tử Hàn lại có thể như thế cường thế, dù ai cũng không cách nào tưởng tượng Tử Hàn lúc trước cứu qua có nhiều khuất nhục, bây giờ mới sẽ hung hăng như vậy, chỉ có Tử Hàn mình mới rõ ràng, hắn trải qua cái gì.</p>
+			<p>“Hừ”</p>
+			<p>Tử Hàn nhẹ rên một tiếng, cầm kiếm hướng trong trang viên đi tới, Người giữ cửa nhìn nằm ở một bên Tử Lực, nhìn Tử Hàn biến mất ở trong màn đêm bóng lưng, lập tức liền lăn một vòng hướng đình viện sâu bên trong chạy đi.'),
+			(56, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
+			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
+			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
+			<p>Tử Hàn nhẹ nhàng cười cười, nói “Đi thôi, ngày mai đi Tàng Thư Lâu”</p>
+			<p>“Đi Tàng Thư Lâu làm gì, chẳng lẽ Bản vương cho ngươi vũ kỹ vào không ngươi mắt hay sao?”</p>
+			<p>Tử Hàn ánh mắt khẽ híp một cái, cười nói “Ngày mai ngươi cũng biết”</p>
+			<p>Tử Hàn xuyên qua tu luyện tràng, đi tới một mảnh Thủy Đàm trước mặt, bên đầm nước có một gian căn phòng nhỏ, liếc mắt nhìn sang cố gắng hết sức đơn sơ, Tử Hàn thẳng hướng phòng nhỏ đi vào, Huyết Nguyệt với sau lưng Tử Hàn kinh ngạc nhìn gian phòng này, khi nó đi vào thời điểm nhất thời liền kinh ngạc đến ngây người.</p>
+			<p>“Thiếu niên Lang, đây chính là ngươi chỗ ở?”</p>
+			<p>Tử Hàn quan sát một phen nhà, có chút lòng chua xót nói “Cũng không tệ lắm phải không, ít nhất có thể có một đặt chân phương, không đến nổi đầu đường xó chợ”</p>
+			<p>Huyết Nguyệt liếc mắt nhìn sang, lại nhìn một cái không sót gì, một tấm rách nát giường gỗ, cũng chính là hai cây trên cái băng thả gỗ miếng bản, phía trên cửa hàng để một tầng sợi bông, trước giường có một cái bàn gỗ, cái bàn gỗ cũ nát không chịu nổi, trên bàn để một ngọn đèn dầu, không có Đăng Tâm cũng không có đèn dầu hoàn toàn chính là một chưng bày, sau đó, sau đó cũng chưa có</p>
+			<p>Nóc nhà còn có một lổ lớn, căn bản ngăn cản không mưa gió.</p>
+			<p> Huyết Nguyệt nhìn hết thảy các thứ này nhất thời liền giận, đứng ở trên bàn một cước đá lộn mèo trên bàn ngọn đèn dầu, nổi giận mắng “Thứ gì a, ngươi không phải là Tử Tộc Lục thiếu gia sao? Mang đến mạch bên trong lại cho ngươi ở đây loại rách nát địa phương?”</p>
+			<p>Tử Hàn tự giễu cười một tiếng, nhẹ khẽ than thở ngồi ở tấm ván đạt được trên giường, cười nói “Ta có biện pháp gì, ai bảo ta không cách nào tu hành, coi như là Tử Tộc Lục thiếu gia thì thế nào, ở cha sau khi rời khỏi ta sinh hoạt trở nên chẳng bằng con chó”</p>
+			<p>“Vương Bát Đản, đám này Thiên Sát, lại cho Bản vương truyền nhân ở loại địa phương này, có cái xẻng sao? Bản vương phải đi đào nhà hắn mộ tổ tiên”</p>
+			<p>Huyết Nguyệt vừa nói liền muốn xông ra đi, Tử Hàn tiến lên bắt Huyết Nguyệt, trong lòng có loại không khỏi làm rung động, dù sao hắn và Huyết Nguyệt quen biết mới bất quá mấy giờ, nhưng là Huyết Nguyệt lại có thể lấy bất bình dùm cho mình, Tử Hàn nhẹ nhàng thư một hơi thở nói “Không việc gì, một ngày nào đó thuộc về ta đều sẽ cầm về”</p>
+			<p>Huyết Nguyệt thấy Tử Hàn trong ánh mắt lộ ra một vệt vẻ kiên nghị, nhẹ nhàng gõ đầu ánh mắt lộ ra công nhận vẻ mặt.</p>
+			<p>Huyết Nguyệt nằm ở Tử Hàn phá ngủ trên giường đi qua, Tử Hàn lại không chút nào buồn ngủ, đi tới bên đầm nước, lần nữa xuất ra Huyết Nguyệt cho hắn Thôn Linh Chưởng, chăm chỉ luyện tập đứng lên, nơi mi tâm từng tia linh lực rót vào hắn Tứ Chi Bách Hài, từng lần một đánh.</p>
+			<p>“Thôn Linh Chưởng”</p>
+			<p>Tử Hàn một chưởng đánh ở bên cạnh một cây liễu bên trên, to cở miệng chén cây liễu bị Tử Hàn miễn cưỡng một chưởng chặn ngang cắt đứt, Tử Hàn nhìn mình tay kinh ngạc nhìn ngã xuống cây liễu, sau một khắc ánh mắt lộ ra một vẻ vui mừng.</p>
+			<p>Lúc này Huyết Nguyệt đứng ở cửa Tĩnh Tĩnh nhìn Tử Hàn, nó ánh mắt lộ ra kinh hãi ý.</p>
+			<p>“Trời sinh thánh mạch lại đối với võ đạo hiểu sâu như vậy khắc, một bộ Huyền Giai hạ phẩm Chưởng Pháp lại bị hắn ở thời gian ngắn như vậy tu luyện thành công, hắn hôm nay mới khó khăn lắm phá vỡ mà vào Thông Linh cảnh mà thôi”</p>
+			<p>Tử Hàn nhướng mày một cái, hắn nghe được Huyết Nguyệt lời nói, hắn Ngũ Cảm ở tối nay trở nên phá lệ bén nhạy, Huyết Nguyệt thanh âm rất nhẹ, hắn lại nghe chân thiết, quay đầu đang lúc, thấy Huyết Nguyệt, nói “Ngươi không phải là ngủ đi?”</p>
+			<p>“Bản vương nghe phía bên ngoài động tĩnh đặc biệt đến xem thử, không nghĩ tới coi như Bản vương truyền nhân, ngươi biểu hiện vẫn không tệ nha, lại nhưng đã luyện thành Thôn Linh Chưởng”</p>
+			<p>Tử Hàn lộ ra một nụ cười, nói "Nhưng là ta cảm giác một chưởng này bổ xuống,</p>
+			<p>Ta linh lực tựa hồ cũng tiêu hao sắp tới 1 phần 3 "</p>
+			<p>“Thiếu niên Lang, đừng nóng, ngươi mới Thông Linh sơ kỳ, hơn nữa Thôn Linh Chưởng nhưng là Huyền Giai Chưởng Pháp tinh diệu rất, đối với ngươi mà nói Tự Nhiên tiêu hao đại”</p>
+			<p>Huyết Nguyệt nhìn Tử Hàn đáy mắt lộ ra vẻ quái dị, lần nữa mở miệng nói “Đi, với Bản vương vào nhà, cho ngươi đồ tốt”</p>
+			<p>“Thứ gì?”</p>
+			<p>Huyết Nguyệt không nói gì, đi vào phòng, cánh trôi lơ lửng đang lúc một vệt ánh sáng màu bạc chợt lóe, một khối to lớn Ngọc Thạch nổi lên, rơi trên mặt đất, cả nhà nhẹ nhàng run rẩy, lớn như vậy Ngọc Thạch giống như một giường lớn như thế.</p>
+			<p>Tử Hàn nhìn trước mắt Ngọc Thạch, há to mồm nói “Khối ngọc lớn như vậy, có thể bán không ít tiền đi”</p>
+			<p>“Thật là không có kiến thức, đây chính là Thánh Ngọc chế tạo, lớn như vậy khối Thánh Ngọc, ngươi có nhiều tiền hơn nữa cũng mua không được, này nhưng năm đó Bản vương trải qua Cửu Tử Nhất Sinh mới đến chí bảo”</p>
+			<p>Tử Hàn duỗi tay sờ xoạng đến Thánh Ngọc giường, một cổ cực kỳ linh khí nồng nặc truyền tới, nhất thời hắn lần nữa cảm thấy giật mình.</p>
+			<p>“Sau này ngươi ngay tại Thánh trên giường ngọc tu luyện tu hành, một năm tu hành tốc độ sánh được ở thiên địa linh khí đậm đà Bảo Địa tu luyện ba năm”</p>
+			<p>Tử Hàn trừng mắt to nhìn Thánh Ngọc giường, ở phía trên khoanh chân ngồi xuống, một cổ linh khí nồng nặc nhất thời tràn vào thân thể của hắn hóa thành linh lực, Tử Hàn há hốc miệng ba, sau đó hơi khẽ cau mày nhìn Huyết Nguyệt, hỏi “Ngươi là thế nào mang theo lớn như vậy món đồ”</p>
+			<p>“Bản vương có không gian bảo vật, cái gì không thể mang, coi như đem cả tòa thành trì dọn đi cũng không có vấn đề gì”</p>
+			<p>“Oa” Tử Hàn nhìn Huyết Nguyệt ánh mắt lộ ra vẻ nôn nóng, nói “Có thể cho ta mượn dùng hai ngày sao?”</p>
+			<p>Huyết Nguyệt một cái lông chim ở móc mũi, một đôi mắt nhỏ hơi nheo lại, nói “Lợi hại như vậy đồ vật tại sao có thể tùy tiện dùng linh tinh”</p>
+			<p>Tử Hàn cười một tiếng, sau đó ở Thánh trên giường ngọc bắt đầu tu luyện, một đạo Ấn Pháp kết xuất, từng đạo linh khí không có vào thân thể của hắn tụ vào mi tâm hóa thành linh lực, thẳng đến trời sáng, Tử Hàn mở mắt, ngạc nhiên phát hiện trải qua một đêm tu luyện trong thân thể linh lực so với trước muốn hùng hậu rất nhiều, trong lúc mơ hồ sắp đạt tới Thông Linh trung kỳ.</p>
+			<p>Tử Hàn đứng dậy, nói “Đi thôi, hôm nay lần đầu tiên, nên đi Tàng Thư Lâu”</p>
+			<p>Huyết Nguyệt vô cùng không tình nguyện bò dậy, lần nữa đem Thánh Ngọc giường thu, nằm ở Tử Hàn đầu vai, đi theo hắn đi ra ngoài, Tử Hàn trong tay sau lưng cõng lấy sau lưng trường kiếm, đi xuyên qua tu luyện tràng, đi tới một tòa kiến trúc cao lớn lâu vũ trước, lâu vũ chi trên có ba cái thiếp vàng chữ to —— Tàng Thư Lâu.</p>
+			<p>Ở Tử Tộc hoa rơi thành chi nhánh bên trong, mỗi tháng ban đầu nhất gia tộc Trung Võ người đều có thể đi vào Tàng Thư Lâu xem duyệt công pháp võ thuật, cho nên mỗi tháng lần đầu tiên thời điểm luôn là trong gia tộc võ giả tụ tập nhiều khi nhất sau khi, lúc này Tử Hàn đi tới Tàng Thư Lâu trước.</p>
+			<p>Lúc này mới khó khăn lắm lúc sáng sớm, đã có rất nhiều trong gia tộc đệ tử đi tới Tàng Thư Lâu trước chờ đợi lầu cửa mở ra.</p>
+			<p>Làm Tử Hàn đi tới nơi này thời điểm, nhất thời hội tụ vô số quái dị ánh mắt, Tử Hàn mặc dù không có thể tu hành, nhưng là ở Tử Tộc cái này chi nhánh bên trong nhưng là cực kỳ Nổi danh ". Bởi vì là mọi người đều biết Tử tộc chủ nhà Lục thiếu gia là một không thể tu hành phế vật, là bị chủ nhà đày đi tới đây chờ chết.</p>
+			<p>“Đây không phải là chủ nhà Lục thiếu gia sao? Hắn thế nào cũng tới Tàng Thư Lâu?”</p>
+			<p>“Tên phế vật kia thật đúng là không biết tự lượng sức mình, muốn tiến vào Tàng Thư Lâu?”</p>
+			<p>Tử Hàn thẳng tắp đứng ở Tàng Thư Lâu trước, bọn họ lời nói lại rõ ràng rơi tại chính mình trong tai, nhưng là Tử Hàn lại chưa từng chút nào để ý, tựa như ư đã thành thói quen.</p>
+			<p>“Các ngươi quá mức, chớ nói người ta như vậy”</p>
+			<p>Tử Hàn hơi kinh ngạc, có chút ghé mắt, một tên mười bốn mười lăm tuổi thiếu nữ người mặc quần dài màu lam nhạt, non nớt khuôn mặt nhỏ nhắn rất là thanh tú, nàng được đặt tên là Tử Diệp, là Tử Tộc điều này chi nhánh thiên tài, lúc này Tử Diệp đang nhìn Tử Hàn hiếu kỳ đánh giá.</p>
+			<p>Tử Hàn ghé mắt hướng về phía Tử Diệp nhẹ nhàng cười cười, Tử Diệp đầu tiên là sửng sốt một chút sau đó đi lên, đứng ở Tử Hàn trước mặt, mở miệng nói “Tử Hàn ca ca, ngươi đi nhanh đi, đợi một hồi Tử Lạc tới hắn khẳng định lại phải đánh ngươi”</p>
+			<p>“Nữ Oa, ngươi là có nhiều khinh bỉ hắn a, chẳng lẽ hắn cũng chỉ có thể là bị đánh đoán?”</p>
+			<p>Huyết Nguyệt nhàn nhạt liếc mắt nhìn Tử Diệp, Tử Diệp đánh giá Huyết Nguyệt cảm giác mười phần tức cười, đưa tay thì đi bắt Huyết Nguyệt muốn ngắt nhéo một cái.</p>
+			<p>Mọi người nghe được Huyết Nguyệt mở miệng mới vừa chú ý tới cái này chưa đủ ba tấc Tiểu Thú, mặc dù là có chút ngạc nhiên, lại cũng không phải là như thế nào ý, dù sao thế giới lớn không thiếu cái lạ, rất nhiều Yêu Thú linh trí cực cao, trời sinh liền có thể miệng nói tiếng người, bị người thu làm Linh Sủng, nhưng là mọi người kinh dị chỗ nhưng ở với trong mắt bọn họ cái phế vật này thiếu gia đi nơi nào thu Linh Sủng.</p>
+			<p>Tử Hàn hướng về phía Tử Diệp cười nói “Cám ơn ngươi, Tử Diệp, bất quá ta không sợ hắn”</p>
+			<p>Tử Diệp thu tay về nhìn Tử Hàn giương mắt nói “Không được, ngươi đánh không lại hắn, đến lúc đó ngươi lại phải đau chừng mấy ngày”</p>
+			<p>Tử Hàn ôn uyển cười một tiếng, vừa muốn mở miệng, xa xa Tử Lạc đi đi tới, trong mắt mang theo vẻ ngạo mạn căn bản không đem Tử Hàn coi vào đâu, sau lưng như cũ đi theo ngày hôm qua hai người kia, hai người trong mắt mang theo vẻ châm chọc nhìn Tử Hàn, khinh thường nói “Ồ, một đêm không thấy Tử Hàn thiếu gia dài tính khí, thậm chí ngay cả Tử Lạc đại ca cũng không sợ?”</p>
+			<p>Tử Diệp nhìn Tử Lạc đi tới, nhút nhát tránh qua một bên, không dám nhìn nữa Tử Hàn, Tử Hàn nhìn Tử Diệp lại không có một tia trách cứ ý tứ, ngược lại đáy lòng có một tia ấm áp, dù sao cùng hắn nói như vậy những năm gần đây cũng liền một cái Tử Diệp mà thôi.</p>
+			<p>Mọi người thấy Tử Lạc đi tới, ánh mắt lộ ra một bộ vẻ chờ mong, có người nhẹ nhàng mở miệng nói “Xem ra hôm nay lại có trò hay nhìn, Tử Lạc nhưng là một mực không ưa Tử Hàn a”</p>
+			<p>“Ai, cái này chủ nhà thiếu gia thật là đáng thương a, phỏng chừng lần này nửa tháng đều xuống không giường”</p>
+			<p>Ngay tại cũng cho là Tử Hàn sẽ ảo não chạy trốn lúc, Tử Hàn khóe miệng vén lên một tia độ cong, khẽ cười nói “Ta Tử Hàn chính là chủ nhà thiếu gia, ngươi coi là cái gì chó má, coi như ngươi mạch gia chủ cũng không xứng nói với ta như vậy”</p>
+			<p>Hí!</p>
+			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.'),
+			(57, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
+			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
+			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
+			<p>Tử Hàn nhẹ nhàng cười cười, nói “Đi thôi, ngày mai đi Tàng Thư Lâu”</p>
+			<p>“Đi Tàng Thư Lâu làm gì, chẳng lẽ Bản vương cho ngươi vũ kỹ vào không ngươi mắt hay sao?”</p>
+			<p>Tử Hàn ánh mắt khẽ híp một cái, cười nói “Ngày mai ngươi cũng biết”</p>
+			<p>Tử Hàn xuyên qua tu luyện tràng, đi tới một mảnh Thủy Đàm trước mặt, bên đầm nước có một gian căn phòng nhỏ, liếc mắt nhìn sang cố gắng hết sức đơn sơ, Tử Hàn thẳng hướng phòng nhỏ đi vào, Huyết Nguyệt với sau lưng Tử Hàn kinh ngạc nhìn gian phòng này, khi nó đi vào thời điểm nhất thời liền kinh ngạc đến ngây người.</p>
+			<p>“Thiếu niên Lang, đây chính là ngươi chỗ ở?”</p>
+			<p>Tử Hàn quan sát một phen nhà, có chút lòng chua xót nói “Cũng không tệ lắm phải không, ít nhất có thể có một đặt chân phương, không đến nổi đầu đường xó chợ”</p>
+			<p>Huyết Nguyệt liếc mắt nhìn sang, lại nhìn một cái không sót gì, một tấm rách nát giường gỗ, cũng chính là hai cây trên cái băng thả gỗ miếng bản, phía trên cửa hàng để một tầng sợi bông, trước giường có một cái bàn gỗ, cái bàn gỗ cũ nát không chịu nổi, trên bàn để một ngọn đèn dầu, không có Đăng Tâm cũng không có đèn dầu hoàn toàn chính là một chưng bày, sau đó, sau đó cũng chưa có</p>
+			<p>Nóc nhà còn có một lổ lớn, căn bản ngăn cản không mưa gió.</p>
+			<p> Huyết Nguyệt nhìn hết thảy các thứ này nhất thời liền giận, đứng ở trên bàn một cước đá lộn mèo trên bàn ngọn đèn dầu, nổi giận mắng “Thứ gì a, ngươi không phải là Tử Tộc Lục thiếu gia sao? Mang đến mạch bên trong lại cho ngươi ở đây loại rách nát địa phương?”</p>
+			<p>Tử Hàn tự giễu cười một tiếng, nhẹ khẽ than thở ngồi ở tấm ván đạt được trên giường, cười nói “Ta có biện pháp gì, ai bảo ta không cách nào tu hành, coi như là Tử Tộc Lục thiếu gia thì thế nào, ở cha sau khi rời khỏi ta sinh hoạt trở nên chẳng bằng con chó”</p>
+			<p>“Vương Bát Đản, đám này Thiên Sát, lại cho Bản vương truyền nhân ở loại địa phương này, có cái xẻng sao? Bản vương phải đi đào nhà hắn mộ tổ tiên”</p>
+			<p>Huyết Nguyệt vừa nói liền muốn xông ra đi, Tử Hàn tiến lên bắt Huyết Nguyệt, trong lòng có loại không khỏi làm rung động, dù sao hắn và Huyết Nguyệt quen biết mới bất quá mấy giờ, nhưng là Huyết Nguyệt lại có thể lấy bất bình dùm cho mình, Tử Hàn nhẹ nhàng thư một hơi thở nói “Không việc gì, một ngày nào đó thuộc về ta đều sẽ cầm về”</p>
+			<p>Huyết Nguyệt thấy Tử Hàn trong ánh mắt lộ ra một vệt vẻ kiên nghị, nhẹ nhàng gõ đầu ánh mắt lộ ra công nhận vẻ mặt.</p>
+			<p>Huyết Nguyệt nằm ở Tử Hàn phá ngủ trên giường đi qua, Tử Hàn lại không chút nào buồn ngủ, đi tới bên đầm nước, lần nữa xuất ra Huyết Nguyệt cho hắn Thôn Linh Chưởng, chăm chỉ luyện tập đứng lên, nơi mi tâm từng tia linh lực rót vào hắn Tứ Chi Bách Hài, từng lần một đánh.</p>
+			<p>“Thôn Linh Chưởng”</p>
+			<p>Tử Hàn một chưởng đánh ở bên cạnh một cây liễu bên trên, to cở miệng chén cây liễu bị Tử Hàn miễn cưỡng một chưởng chặn ngang cắt đứt, Tử Hàn nhìn mình tay kinh ngạc nhìn ngã xuống cây liễu, sau một khắc ánh mắt lộ ra một vẻ vui mừng.</p>
+			<p>Lúc này Huyết Nguyệt đứng ở cửa Tĩnh Tĩnh nhìn Tử Hàn, nó ánh mắt lộ ra kinh hãi ý.</p>
+			<p>“Trời sinh thánh mạch lại đối với võ đạo hiểu sâu như vậy khắc, một bộ Huyền Giai hạ phẩm Chưởng Pháp lại bị hắn ở thời gian ngắn như vậy tu luyện thành công, hắn hôm nay mới khó khăn lắm phá vỡ mà vào Thông Linh cảnh mà thôi”</p>
+			<p>Tử Hàn nhướng mày một cái, hắn nghe được Huyết Nguyệt lời nói, hắn Ngũ Cảm ở tối nay trở nên phá lệ bén nhạy, Huyết Nguyệt thanh âm rất nhẹ, hắn lại nghe chân thiết, quay đầu đang lúc, thấy Huyết Nguyệt, nói “Ngươi không phải là ngủ đi?”</p>
+			<p>“Bản vương nghe phía bên ngoài động tĩnh đặc biệt đến xem thử, không nghĩ tới coi như Bản vương truyền nhân, ngươi biểu hiện vẫn không tệ nha, lại nhưng đã luyện thành Thôn Linh Chưởng”</p>
+			<p>Tử Hàn lộ ra một nụ cười, nói "Nhưng là ta cảm giác một chưởng này bổ xuống,</p>
+			<p>Ta linh lực tựa hồ cũng tiêu hao sắp tới 1 phần 3 "</p>
+			<p>“Thiếu niên Lang, đừng nóng, ngươi mới Thông Linh sơ kỳ, hơn nữa Thôn Linh Chưởng nhưng là Huyền Giai Chưởng Pháp tinh diệu rất, đối với ngươi mà nói Tự Nhiên tiêu hao đại”</p>
+			<p>Huyết Nguyệt nhìn Tử Hàn đáy mắt lộ ra vẻ quái dị, lần nữa mở miệng nói “Đi, với Bản vương vào nhà, cho ngươi đồ tốt”</p>
+			<p>“Thứ gì?”</p>
+			<p>Huyết Nguyệt không nói gì, đi vào phòng, cánh trôi lơ lửng đang lúc một vệt ánh sáng màu bạc chợt lóe, một khối to lớn Ngọc Thạch nổi lên, rơi trên mặt đất, cả nhà nhẹ nhàng run rẩy, lớn như vậy Ngọc Thạch giống như một giường lớn như thế.</p>
+			<p>Tử Hàn nhìn trước mắt Ngọc Thạch, há to mồm nói “Khối ngọc lớn như vậy, có thể bán không ít tiền đi”</p>
+			<p>“Thật là không có kiến thức, đây chính là Thánh Ngọc chế tạo, lớn như vậy khối Thánh Ngọc, ngươi có nhiều tiền hơn nữa cũng mua không được, này nhưng năm đó Bản vương trải qua Cửu Tử Nhất Sinh mới đến chí bảo”</p>
+			<p>Tử Hàn duỗi tay sờ xoạng đến Thánh Ngọc giường, một cổ cực kỳ linh khí nồng nặc truyền tới, nhất thời hắn lần nữa cảm thấy giật mình.</p>
+			<p>“Sau này ngươi ngay tại Thánh trên giường ngọc tu luyện tu hành, một năm tu hành tốc độ sánh được ở thiên địa linh khí đậm đà Bảo Địa tu luyện ba năm”</p>
+			<p>Tử Hàn trừng mắt to nhìn Thánh Ngọc giường, ở phía trên khoanh chân ngồi xuống, một cổ linh khí nồng nặc nhất thời tràn vào thân thể của hắn hóa thành linh lực, Tử Hàn há hốc miệng ba, sau đó hơi khẽ cau mày nhìn Huyết Nguyệt, hỏi “Ngươi là thế nào mang theo lớn như vậy món đồ”</p>
+			<p>“Bản vương có không gian bảo vật, cái gì không thể mang, coi như đem cả tòa thành trì dọn đi cũng không có vấn đề gì”</p>
+			<p>“Oa” Tử Hàn nhìn Huyết Nguyệt ánh mắt lộ ra vẻ nôn nóng, nói “Có thể cho ta mượn dùng hai ngày sao?”</p>
+			<p>Huyết Nguyệt một cái lông chim ở móc mũi, một đôi mắt nhỏ hơi nheo lại, nói “Lợi hại như vậy đồ vật tại sao có thể tùy tiện dùng linh tinh”</p>
+			<p>Tử Hàn cười một tiếng, sau đó ở Thánh trên giường ngọc bắt đầu tu luyện, một đạo Ấn Pháp kết xuất, từng đạo linh khí không có vào thân thể của hắn tụ vào mi tâm hóa thành linh lực, thẳng đến trời sáng, Tử Hàn mở mắt, ngạc nhiên phát hiện trải qua một đêm tu luyện trong thân thể linh lực so với trước muốn hùng hậu rất nhiều, trong lúc mơ hồ sắp đạt tới Thông Linh trung kỳ.</p>
+			<p>Tử Hàn đứng dậy, nói “Đi thôi, hôm nay lần đầu tiên, nên đi Tàng Thư Lâu”</p>
+			<p>Huyết Nguyệt vô cùng không tình nguyện bò dậy, lần nữa đem Thánh Ngọc giường thu, nằm ở Tử Hàn đầu vai, đi theo hắn đi ra ngoài, Tử Hàn trong tay sau lưng cõng lấy sau lưng trường kiếm, đi xuyên qua tu luyện tràng, đi tới một tòa kiến trúc cao lớn lâu vũ trước, lâu vũ chi trên có ba cái thiếp vàng chữ to —— Tàng Thư Lâu.</p>
+			<p>Ở Tử Tộc hoa rơi thành chi nhánh bên trong, mỗi tháng ban đầu nhất gia tộc Trung Võ người đều có thể đi vào Tàng Thư Lâu xem duyệt công pháp võ thuật, cho nên mỗi tháng lần đầu tiên thời điểm luôn là trong gia tộc võ giả tụ tập nhiều khi nhất sau khi, lúc này Tử Hàn đi tới Tàng Thư Lâu trước.</p>
+			<p>Lúc này mới khó khăn lắm lúc sáng sớm, đã có rất nhiều trong gia tộc đệ tử đi tới Tàng Thư Lâu trước chờ đợi lầu cửa mở ra.</p>
+			<p>Làm Tử Hàn đi tới nơi này thời điểm, nhất thời hội tụ vô số quái dị ánh mắt, Tử Hàn mặc dù không có thể tu hành, nhưng là ở Tử Tộc cái này chi nhánh bên trong nhưng là cực kỳ Nổi danh ". Bởi vì là mọi người đều biết Tử tộc chủ nhà Lục thiếu gia là một không thể tu hành phế vật, là bị chủ nhà đày đi tới đây chờ chết.</p>
+			<p>“Đây không phải là chủ nhà Lục thiếu gia sao? Hắn thế nào cũng tới Tàng Thư Lâu?”</p>
+			<p>“Tên phế vật kia thật đúng là không biết tự lượng sức mình, muốn tiến vào Tàng Thư Lâu?”</p>
+			<p>Tử Hàn thẳng tắp đứng ở Tàng Thư Lâu trước, bọn họ lời nói lại rõ ràng rơi tại chính mình trong tai, nhưng là Tử Hàn lại chưa từng chút nào để ý, tựa như ư đã thành thói quen.</p>
+			<p>“Các ngươi quá mức, chớ nói người ta như vậy”</p>
+			<p>Tử Hàn hơi kinh ngạc, có chút ghé mắt, một tên mười bốn mười lăm tuổi thiếu nữ người mặc quần dài màu lam nhạt, non nớt khuôn mặt nhỏ nhắn rất là thanh tú, nàng được đặt tên là Tử Diệp, là Tử Tộc điều này chi nhánh thiên tài, lúc này Tử Diệp đang nhìn Tử Hàn hiếu kỳ đánh giá.</p>
+			<p>Tử Hàn ghé mắt hướng về phía Tử Diệp nhẹ nhàng cười cười, Tử Diệp đầu tiên là sửng sốt một chút sau đó đi lên, đứng ở Tử Hàn trước mặt, mở miệng nói “Tử Hàn ca ca, ngươi đi nhanh đi, đợi một hồi Tử Lạc tới hắn khẳng định lại phải đánh ngươi”</p>
+			<p>“Nữ Oa, ngươi là có nhiều khinh bỉ hắn a, chẳng lẽ hắn cũng chỉ có thể là bị đánh đoán?”</p>
+			<p>Huyết Nguyệt nhàn nhạt liếc mắt nhìn Tử Diệp, Tử Diệp đánh giá Huyết Nguyệt cảm giác mười phần tức cười, đưa tay thì đi bắt Huyết Nguyệt muốn ngắt nhéo một cái.</p>
+			<p>Mọi người nghe được Huyết Nguyệt mở miệng mới vừa chú ý tới cái này chưa đủ ba tấc Tiểu Thú, mặc dù là có chút ngạc nhiên, lại cũng không phải là như thế nào ý, dù sao thế giới lớn không thiếu cái lạ, rất nhiều Yêu Thú linh trí cực cao, trời sinh liền có thể miệng nói tiếng người, bị người thu làm Linh Sủng, nhưng là mọi người kinh dị chỗ nhưng ở với trong mắt bọn họ cái phế vật này thiếu gia đi nơi nào thu Linh Sủng.</p>
+			<p>Tử Hàn hướng về phía Tử Diệp cười nói “Cám ơn ngươi, Tử Diệp, bất quá ta không sợ hắn”</p>
+			<p>Tử Diệp thu tay về nhìn Tử Hàn giương mắt nói “Không được, ngươi đánh không lại hắn, đến lúc đó ngươi lại phải đau chừng mấy ngày”</p>
+			<p>Tử Hàn ôn uyển cười một tiếng, vừa muốn mở miệng, xa xa Tử Lạc đi đi tới, trong mắt mang theo vẻ ngạo mạn căn bản không đem Tử Hàn coi vào đâu, sau lưng như cũ đi theo ngày hôm qua hai người kia, hai người trong mắt mang theo vẻ châm chọc nhìn Tử Hàn, khinh thường nói “Ồ, một đêm không thấy Tử Hàn thiếu gia dài tính khí, thậm chí ngay cả Tử Lạc đại ca cũng không sợ?”</p>
+			<p>Tử Diệp nhìn Tử Lạc đi tới, nhút nhát tránh qua một bên, không dám nhìn nữa Tử Hàn, Tử Hàn nhìn Tử Diệp lại không có một tia trách cứ ý tứ, ngược lại đáy lòng có một tia ấm áp, dù sao cùng hắn nói như vậy những năm gần đây cũng liền một cái Tử Diệp mà thôi.</p>
+			<p>Mọi người thấy Tử Lạc đi tới, ánh mắt lộ ra một bộ vẻ chờ mong, có người nhẹ nhàng mở miệng nói “Xem ra hôm nay lại có trò hay nhìn, Tử Lạc nhưng là một mực không ưa Tử Hàn a”</p>
+			<p>“Ai, cái này chủ nhà thiếu gia thật là đáng thương a, phỏng chừng lần này nửa tháng đều xuống không giường”</p>
+			<p>Ngay tại cũng cho là Tử Hàn sẽ ảo não chạy trốn lúc, Tử Hàn khóe miệng vén lên một tia độ cong, khẽ cười nói “Ta Tử Hàn chính là chủ nhà thiếu gia, ngươi coi là cái gì chó má, coi như ngươi mạch gia chủ cũng không xứng nói với ta như vậy”</p>
+			<p>Hí!</p>
+			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.')
+			
 		
 
 SET IDENTITY_INSERT [dbo].[Chapter] OFF

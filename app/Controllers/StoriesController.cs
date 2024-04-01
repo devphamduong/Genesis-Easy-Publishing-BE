@@ -70,7 +70,7 @@ namespace app.Controllers
                     StoryId = c.StoryId,
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
-                    StoryDescription = c.StoryDescriptionHtml,
+                    StoryDescription = c.StoryDescriptionHtml.Substring(0,90)+"...",
                     StoryPrice = c.StoryPrice,
                     StorySale = c.StorySale,
                     CreateTime = c.CreateTime,
@@ -203,7 +203,8 @@ namespace app.Controllers
                 .Select(a => new
                 {
                     AuthorId = a.UserId,
-                    AuthorName = a.UserFullname
+                    AuthorName = a.UserFullname,
+                    AuthorImage = a.UserImage,
                 }).ToListAsync();
             var cate = await _context.Categories
                 .Include(c => c.Stories)
@@ -227,7 +228,7 @@ namespace app.Controllers
         }
 
         [HttpGet("search_global")]
-        public async Task<ActionResult> SearchGlobal(string? search, int? authorId, int? from, int? to, int? status, [FromQuery] List<int> categoryIds)
+        public async Task<ActionResult> SearchGlobal(string? search, int? authorId, int? from, int? to, int? status, [FromQuery] List<int> cates)
         {
             if (search != null)
             {
@@ -245,18 +246,25 @@ namespace app.Controllers
                 {
                     StoryId = s.StoryId,
                     StoryTitle = s.StoryTitle,
-                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryImage = s.StoryImage,
                     StoryDescription = s.StoryDescription,
-                    StoryCreateTime = s.CreateTime,
                     StoryCategories = s.Categories.ToList(),
+                    StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
+                    StoryCreateTime = s.CreateTime,
+                    StoryPrice = s.StoryPrice,
                     Status = s.Status,
-                    StoryRead = s.StoryInteraction.Read,
-                    StoryPrice = s.StoryPrice
-                }).OrderByDescending(s => s.StoryRead)
+                    StoryInteraction = new
+                    {
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
+                    },
+                }).OrderByDescending(s => s.StoryInteraction.Read)
                 .ToListAsync();
 
-            stories = categoryIds == null || categoryIds.Count() == 0 ? stories :
-                stories.Where(c => categoryIds.All(categoryId => c.StoryCategories.Any(sc => sc.CategoryId == categoryId))).ToList();
+            stories = cates == null || cates.Count() == 0 ? stories :
+                stories.Where(c => cates.All(categoryId => c.StoryCategories.Any(sc => sc.CategoryId == categoryId))).ToList();
             return _msgService.MsgReturn(0, "Kết quả tìm kiếm", stories);
         }
 
@@ -398,7 +406,10 @@ namespace app.Controllers
                     currentStory.Status = story.Status;
                     currentStory.StoryPrice = story.StoryPrice;
                     currentStory.StorySale = story.StorySale;
-                    currentStory.StoryImage = story.StoryImage;
+                    if(story.StoryImage != null)
+                    {
+                        currentStory.StoryImage = story.StoryImage;
+                    }
                     var existingCategories = currentStory.Categories.Select(c => c.CategoryId).ToList();
 
                     var categoriesToAdd = story.CategoryIds.Except(existingCategories).ToList();
