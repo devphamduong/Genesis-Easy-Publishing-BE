@@ -493,7 +493,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Review](
 	[review_id] [int] IDENTITY(1,1) NOT NULL,
-	[story_id] [int] NOT NULL,
+	[chapter_id] [bigint] NOT NULL,
 	[spelling_error] [bit] NOT NULL,
 	[length_error] [bit] NOT NULL,
 	[review_content] [nvarchar](2000) NULL,
@@ -2543,8 +2543,8 @@ ALTER TABLE [dbo].[Review]  WITH CHECK ADD FOREIGN KEY([user_id])
 REFERENCES [dbo].[User] ([user_id])
 GO
 
-ALTER TABLE [dbo].[Review]  WITH CHECK ADD FOREIGN KEY([story_id])
-REFERENCES [dbo].[Story] ([story_id])
+ALTER TABLE [dbo].[Review]  WITH CHECK ADD FOREIGN KEY([chapter_id])
+REFERENCES [dbo].[Chapter] ([chapter_id])
 GO
 
 ALTER TABLE [dbo].[Ticket]  WITH CHECK ADD FOREIGN KEY([user_id])

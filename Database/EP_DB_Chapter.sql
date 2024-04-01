@@ -6,7 +6,7 @@ GO
 
 INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 	VALUES
-		(44, 1, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(44, 1, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'Cố Tư Tư cảm nhận được sự ấm ấp trong lòng đối phương, không nhịn được mà rúc vào lòng người nọ. Tuy rằng cả đêm qua đều không được nghỉ ngơi, khiến toàn thân cô đau nhức, nhưng cô một chút cũng không hối hận.
 		Cô chuẩn bị lâu như vậy, chính là muốn đem mình trở thành món quà quý giá nhất tặng cho hắn!Cô và Triệu Trạch yêu nhau hai năm, mỗi lần Triệu Trạch muốn cùng cô thân mật đều sẽ bị cô cự tuyệt, 
 		cô không muốn bản thân mình tùy tiện như vậy.Nhưng lần này thì khác, ngày mai Triệu Trạch sẽ xuất ngoại và đây cũng là sinh nhật hai mươi ba tuổi của cô!
@@ -130,7 +130,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			Trong mắt tất cả đều là khinh miệt, trong thanh âm tràn đầy giễu cợt, đạo “Chỉ bằng ngươi? Một đại đội linh khí cũng không cảm giác được phế vật? Thật không nghĩ ra phụ thân ngươi cũng coi như một nhân vật, làm sao biết sinh ra ngươi một phế vật như vậy đến, thật là hổ phụ khuyển tử a”
 			“Im miệng, khốn kiếp”
 		'),
-		(51, 2, 24, 29, 7, N'Trời sinh Song Mạch',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+		(51, 2, 24, 29, 7, N'Trời sinh Song Mạch',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 		N'Tử Hàn một cái bước dài xông lên, lửa giận trong lòng dấy lên, hôm nay hắn liên tục chịu nhục, trong lòng sớm đã là lên cơn giận dữ, giơ tay lên chính là một quyền hướng Tử Lạc đánh, nhưng là Tử Hàn đứng tại chỗ khinh miệt nhìn hắn, hoàn toàn xem nhẹ hắn một quyền, giơ tay lên đang lúc bắt lại Tử Hàn cổ tay.
 			“Chỉ bằng ngươi cũng dám mắng ta?”
 			Tử Lạc khẽ cau mày, bàn tay dùng sức đang lúc, một cổ vặn vẹo cảm giác đau đớn từ Tử Hàn trên cánh tay truyền tới, Tử Lạc lại không có buông tay ý tứ, gắt gao nắm Tử Hàn tay, mặt đầy tất cả đều là vẻ đắc ý.
@@ -226,7 +226,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			“Thiên Địa Vạn Vật, Tương Sinh Vô Tướng, Thôn Thiên Phệ Địa, Vạn Pháp Bất Xâm...”
 			Tử Hàn Tĩnh Tĩnh nhìn trong thiên địa, trong đầu từng đạo hư ảnh đang ngưng kết, giờ phút này Tử Hàn hai tay Kết Ấn, ngồi xếp bằng ở bờ hồ, từng đạo u ám linh lực không có vào thân thể của hắn, đỉnh đầu hắn bên trên một cái vòng xoáy ngưng tụ, cắn nuốt trong thiên địa vô số linh lực...
 		'),
-		(54, 5, 24, 29, 7, N'Thông Linh cảnh',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+		(54, 5, 24, 29, 7, N'Thông Linh cảnh',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 		N'Tử Hàn ngồi xếp bằng ở bờ hồ, cố gắng hết sức an tĩnh, trong đầu hắc ám toàn bộ thối lui, không ngừng hồi tưởng những thứ kia cổ xưa tối tăm câu nói, trong tay bắt đầu kết xuất không lưu loát Ấn Pháp, tay tại kết xuất Ấn Pháp thời điểm lại đang không nhịn được khẽ run.
 			Vô số lần thất bại Tử Hàn đã sợ thất bại, nếu như thất bại nữa, chỉ sợ hắn thật sẽ mất đi thật sự có lòng tin, không biết như thế nào tự xử, từ nay chưa gượng dậy nổi.
 			“Thiếu niên Lang, trầm Tâm Tĩnh khí, tập trung ý chí, bắt đầu vận chuyển Thôn Linh Điển”

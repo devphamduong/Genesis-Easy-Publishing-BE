@@ -7,7 +7,7 @@ public partial class Review
 {
     public int ReviewId { get; set; }
 
-    public int StoryId { get; set; }
+    public long ChapterId { get; set; }
 
     public bool SpellingError { get; set; }
 
@@ -29,7 +29,7 @@ public partial class Review
 
     public DateTime ReviewDate { get; set; }
 
-    public virtual Story Story { get; set; } = null!;
+    public virtual Chapter Chapter { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
 }

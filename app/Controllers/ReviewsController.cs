@@ -21,9 +21,9 @@ namespace app.Controllers
             _context = context;
         }
 
-        public class ReviewFrom
+        public class ReviewForm
         {
-            public int StoryId { get; set; }
+            public int ChapterId { get; set; }
 
             public bool SpellingError { get; set; }
 
@@ -75,7 +75,7 @@ namespace app.Controllers
         }
 
         [HttpPost("send")]
-        public async Task<ActionResult> SendReview([FromBody] ReviewFrom data)
+        public async Task<ActionResult> SendReview([FromBody] ReviewForm data)
         {
             int userId = GetUserId();
             if (userId == 0)
@@ -95,22 +95,31 @@ namespace app.Controllers
                     EM = "Không có quyền Reviewer"
                 });
             }
-            var story = _context.Stories.Include(s => s.Author).Where(r => r.StoryId == data.StoryId).FirstOrDefault();
-            if (story == null)
+            var chapter = _context.Chapters.Where(c => c.ChapterId == data.ChapterId).FirstOrDefault();
+            if (chapter == null)
             {
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "Truyện không tồn tại"
+                    EM = "Chương không tồn tại"
                 });
             }
-            var review = _context.Reviews.Where(r => r.StoryId == data.StoryId).FirstOrDefault();
-            if (review != null)
+            var story = _context.Stories.Include(s => s.Author).Where(r => r.StoryId == chapter.StoryId).FirstOrDefault();
+            if (story == null)
             {
                 return new JsonResult(new
                 {
                     EC = 3,
-                    EM = "Truyện này đã được review"
+                    EM = "Truyện của chương không tồn tại"
+                });
+            }
+            var review = _context.Reviews.Where(r => r.ChapterId == data.ChapterId).FirstOrDefault();
+            if (review != null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 4,
+                    EM = "Chương này đã được review"
                 });
             }
             // story status
@@ -136,7 +145,7 @@ namespace app.Controllers
             {
                 return new JsonResult(new
                 {
-                    EC = 4,
+                    EC = 5,
                     EM = "Yêu cầu nhập nội dung review"
                 });
             }
@@ -149,7 +158,7 @@ namespace app.Controllers
             Review newReview = new Review()
             {
                 UserId = userId,
-                StoryId = data.StoryId,
+                ChapterId = data.ChapterId,
                 ReviewDate = DateTime.Now,
                 SpellingError = data.SpellingError,
                 LengthError = data.LengthError,
@@ -167,8 +176,8 @@ namespace app.Controllers
             {
                 mailService.Send(story.Author.Email,
                         "Easy Publishing: Truyện của bạn đã được review",
-                        "<b>Xin chào " + story.Author.Username + ",</b>" +
-                        "<p>Truyện '" + story.StoryTitle + "' của bạn đã được review.</p> " +
+                        "<p>Xin chào <b>" + story.Author.Username + "</b>,</p>" +
+                        "<p>Chương <b>" + chapter.ChapterTitle + "</b> của Truyện <b>" + story.StoryTitle + "</b> của bạn đã được review.</p> " +
                         "<p>Chi tiết vui lòng truy cập:</p> " +
                         "<a href =\"http://localhost:3000\">Xem bản review</a>");
             }
@@ -176,7 +185,7 @@ namespace app.Controllers
             {
                 return new JsonResult(new
                 {
-                    EC = 5,
+                    EC = 6,
                     EM = "Error: " + ex.Message
                 });
             }
@@ -187,7 +196,105 @@ namespace app.Controllers
             });
         }
 
-        [HttpGet("stories_review")]
+        [HttpGet("review_detail")]
+        public async Task<ActionResult> getReviewDetail(int chapterId)
+        {
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Yêu cầu đăng nhập"
+                });
+            };
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            var chapter = _context.Chapters.Where(c => c.ChapterId == chapterId).FirstOrDefault();
+            if (chapter == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Chương không tồn tại"
+                });
+            }
+            var story = _context.Stories.Include(s => s.Author).Where(r => r.StoryId == chapter.StoryId).FirstOrDefault();
+            if (story == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Truyện của chương không tồn tại"
+                });
+            }
+            var review = _context.Reviews.Where(r => r.ChapterId == chapterId)
+                .Include(r => r.User)
+                .Include(r => r.Chapter)
+                .Select(r => new
+                {
+                    ReviewDate = r.ReviewDate,
+                    SpellingError = r.SpellingError,
+                    LengthError = r.LengthError,
+                    PoliticalContentError = r.PoliticalContentError,
+                    DistortHistoryError = r.DistortHistoryError,
+                    SecretContentError = r.SecretContentError,
+                    OffensiveContentError = r.OffensiveContentError,
+                    UnhealthyContentError = r.UnhealthyContentError,
+                    ReviewContent = r.ReviewContent,
+                    Chapters = new
+                    {
+                        r.Chapter.ChapterId,
+                        r.Chapter.ChapterNumber,
+                        r.Chapter.ChapterTitle,
+                        r.Chapter.ChapterPrice,
+                        r.Chapter.CreateTime,
+                        r.Chapter.ChapterContentMarkdown,
+                        r.Chapter.ChapterContentHtml
+                    },
+                    Reviewer = new
+                    {
+                        UserId = r.UserId,
+                        Email = r.User.Email,
+                        Username = r.User.Username,
+                        UserFullname = r.User.UserFullname,
+                        Gender = r.User.Gender == true ? "Male" : "Female",
+                        Dob = r.User.Dob,
+                        Address = r.User.Address,
+                        Phone = r.User.Phone,
+                        Status = r.User.Status == true ? "Active" : "Inactive",
+                        UserImage = r.User.UserImage,
+                        DescriptionMarkdown = r.User.DescriptionMarkdown,
+                        DescriptionHTML = r.User.DescriptionHtml,
+                    }
+                }).FirstOrDefault();
+            if (review == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 3,
+                    EM = "Truyện chưa được review"
+                });
+            }
+            if (story.AuthorId != userId && review.Reviewer.UserId != userId)
+            {
+                return new JsonResult(new
+                {
+                    EC = 4,
+                    EM = "Bạn không có quyền truy cập"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Thông tin review của truyện",
+                DT = new
+                {
+                    review = review
+                }
+            });
+        }
+
+        [HttpGet("story_list")]
         public async Task<ActionResult> GetStoriesReview(int page, int pageSize)
         {
             int userId = GetUserId();
@@ -200,36 +307,37 @@ namespace app.Controllers
             {
                 return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
             }
-            var stories = await _context.Stories.Where(c => c.Status == 0)
-                .Include(c => c.Categories)
-                .Include(c => c.Users)
-                .Include(c => c.Chapters).ThenInclude(c => c.Users)
-                .Include(c => c.StoryInteraction)
-                .Select(c => new
+            var stories = await _context.Stories
+                .Include(s => s.Categories)
+                .Include(s => s.Users)
+                .Include(s => s.Chapters).ThenInclude(c => c.Users)
+                .Include(s => s.StoryInteraction)
+                .Where(s => s.Chapters.Any(c => c.Status == 0))
+                .Select(s => new
                 {
-                    StoryId = c.StoryId,
-                    StoryTitle = c.StoryTitle,
-                    StoryImage = c.StoryImage,
-                    StoryCreateTime = c.CreateTime,
-                    StoryStatus = c.Status,
+                    StoryId = s.StoryId,
+                    StoryTitle = s.StoryTitle,
+                    StoryImage = s.StoryImage,
+                    StoryCreateTime = s.CreateTime,
+                    StoryStatus = s.Status,
                     StoryInteraction = new
                     {
-                        c.StoryInteraction.Like,
-                        c.StoryInteraction.Follow,
-                        c.StoryInteraction.View,
-                        c.StoryInteraction.Read,
+                        s.StoryInteraction.Like,
+                        s.StoryInteraction.Follow,
+                        s.StoryInteraction.View,
+                        s.StoryInteraction.Read,
                     },
-                    UserPurchaseStory = c.Users.Count,
-                    UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
+                    UserPurchaseStory = s.Users.Count,
+                    UserPurchaseChapter = s.Chapters.SelectMany(c => c.Users).Count(),
                 })
                 .ToListAsync();
             page = page == null || page == 0 ? 1 : page;
             pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
-            return msgService.MsgPagingReturn("Danh sách truyện cần review",
+            return msgService.MsgPagingReturn("Danh sách truyện có chương cần review",
                 stories.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, stories.Count);
         }
 
-        [HttpGet("stories_review/detail")]
+        [HttpGet("volume_list")]
         public async Task<ActionResult> GetVolume(int storyid)
         {
             int userId = GetUserId();
@@ -251,90 +359,60 @@ namespace app.Controllers
                     VolumeTitle = v.VolumeTitle,
                     StoryId = v.StoryId,
                     CreateTime = v.CreateTime,
-                    Chapters = v.Chapters.Where(c => c.Status > 0).Select(c => new
+                    Chapters = v.Chapters.Where(c => c.Status == 0).Select(c => new
                     {
                         c.ChapterId,
+                        c.Status,
                         c.ChapterNumber,
                         c.ChapterTitle,
                         c.ChapterPrice,
                         c.CreateTime,
-                        c.ChapterContentMarkdown,
-                        c.ChapterContentHtml,
                     }).OrderBy(c => c.ChapterNumber).ToList()
                 }).OrderBy(v => v.volumeNumber)
                 .ToListAsync();
             return msgService.MsgReturn(0, "Danh sách các tập của truyện", volumes);
         }
 
-        [HttpGet("review_detail")]
-        public async Task<ActionResult> getReviewDetail(int storyId)
+        [HttpGet("chapter_information")]
+        public async Task<ActionResult> GetChapterInfor(int chapterId)
         {
             int userId = GetUserId();
             if (userId == 0)
             {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = "Yêu cầu đăng nhập"
-                });
-            };
-            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            var story = _context.Stories.Where(s => s.StoryId == storyId).FirstOrDefault();
-            var review = _context.Reviews.Where(r => r.StoryId == storyId)
-                .Include(r => r.User)
-                .Include(r => r.Story)
-                .Select(r => new
-                {
-                    ReviewDate = r.ReviewDate,
-                    SpellingError = r.SpellingError,
-                    LengthError = r.LengthError,
-                    PoliticalContentError = r.PoliticalContentError,
-                    DistortHistoryError = r.DistortHistoryError,
-                    SecretContentError = r.SecretContentError,
-                    OffensiveContentError = r.OffensiveContentError,
-                    UnhealthyContentError = r.UnhealthyContentError,
-                    ReviewContent = r.ReviewContent,
-                    Reviewer = new
-                    {
-                        UserId = r.UserId,
-                        Email = r.User.Email,
-                        Username = r.User.Username,
-                        UserFullname = r.User.UserFullname,
-                        Gender = r.User.Gender == true ? "Male" : "Female",
-                        Dob = r.User.Dob,
-                        Address = r.User.Address,
-                        Phone = r.User.Phone,
-                        Status = r.User.Status == true ? "Active" : "Inactive",
-                        UserImage = r.User.UserImage,
-                        DescriptionMarkdown = r.User.DescriptionMarkdown,
-                        DescriptionHTML = r.User.DescriptionHtml,
-                    }
-                }).FirstOrDefault();
-            if (review == null)
-            {
-                return new JsonResult(new
-                {
-                    EC = 1,
-                    EM = "Truyện chưa được review"
-                });
+                return msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
             }
-            if (story.AuthorId != userId && review.Reviewer.UserId != userId)
+            var user = _context.Users.Include(u => u.Chapters).Include(u => u.Stories).FirstOrDefault(u => u.UserId == userId);
+            if (user.RoleId == 2)
             {
-                return new JsonResult(new
-                {
-                    EC = 2,
-                    EM = "Bạn không có quyền truy cập"
-                });
+                return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
             }
-            return new JsonResult(new
+
+            var chapter = _context.Chapters.Where(c => c.ChapterId == chapterId).Select(c => new
             {
-                EC = 0,
-                EM = "Thông tin review của truyện",
-                DT = new
+                chapterId = c.ChapterId,
+                chapterStatus = c.Status,
+                storyId = c.Story.StoryId,
+                storyTitle = c.Story.StoryTitle,
+                ChapterTitle = c.ChapterTitle,
+                chapterContentHtml = c.ChapterContentHtml,
+                ChapterContentMarkdown = c.ChapterContentMarkdown,
+                ChapterNumber = c.ChapterNumber,
+                volumeId = c.VolumeId,
+                chapterPrice = c.ChapterPrice,
+
+            }).FirstOrDefault();
+            if (chapter == null)
+            {
+                return msgService.MsgActionReturn(3, "Chương không tồn tại");
+            }
+            if (!user.Stories.Any(s => s.StoryId == chapter.storyId))
+            {
+                if (!user.Chapters.Any(c => c.ChapterId == chapterId))
                 {
-                    review = review
+                    return msgService.MsgActionReturn(4, "Bạn không được quyền vào trang này");
                 }
-            });
+            }
+            return msgService.MsgReturn(0, "Thông tin chương", chapter);
         }
     }
 }

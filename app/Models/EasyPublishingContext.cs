@@ -281,6 +281,7 @@ public partial class EasyPublishingContext : DbContext
             entity.ToTable("Review");
 
             entity.Property(e => e.ReviewId).HasColumnName("review_id");
+            entity.Property(e => e.ChapterId).HasColumnName("chapter_id");
             entity.Property(e => e.DistortHistoryError).HasColumnName("distort history_error");
             entity.Property(e => e.LengthError).HasColumnName("length_error");
             entity.Property(e => e.OffensiveContentError).HasColumnName("offensive_content_error");
@@ -293,14 +294,13 @@ public partial class EasyPublishingContext : DbContext
                 .HasColumnName("review_date");
             entity.Property(e => e.SecretContentError).HasColumnName("secret_content_error");
             entity.Property(e => e.SpellingError).HasColumnName("spelling_error");
-            entity.Property(e => e.StoryId).HasColumnName("story_id");
             entity.Property(e => e.UnhealthyContentError).HasColumnName("unhealthy_content_error");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Story).WithMany(p => p.Reviews)
-                .HasForeignKey(d => d.StoryId)
+            entity.HasOne(d => d.Chapter).WithMany(p => p.Reviews)
+                .HasForeignKey(d => d.ChapterId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Review__story_id__6D0D32F4");
+                .HasConstraintName("FK__Review__chapter___6D0D32F4");
 
             entity.HasOne(d => d.User).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.UserId)
@@ -310,7 +310,7 @@ public partial class EasyPublishingContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC13274460");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC379A69D3");
 
             entity.ToTable("Role");
 

@@ -33,6 +33,8 @@ public partial class Chapter
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
     public virtual Story Story { get; set; } = null!;
 
     public virtual ICollection<StoryRead> StoryReads { get; set; } = new List<StoryRead>();

@@ -37,8 +37,6 @@ public partial class Story
 
     public virtual ICollection<ReportContent> ReportContents { get; set; } = new List<ReportContent>();
 
-    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-
     public virtual ICollection<StoryFollowLike> StoryFollowLikes { get; set; } = new List<StoryFollowLike>();
 
     public virtual StoryInteraction? StoryInteraction { get; set; }
