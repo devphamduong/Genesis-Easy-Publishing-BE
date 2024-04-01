@@ -169,6 +169,10 @@
       "PackagePath": "staticwebassets\\Assets\\img\\talha.jpg"
     },
     {
+      "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\img\\user-default.png",
+      "PackagePath": "staticwebassets\\Assets\\img\\user-default.png"
+    },
+    {
       "Id": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\atlantis.js",
       "PackagePath": "staticwebassets\\Assets\\js\\atlantis.js"
     },

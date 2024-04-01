@@ -333,7 +333,7 @@ namespace app.Controllers
                     FundBefore = 0,
                     FundAfter = 0,
                     RefundBefore = admin_wallet.Refund,
-                    RefundAfter = admin_wallet.Refund - +request.Amount,
+                    RefundAfter = admin_wallet.Refund - request.Amount,
                     TransactionTime = DateTime.Now,
                     Status = true,
                     Description = $"Rút {request.Amount} khỏi hệ thống"

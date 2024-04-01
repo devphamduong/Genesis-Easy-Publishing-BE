@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VMGEX5qkBlV+NNgZtgrQJOzPyIexdJnTULPBPwmxIOA=",
+  "Hash": "xcegFUyHRGq2UO5COqj4Rl68qkaamYL2DZbEvUMkBRU=",
   "Source": "app",
   "BasePath": "_content/app",
   "Mode": "Default",
@@ -813,6 +813,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Assets\\img\\talha.jpg"
+    },
+    {
+      "Identity": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\img\\user-default.png",
+      "SourceId": "app",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\",
+      "BasePath": "_content/app",
+      "RelativePath": "Assets/img/user-default.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\img\\user-default.png"
     },
     {
       "Identity": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\wwwroot\\Assets\\js\\atlantis.js",

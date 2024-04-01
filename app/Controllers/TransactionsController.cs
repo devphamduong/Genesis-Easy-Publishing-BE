@@ -74,78 +74,7 @@ namespace app.Controllers
             return null;
         }
 
-        [HttpGet("ExportTransactionToExcel")]
-        public async Task<ActionResult> ExportOrdersToExcel(DateTime? fromDate, DateTime? toDate)
-        {
-            try
-            {
-                var transaction = await _context.Transactions.Where(o => (!fromDate.HasValue || o.TransactionTime >= fromDate) && (!toDate.HasValue || o.TransactionTime <= toDate))
-                .Include(t => t.Story)
-                .Include(t => t.Chapter)
-                .Select(t => new
-                {
-                    TransactionId = t.TransactionId,
-                    Amount = t.Amount,
-                    StoryTitile = t.Story.StoryTitle,
-                    ChapterTitle = t.Chapter.ChapterTitle,
-                    FundBefore = t.FundBefore,
-                    FundAfter = t.FundAfter,
-                    RefundAfter = t.RefundAfter,
-                    RefundBefore = t.RefundBefore,
-                    TransactionTime = t.TransactionTime.ToString("dd/MM/yyyy"),
-                    Status = t.Status,
-                    Description = t.Description
 
-                })
-                .ToListAsync();
-
-                var stream = new MemoryStream();
-
-                using (var package = new ExcelPackage(stream))
-                {
-                    var worksheet = package.Workbook.Worksheets.Add("Transactions");
-
-                    // Headers
-                    worksheet.Cells[1, 1].Value = "TransactionId";
-                    worksheet.Cells[1, 2].Value = "Amount";
-                    worksheet.Cells[1, 3].Value = "StoryTitile";
-                    worksheet.Cells[1, 4].Value = "ChapterTitle";
-                    worksheet.Cells[1, 5].Value = "FundBefore";
-                    worksheet.Cells[1, 6].Value = "FundAfter";
-                    worksheet.Cells[1, 7].Value = "RefundAfter";
-                    worksheet.Cells[1, 8].Value = "RefundBefore";
-                    worksheet.Cells[1, 9].Value = "TransactionTime";
-                    worksheet.Cells[1, 10].Value = "Status";
-                    worksheet.Cells[1, 11].Value = "Description";
-
-                    // Data
-                    for (int i = 0; i < transaction.Count; i++)
-                    {
-                        worksheet.Cells[i + 2, 1].Value = transaction[i].TransactionId;
-                        worksheet.Cells[i + 2, 2].Value = transaction[i].Amount;
-                        worksheet.Cells[i + 2, 3].Value = transaction[i].StoryTitile;
-                        worksheet.Cells[i + 2, 4].Value = transaction[i].ChapterTitle;
-                        worksheet.Cells[i + 2, 5].Value = transaction[i].FundBefore;
-                        worksheet.Cells[i + 2, 6].Value = transaction[i].FundAfter;
-                        worksheet.Cells[i + 2, 7].Value = transaction[i].RefundAfter;
-                        worksheet.Cells[i + 2, 8].Value = transaction[i].RefundBefore;
-                        worksheet.Cells[i + 2, 9].Value = transaction[i].TransactionTime;
-                        worksheet.Cells[i + 2, 10].Value = transaction[i].Status;
-                        worksheet.Cells[i + 2, 11].Value = transaction[i].Description;
-                    }
-
-                    package.Save();
-                }
-
-                stream.Position = 0;
-                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Transaction.xlsx");
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
-        }
 
 
         [HttpGet("get_user_wallet")]
@@ -630,7 +559,7 @@ namespace app.Controllers
 
         }
 
-        [HttpGet("transaction_history")]
+        [HttpGet("history")]
         public async Task<ActionResult> GetUserTransactionHistory(int page, int pageSize)
         {
             var jwtSecurityToken = new JwtSecurityToken();
@@ -640,24 +569,26 @@ namespace app.Controllers
                 int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var transactions = await _context.Transactions
                 .Where(c => c.Wallet.UserId == userId)
-                 .Include(t => t.Story)
+                .Include(t=>t.Wallet)
+                .Include(t => t.Story)
                 .Include(t => t.Chapter)
                 .Select(t => new
                 {
                     TransactionId = t.TransactionId,
-                    Amount = t.Amount,
+                    Amount = (int)t.Amount,
                     StoryTitile = t.Story.StoryTitle,
                     ChapterTitle = t.Chapter.ChapterTitle,
-                    FundBefore = t.FundBefore,
-                    FundAfter = t.FundAfter,
-                    RefundAfter = t.RefundAfter,
-                    RefundBefore = t.RefundBefore,
+                    FundBefore = (int)t.FundBefore,
+                    FundAfter = (int)t.FundAfter,
+                    RefundAfter = (int)t.RefundAfter,
+                    RefundBefore = (int)t.RefundBefore,
                     TransactionTime = t.TransactionTime,
                     Status = t.Status,
                     Description = t.Description
                 })
-                .OrderByDescending(c => c.TransactionTime)
+                .OrderByDescending(c => c.TransactionId).ThenByDescending(c => c.TransactionTime)
                 .ToListAsync();
+                page = page == null ? 1 : page;
                 pageSize = pageSize == null ? 10 : pageSize;
                 return _msgService.MsgPagingReturn("User transaction history",
                     transactions.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, transactions.Count);
@@ -671,6 +602,7 @@ namespace app.Controllers
                 });
             }
         }
+
         [HttpGet("user_story_transaction_history")]
         public async Task<ActionResult> GetUserStoryTransactionHistory(int page, int pageSize, int storyId)
         {
@@ -795,6 +727,107 @@ namespace app.Controllers
                 });
             }
         }
+
+        [HttpGet("admin_history")]
+        public async Task<ActionResult> GetAdminTransactionHistory()
+        {
+            var jwtSecurityToken = new JwtSecurityToken();
+            jwtSecurityToken = VerifyToken();
+            //int userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+
+            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+
+            var transactions = await _context.Transactions
+            .Include(c => c.Wallet).Where(c => c.Wallet.UserId == 1)
+            .Select(t => new
+            {
+                TransactionId = t.TransactionId,
+                Amount = t.Amount,
+                RefundBefore = t.RefundBefore,
+                RefundAfter = t.RefundAfter,
+                TransactionTime = t.TransactionTime,
+                Status = t.Status == true ? "Sucess" : "False",
+                Description = t.Description
+            })
+            .OrderByDescending(c => c.TransactionId)
+            .ToListAsync();
+            return _msgService.MsgReturn(0, "Tiền ra vào hệ thống", transactions);
+        }
+
+        [HttpGet("export")]
+        public async Task<ActionResult> ExportOrdersToExcel(DateTime? fromDate, DateTime? toDate)
+        {
+            try
+            {
+                var transaction = await _context.Transactions.Where(o => (!fromDate.HasValue || o.TransactionTime >= fromDate) && (!toDate.HasValue || o.TransactionTime <= toDate))
+                .Include(t => t.Story)
+                .Include(t => t.Chapter)
+                .Select(t => new
+                {
+                    TransactionId = t.TransactionId,
+                    Amount = t.Amount,
+                    StoryTitile = t.Story.StoryTitle,
+                    ChapterTitle = t.Chapter.ChapterTitle,
+                    FundBefore = t.FundBefore,
+                    FundAfter = t.FundAfter,
+                    RefundAfter = t.RefundAfter,
+                    RefundBefore = t.RefundBefore,
+                    TransactionTime = t.TransactionTime.ToString("dd/MM/yyyy"),
+                    Status = t.Status,
+                    Description = t.Description
+
+                })
+                .ToListAsync();
+
+                var stream = new MemoryStream();
+
+                using (var package = new ExcelPackage(stream))
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Transactions");
+
+                    // Headers
+                    worksheet.Cells[1, 1].Value = "TransactionId";
+                    worksheet.Cells[1, 2].Value = "Amount";
+                    worksheet.Cells[1, 3].Value = "StoryTitile";
+                    worksheet.Cells[1, 4].Value = "ChapterTitle";
+                    worksheet.Cells[1, 5].Value = "FundBefore";
+                    worksheet.Cells[1, 6].Value = "FundAfter";
+                    worksheet.Cells[1, 7].Value = "RefundAfter";
+                    worksheet.Cells[1, 8].Value = "RefundBefore";
+                    worksheet.Cells[1, 9].Value = "TransactionTime";
+                    worksheet.Cells[1, 10].Value = "Status";
+                    worksheet.Cells[1, 11].Value = "Description";
+
+                    // Data
+                    for (int i = 0; i < transaction.Count; i++)
+                    {
+                        worksheet.Cells[i + 2, 1].Value = transaction[i].TransactionId;
+                        worksheet.Cells[i + 2, 2].Value = transaction[i].Amount;
+                        worksheet.Cells[i + 2, 3].Value = transaction[i].StoryTitile;
+                        worksheet.Cells[i + 2, 4].Value = transaction[i].ChapterTitle;
+                        worksheet.Cells[i + 2, 5].Value = transaction[i].FundBefore;
+                        worksheet.Cells[i + 2, 6].Value = transaction[i].FundAfter;
+                        worksheet.Cells[i + 2, 7].Value = transaction[i].RefundAfter;
+                        worksheet.Cells[i + 2, 8].Value = transaction[i].RefundBefore;
+                        worksheet.Cells[i + 2, 9].Value = transaction[i].TransactionTime;
+                        worksheet.Cells[i + 2, 10].Value = transaction[i].Status;
+                        worksheet.Cells[i + 2, 11].Value = transaction[i].Description;
+                    }
+                    package.Save();
+                }
+
+                stream.Position = 0;
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Transaction.xlsx");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
+
 
         [HttpPost("vnpay_request")]
         public IActionResult SendVNPayRequest([FromBody] PaymentRequestForm data)
