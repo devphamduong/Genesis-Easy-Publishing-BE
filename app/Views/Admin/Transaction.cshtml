@@ -4,7 +4,7 @@
 }
 
 <div class="page-header">
-    <h4 class="page-title">Story Management</h4>
+    <h4 class="page-title">Transaction Management</h4>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -12,36 +12,32 @@
             <div class="card-body">
                 <div class="card-body">
                     <div class="form-group form-inline">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3">From</span>
-                            </div>
-                            <input type="date" class="form-control" id="fromDate" aria-describedby="basic-addon3">
-                        </div>
-                        <div class="input-group ml-4">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3">To</span>
-                            </div>
-                            <input type="date" class="form-control" id="toDate" aria-describedby="basic-addon3">
-                        </div>
+                         <div class="input-group">
+                             <div class="input-group-prepend">
+                                 <span class="input-group-text" id="basic-addon3">From</span>
+                             </div>
+                             <input type="date" class="form-control" id="fromDate" aria-describedby="basic-addon3">
+                         </div>
+                         <div class="input-group ml-4">
+                             <div class="input-group-prepend">
+                                 <span class="input-group-text" id="basic-addon3">To</span>
+                             </div>
+                             <input type="date" class="form-control" id="toDate" aria-describedby="basic-addon3">
+                         </div>
                         <button id="exportBtn" class="btn btn-primary">Export</button>
                     </div>
                     <div class="table-responsive">
                         <table id="basic-datatables" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>transactionId</th>
-                                    <th>amount</th>
-                                    <th>storyTitile</th>
-                                    <th>chapterTitle</th>
-                                    <th>fundBefore</th>
-                                    <th>fundAfter</th>
-                                    <th>refundAfter</th>
-                                    <th>refundBefore</th>
-                                    <th>transactionTime</th>
-                                    <th>status</th>
-                                    <th>description</th>
+                                    <!-- <th></th> -->
+                                    <th>TransactionId</th>
+                                    <th>Amount</th>
+                                    <th>RefundAfter</th>
+                                    <th>RefundBefore</th>
+                                    <th>TransactionTime</th>
+                                    <th>Status</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,29 +67,27 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+var check ;
     document.addEventListener("DOMContentLoaded", function () {
 
         //async function loadData() {
-        fetch('http://localhost:5188/api/v1/transaction/get_all_transaction')
+        fetch('http://localhost:5188/api/v1/transaction/history')
             .then(response => response.json())
             .then(data => {
+                check=data;
                 $('#basic-datatables').DataTable({
                     data: data.dt,
                     columns: [
-                        {
-                            data: null,
-                            render(data) {
-                                return `<a style="color: blue; cursor: pointer" onclick="openUserInfor(${data.StoryId})"><i class="fas fa-edit"></i></a>`
-                            }
-                        },
+                        // {
+                        //     data: null,
+                        //     render(data) {
+                        //         return `<a style="color: blue; cursor: pointer" onclick="openUserInfor(${data.StoryId})"><i class="fas fa-edit"></i></a>`
+                        //     }
+                        // },
                         { data: 'transactionId' },
                         { data: 'amount' },
-                        { data: 'storyTitile' },
-                        { data: 'chapterTitle' },
-                        { data: 'fundBefore' },
-                        { data: 'fundAfter' },
-                        { data: 'refundAfter' },
                         { data: 'refundBefore' },
+                        { data: 'refundAfter' },
                         { data: 'transactionTime' },
                         { data: 'status' },
                         { data: 'description' }

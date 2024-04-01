@@ -735,14 +735,14 @@ INSERT INTO [dbo].[Story_Owned]([user_id],[story_id]) VALUES
 	(7,4),(10,4),
 	(6,5),(7,5),
 	(8,6),(9,6),(15,6),
-	(2,17),(5,17),(8,17),(9,17),(15,17),(23,17)
+	(3,17),(5,17),(8,17),(9,17),(15,17),(23,17)
 
 SET IDENTITY_INSERT [dbo].[Story] ON 
 GO
 
 INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [story_sale], [story_image], [story_description], [story_description_markdown], [story_description_html],[create_time], [update_time], [status])
 	VALUES 
-		( 1,N'Gone Girl ',1, CAST(119.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.
+		( 1,N'Gone Girl ',2, CAST(119.99 AS Decimal(10, 2)) , CAST(20 AS Decimal(10, 2)), N'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554086139l/19288043.jpg',N'Marriage can be a real killer.
 		On a warm summer morning in North Carthage, Missouri, it is Nick and Amy Dunne’s fifth wedding anniversary. Presents are being wrapped and reservations are being made when Nick’s clever and beautiful wife disappears from their rented McMansion on the Mississippi River. Husband-of-the-Year Nick isn’t doing himself any favors with cringe-worthy daydreams about the slope and shape of his wife’s head, but passages from Amy''s diary reveal the alpha-girl perfectionist could have put anyone dangerously on edge. Under mounting pressure from the police and the media—as well as Amy’s fiercely doting parents—the town golden boy parades an endless series of lies, deceits, and inappropriate behavior. Nick is oddly evasive, and he’s definitely bitter—but is he really a killer?
 		As the cops close in, every couple in town is soon wondering how well they know the one that they love. With his twin sister, Margo, at his side, Nick stands by his innocence. Trouble is, if Nick didn’t do it, where is that beautiful wife? And what was in that silvery gift box hidden in the back of her bedroom closet?',
 		N'Marriage can be a real killer.
@@ -2807,31 +2807,31 @@ SET IDENTITY_INSERT [dbo].[Transaction] ON
 GO
 INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
      VALUES
-		(1,1 ,12,null,20,30,10,0,0,CAST(N'2023-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+		(1,2 ,12,null,20,30,10,0,0,CAST(N'2023-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
 		(2,2 ,13,null,20,30,10,0,0,CAST(N'2023-01-20 20:32:22.103' AS DateTime),1,N'Mua 2 chương của truyện Gone Girl '),
 		(3,3 ,14,null,20,50,30,0,0,CAST(N'2023-03-23 20:30:22.103' AS DateTime),1,N'Mua 2 chương của truyện Gone Girl '),
 		(4,4 ,15,null,20,32,12,0,0,CAST(N'2023-03-25 20:33:22.103' AS DateTime),1,N'Mua 1 chương của truyện Gone Girl '),
 		(5,5 ,10,null,20,35,15,0,0,CAST(N'2023-04-21 20:36:22.103' AS DateTime),1,N'Mua 3 chương của truyện Gone Girl '),
 		(6,6 ,09,null,20,40,20,0,0,CAST(N'2024-05-20 20:2:22.103' AS DateTime),1,N'Mua 5 chương của truyện Gone Girl '),
-		(7,1,1,2,5.00,0.00,0.00,5.00,0.00,CAST(N'2024-04-10 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+		(7,2,1,2,5.00,0.00,0.00,5.00,0.00,CAST(N'2024-04-10 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
 		(8,4,1,2,5.00,15.00,10.00,0.00,0.00,CAST(N'2024-05-20 20:30:22.103' AS DateTime),1,N'Mua chương 2 của truyện Gone Girl '),
-		(10,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-05-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl'),
+		(10,2,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-05-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl'),
 		(11,4,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2025-03-20 20:30:22.103' AS DateTime),1,N'Mua chương 3 NICK DUNNE in story Gone Girl '),
 		(12,2,2,NULL,12.99,0.00,0.00,34.99,22.00,CAST(N'2024-02-20 21:52:08.117' AS DateTime),1,N'Nhận TLH từ truyện And Then There Were None'),
 		(13,3,NULL,NULL,200.00,10.00,210.00,0.00,0.00,CAST(N'2024-03-20 20:30:22.103' AS DateTime),1,N'Mua truyện And Then There Were None'),
-		(14,1,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl'),
+		(14,2,1,3,5.00,0.00,10.00,5.00,0.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl'),
 		(15,2,1,3,5.00,210.00,205.00,0.00,0.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Mua chương 3 của truyện Gone Girl '),
 		(16,4,1,NULL,30.00,	147.00,117.00,0.00,0.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Buy chapter 1 to 20 in story Gone Girl '),
-		(17,1,1,NULL,15.00,	0.00,0.00,85.00,70.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+		(17,2,1,NULL,15.00,	0.00,0.00,85.00,70.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
 		(18,5,1,NULL,30.00,147.00,117.00,0.00,0.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Mua 3 chương của truyện Gone Girl '),
 		(19,6,1,NULL,15.00,132.00,117.00,0.00,0.00,CAST(N'2024-04-20 20:30:22.103' AS DateTime),1,N'Mua chương 1 to 20 in story Gone Girl '),
-		(20,1,1,NULL,0.00,0.00,0.00,70.00,70.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+		(20,2,1,NULL,0.00,0.00,0.00,70.00,70.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
 		(21,7,1,NULL,0.00,132.00,132.00,0.00,0.00,CAST(N'2024-09-20 20:30:22.103' AS DateTime),1,N'Mua 1 chương của truyện Gone Girl '),
-		(22,1,1,NULL,5.00,0.00,0.00,80.00,	75.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+		(22,2,1,NULL,5.00,0.00,0.00,80.00,	75.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
 		(23,12,1,NULL,5.00,127.00,122.00,0.00,0.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Mua 2 chương của truyện Gone Girl '),
-		(24,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+		(24,2,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
 		(25,9,1,NULL,0.00,127.00,127.00,0.00,0.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Mua 1 chương của truyện Gone Girl '),
-		(26,1,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl ')
+		(26,2,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl ')
 DECLARE @transaction_id INT = 27; -- Start comment_id from 1
 DECLARE @wallet_id INT = 2; -- Start user_id from 1
 DECLARE @transaction_time datetime = CAST(N'2024-01-20 20:30:22.103' AS DateTime);
