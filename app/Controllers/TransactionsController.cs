@@ -77,7 +77,7 @@ namespace app.Controllers
 
 
 
-        [HttpGet("get_user_wallet")]
+        [HttpGet("wallet")]
         public async Task<ActionResult> GetUserWallet()
         {
             var jwtSecurityToken = new JwtSecurityToken();
@@ -99,7 +99,7 @@ namespace app.Controllers
                         amount_withdrawn = _context.Transactions.Where(t => t.WalletId == w.WalletId && t.RefundAfter < t.RefundBefore).Sum(t => t.Amount)
                     })
                     .FirstOrDefaultAsync();
-                return _msgService.MsgReturn(0, "Get Transaction Buy Story Detail", wallet);
+                return _msgService.MsgReturn(0, "Ví người dùng", wallet);
             }
             catch (Exception)
             {
