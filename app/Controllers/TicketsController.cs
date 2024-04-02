@@ -263,32 +263,29 @@ namespace app.Controllers
             return _msgService.MsgActionReturn(0, "Yêu cầu rút tiền của bạn đã được gửi đi");
         }
 
-        [HttpGet("all_refund")]
-        public async Task<ActionResult> GetAllRefund(int page)
+        [HttpGet("refunds")]
+        public async Task<ActionResult> GetAllRefund()
         {
             int userId = GetUserId();
-            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var requests = await _context.RefundRequests.Where(c => c.Status == null)
            .Include(c => c.Wallet).ThenInclude(c => c.User)
            .Select(c => new
            {
-               c.RequestId,
-               c.Wallet.User.UserFullname,
-               c.WalletId,
-               c.BankId,
-               c.BankAccount,
-               c.Amount,
-               c.RequestTime,
-               c.Status,
+               RequestId = c.RequestId,
+               UserFullname = c.Wallet.User.UserFullname,
+               WalletId = c.WalletId,
+               BankId = c.BankId,
+               BankAccount = c.BankAccount,
+               Amount = c.Amount * 1000,
+               RequestTime = c.RequestTime,
+               ResponseTime = c.ResponseTime,
            })
-           .OrderByDescending(c => c.RequestTime).ToListAsync();
-            var pagesize = 10;
-            page = page == null || page == 0 ? 1 : page;
-            return _msgService.MsgPagingReturn("Yêu cầu rút tiền",
-                requests.Skip(pagesize * (page - 1)).Take(pagesize), page, pagesize, requests.Count);
+           .OrderByDescending(c => c.RequestId).ToListAsync();
+            return _msgService.MsgReturn(0, "Yêu cầu rút tiền", requests);
         }
 
         [HttpPut("refund_approve")]

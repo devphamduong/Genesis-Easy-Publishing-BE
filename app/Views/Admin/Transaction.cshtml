@@ -9,39 +9,21 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-header">
+
+                <ul class="nav nav-pills nav-primary">
+                    <li class="nav-item"><div id="transaction" class="nav-link">Transaction</div></li>
+                    <li class="nav-item"><div id="request" class="nav-link">Refund Request</div></li>
+                </ul>
+            </div>
             <div class="card-body">
                 <div class="card-body">
-                    <div class="form-group form-inline">
-                         <div class="input-group">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text" id="basic-addon3">From</span>
-                             </div>
-                             <input type="date" class="form-control" id="fromDate" aria-describedby="basic-addon3">
-                         </div>
-                         <div class="input-group ml-4">
-                             <div class="input-group-prepend">
-                                 <span class="input-group-text" id="basic-addon3">To</span>
-                             </div>
-                             <input type="date" class="form-control" id="toDate" aria-describedby="basic-addon3">
-                         </div>
-                        <button id="exportBtn" class="btn btn-primary">Export</button>
+                    <div id="form" class="form-group form-inline">
+                        
                     </div>
                     <div class="table-responsive">
-                        <table id="basic-datatables" class="display table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <!-- <th></th> -->
-                                    <th>TransactionId</th>
-                                    <th>Amount</th>
-                                    <th>RefundAfter</th>
-                                    <th>RefundBefore</th>
-                                    <th>TransactionTime</th>
-                                    <th>Status</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
+                        <table id="basic-datatables" class="display table table-head-bg-primary table-hover">
+                            
                         </table>
                     </div>
                 </div>
@@ -67,38 +49,154 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-var check ;
+    var hehe;
     document.addEventListener("DOMContentLoaded", function () {
+        loadTransaction()
 
+        // $.ajax({
+        //     url: `http:localhost:5188/api/v1/transaction/admin_history`,
+        //     type: "GET",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     success: (data) => { hehe = data },
+        //     error: () => alert("Error"),
+        // });
+    });
+
+    var loadTransaction = () => {
+        $('#transaction').addClass('active');
         //async function loadData() {
-        fetch('http://localhost:5188/api/v1/transaction/history')
+        fetch('http://localhost:5188/api/v1/transaction/admin_history')
             .then(response => response.json())
             .then(data => {
-                check=data;
+                
+                $('#form').empty().append(`<div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">From</span>
+                                    </div>
+                                    <input type="date" class="form-control" id="fromDate" aria-describedby="basic-addon3">
+                                </div>
+                                <div class="input-group ml-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">To</span>
+                                    </div>
+                                    <input type="date" class="form-control" id="toDate" aria-describedby="basic-addon3">
+                                </div>
+                                <button id="exportBtn" class="btn btn-primary">Export</button>`);
+                
+                if ($.fn.DataTable.isDataTable('#basic-datatables')) {
+                    $('#basic-datatables').DataTable().destroy();
+                }
+                $('#basic-datatables').empty().append(`
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>TransactionNum</th>
+                                                <th>Amount</th>
+                                                <th>TransactionTime</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>`);
+
                 $('#basic-datatables').DataTable({
                     data: data.dt,
                     columns: [
-                        // {
-                        //     data: null,
-                        //     render(data) {
-                        //         return `<a style="color: blue; cursor: pointer" onclick="openUserInfor(${data.StoryId})"><i class="fas fa-edit"></i></a>`
-                        //     }
-                        // },
+                        {
+                            data: null,
+                            render(data) {
+                                if (data.refundAfter < data.refundBefore)
+                                    return `<i class="fas fa-caret-square-down" style="color:#f25961"></i>`
+                                else return `<i class="fas fa-caret-square-up" style="color:#31ce36"></i>`
+                            }
+                        },
                         { data: 'transactionId' },
-                        { data: 'amount' },
-                        { data: 'refundBefore' },
-                        { data: 'refundAfter' },
+                        {
+                            data: 'amount',
+                            render: function (data) {
+                                return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                            }
+                        },
                         { data: 'transactionTime' },
-                        { data: 'status' },
                         { data: 'description' }
-                    ]
+                    ],
+                    order: [[1, 'desc']],
+                    // rowCallback: function (row, data) {
+                    //     if (data.refundAfter < data.refundBefore)
+                    //         $(row).css('background-color', '#f25961');
+                    //     else $(row).css('background-color', '#31ce36')
+                    //     }
                 });
+                // $('#basic-datatables').DataTable().clear().rows.add(data.dt).draw();
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
         //}
+    }
+
+    $('#transaction').click(function () {
+        $('#request').removeClass('active');
+        loadTransaction()
     });
+
+    $('#request').click(function () {
+        $('#transaction').removeClass('active');
+        $('#request').addClass('active');
+        fetch('http://localhost:5188/api/v1/tickets/refunds')
+            .then(response => response.json())
+            .then(data => {
+
+                $('#form').empty().append(``);
+
+                if ($.fn.DataTable.isDataTable('#basic-datatables')) {
+                    $('#basic-datatables').DataTable().destroy();
+                }
+                $('#basic-datatables').empty().append(`
+                                            <thead>
+                                                <tr>
+                                                    <th>RequestNum</th>
+                                                    <th>UserRequest</th>
+                                                    <th>Bank</th>
+                                                    <th>BankNum</th>
+                                                    <th>Amount</th>
+                                                    <th>TransactionTime</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>`);
+
+                $('#basic-datatables').DataTable({
+                    data: data.dt,
+                    columns: [
+                        { data: 'requestId' },
+                        { data: 'userFullname' },
+                        { data: 'bankId' },
+                        { data: 'bankAccount' },
+                        {
+                            data: 'amount',
+                            render: function (data) {
+                                return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                            }
+                        },
+                        { data: 'requestTime' },
+                        {
+                            data: null,
+                            render(data) {
+                                if (data.responseTime == null)
+                                    return `Pending`
+                                else return `In Progress`
+                            }
+                        },
+                    ],
+                    order: [[0, 'asc']],
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    });
+
+
     $('#exportBtn').click(function () {
         var fromDate = $('#fromDate').val();
         var toDate = $('#toDate').val();
@@ -110,13 +208,13 @@ var check ;
         window.location.href = `http://localhost:5188/api/v1/transaction/ExportOrdersToExcel?fromDate=${fromDate}&toDate=${toDate}`;
     }
 
-    function loadPage(pageName) {
+    // function loadPage(pageName) {
 
-        // Use jQuery to load content from the server
-        $.get(`${pageName}.html`, function () {
-            // Replace the content of the #content div with the loaded data
+    //     Use jQuery to load content from the server
+    //     $.get(`${pageName}.html`, function () {
+    //         Replace the content of the #content div with the loaded data
 
-            $('#basic-datatables').DataTable();
-        });
-    }
+    //         $('#basic-datatables').DataTable();
+    //     });
+    // }
 </script>

@@ -692,7 +692,7 @@ namespace app.Controllers
             .Select(t => new
             {
                 TransactionId = t.TransactionId,
-                Amount = t.Amount,
+                Amount = t.Amount * 1000,
                 RefundBefore = t.RefundBefore,
                 RefundAfter = t.RefundAfter,
                 TransactionTime = t.TransactionTime,
