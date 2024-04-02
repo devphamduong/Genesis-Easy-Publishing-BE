@@ -77,7 +77,7 @@ namespace app.Controllers
                     CommentContent = r.Comment.CommentContent,
                     ReportContent1 = r.ReportContent1,
                     ReportDate = r.ReportDate,
-                    Status = r.Status == null ? "Unsolved": "Solved"
+                    Status = (r.Status == null || r.Status == false) ? "Unsolved": "Solved"
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Thể loại tố cáo", reports);
@@ -125,11 +125,35 @@ namespace app.Controllers
                 CommentId = reportDTO.CommentId,
                 ReportContent1 = reportDTO.ReportContent,
                 ReportDate = DateTime.Now,
-                Status = null,
+                Status = false,
             };
             _context.ReportContents.Add(report);
             await _context.SaveChangesAsync();
             return _msgService.MsgActionReturn(0, "Báo cáo thành công");
+        }
+
+        [HttpPut("resolveReport")]
+        public async Task<ActionResult> SwitchStatus(int id)
+        {
+            var report = await _context.ReportContents.FirstOrDefaultAsync(r => r.ReportId == id);
+            try
+            {
+                if(report.Status == null || report.Status == false)
+                {
+                    report.Status = true;
+                }
+                else
+                {
+                    report.Status = false;
+                }
+                _context.Entry(report).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return Ok(report);
         }
     }
 }

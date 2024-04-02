@@ -55,13 +55,24 @@
             </div>
         </div>
 
+
+        <div class="modal" tabindex="-1" role="dialog" id="modalStatus">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="reportStatus">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        loadData();
 
-        //async function loadData() {
+    });
+
+    async function loadData() {
+        $('#basic-datatables').DataTable().destroy();
         fetch('http://localhost:5188/api/v1/reports/all_report')
             .then(response => response.json())
             .then(data => {
@@ -76,7 +87,16 @@
                         { data: 'commentContent' },
                         { data: 'reportContent1' },
                         { data: 'reportDate' },
-                        { data: 'status' },
+                        {
+                            data: null,
+                            render(data) {
+                                if (data.status == 'Unsolved') {
+                                    return `<a style="color: red; cursor: pointer" onclick="adjustStatus('${data.status}', '${data.reportId}')">${data.status}</a>`
+                                } else {
+                                    return `<a style="color: blue; cursor: pointer" onclick="adjustStatus('${data.status}', '${data.reportId}')">${data.status}</a>`
+                                }
+                            }
+                        },
                         {
                             data: null,
                             render(data) {
@@ -89,9 +109,58 @@
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-        //}
-    });
+    }
 
+    function adjustStatus(status, id) {
+        if (status == 'Unsolved') {
+            document.getElementById('reportStatus').innerHTML = `
+                                            <div class="modal-header">
+                                    <h2 class="modal-title">Do you wanna mark report id ${id} as "Solved"?</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-footer">
+                                    <button type="button" onclick="SwitchStatus('${id}')" class="btn btn-primary">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            </div>
+                                `;
+        } else {
+            document.getElementById('reportStatus').innerHTML = `
+                                                <div class="modal-header">
+                                        <h2 class="modal-title">Do you wanna mark report id ${id} as "Unsolved"?</h2>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-footer">
+                                            <button type="button" onclick="SwitchStatus(${id})" class="btn btn-primary">Yes</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                </div>
+                                    `;
+        }
+
+        $("#modalStatus").modal();
+    }
+    async function SwitchStatus(id) {
+        try {
+            await fetch(`http://localhost:5188/api/v1/reports/resolveReport?id=${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            $("#modalStatus").modal('hide');
+
+            loadData();
+        } catch (error) {
+            console.error('Unable to update item.', error);
+        }
+
+    }
 
     async function openReportInfor(reportId) {
         const response = await fetch(`http://localhost:5188/api/v1/reports/report/${reportId}`);

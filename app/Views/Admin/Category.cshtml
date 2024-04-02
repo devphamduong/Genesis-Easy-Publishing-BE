@@ -1,11 +1,8 @@
-@{
+﻿@{
     ViewData["Title"] = "Category Management";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="page-header">
-    <h4 class="page-title">User Management</h4>
-</div>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -64,11 +61,11 @@
                         <table id="basic-datatables" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>Category Id</th>
-                                    <th>Category Name</th>
-                                    <th>Category Name</th>
-                                    <th>Category Banner</th>
-                                    <th>Stories Number</th>
+                                    <th>Id</th>
+                                    <th>Tên thể loại</th>
+                                    <th>Miêu tả</th>
+                                    <th>Banner</th>
+                                    <th>Số lượng truyện</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -111,7 +108,12 @@
                         { data: 'categoryId' },
                         { data: 'categoryName' },
                         { data: 'categoryDescription' },
-                        { data: 'categoryBanner' },
+                        { 
+                            data: 'categoryBanner',
+                            render: function (data) {
+                                return `<img src="${data}" alt="Category Banner" style="max-width: 300px; height: auto;" />`;
+                            }
+                        },
                         { data: 'storiesNumber' },
                         {
                             data: null,
@@ -137,18 +139,17 @@
             console.log(category);
             document.getElementById('categoryInfo').innerHTML = `
                                         <div class="form-group">
-                                            <label for="Fullname">Category Name</label>
+                                            <label for="CategoryName">Category Name</label>
                                             <input type="text" class="form-control" id="UpdateCategoryName" value="${category.categoryName}" placeholder="Fullname">
                                         </div>
                                         <div class="form-group">
-                                            <label for="Fullname">Category Description</label>
+                                            <label for="Description">Category Description</label>
                                             <input type="text" class="form-control" id="UpdateCategoryDescription" value="${category.categoryDescription}" placeholder="Fullname">
                                         </div>
                                             <div class="form-group">
                                                 <label for="Fullname">Category Banneer</label>
-                                                <input type="text" class="form-control" id="UpdateCategoryBanner" value="${category.categoryBanner}" placeholder="Fullname">
-                                                                      <button onclick="window.open('${category.categoryBanner}', '_blank')">View image</button>
-                                            </div>
+                                                <img src="${category.categoryBanner}" alt ="Category Banner" style="max-width: 300px; height: auto;" />
+                                                    </div>
                                         <div class="modal-footer">
                                             <button type="button" onclick="UpdateCategoryInfor(${categoryId})" class="btn btn-primary">Save changes</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
