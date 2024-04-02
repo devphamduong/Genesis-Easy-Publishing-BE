@@ -312,7 +312,7 @@ namespace app.Controllers
                 .Include(s => s.Users)
                 .Include(s => s.Chapters).ThenInclude(c => c.Users)
                 .Include(s => s.StoryInteraction)
-                .Where(s => s.Chapters.Any(c => c.Status == 0))
+                .Where(s => s.Chapters.Any(c => c.Status == 0) && s.AuthorId != userId)
                 .Select(s => new
                 {
                     StoryId = s.StoryId,
@@ -350,8 +350,10 @@ namespace app.Controllers
             {
                 return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
             }
-            var volumes = await _context.Volumes.Where(v => v.StoryId == storyid && v.Chapters.Any(c => c.Status == 0))
+            var volumes = await _context.Volumes
                 .Include(v => v.Chapters)
+                .Include(v => v.Story)
+                .Where(v => v.StoryId == storyid && v.Story.AuthorId != userId && v.Chapters.Any(c => c.Status == 0))
                 .Select(v => new
                 {
                     volumeId = v.VolumeId,
