@@ -5,6 +5,7 @@ using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -236,6 +237,7 @@ namespace app.Controllers
             public string BankAccount { get; set; }
             public decimal Amount { get; set; }
         }
+
         [HttpPost("refund_send")]
         public async Task<ActionResult> SendRefund([FromBody] Refund refund)
         {
@@ -281,15 +283,97 @@ namespace app.Controllers
                BankId = c.BankId,
                BankAccount = c.BankAccount,
                Amount = c.Amount * 1000,
-               RequestTime = c.RequestTime,
+               RequestTime = c.RequestTime.ToString("yyyy-MM-dd HH:mm:ss"),
                ResponseTime = c.ResponseTime,
            })
            .OrderByDescending(c => c.RequestId).ToListAsync();
             return _msgService.MsgReturn(0, "Yêu cầu rút tiền", requests);
         }
 
+        [HttpGet("refund_export")]
+        public async Task<ActionResult> ExportRefunds()
+        {
+            int userId = GetUserId();
+            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+
+            var requests = await _context.RefundRequests
+               .Where(c => c.ResponseTime == null && c.Status == null)
+               .Include(c => c.Wallet).ThenInclude(c => c.User)
+               .OrderByDescending(c => c.RequestId)
+               .ToListAsync();
+
+            if (requests.Count() == 0) return _msgService.MsgActionReturn(-2, "Yêu cầu đã được phê duyệt rồi");
+            requests.ForEach(request => request.ResponseTime = DateTime.Now);
+            _context.RefundRequests.UpdateRange(requests);
+            await _context.SaveChangesAsync();
+
+            var ret = requests.Select(c => new
+            {
+                UserFullname = c.Wallet.User.UserFullname,
+                BankId = c.BankId,
+                BankAccount = c.BankAccount,
+                Amount = ((int)c.Amount * 1000).ToString(),
+                RequestTime = c.RequestTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                ResponseTime = c.ResponseTime?.ToString("yyyy-MM-dd HH:mm:ss") ?? ""
+            }).ToList();
+
+            return _msgService.MsgReturn(0, "Yêu cầu phê duyệt", ret);
+        }
+
+        [HttpGet("refund_export2")]
+        public async Task<ActionResult> ExportRefunds2()
+        {
+            int userId = GetUserId();
+            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+
+            var requests = await _context.RefundRequests
+               .Where(c => c.ResponseTime == null && c.Status == null)
+               .Include(c => c.Wallet).ThenInclude(c => c.User)
+               .OrderByDescending(c => c.RequestId)
+               .ToListAsync();
+
+            if (requests.Count() == 0) return _msgService.MsgActionReturn(-2, "Yêu cầu đã được phê duyệt rồi");
+            requests.ForEach(request => request.ResponseTime = DateTime.Now);
+            _context.RefundRequests.UpdateRange(requests);
+            await _context.SaveChangesAsync();
+
+            var stream = new MemoryStream();
+
+            using (var package = new ExcelPackage(stream))
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Refund_Request");
+
+                // Headers
+                worksheet.Cells[1, 1].Value = "UserFullname";
+                worksheet.Cells[1, 2].Value = "BankId";
+                worksheet.Cells[1, 3].Value = "BankAccount";
+                worksheet.Cells[1, 4].Value = "Amount";
+                worksheet.Cells[1, 5].Value = "RequestTime";
+
+
+                // Data
+                for (int i = 0; i < requests.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = requests[i].Wallet.User.UserFullname;
+                    worksheet.Cells[i + 2, 2].Value = requests[i].BankId;
+                    worksheet.Cells[i + 2, 3].Value = requests[i].BankAccount;
+                    worksheet.Cells[i + 2, 4].Value = requests[i].Amount * 1000;
+                    worksheet.Cells[i + 2, 5].Value = requests[i].RequestTime.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                package.Save();
+            }
+
+            stream.Position = 0;
+            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Refund_Request.xlsx");
+        }
+
+
         [HttpPut("refund_approve")]
-        public async Task<ActionResult> ApproveRefund(int requestId)
+        public async Task<ActionResult> ApproveRefund()
         {
 
             int userId = GetUserId();

@@ -695,7 +695,7 @@ namespace app.Controllers
                 Amount = t.Amount * 1000,
                 RefundBefore = t.RefundBefore,
                 RefundAfter = t.RefundAfter,
-                TransactionTime = t.TransactionTime,
+                TransactionTime = t.TransactionTime.ToString("yyyy-MM-dd HH:mm:ss"),
                 Status = t.Status == true ? "Sucess" : "False",
                 Description = t.Description
             })
