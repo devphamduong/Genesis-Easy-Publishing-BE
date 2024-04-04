@@ -72,6 +72,9 @@ namespace app.Controllers
             return View();
         }
 
-
+        public IActionResult Ticket()
+        {
+            return View();
+        }
     }
 }
