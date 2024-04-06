@@ -222,7 +222,7 @@ namespace app.Controllers
                 ChapterPrice = chapter.ChapterPrice
             };
             c.CreateTime = DateTime.Now;
-            c.Status = 1;
+            c.Status = 0;
             try
             {
                 long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.VolumeId == chapter.VolumeId && c.Status ==1).Select(c => c.ChapterNumber).ToList().DefaultIfEmpty(0).Max() + 1;
