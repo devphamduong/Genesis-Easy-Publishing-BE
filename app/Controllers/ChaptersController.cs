@@ -124,7 +124,7 @@ namespace app.Controllers
         }
 
         [HttpPut("update_volume")]
-        public async Task<ActionResult> UpdateChapter(UpdateVolumeForm volume)
+        public async Task<ActionResult> UpdateVolume(UpdateVolumeForm volume)
         {
             var currentVolume = _context.Volumes.FirstOrDefault(v => v.VolumeId == volume.VolumeId);
             try
