@@ -2842,10 +2842,10 @@ BEGIN
     BEGIN
         INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
         VALUES 
-		(@transaction_id, @wallet_id, null, null, 200, 0.00,200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000'),
-		(@transaction_id+1, 1, null, null, 200, @wallet_admin, @wallet_admin +200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000 vào hệ thống'),
-		(@transaction_id+2,@wallet_id,NuLL,NULL,50.00,0.00,0.00,200.00,150.00,@transaction_time + 20,1,N'Rút 50.000'),
-		(@transaction_id+3,@wallet_id,NuLL,NULL,50.00,0.00,0.00,@wallet_admin +200.00,@wallet_admin +200.00 -50,@transaction_time+20,1,N'Rút 50.000 từ hệ thống')
+		(@transaction_id, @wallet_id, null, null, 200, 0.00,200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000 VND'),
+		(@transaction_id+1, 1, null, null, 200, @wallet_admin, @wallet_admin +200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000 VND vào hệ thống'),
+		(@transaction_id+2,@wallet_id,NuLL,NULL,50.00,0.00,0.00,200.00,150.00,@transaction_time + 20,1,N'Rút 50.000 VND'),
+		(@transaction_id+3,@wallet_id,NuLL,NULL,50.00,0.00,0.00,@wallet_admin +200.00,@wallet_admin +200.00 -50,@transaction_time+20,1,N'Rút 50.000 VND từ hệ thống')
 		;
         SET @transaction_id = @transaction_id + 4; -- Increment comment_id
 		SET @wallet_admin = @wallet_admin + 200 - 50;

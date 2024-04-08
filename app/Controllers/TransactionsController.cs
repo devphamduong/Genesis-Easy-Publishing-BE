@@ -495,7 +495,7 @@ namespace app.Controllers
                     RefundAfter = admin_wallet.Refund + amount,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Nạp {amount} vào hệ thống"
+                    Description = $"Nạp {amount} VND vào hệ thống"
                 };
                 admin_wallet.Fund = admin_wallet.Fund + amount;
 
