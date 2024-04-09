@@ -138,8 +138,17 @@ namespace app.Controllers
             });
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public class addCategoryForm
+        {
+            public string? CategoryName { get; set; }
+
+            public string? CategoryBanner { get; set; }
+
+            public string? CategoryDescription { get; set; }
+        }
+
+        [HttpPost("addCategory")]
+        public async Task<ActionResult> addCategory(addCategoryForm category)
         {
             if (category.CategoryName == "" || category.CategoryName == null || _context.Categories == null)
             {
@@ -159,7 +168,13 @@ namespace app.Controllers
             }
             try
             {
-                _context.Categories.Add(category);
+                Category c = new Category()
+                {
+                    CategoryName = category.CategoryName,
+                    CategoryBanner = category.CategoryBanner,
+                    CategoryDescription = category.CategoryDescription,
+                };
+                _context.Categories.Add(c);
                 await _context.SaveChangesAsync();
 
             }

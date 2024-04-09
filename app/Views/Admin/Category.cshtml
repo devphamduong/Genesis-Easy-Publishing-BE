@@ -8,10 +8,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title">Category Management</h4>
+                    <h4 class="card-title">Genre Management</h4>
                     <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
                         <i class="fa fa-plus"></i>
-                        Add Category
+                        Add Genre
                     </button>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                             <div class="modal-header no-bd">
                                 <h5 class="modal-title">
                                     <span class="fw-mediumbold">
-                                        New Category
+                                        New Genre
                                     </span>
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -34,15 +34,15 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Category Name</label>
+                                                <label>Tên thể loại</label>
                                                 <input id="addCategoryName" type="text" class="form-control" placeholder="Fill Category Name">
                                             </div>
                                             <div class="form-group">
-                                                <label>Category Description</label>
+                                                <label>Miêu tả</label>
                                                 <input id="addCategoryDescription" type="text" class="form-control" placeholder="Fill Category Description">
                                             </div>
                                             <div class="form-group">
-                                                <label>Category Banner</label>
+                                                <label>Banner</label>
                                                 <input id="addCategoryBanner" type="text" class="form-control" placeholder="Fill Category Banner">
                                             </div>
                                         </div>
@@ -81,7 +81,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Category Detail</h5>
+                        <h5 class="modal-title">Genre Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -118,7 +118,7 @@
                         {
                             data: null,
                             render(data) {
-                                return `<a style="color: blue; cursor: pointer" onclick="openUserInfor(${data.categoryId})"><i class="fas fa-edit"></i></a>`
+                                return `<a style="color: blue; cursor: pointer" onclick="openGenreInfor(${data.categoryId})"><i class="fas fa-edit"></i></a>`
                             }
                         }
                     ]
@@ -132,22 +132,22 @@
 
 
 
-    async function openUserInfor(categoryId) {
+    async function openGenreInfor(categoryId) {
         const response = await fetch(`http://localhost:5188/api/v1/category/${categoryId}`);
         if (response.ok) {
             const category = await response.json();
             console.log(category);
             document.getElementById('categoryInfo').innerHTML = `
                                         <div class="form-group">
-                                            <label for="CategoryName">Category Name</label>
+                                            <label for="CategoryName">Tên thể loại</label>
                                             <input type="text" class="form-control" id="UpdateCategoryName" value="${category.categoryName}" placeholder="Fullname">
                                         </div>
                                         <div class="form-group">
-                                            <label for="Description">Category Description</label>
+                                            <label for="Description">Miêu tả</label>
                                             <input type="text" class="form-control" id="UpdateCategoryDescription" value="${category.categoryDescription}" placeholder="Fullname">
                                         </div>
                                             <div class="form-group">
-                                                <label for="Fullname">Category Banneer</label>
+                                                <label for="Fullname">Banner</label>
                                                 <img src="${category.categoryBanner}" alt ="Category Banner" style="max-width: 300px; height: auto;" />
                                                     </div>
                                         <div class="modal-footer">
@@ -195,7 +195,7 @@
             categoryBanner: Banner.value.trim()
         }
         console.log(item);
-        fetch('http://localhost:5188/api/v1/category', {
+        fetch('http://localhost:5188/api/v1/category/addCategory', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

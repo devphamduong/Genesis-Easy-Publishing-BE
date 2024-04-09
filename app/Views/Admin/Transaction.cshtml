@@ -19,11 +19,9 @@
             <div class="card-body">
                 <div class="card-body">
                     <div id="form" class="form-group form-inline">
-                        
                     </div>
                     <div class="table-responsive">
                         <table id="basic-datatables" class="display table table-head-bg-primary table-hover">
-                            
                         </table>
                     </div>
                 </div>
@@ -48,56 +46,51 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/write-excel-file@1.x/bundle/write-excel-file.min.js"></script>
 <script>
-    var hehe;
+
     document.addEventListener("DOMContentLoaded", function () {
         loadTransaction()
 
-        // $.ajax({
-        //     url: `http:localhost:5188/api/v1/transaction/admin_history`,
-        //     type: "GET",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     success: (data) => { hehe = data },
-        //     error: () => alert("Error"),
-        // });
     });
 
     var loadTransaction = () => {
         $('#transaction').addClass('active');
-        //async function loadData() {
-        fetch('http://localhost:5188/api/v1/transaction/admin_history')
-            .then(response => response.json())
-            .then(data => {
-                
+
+        $.ajax({
+            url: `http://localhost:5188/api/v1/transaction/admin_history`,
+            type: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            success: (data) => {
                 $('#form').empty().append(`<div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon3">From</span>
-                                    </div>
-                                    <input type="date" class="form-control" id="fromDate" aria-describedby="basic-addon3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">From</span>
+                                </div>
+                                <input type="date" class="form-control" id="fromDate" aria-describedby="basic-addon3">
                                 </div>
                                 <div class="input-group ml-4">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon3">To</span>
-                                    </div>
-                                    <input type="date" class="form-control" id="toDate" aria-describedby="basic-addon3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">To</span>
                                 </div>
-                                <button id="exportBtn" class="btn btn-primary">Export</button>`);
-                
+                                <input type="date" class="form-control" id="toDate" aria-describedby="basic-addon3">
+                            </div>
+                            <button id="exportBtn" class="btn btn-primary">Export</button>`);
+
                 if ($.fn.DataTable.isDataTable('#basic-datatables')) {
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>TransactionNum</th>
-                                                <th>Amount</th>
-                                                <th>TransactionTime</th>
-                                                <th>Description</th>
-                                            </tr>
-                                        </thead>`);
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>TransactionNum</th>
+                                <th>Amount</th>
+                                <th>TransactionTime</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -128,11 +121,9 @@
                     //     }
                 });
                 // $('#basic-datatables').DataTable().clear().rows.add(data.dt).draw();
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-        //}
+            },
+            error: () => console.error('Error fetching data:', error),
+        });
     }
 
     $('#transaction').click(function () {
@@ -143,27 +134,30 @@
     $('#request').click(function () {
         $('#transaction').removeClass('active');
         $('#request').addClass('active');
-        fetch('http://localhost:5188/api/v1/tickets/refunds')
-            .then(response => response.json())
-            .then(data => {
-
-                $('#form').empty().append(``);
+        $.ajax({
+            url: `http://localhost:5188/api/v1/tickets/refunds`,
+            type: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            success: (data) => {
+                $('#form').empty().append(`<button id="exportRefund" onClick="exportData()" class="btn btn-primary">Export</button>`);
 
                 if ($.fn.DataTable.isDataTable('#basic-datatables')) {
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                            <thead>
-                                                <tr>
-                                                    <th>RequestNum</th>
-                                                    <th>UserRequest</th>
-                                                    <th>Bank</th>
-                                                    <th>BankNum</th>
-                                                    <th>Amount</th>
-                                                    <th>TransactionTime</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>`);
+                            <thead>
+                                <tr>
+                                    <th>RequestNum</th>
+                                    <th>UserRequest</th>
+                                    <th>Bank</th>
+                                    <th>BankNum</th>
+                                    <th>Amount</th>
+                                    <th>TransactionTime</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -190,10 +184,9 @@
                     ],
                     order: [[0, 'asc']],
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+            },
+            error: () => console.error('Error fetching data:', error),
+        });
     });
 
 
@@ -203,6 +196,112 @@
 
         exportToExcel(fromDate, toDate);
     });
+    var check
+    var exportData = () => {
+        console.log('sadsadsa')
+        $.ajax({
+            url: `http:localhost:5188/api/v1/tickets/refund_export2`,
+            type: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            success: (data) => { check = data },
+            error: () => console.error('Error fetching data:', error),
+        });
+    }
+
+    // var exportData = () => {
+    //     fetch('http:localhost:5188/api/v1/tickets/refund_export2')
+    //         .then(response => response.blob())
+    //         .then(blob => {
+    //             Create a URL object from the blob data
+    //             var url = window.URL.createObjectURL(blob);
+
+    //             Create a hidden anchor element
+    //             var downloadLink = document.createElement('a');
+
+    //             Set the href attribute to the generated URL
+    //             downloadLink.href = url;
+
+    //             Set the download attribute to specify the filename
+    //             downloadLink.download = 'Refund_Request.xlsx';
+
+    //             Append the anchor element to the body
+    //             document.body.appendChild(downloadLink);
+
+    //             Trigger a click event on the anchor element
+    //             downloadLink.click();
+
+    //             Remove the anchor element from the body
+    //             document.body.removeChild(downloadLink);
+
+    //             Release the object URL to free up resources
+    //             window.URL.revokeObjectURL(url);
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }
+
+
+
+    var exportExcel = (formal) => {
+        var header = [
+            {
+                type: String,
+                value: 'User Full Name',
+                fontWeight: 'bold'
+            },
+            {
+                type: String,
+                value: 'Bank Code',
+                fontWeight: 'bold'
+            },
+            {
+                type: String,
+                value: 'Bank Number',
+                fontWeight: 'bold'
+            },
+            {
+                type: String,
+                value: 'Amount',
+                fontWeight: 'bold'
+            },
+            {
+                type: String,
+                value: 'Request Time',
+                fontWeight: 'bold'
+            }
+        ];
+        var arrayOfArrays = formal.map(item => [
+            {
+                type: String,
+                value: item.userFullname,
+            },
+            {
+                type: String,
+                value: item.bankId,
+            },
+            {
+                type: String,
+                value: item.bankAccount,
+            },
+            {
+                type: String,
+                value: item.amount,
+            },
+            {
+                type: String,
+                value: item.requestTime,
+            }
+            // item.examAnswers.map(answer => answer.rightRightAnswer)
+        ]);
+
+        arrayOfArrays.unshift(header);
+        check = arrayOfArrays;
+        writeXlsxFile(arrayOfArrays, {
+            fileName: 'Refund_Quest.xlsx'
+        })
+    }
+
 
     function exportToExcel(fromDate, toDate) {
         window.location.href = `http://localhost:5188/api/v1/transaction/ExportOrdersToExcel?fromDate=${fromDate}&toDate=${toDate}`;

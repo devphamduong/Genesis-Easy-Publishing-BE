@@ -11,7 +11,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex align-items-center">
-                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addUserModal">
                         <i class="fa fa-plus"></i>
                         Add User
                     </button>
@@ -38,6 +38,43 @@
         </div>
     </div>
 
+    <!-- Add User Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="addUserModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="addUsername">Username</label>
+                        <input type="text" class="form-control" id="addUsername" placeholder="Fullname">
+                    </div>
+                    <div class="form-group">
+                        <label for="addEmail">Email</label>
+                        <input type="text" class="form-control" id="addEmail" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="addPassword">Password</label>
+                        <input type="password" class="form-control" id="addPassword" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmedPass">Confirmed Password</label>
+                        <input type="password" class="form-control" id="confirmedPass" placeholder="Phone">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="addUser()">Add User</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Detail Modal -->
     <div class="modal" tabindex="-1" role="dialog" id="myModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -57,6 +94,7 @@
         </div>
     </div>
 
+    <!-- Status Modal -->
     <div class="modal" tabindex="-1" role="dialog" id="modalStatus">
         <div class="modal-dialog" role="document">
             <div class="modal-content" id="userStatus">
@@ -212,6 +250,41 @@
         $("#myModal").modal();
     }
 
+    async function addUser() {
+        const username = document.getElementById('addUsername').value;
+        const email = document.getElementById('addEmail').value;
+        const password = document.getElementById('addPassword').value;
+        const confirmedPass = document.getElementById('confirmedPass').value;
+
+        const newUser = {
+            Email: email,
+            Username: username,
+            Password: password,
+            ConfirmPassword: confirmedPass,
+        };
+
+        try {
+            const response = await fetch('http://localhost:5188/api/v1/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newUser)
+            });
+
+            if (response.ok) {
+                $('#addUserModal').modal('hide');
+                loadData();
+            } else {
+                console.error('Failed to add user');
+            }
+        } catch (error) {
+            console.error('Error adding user:', error);
+        }
+    }
+
+
     function loadPage(pageName) {
 
         // Use jQuery to load content from the server
@@ -222,4 +295,6 @@
             $('#basic-datatables').DataTable();
         });
     }
+
+
 </script>

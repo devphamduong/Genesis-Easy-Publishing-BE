@@ -2443,7 +2443,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			Nhưng mà sau một khắc, Huyết Nguyệt ngừng chửi rủa, chết nhìn chòng chọc Tử Hàn bóng người, thiếu chút nữa liền xuống ba cũng kinh điệu, lúc này Tử Hàn lại đang Luyện bàn tay, phảng phất trước học qua một dạng tự học, sau một khắc trong tay trường kiếm, trường kiếm trong tay hoành vũ lên, trên không trung vạch qua một vệt độ cong
 			Chỉ lưu lại Huyết Nguyệt ở trong gió xốc xếch, nhìn Tử Hàn, Huyết Nguyệt đôi mắt trở nên thâm thúy đứng lên.
 			“Trời sinh thánh mạch, coi là thật bất phàm”'),
-			(55, 5, 24, 29, 7, N'Ác Nô Khi Chủ',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			(55, 6, 24, 29, 7, N'Ác Nô Khi Chủ',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
 			N'Đêm đã khuya, Huyết Nguyệt ngáp một cái, nghiêng dựa vào bên cây nhìn phía xa Tử Hàn, trong tay múa kiếm chính Luyện phi thường cao hứng, trong lúc mơ hồ hội tụ ra một loại Kiếm Thế, trên mũi kiếm có từng luồng kiếm khí lưu chuyển, trường kiếm hiện ra sắc bén ý, Tử Hàn lúc này khí chất đại biến đã là có dần dần lộ phong mang cảm giác.</p>
 			<p>Làm Tử Hàn thu hồi trường kiếm, nhìn đến trường kiếm trong tay, càng xem càng là hoan hỉ, bàn tay nhẹ nhàng ma sát thân kiếm, ngẩng đầu nhìn liếc mắt sắc trời, hướng Tử gia trang viên đi tới.</p>
 			<p>“Ai, thiếu niên Lang, ngươi không đợi Bản vương?”</p>
@@ -2517,7 +2517,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			<p>Tử Hàn thủ đoạn ngay cả Huyết Nguyệt nhìn cũng có chút kinh ngạc, hắn cũng không nghĩ tới Tử Hàn lại có thể như thế cường thế, dù ai cũng không cách nào tưởng tượng Tử Hàn lúc trước cứu qua có nhiều khuất nhục, bây giờ mới sẽ hung hăng như vậy, chỉ có Tử Hàn mình mới rõ ràng, hắn trải qua cái gì.</p>
 			<p>“Hừ”</p>
 			<p>Tử Hàn nhẹ rên một tiếng, cầm kiếm hướng trong trang viên đi tới, Người giữ cửa nhìn nằm ở một bên Tử Lực, nhìn Tử Hàn biến mất ở trong màn đêm bóng lưng, lập tức liền lăn một vòng hướng đình viện sâu bên trong chạy đi.'),
-			(56, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			(56, 7, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
 			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
 			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
 			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
@@ -2579,7 +2579,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			<p>Ngay tại cũng cho là Tử Hàn sẽ ảo não chạy trốn lúc, Tử Hàn khóe miệng vén lên một tia độ cong, khẽ cười nói “Ta Tử Hàn chính là chủ nhà thiếu gia, ngươi coi là cái gì chó má, coi như ngươi mạch gia chủ cũng không xứng nói với ta như vậy”</p>
 			<p>Hí!</p>
 			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.'),
-			(57, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			(57, 8, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
 			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
 			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
 			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
@@ -2842,10 +2842,10 @@ BEGIN
     BEGIN
         INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter_id],[amount],[fund_before],[fund_after],[refund_before],[refund_after],[transaction_time],[status],[description])
         VALUES 
-		(@transaction_id, @wallet_id, null, null, 200, 0.00,200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000'),
-		(@transaction_id+1, 1, null, null, 200, @wallet_admin, @wallet_admin +200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000 vào hệ thống'),
-		(@transaction_id+2,@wallet_id,NuLL,NULL,50.00,0.00,0.00,200.00,150.00,@transaction_time + 20,1,N'Rút 50.000'),
-		(@transaction_id+3,@wallet_id,NuLL,NULL,50.00,0.00,0.00,@wallet_admin +200.00,@wallet_admin +200.00 -50,@transaction_time+20,1,N'Rút 50.000 từ hệ thống')
+		(@transaction_id, @wallet_id, null, null, 200, 0.00,200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000 VND'),
+		(@transaction_id+1, 1, null, null, 200, @wallet_admin, @wallet_admin +200.00,	0.00,0.00,@transaction_time,1,N'Nạp 200.000 VND vào hệ thống'),
+		(@transaction_id+2,@wallet_id,NuLL,NULL,50.00,0.00,0.00,200.00,150.00,@transaction_time + 20,1,N'Rút 50.000 VND'),
+		(@transaction_id+3,@wallet_id,NuLL,NULL,50.00,0.00,0.00,@wallet_admin +200.00,@wallet_admin +200.00 -50,@transaction_time+20,1,N'Rút 50.000 VND từ hệ thống')
 		;
         SET @transaction_id = @transaction_id + 4; -- Increment comment_id
 		SET @wallet_admin = @wallet_admin + 200 - 50;

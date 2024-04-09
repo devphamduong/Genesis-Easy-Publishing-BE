@@ -124,7 +124,7 @@ namespace app.Controllers
         }
 
         [HttpPut("update_volume")]
-        public async Task<ActionResult> UpdateChapter(UpdateVolumeForm volume)
+        public async Task<ActionResult> UpdateVolume(UpdateVolumeForm volume)
         {
             var currentVolume = _context.Volumes.FirstOrDefault(v => v.VolumeId == volume.VolumeId);
             try
@@ -222,7 +222,7 @@ namespace app.Controllers
                 ChapterPrice = chapter.ChapterPrice
             };
             c.CreateTime = DateTime.Now;
-            c.Status = 1;
+            c.Status = 0;
             try
             {
                 long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.VolumeId == chapter.VolumeId && c.Status ==1).Select(c => c.ChapterNumber).ToList().DefaultIfEmpty(0).Max() + 1;
@@ -404,13 +404,20 @@ namespace app.Controllers
                 EM = "Xóa chương thành công!"
             });
         }
+
+
         private bool checkPurchase(int? userid, long chapterNum, int storyid)
         {
             if (userid == null)
             {
                 return false;
             }
-            var user = _context.Users.Include(u => u.Chapters).Include(u => u.Stories).FirstOrDefault(u => u.UserId == userid);
+            var user = _context.Users.Where(u => u.UserId == 4).Select(u => new
+            {
+                UserId = u.UserId,
+                Stories = u.StoriesNavigation.Select(sn => new { StoryId = sn.StoryId }).ToList(),
+                Chapters = u.Chapters.Select(c => new { chapterId = c.ChapterId, ChapterNumber = c.ChapterNumber, StoryId = c.StoryId }).ToList()
+            }).FirstOrDefault();
             if (user == null)
             {
                 return false;
