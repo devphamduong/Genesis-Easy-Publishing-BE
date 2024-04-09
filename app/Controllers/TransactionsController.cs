@@ -331,11 +331,17 @@ namespace app.Controllers
                          StoriesNavigation = u.StoriesNavigation
                      })
                      .FirstOrDefaultAsync();
+                if (user_wallet.Fund < Amount)
+                    return _msgService.MsgActionReturn(-2, NotEnoughMoney);
+
                 if (userId == story.AuthorId || user_story.StoriesNavigation.Contains(story))
                     return _msgService.MsgActionReturn(-3, ErrorAuthorMessage);
 
+
                 user_wallet.Fund = user_wallet.Fund - Amount;
                 author_wallet.Refund = author_wallet.Refund + Amount;
+
+
 
                 foreach (var chapter in chapter_buy)
                 {
