@@ -3,6 +3,7 @@ using app.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
@@ -74,14 +75,22 @@ namespace app.Controllers
         [HttpPost("add_volume")]
         public async Task<ActionResult> AddVolume(AddVolumeForm volume)
         {
+            if (volume.VolumeTitle.IsNullOrEmpty())
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Thêm tập thất bại!"
+                });
+            }
             int volumeNumber = _context.Volumes.Where(v => v.StoryId == volume.StoryId).Select(v => v.VolumeNumber).ToList().DefaultIfEmpty(0).Max() + 1;
             if (volumeNumber >= 2)
             {
-                var h = _context.Volumes.Where(v => v.VolumeNumber == (volumeNumber-1) && v.StoryId == volume.StoryId).Include(v=> v.Chapters).Select(v => new
+                var h = _context.Volumes.Where(v => v.VolumeNumber == (volumeNumber - 1) && v.StoryId == volume.StoryId).Include(v => v.Chapters).Select(v => new
                 {
                     numberChapter = v.Chapters.Count()
                 }).FirstOrDefault();
-                if(h == null || h.numberChapter < 2)
+                if (h == null || h.numberChapter < 2)
                 {
                     return new JsonResult(new
                     {
@@ -126,6 +135,14 @@ namespace app.Controllers
         [HttpPut("update_volume")]
         public async Task<ActionResult> UpdateVolume(UpdateVolumeForm volume)
         {
+            if (volume.VolumeTitle.IsNullOrEmpty())
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Cập nhật thất bại!"
+                });
+            }
             var currentVolume = _context.Volumes.FirstOrDefault(v => v.VolumeId == volume.VolumeId);
             try
             {
@@ -186,7 +203,7 @@ namespace app.Controllers
                     VolumeTitle = v.VolumeTitle,
                     StoryId = v.StoryId,
                     CreateTime = v.CreateTime,
-                    Chapters = v.Chapters.Where(c => c.Status > 0).Select(c => new
+                    Chapters = v.Chapters.Where(c => c.Status >= 0).Select(c => new
                     {
                         c.ChapterId,
                         c.ChapterNumber,
@@ -212,6 +229,14 @@ namespace app.Controllers
         [HttpPost("add_chapter")]
         public async Task<ActionResult> AddChapter(addChapterForm chapter)
         {
+            if (chapter.ChapterContentHtml.IsNullOrEmpty() || chapter.ChapterContentMarkdown.IsNullOrEmpty())
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Không được để trống nội dung!"
+                });
+            }
             Chapter c = new Chapter()
             {
                 ChapterContentHtml = chapter.ChapterContentHtml,
@@ -225,13 +250,13 @@ namespace app.Controllers
             c.Status = 0;
             try
             {
-                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.VolumeId == chapter.VolumeId && c.Status ==1).Select(c => c.ChapterNumber).ToList().DefaultIfEmpty(0).Max() + 1;
+                long nextChapterNum = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.VolumeId == chapter.VolumeId && c.Status == 1).Select(c => c.ChapterNumber).ToList().DefaultIfEmpty(0).Max() + 1;
                 c.ChapterNumber = nextChapterNum;
                 await _context.Chapters.AddAsync(c);
                 _context.SaveChanges();
                 // renumber chapter number
                 var chapters = _context.Chapters.Where(c => c.StoryId == chapter.StoryId && c.Status == 1).OrderBy(c => c.Volume.VolumeNumber).ThenBy(c => c.ChapterNumber).ToList();
-                for(int i =0; i < chapters.Count; i++)
+                for (int i = 0; i < chapters.Count; i++)
                 {
                     chapters[i].ChapterNumber = i + 1;
                 }
@@ -286,7 +311,7 @@ namespace app.Controllers
                     EM = "Chương không tồn tại"
                 });
             }
-            if(user == null)
+            if (user == null)
             {
                 return new JsonResult(new
                 {
@@ -305,9 +330,9 @@ namespace app.Controllers
                     });
                 }
             }
-            
 
-            
+
+
             return _msgService.MsgReturn(0, "Thông tin chương", chapter);
         }
         public class UpdateChapterForm
@@ -327,10 +352,18 @@ namespace app.Controllers
         [HttpPut("update_chapter")]
         public async Task<ActionResult> EditChapter(UpdateChapterForm chapter)
         {
+            if (chapter.ChapterContentHtml.IsNullOrEmpty() || chapter.ChapterContentMarkdown.IsNullOrEmpty())
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Không được để trống nội dung chương!"
+                });
+            }
             var currentChapter = _context.Chapters.FirstOrDefault(c => c.ChapterId == chapter.ChapterId);
             try
             {
-                if(currentChapter != null)
+                if (currentChapter != null)
                 {
                     currentChapter.ChapterTitle = chapter.ChapterTitle;
                     currentChapter.ChapterContentHtml = chapter.ChapterContentHtml;
@@ -343,7 +376,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -1,
-                        EM = "Cập nhật thất bại"
+                        EM = "Cập nhật thất bại!"
                     });
                 }
                 _context.Entry<Chapter>(currentChapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -354,13 +387,13 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Cập nhật thất bại"
+                    EM = "Cập nhật thất bại!"
                 });
             }
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Cập nhật thành công"
+                EM = "Cập nhật thành công!"
             });
         }
 
@@ -371,7 +404,7 @@ namespace app.Controllers
             int storyId = currentChapter.StoryId;
             try
             {
-                if(currentChapter == null)
+                if (currentChapter == null)
                 {
                     return new JsonResult(new
                     {
