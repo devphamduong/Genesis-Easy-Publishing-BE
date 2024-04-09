@@ -104,7 +104,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Id Categories  is null"
+                    EM = "Không tìm thấy thể loại"
                 });
             }
             if (category.CategoryName == "" || category.CategoryName == null)
@@ -112,7 +112,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Categories  is null"
+                    EM = "Tên thể lạo không được để trống"
                 });
             }
 
@@ -127,14 +127,14 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Can't update category"
+                    EM = "cập nhật thất bại"
                 });
             }
 
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Update category successfully"
+                EM = "Cập nhật thể loại thành công"
             });
         }
 
@@ -150,12 +150,12 @@ namespace app.Controllers
         [HttpPost("addCategory")]
         public async Task<ActionResult> addCategory(addCategoryForm category)
         {
-            if (category.CategoryName == "" || category.CategoryName == null || _context.Categories == null)
+            if (category.CategoryName == "" || category.CategoryName == null )
             {
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Categories  is null"
+                    EM = "Tên thể loại không được để trống"
                 });
             }
             if ((_context.Categories?.Any(e => e.CategoryName == category.CategoryName)).GetValueOrDefault())
@@ -163,7 +163,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Categories already exist"
+                    EM = "Thể loại đã tồn tại"
                 });
             }
             try
@@ -183,7 +183,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Can't save category"
+                    EM = "Tạo thể loại thất bại"
                 });
             }
 
@@ -191,7 +191,7 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Save category successfully"
+                EM = "Tạo thể loại thành công"
             });
         }
 
