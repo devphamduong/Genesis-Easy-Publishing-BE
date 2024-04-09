@@ -412,7 +412,7 @@ namespace app.Controllers
             {
                 return false;
             }
-            var user = _context.Users.Where(u => u.UserId == 4).Select(u => new
+            var user = _context.Users.Where(u => u.UserId == userid).Select(u => new
             {
                 UserId = u.UserId,
                 Stories = u.StoriesNavigation.Select(sn => new { StoryId = sn.StoryId }).ToList(),
