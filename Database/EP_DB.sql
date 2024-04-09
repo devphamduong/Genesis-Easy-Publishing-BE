@@ -118,7 +118,7 @@ CREATE TABLE [dbo].[User](
 	[status] [bit] NULL DEFAULT 1,
 	[description_markdown] [ntext] NULL,
 	[description_html] [ntext] NULL,
-	[role_id] [int] NOT NULL,
+	[role_id] [int] NOT NULL DEFAULT 2,
  CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED
 (
 	[user_id] ASC
