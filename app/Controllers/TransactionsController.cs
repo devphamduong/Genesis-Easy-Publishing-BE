@@ -27,11 +27,11 @@ namespace app.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private string ErrorAuthenMessage = "Yều cầu đăng nhập";
         private string ErrorAuthorMessage = "Bạn đã có truyện(chương) này!";
-        private string NotEnoughMoney = "Bạn không đủ THL! Hãy nạp tiền";
+        private string NotEnoughMoney = "Bạn không đủ TLT! Hãy nạp tiền";
         private string BuyStory(string story) => $"Mua truyện {story}";
         private string BuyChapter(long chapter, string story) => $"Mua chương {chapter} của truyện {story}";
         private string BuyManyChapter(long chapter, string story) => $"Mua {chapter} chương của truyện {story}";
-        private string RecieveMoney(string story) => $"Nhận TLH từ truyện {story}";
+        private string RecieveMoney(string story) => $"Nhận TLT từ truyện {story}";
 
 
         public TransactionsController(EasyPublishingContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
