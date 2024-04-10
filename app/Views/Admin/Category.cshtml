@@ -35,23 +35,27 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Tên thể loại</label>
-                                                <input id="addCategoryName" type="text" class="form-control" placeholder="Fill Category Name">
+                                                <input id="addCategoryName" type="text" class="form-control" placeholder="Điền tên thể loại">
+                                                <small id="nameError" class="text-danger"></small>
                                             </div>
                                             <div class="form-group">
                                                 <label>Miêu tả</label>
-                                                <input id="addCategoryDescription" type="text" class="form-control" placeholder="Fill Category Description">
+                                                <input id="addCategoryDescription" type="text" class="form-control" placeholder="Điền miêu tả">
+                                                <small id="descriptionError" class="text-danger"></small>
                                             </div>
                                             <div class="form-group">
                                                 <label>Banner</label>
-                                                <input id="addCategoryBanner" type="text" class="form-control" placeholder="Fill Category Banner">
+                                                <input id="addCategoryBanner" type="text" class="form-control" placeholder="Link banner" oninput="previewImage()" />
+                                                <small id="bannerError" class="text-danger"></small>
+                                                <img id="bannerPreview" src="#" alt="Banner Preview" class="img-fluid mt-2" style="max-height: 200px; display: none;">
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer no-bd">
-                                <button type="button" onclick="addCategoryButton()" class="btn btn-primary">Add</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="button" id="addButton" class="btn btn-primary">Add</button>
+                                <button type="button" id="closeButton" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -97,8 +101,88 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        
+        loadData();
+        const addCategoryName = document.getElementById('addCategoryName');
+        const addCategoryDescription = document.getElementById('addCategoryDescription');
+        const addCategoryBanner = document.getElementById('addCategoryBanner');
 
-        //async function loadData() {
+        const nameError = document.getElementById('nameError');
+        const descriptionError = document.getElementById('descriptionError');
+        const bannerError = document.getElementById('bannerError');
+
+        addCategoryName.addEventListener('blur', function () {
+            validateInput('addCategoryName', 'nameError', 'Tên thể loại không được để trống!');
+        });
+
+        addCategoryDescription.addEventListener('blur', function () {
+            validateInput('addCategoryDescription', 'descriptionError', 'Miêu tả không được để trống!');
+        });
+
+        addCategoryBanner.addEventListener('blur', function () {
+            previewImage();
+        });
+
+        closeButton.addEventListener('click', function () {
+            nameError.textContent = '';
+            descriptionError.textContent = '';
+            bannerError.textContent = '';
+        });
+
+        addButton.addEventListener('click', function () {
+            if (validateForm()){
+                addCategoryButton();
+            }
+        });
+
+        
+        
+
+        function validateForm() {
+            let isValid = true;
+            if (bannerError.textContent !== '') {
+                return false;
+            }
+
+            if (addCategoryName.value.trim() === '') {
+                nameError.textContent = 'Tên thể loại không được để trống!';
+                isValid = false;
+            } else {
+                nameError.textContent = '';
+            }
+
+            if (addCategoryDescription.value.trim() === '') {
+                descriptionError.textContent = 'Miêu tả không được để trống!';
+                isValid = false;
+            } else {
+                descriptionError.textContent = '';
+            }
+
+            if (addCategoryBanner.value.trim() === '') {
+                bannerError.textContent = 'Hãy điền link banner';
+                isValid = false;
+            } else {
+                bannerError.textContent = '';
+            }
+            
+            return isValid;
+        }
+
+    });
+
+    function validateInput(inputId, errorId, errorMessage) {
+        const input = document.getElementById(inputId);
+        const error = document.getElementById(errorId);
+
+        if (input.value.trim() === '') {
+            error.textContent = errorMessage;
+        } else {
+            error.textContent = '';
+        }
+    }
+
+    async function loadData() {
+        $('#basic-datatables').DataTable().destroy();
         fetch('http://localhost:5188/api/v1/category')
             .then(response => response.json())
             .then(data => {
@@ -108,7 +192,7 @@
                         { data: 'categoryId' },
                         { data: 'categoryName' },
                         { data: 'categoryDescription' },
-                        { 
+                        {
                             data: 'categoryBanner',
                             render: function (data) {
                                 return `<img src="${data}" alt="Category Banner" style="max-width: 300px; height: auto;" />`;
@@ -127,51 +211,79 @@
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
-        //}
-    });
-
-
+    }
 
     async function openGenreInfor(categoryId) {
         const response = await fetch(`http://localhost:5188/api/v1/category/${categoryId}`);
         if (response.ok) {
             const category = await response.json();
-            console.log(category);
             document.getElementById('categoryInfo').innerHTML = `
                                         <div class="form-group">
                                             <label for="CategoryName">Tên thể loại</label>
                                             <input type="text" class="form-control" id="UpdateCategoryName" value="${category.categoryName}" placeholder="Fullname">
+                                                <small id="UpdateNameError" class="text-danger"></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="Description">Miêu tả</label>
                                             <input type="text" class="form-control" id="UpdateCategoryDescription" value="${category.categoryDescription}" placeholder="Fullname">
+                                                <small id="UpdateDescriptionError" class="text-danger"></small>
                                         </div>
                                             <div class="form-group">
-                                                <label for="Fullname">Banner</label>
-                                                <img src="${category.categoryBanner}" alt ="Category Banner" style="max-width: 300px; height: auto;" />
-                                                    </div>
+                                                <label>Banner</label>
+                                                <input id="UpdateCategoryBanner" type="text" class="form-control" value="${category.categoryBanner}" placeholder="Link banner" oninput="previewImageUpdate()" />
+                                                <small id="UpdateBannerError" class="text-danger"></small>
+                                                <img id="bannerUpdatePreview" src="${category.categoryBanner}" alt="Banner Preview" class="img-fluid mt-2" style="max-height: 200px; display: block;">
+                                             </div>
                                         <div class="modal-footer">
-                                            <button type="button" onclick="UpdateCategoryInfor(${categoryId})" class="btn btn-primary">Save changes</button>
+                                                <button type="button" onclick="UpdateCategoryInfor(${categoryId})" class="btn btn-primary">Save changes</button>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                     `;
         }
         $("#myModal").modal();
+
+        const UpdateCategoryName = document.getElementById('UpdateCategoryName');
+        const UpdateNameError = document.getElementById('UpdateNameError');
+        const UpdateCategoryDescription = document.getElementById('UpdateCategoryDescription');
+        const UpdateDescriptionError = document.getElementById('UpdateDescriptionError');
+        const UpdateCategoryBanner = document.getElementById('UpdateCategoryBanner');
+        const UpdateBannerError = document.getElementById('UpdateBannerError');
+
+        UpdateCategoryName.addEventListener('blur', function () {
+            validateInput('UpdateCategoryName', 'UpdateNameError', 'Tên thể loại không được để trống!');
+        });
+
+        UpdateCategoryDescription.addEventListener('blur', function () {
+            validateInput('UpdateCategoryDescription', 'UpdateDescriptionError', 'Miêu tả không được để trống!');
+        });
+
+        UpdateCategoryBanner.addEventListener('blur', function () {
+            validateInput('UpdateCategoryBanner', 'UpdateBannerError', 'Hãy điền link banner!');
+        });
     }
     async function UpdateCategoryInfor(categoryId) {
-        console.log(categoryId);
-        const Id = document.getElementById('UpdateCategoryId');
+
         const Name = document.getElementById('UpdateCategoryName');
         const Description = document.getElementById('UpdateCategoryDescription');
         const Banner = document.getElementById('UpdateCategoryBanner');
+
+        validateInput('UpdateCategoryName', 'UpdateNameError', 'Tên thể loại không được để trống!');
+        validateInput('UpdateCategoryDescription', 'UpdateDescriptionError', 'Miêu tả không được để trống!');
+        validateInput('UpdateCategoryBanner', 'UpdateBannerError', 'Hãy điền link banner!');
+
+        if (document.getElementById('UpdateNameError').textContent !== '' ||
+            document.getElementById('UpdateDescriptionError').textContent !== '' ||
+            document.getElementById('UpdateBannerError').textContent !== '') {
+            return; // Exit the function if there are validation errors
+        }
+
         const item = {
             categoryId: categoryId,
             categoryName: Name.value.trim(),
             categoryDescription: Description.value.trim(),
             categoryBanner: Banner.value.trim()
         }
-        console.log(item);
-        console.log(`http://localhost:5188/api/v1/category/${parseInt(categoryId, 10)}`);
+
         fetch(`http://localhost:5188/api/v1/category/${categoryId}`, {
             method: 'PUT',
             headers: {
@@ -179,16 +291,44 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(item)
-        }).then(response => response.json())
-            .catch(error => console.error('Unable to update item.', error));
+            }).then(response => response.json())
+            .then(data => {
+                var title = data.em;
+                var type;
+                if (data.ec == -1) {
+                    type = 'danger';
+                } else {
+                    type = 'success';
+                }
+
+                $.notify({
+                    title: title,
+                    icon: 'fa fa-bell'
+                }, {
+                    type: type,
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    delay: 3000,
+                    template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                        '<span data-notify="icon"></span> ' +
+                        '<span data-notify="title">{1}</span> ' +
+                        '</div>'
+                });
+                loadData();
+
+            })
+                .catch(error => console.error('Unable to update item.', error));
         $("#myModal").modal('hide');
-        window.location.reload();
 
     }
     async function addCategoryButton() {
         const Name = document.getElementById('addCategoryName');
         const Description = document.getElementById('addCategoryDescription');
         const Banner = document.getElementById('addCategoryBanner');
+
         const item = {
             categoryName: Name.value.trim(),
             categoryDescription: Description.value.trim(),
@@ -203,10 +343,83 @@
             },
             body: JSON.stringify(item)
         }).then(response => response.json())
+            .then(data => {
+                var title = data.em;
+                var type;
+                if(data.ec == -1){
+                    type = 'danger';
+                }else{
+                    type = 'success';
+                }
+
+                $.notify({
+                    title: title,
+                    icon: 'fa fa-bell'
+                }, {
+                    type: type,
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    delay: 3000,
+                    template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                        '<span data-notify="icon"></span> ' +
+                        '<span data-notify="title">{1}</span> ' +
+                        '</div>'
+                });
+                loadData();
+
+            })
             .catch(error => console.error('Unable to add item.', error));
 
         $('#addRowModal').modal('hide');
-        window.location.reload();
+    }
+    function previewImageUpdate() {
+        const bannerInput = document.getElementById('UpdateCategoryBanner');
+        const bannerPreview = document.getElementById('bannerUpdatePreview');
+        const bannerError = document.getElementById('UpdateBannerError');
+
+
+        const img = new Image();
+        img.src = bannerInput.value;
+
+        img.onload = function () {
+            bannerPreview.src = bannerInput.value;
+            bannerPreview.style.display = 'block';
+            bannerError.textContent = '';  // Clear the error message
+        };
+
+        img.onerror = function () {
+            bannerPreview.style.display = 'none';
+            bannerError.textContent = 'Invalid image URL';
+        };
+
     }
 
+    function previewImage() {
+        const bannerInput = document.getElementById('addCategoryBanner');
+        const bannerPreview = document.getElementById('bannerPreview');
+        const bannerError = document.getElementById('bannerError');
+
+        if (bannerInput.value.trim() === '') {
+            bannerError.textContent = 'Hãy điền link banner';
+            bannerPreview.style.display = 'none';
+        }
+
+        const img = new Image();
+        img.src = bannerInput.value;
+
+        img.onload = function () {
+            bannerPreview.src = bannerInput.value;
+            bannerPreview.style.display = 'block';
+            bannerError.textContent = '';  // Clear the error message
+        };
+
+        img.onerror = function () {
+            bannerPreview.style.display = 'none';
+            bannerError.textContent = 'Invalid image URL';
+        };
+
+    }
 </script>

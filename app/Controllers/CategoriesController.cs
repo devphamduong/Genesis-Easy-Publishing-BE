@@ -104,7 +104,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Không tìm thấy thể loại"
+                    EM = "Không tìm thấy thể loại!"
                 });
             }
             if (category.CategoryName == "" || category.CategoryName == null)
@@ -112,7 +112,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Tên thể lạo không được để trống"
+                    EM = "Tên thể loại không được để trống!"
                 });
             }
 
@@ -127,14 +127,14 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "cập nhật thất bại"
+                    EM = "Cập nhật thất bại!"
                 });
             }
 
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Cập nhật thể loại thành công"
+                EM = "Cập nhật thể loại thành công!"
             });
         }
 
@@ -183,7 +183,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Tạo thể loại thất bại"
+                    EM = "Thêm thể loại thất bại"
                 });
             }
 
@@ -191,7 +191,7 @@ namespace app.Controllers
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Tạo thể loại thành công"
+                EM = "Thêm thể loại thành công"
             });
         }
 
