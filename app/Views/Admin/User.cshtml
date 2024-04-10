@@ -209,10 +209,32 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
-            });
+            }).then(response => response.json())
+                .then(data => {
+                    var title = data.em;
+                    
+                    $.notify({
+                        title: title,
+                        icon: 'fa fa-bell'
+                    }, {
+                        type: 'success',
+                        placement: {
+                            from: "bottom",
+                            align: "right"
+                        },
+                        delay: 3000,
+                        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                            '<span data-notify="icon"></span> ' +
+                            '<span data-notify="title">{1}</span> ' +
+                            '</div>'
+                    });
+                    loadData();
+
+                })
+                .catch(error => console.error('Unable to update item.', error));;
             $("#modalStatus").modal('hide');
 
-            loadData();
         }catch(error){
             console.error('Unable to update item.', error);
         }

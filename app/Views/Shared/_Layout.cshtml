@@ -34,7 +34,7 @@
             <div class="logo-header" data-background-color="blue">
 
                 <a href="../index.html" class="logo">
-                    <img src="~/Assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+                    <img src="~/Assets/img/Designer.png" alt="navbar brand" class="navbar-brand" style="max-width: 6em; height: auto;">
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
@@ -234,25 +234,11 @@
             <div class="sidebar-content">
                 <ul class="nav nav-primary">
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                        <a asp-controller="Admin" asp-action="Dashboard">
                             <i class="fas fa-home"></i>
                             <p>Dashboard</p>
-                            <span class="caret"></span>
+                            <span class="badge badge-success"></span>
                         </a>
-                        <div class="collapse" id="dashboard">
-                            <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="../../demo1/index.html">
-                                        <span class="sub-item">Dashboard 1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../../demo2/index.html">
-                                        <span class="sub-item">Dashboard 2</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="nav-section">
                         <span class="sidebar-mini-icon">
@@ -412,6 +398,7 @@
     </div>
     <!-- End Custom template -->
     </div>
+
     <!--   Core JS Files   -->
     <script src="~/Assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="~/Assets/js/core/popper.min.js"></script>
@@ -423,13 +410,26 @@
 
     <!-- jQuery Scrollbar -->
     <script src="~/Assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="~/Assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="~/Assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="~/Assets/js/plugin/chart-circle/circles.min.js"></script>
+
     <!-- Datatables -->
     <script src="~/Assets/js/plugin/datatables/datatables.min.js"></script>
+    
+
+
+    <!-- Bootstrap Notify -->
+    <script src="~/Assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
     <!-- Atlantis JS -->
     <script src="~/Assets/js/atlantis.min.js"></script>
-    <!-- Atlantis DEMO methods, don't include it in your project! -->
-    <script src="~/Assets/js/setting-demo2.js"></script>
-    
 
     <script>
         var user = JSON.parse(localStorage.getItem('user'));

@@ -77,7 +77,7 @@ namespace app.Controllers
                     CommentContent = r.Comment.CommentContent,
                     ReportContent1 = r.ReportContent1,
                     ReportDate = r.ReportDate,
-                    Status = (r.Status == null || r.Status == false) ? "Unsolved": "Solved"
+                    Status = (r.Status == null || r.Status == false) ? "Unsolved": "Resolved"
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Thể loại tố cáo", reports);
@@ -136,6 +136,7 @@ namespace app.Controllers
         public async Task<ActionResult> SwitchStatus(int id)
         {
             var report = await _context.ReportContents.FirstOrDefaultAsync(r => r.ReportId == id);
+            string msg = "Resolved report successfully!";
             try
             {
                 if(report.Status == null || report.Status == false)
@@ -144,6 +145,7 @@ namespace app.Controllers
                 }
                 else
                 {
+                    msg = "Unsolved report successfully!";
                     report.Status = false;
                 }
                 _context.Entry(report).State = EntityState.Modified;
@@ -153,7 +155,11 @@ namespace app.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            return Ok(report);
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = msg
+            });
         }
     }
 }
