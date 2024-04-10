@@ -245,7 +245,7 @@ namespace app.Controllers
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-            if (refund.Amount < (decimal)100) return _msgService.MsgActionReturn(-2, "Rút tối thiểu 100!");
+            if (refund.Amount < (decimal)100) return _msgService.MsgActionReturn(-2, "Rút tối thiểu 100TLT!");
             if (refund.Amount > user_wallet.Refund) return _msgService.MsgActionReturn(-2, "Bạn không đủ số dư!");
             var request_exist = await _context.RefundRequests.Where(w => w.WalletId == user_wallet.WalletId && w.Status == null).FirstOrDefaultAsync();
             if (request_exist != null) return _msgService.MsgActionReturn(-2, "Yêu cầu trước đó của bạn vẫn đang xử lý!");
