@@ -34,17 +34,17 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label>Tên thể loại</label>
+                                                <label>Tên thể loại<span class="text-danger">*</span></label>
                                                 <input id="addCategoryName" type="text" class="form-control" placeholder="Điền tên thể loại">
                                                 <small id="nameError" class="text-danger"></small>
                                             </div>
                                             <div class="form-group">
-                                                <label>Miêu tả</label>
+                                                <label>Miêu tả<span class="text-danger">*</span></label>
                                                 <input id="addCategoryDescription" type="text" class="form-control" placeholder="Điền miêu tả">
                                                 <small id="descriptionError" class="text-danger"></small>
                                             </div>
                                             <div class="form-group">
-                                                <label>Banner</label>
+                                                <label>Banner<span class="text-danger">*</span></label>
                                                 <input id="addCategoryBanner" type="text" class="form-control" placeholder="Link banner" oninput="previewImage()" />
                                                 <small id="bannerError" class="text-danger"></small>
                                                 <img id="bannerPreview" src="#" alt="Banner Preview" class="img-fluid mt-2" style="max-height: 200px; display: none;">
@@ -219,17 +219,17 @@
             const category = await response.json();
             document.getElementById('categoryInfo').innerHTML = `
                                         <div class="form-group">
-                                            <label for="CategoryName">Tên thể loại</label>
+                                                <label for="CategoryName">Tên thể loại<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="UpdateCategoryName" value="${category.categoryName}" placeholder="Fullname">
                                                 <small id="UpdateNameError" class="text-danger"></small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="Description">Miêu tả</label>
+                                                <label for="Description">Miêu tả<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="UpdateCategoryDescription" value="${category.categoryDescription}" placeholder="Fullname">
                                                 <small id="UpdateDescriptionError" class="text-danger"></small>
                                         </div>
                                             <div class="form-group">
-                                                <label>Banner</label>
+                                                    <label>Banner<span class="text-danger">*</span></label>
                                                 <input id="UpdateCategoryBanner" type="text" class="form-control" value="${category.categoryBanner}" placeholder="Link banner" oninput="previewImageUpdate()" />
                                                 <small id="UpdateBannerError" class="text-danger"></small>
                                                 <img id="bannerUpdatePreview" src="${category.categoryBanner}" alt="Banner Preview" class="img-fluid mt-2" style="max-height: 200px; display: block;">
@@ -258,7 +258,7 @@
         });
 
         UpdateCategoryBanner.addEventListener('blur', function () {
-            validateInput('UpdateCategoryBanner', 'UpdateBannerError', 'Hãy điền link banner!');
+            previewImageUpdate();
         });
     }
     async function UpdateCategoryInfor(categoryId) {
@@ -269,7 +269,7 @@
 
         validateInput('UpdateCategoryName', 'UpdateNameError', 'Tên thể loại không được để trống!');
         validateInput('UpdateCategoryDescription', 'UpdateDescriptionError', 'Miêu tả không được để trống!');
-        validateInput('UpdateCategoryBanner', 'UpdateBannerError', 'Hãy điền link banner!');
+        previewImageUpdate();
 
         if (document.getElementById('UpdateNameError').textContent !== '' ||
             document.getElementById('UpdateDescriptionError').textContent !== '' ||
@@ -380,6 +380,11 @@
         const bannerPreview = document.getElementById('bannerUpdatePreview');
         const bannerError = document.getElementById('UpdateBannerError');
 
+        if (bannerInput.value.trim() === '') {
+            bannerError.textContent = 'Hãy điền link banner!';
+            bannerPreview.style.display = 'none';
+            return;
+        }
 
         const img = new Image();
         img.src = bannerInput.value;
@@ -403,8 +408,9 @@
         const bannerError = document.getElementById('bannerError');
 
         if (bannerInput.value.trim() === '') {
-            bannerError.textContent = 'Hãy điền link banner';
+            bannerError.textContent = 'Hãy điền link banner!';
             bannerPreview.style.display = 'none';
+            return;
         }
 
         const img = new Image();

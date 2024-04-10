@@ -27,9 +27,18 @@ namespace app.Controllers
         public async Task<ActionResult> SwitchStatus(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            string msg = "Kích hoạt tài khoản thành công!";
             try
             {
-                user.Status = !user.Status;
+                if(user.Status == false || user.Status == null)
+                {
+                    user.Status = true;
+                }
+                else
+                {
+                    msg = "Khóa tài khoản thành công!";
+                    user.Status = false;
+                }
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
@@ -37,7 +46,11 @@ namespace app.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            return Ok(user);
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = msg
+            });
         }
 
         [HttpGet("getAllUser")]
