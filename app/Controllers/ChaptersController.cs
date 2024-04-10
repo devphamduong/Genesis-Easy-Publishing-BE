@@ -428,7 +428,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Xóa chương thất bại!"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new
@@ -475,6 +475,7 @@ namespace app.Controllers
             catch (Exception) { }
 
             long nextChapterNum = NextChapter(chapterNumber, storyid);
+            long prevChapterNum = PreviousChapter(chapterNumber, storyid);
 
             var chapter = _context.Chapters
                 .Where(c => c.StoryId == storyid && c.ChapterNumber == chapterNumber && c.Status > 0)
@@ -494,6 +495,7 @@ namespace app.Controllers
                     UpdateTime = c.UpdateTime,
                     Comment = c.Comments.Count,
                     UserPurchaseChapter = c.Users.Count,
+                    PreviousChapterNumber = prevChapterNum,
                     NextChapterNumber = nextChapterNum,
                     Owned = (checkPurchase(userId, chapterNumber, storyid) || c.ChapterPrice == 0 || c.ChapterPrice == null || userId == c.Story.Author.UserId),
                     UserLike = c.ChapterLikeds.Any(c => c.UserId == userId && c.ChapterId == c.ChapterId),
@@ -536,6 +538,23 @@ namespace app.Controllers
         {
             var nextChapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterNumber > currentChapterNumber && c.Status > 0)
                               .OrderBy(c => c.ChapterNumber)
+                                .Select(c => new
+                                {
+                                    ChapterNumber = c.ChapterNumber
+                                })
+                              .FirstOrDefault();
+
+            if (nextChapter == null)
+            {
+                return -1;
+            }
+            return nextChapter.ChapterNumber;
+        }
+
+        private long PreviousChapter(long currentChapterNumber, int storyid)
+        {
+            var nextChapter = _context.Chapters.Where(c => c.StoryId == storyid && c.ChapterNumber < currentChapterNumber && c.Status > 0)
+                              .OrderByDescending(c => c.ChapterNumber)
                                 .Select(c => new
                                 {
                                     ChapterNumber = c.ChapterNumber

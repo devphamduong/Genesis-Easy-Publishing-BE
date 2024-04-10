@@ -83,7 +83,9 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
-            catch (Exception) { }
+            catch (Exception) {
+                
+            }
             return userId;
         }
 
@@ -115,7 +117,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -212,8 +214,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
-
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -288,7 +293,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -394,7 +403,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -421,7 +434,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -463,7 +480,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -515,7 +536,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, "Lỗi nạp tiền");
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -557,7 +582,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -598,7 +623,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -638,7 +663,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -679,7 +704,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -778,7 +803,11 @@ namespace app.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 

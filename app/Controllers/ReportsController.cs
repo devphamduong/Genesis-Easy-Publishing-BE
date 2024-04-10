@@ -116,19 +116,31 @@ namespace app.Controllers
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             if (!ModelState.IsValid) return _msgService.MsgActionReturn(-1, "Thiếu điều kiện");
-            ReportContent report = new ReportContent()
+            try
             {
-                UserId = userId,
-                ReportTypeId = reportDTO.ReportTypeId,
-                StoryId = reportDTO.StoryId,
-                ChapterId = reportDTO.ChapterId,
-                CommentId = reportDTO.CommentId,
-                ReportContent1 = reportDTO.ReportContent,
-                ReportDate = DateTime.Now,
-                Status = false,
-            };
-            _context.ReportContents.Add(report);
-            await _context.SaveChangesAsync();
+                ReportContent report = new ReportContent()
+                {
+                    UserId = userId,
+                    ReportTypeId = reportDTO.ReportTypeId,
+                    StoryId = reportDTO.StoryId,
+                    ChapterId = reportDTO.ChapterId,
+                    CommentId = reportDTO.CommentId,
+                    ReportContent1 = reportDTO.ReportContent,
+                    ReportDate = DateTime.Now,
+                    Status = false,
+                };
+                _context.ReportContents.Add(report);
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+            
             return _msgService.MsgActionReturn(0, "Báo cáo thành công");
         }
 
