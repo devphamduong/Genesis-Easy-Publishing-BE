@@ -688,10 +688,10 @@ namespace app.Controllers
         public async Task<ActionResult> GetAdminTransactionHistory()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var transactions = await _context.Transactions
             .Include(c => c.Wallet).Where(c => c.Wallet.UserId == 1)

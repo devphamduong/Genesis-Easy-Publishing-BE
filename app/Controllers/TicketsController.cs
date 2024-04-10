@@ -270,9 +270,9 @@ namespace app.Controllers
         public async Task<ActionResult> GetAllRefund()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var requests = await _context.RefundRequests.Where(c => c.Status == null)
            .Include(c => c.Wallet).ThenInclude(c => c.User)
@@ -295,9 +295,9 @@ namespace app.Controllers
         public async Task<ActionResult> ExportRefunds()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var requests = await _context.RefundRequests
                .Where(c => c.ResponseTime == null && c.Status == null)
@@ -327,9 +327,9 @@ namespace app.Controllers
         public async Task<ActionResult> ExportRefunds2()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var requests = await _context.RefundRequests
                .Where(c => c.ResponseTime == null && c.Status == null)
