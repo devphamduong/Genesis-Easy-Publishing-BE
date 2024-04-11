@@ -2642,11 +2642,204 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			<p>“Ai, cái này chủ nhà thiếu gia thật là đáng thương a, phỏng chừng lần này nửa tháng đều xuống không giường”</p>
 			<p>Ngay tại cũng cho là Tử Hàn sẽ ảo não chạy trốn lúc, Tử Hàn khóe miệng vén lên một tia độ cong, khẽ cười nói “Ta Tử Hàn chính là chủ nhà thiếu gia, ngươi coi là cái gì chó má, coi như ngươi mạch gia chủ cũng không xứng nói với ta như vậy”</p>
 			<p>Hí!</p>
-			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.')
-			
-		
-
-
+			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.'),
+			(58, 9, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, null, 
+			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
+			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
+			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
+			<p>Tử Hàn nhẹ nhàng cười cười, nói “Đi thôi, ngày mai đi Tàng Thư Lâu”</p>
+			<p>“Đi Tàng Thư Lâu làm gì, chẳng lẽ Bản vương cho ngươi vũ kỹ vào không ngươi mắt hay sao?”</p>
+			<p>Tử Hàn ánh mắt khẽ híp một cái, cười nói “Ngày mai ngươi cũng biết”</p>
+			<p>Tử Hàn xuyên qua tu luyện tràng, đi tới một mảnh Thủy Đàm trước mặt, bên đầm nước có một gian căn phòng nhỏ, liếc mắt nhìn sang cố gắng hết sức đơn sơ, Tử Hàn thẳng hướng phòng nhỏ đi vào, Huyết Nguyệt với sau lưng Tử Hàn kinh ngạc nhìn gian phòng này, khi nó đi vào thời điểm nhất thời liền kinh ngạc đến ngây người.</p>
+			<p>“Thiếu niên Lang, đây chính là ngươi chỗ ở?”</p>
+			<p>Tử Hàn quan sát một phen nhà, có chút lòng chua xót nói “Cũng không tệ lắm phải không, ít nhất có thể có một đặt chân phương, không đến nổi đầu đường xó chợ”</p>
+			<p>Huyết Nguyệt liếc mắt nhìn sang, lại nhìn một cái không sót gì, một tấm rách nát giường gỗ, cũng chính là hai cây trên cái băng thả gỗ miếng bản, phía trên cửa hàng để một tầng sợi bông, trước giường có một cái bàn gỗ, cái bàn gỗ cũ nát không chịu nổi, trên bàn để một ngọn đèn dầu, không có Đăng Tâm cũng không có đèn dầu hoàn toàn chính là một chưng bày, sau đó, sau đó cũng chưa có</p>
+			<p>Nóc nhà còn có một lổ lớn, căn bản ngăn cản không mưa gió.</p>
+			<p> Huyết Nguyệt nhìn hết thảy các thứ này nhất thời liền giận, đứng ở trên bàn một cước đá lộn mèo trên bàn ngọn đèn dầu, nổi giận mắng “Thứ gì a, ngươi không phải là Tử Tộc Lục thiếu gia sao? Mang đến mạch bên trong lại cho ngươi ở đây loại rách nát địa phương?”</p>
+			<p>Tử Hàn tự giễu cười một tiếng, nhẹ khẽ than thở ngồi ở tấm ván đạt được trên giường, cười nói “Ta có biện pháp gì, ai bảo ta không cách nào tu hành, coi như là Tử Tộc Lục thiếu gia thì thế nào, ở cha sau khi rời khỏi ta sinh hoạt trở nên chẳng bằng con chó”</p>
+			<p>“Vương Bát Đản, đám này Thiên Sát, lại cho Bản vương truyền nhân ở loại địa phương này, có cái xẻng sao? Bản vương phải đi đào nhà hắn mộ tổ tiên”</p>
+			<p>Huyết Nguyệt vừa nói liền muốn xông ra đi, Tử Hàn tiến lên bắt Huyết Nguyệt, trong lòng có loại không khỏi làm rung động, dù sao hắn và Huyết Nguyệt quen biết mới bất quá mấy giờ, nhưng là Huyết Nguyệt lại có thể lấy bất bình dùm cho mình, Tử Hàn nhẹ nhàng thư một hơi thở nói “Không việc gì, một ngày nào đó thuộc về ta đều sẽ cầm về”</p>
+			<p>Huyết Nguyệt thấy Tử Hàn trong ánh mắt lộ ra một vệt vẻ kiên nghị, nhẹ nhàng gõ đầu ánh mắt lộ ra công nhận vẻ mặt.</p>
+			<p>Huyết Nguyệt nằm ở Tử Hàn phá ngủ trên giường đi qua, Tử Hàn lại không chút nào buồn ngủ, đi tới bên đầm nước, lần nữa xuất ra Huyết Nguyệt cho hắn Thôn Linh Chưởng, chăm chỉ luyện tập đứng lên, nơi mi tâm từng tia linh lực rót vào hắn Tứ Chi Bách Hài, từng lần một đánh.</p>
+			<p>“Thôn Linh Chưởng”</p>
+			<p>Tử Hàn một chưởng đánh ở bên cạnh một cây liễu bên trên, to cở miệng chén cây liễu bị Tử Hàn miễn cưỡng một chưởng chặn ngang cắt đứt, Tử Hàn nhìn mình tay kinh ngạc nhìn ngã xuống cây liễu, sau một khắc ánh mắt lộ ra một vẻ vui mừng.</p>
+			<p>Lúc này Huyết Nguyệt đứng ở cửa Tĩnh Tĩnh nhìn Tử Hàn, nó ánh mắt lộ ra kinh hãi ý.</p>
+			<p>“Trời sinh thánh mạch lại đối với võ đạo hiểu sâu như vậy khắc, một bộ Huyền Giai hạ phẩm Chưởng Pháp lại bị hắn ở thời gian ngắn như vậy tu luyện thành công, hắn hôm nay mới khó khăn lắm phá vỡ mà vào Thông Linh cảnh mà thôi”</p>
+			<p>Tử Hàn nhướng mày một cái, hắn nghe được Huyết Nguyệt lời nói, hắn Ngũ Cảm ở tối nay trở nên phá lệ bén nhạy, Huyết Nguyệt thanh âm rất nhẹ, hắn lại nghe chân thiết, quay đầu đang lúc, thấy Huyết Nguyệt, nói “Ngươi không phải là ngủ đi?”</p>
+			<p>“Bản vương nghe phía bên ngoài động tĩnh đặc biệt đến xem thử, không nghĩ tới coi như Bản vương truyền nhân, ngươi biểu hiện vẫn không tệ nha, lại nhưng đã luyện thành Thôn Linh Chưởng”</p>
+			<p>Tử Hàn lộ ra một nụ cười, nói "Nhưng là ta cảm giác một chưởng này bổ xuống,</p>
+			<p>Ta linh lực tựa hồ cũng tiêu hao sắp tới 1 phần 3 "</p>
+			<p>“Thiếu niên Lang, đừng nóng, ngươi mới Thông Linh sơ kỳ, hơn nữa Thôn Linh Chưởng nhưng là Huyền Giai Chưởng Pháp tinh diệu rất, đối với ngươi mà nói Tự Nhiên tiêu hao đại”</p>
+			<p>Huyết Nguyệt nhìn Tử Hàn đáy mắt lộ ra vẻ quái dị, lần nữa mở miệng nói “Đi, với Bản vương vào nhà, cho ngươi đồ tốt”</p>
+			<p>“Thứ gì?”</p>
+			<p>Huyết Nguyệt không nói gì, đi vào phòng, cánh trôi lơ lửng đang lúc một vệt ánh sáng màu bạc chợt lóe, một khối to lớn Ngọc Thạch nổi lên, rơi trên mặt đất, cả nhà nhẹ nhàng run rẩy, lớn như vậy Ngọc Thạch giống như một giường lớn như thế.</p>
+			<p>Tử Hàn nhìn trước mắt Ngọc Thạch, há to mồm nói “Khối ngọc lớn như vậy, có thể bán không ít tiền đi”</p>
+			<p>“Thật là không có kiến thức, đây chính là Thánh Ngọc chế tạo, lớn như vậy khối Thánh Ngọc, ngươi có nhiều tiền hơn nữa cũng mua không được, này nhưng năm đó Bản vương trải qua Cửu Tử Nhất Sinh mới đến chí bảo”</p>
+			<p>Tử Hàn duỗi tay sờ xoạng đến Thánh Ngọc giường, một cổ cực kỳ linh khí nồng nặc truyền tới, nhất thời hắn lần nữa cảm thấy giật mình.</p>
+			<p>“Sau này ngươi ngay tại Thánh trên giường ngọc tu luyện tu hành, một năm tu hành tốc độ sánh được ở thiên địa linh khí đậm đà Bảo Địa tu luyện ba năm”</p>
+			<p>Tử Hàn trừng mắt to nhìn Thánh Ngọc giường, ở phía trên khoanh chân ngồi xuống, một cổ linh khí nồng nặc nhất thời tràn vào thân thể của hắn hóa thành linh lực, Tử Hàn há hốc miệng ba, sau đó hơi khẽ cau mày nhìn Huyết Nguyệt, hỏi “Ngươi là thế nào mang theo lớn như vậy món đồ”</p>
+			<p>“Bản vương có không gian bảo vật, cái gì không thể mang, coi như đem cả tòa thành trì dọn đi cũng không có vấn đề gì”</p>
+			<p>“Oa” Tử Hàn nhìn Huyết Nguyệt ánh mắt lộ ra vẻ nôn nóng, nói “Có thể cho ta mượn dùng hai ngày sao?”</p>
+			<p>Huyết Nguyệt một cái lông chim ở móc mũi, một đôi mắt nhỏ hơi nheo lại, nói “Lợi hại như vậy đồ vật tại sao có thể tùy tiện dùng linh tinh”</p>
+			<p>Tử Hàn cười một tiếng, sau đó ở Thánh trên giường ngọc bắt đầu tu luyện, một đạo Ấn Pháp kết xuất, từng đạo linh khí không có vào thân thể của hắn tụ vào mi tâm hóa thành linh lực, thẳng đến trời sáng, Tử Hàn mở mắt, ngạc nhiên phát hiện trải qua một đêm tu luyện trong thân thể linh lực so với trước muốn hùng hậu rất nhiều, trong lúc mơ hồ sắp đạt tới Thông Linh trung kỳ.</p>
+			<p>Tử Hàn đứng dậy, nói “Đi thôi, hôm nay lần đầu tiên, nên đi Tàng Thư Lâu”</p>
+			<p>Huyết Nguyệt vô cùng không tình nguyện bò dậy, lần nữa đem Thánh Ngọc giường thu, nằm ở Tử Hàn đầu vai, đi theo hắn đi ra ngoài, Tử Hàn trong tay sau lưng cõng lấy sau lưng trường kiếm, đi xuyên qua tu luyện tràng, đi tới một tòa kiến trúc cao lớn lâu vũ trước, lâu vũ chi trên có ba cái thiếp vàng chữ to —— Tàng Thư Lâu.</p>
+			<p>Ở Tử Tộc hoa rơi thành chi nhánh bên trong, mỗi tháng ban đầu nhất gia tộc Trung Võ người đều có thể đi vào Tàng Thư Lâu xem duyệt công pháp võ thuật, cho nên mỗi tháng lần đầu tiên thời điểm luôn là trong gia tộc võ giả tụ tập nhiều khi nhất sau khi, lúc này Tử Hàn đi tới Tàng Thư Lâu trước.</p>
+			<p>Lúc này mới khó khăn lắm lúc sáng sớm, đã có rất nhiều trong gia tộc đệ tử đi tới Tàng Thư Lâu trước chờ đợi lầu cửa mở ra.</p>
+			<p>Làm Tử Hàn đi tới nơi này thời điểm, nhất thời hội tụ vô số quái dị ánh mắt, Tử Hàn mặc dù không có thể tu hành, nhưng là ở Tử Tộc cái này chi nhánh bên trong nhưng là cực kỳ Nổi danh ". Bởi vì là mọi người đều biết Tử tộc chủ nhà Lục thiếu gia là một không thể tu hành phế vật, là bị chủ nhà đày đi tới đây chờ chết.</p>
+			<p>“Đây không phải là chủ nhà Lục thiếu gia sao? Hắn thế nào cũng tới Tàng Thư Lâu?”</p>
+			<p>“Tên phế vật kia thật đúng là không biết tự lượng sức mình, muốn tiến vào Tàng Thư Lâu?”</p>
+			<p>Tử Hàn thẳng tắp đứng ở Tàng Thư Lâu trước, bọn họ lời nói lại rõ ràng rơi tại chính mình trong tai, nhưng là Tử Hàn lại chưa từng chút nào để ý, tựa như ư đã thành thói quen.</p>
+			<p>“Các ngươi quá mức, chớ nói người ta như vậy”</p>
+			<p>Tử Hàn hơi kinh ngạc, có chút ghé mắt, một tên mười bốn mười lăm tuổi thiếu nữ người mặc quần dài màu lam nhạt, non nớt khuôn mặt nhỏ nhắn rất là thanh tú, nàng được đặt tên là Tử Diệp, là Tử Tộc điều này chi nhánh thiên tài, lúc này Tử Diệp đang nhìn Tử Hàn hiếu kỳ đánh giá.</p>
+			<p>Tử Hàn ghé mắt hướng về phía Tử Diệp nhẹ nhàng cười cười, Tử Diệp đầu tiên là sửng sốt một chút sau đó đi lên, đứng ở Tử Hàn trước mặt, mở miệng nói “Tử Hàn ca ca, ngươi đi nhanh đi, đợi một hồi Tử Lạc tới hắn khẳng định lại phải đánh ngươi”</p>
+			<p>“Nữ Oa, ngươi là có nhiều khinh bỉ hắn a, chẳng lẽ hắn cũng chỉ có thể là bị đánh đoán?”</p>
+			<p>Huyết Nguyệt nhàn nhạt liếc mắt nhìn Tử Diệp, Tử Diệp đánh giá Huyết Nguyệt cảm giác mười phần tức cười, đưa tay thì đi bắt Huyết Nguyệt muốn ngắt nhéo một cái.</p>
+			<p>Mọi người nghe được Huyết Nguyệt mở miệng mới vừa chú ý tới cái này chưa đủ ba tấc Tiểu Thú, mặc dù là có chút ngạc nhiên, lại cũng không phải là như thế nào ý, dù sao thế giới lớn không thiếu cái lạ, rất nhiều Yêu Thú linh trí cực cao, trời sinh liền có thể miệng nói tiếng người, bị người thu làm Linh Sủng, nhưng là mọi người kinh dị chỗ nhưng ở với trong mắt bọn họ cái phế vật này thiếu gia đi nơi nào thu Linh Sủng.</p>
+			<p>Tử Hàn hướng về phía Tử Diệp cười nói “Cám ơn ngươi, Tử Diệp, bất quá ta không sợ hắn”</p>
+			<p>Tử Diệp thu tay về nhìn Tử Hàn giương mắt nói “Không được, ngươi đánh không lại hắn, đến lúc đó ngươi lại phải đau chừng mấy ngày”</p>
+			<p>Tử Hàn ôn uyển cười một tiếng, vừa muốn mở miệng, xa xa Tử Lạc đi đi tới, trong mắt mang theo vẻ ngạo mạn căn bản không đem Tử Hàn coi vào đâu, sau lưng như cũ đi theo ngày hôm qua hai người kia, hai người trong mắt mang theo vẻ châm chọc nhìn Tử Hàn, khinh thường nói “Ồ, một đêm không thấy Tử Hàn thiếu gia dài tính khí, thậm chí ngay cả Tử Lạc đại ca cũng không sợ?”</p>
+			<p>Tử Diệp nhìn Tử Lạc đi tới, nhút nhát tránh qua một bên, không dám nhìn nữa Tử Hàn, Tử Hàn nhìn Tử Diệp lại không có một tia trách cứ ý tứ, ngược lại đáy lòng có một tia ấm áp, dù sao cùng hắn nói như vậy những năm gần đây cũng liền một cái Tử Diệp mà thôi.</p>
+			<p>Mọi người thấy Tử Lạc đi tới, ánh mắt lộ ra một bộ vẻ chờ mong, có người nhẹ nhàng mở miệng nói “Xem ra hôm nay lại có trò hay nhìn, Tử Lạc nhưng là một mực không ưa Tử Hàn a”</p>
+			<p>“Ai, cái này chủ nhà thiếu gia thật là đáng thương a, phỏng chừng lần này nửa tháng đều xuống không giường”</p>
+			<p>Ngay tại cũng cho là Tử Hàn sẽ ảo não chạy trốn lúc, Tử Hàn khóe miệng vén lên một tia độ cong, khẽ cười nói “Ta Tử Hàn chính là chủ nhà thiếu gia, ngươi coi là cái gì chó má, coi như ngươi mạch gia chủ cũng không xứng nói với ta như vậy”</p>
+			<p>Hí!</p>
+			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.'),
+			(59, 9, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, null, 
+			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
+			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
+			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
+			<p>Tử Hàn nhẹ nhàng cười cười, nói “Đi thôi, ngày mai đi Tàng Thư Lâu”</p>
+			<p>“Đi Tàng Thư Lâu làm gì, chẳng lẽ Bản vương cho ngươi vũ kỹ vào không ngươi mắt hay sao?”</p>
+			<p>Tử Hàn ánh mắt khẽ híp một cái, cười nói “Ngày mai ngươi cũng biết”</p>
+			<p>Tử Hàn xuyên qua tu luyện tràng, đi tới một mảnh Thủy Đàm trước mặt, bên đầm nước có một gian căn phòng nhỏ, liếc mắt nhìn sang cố gắng hết sức đơn sơ, Tử Hàn thẳng hướng phòng nhỏ đi vào, Huyết Nguyệt với sau lưng Tử Hàn kinh ngạc nhìn gian phòng này, khi nó đi vào thời điểm nhất thời liền kinh ngạc đến ngây người.</p>
+			<p>“Thiếu niên Lang, đây chính là ngươi chỗ ở?”</p>
+			<p>Tử Hàn quan sát một phen nhà, có chút lòng chua xót nói “Cũng không tệ lắm phải không, ít nhất có thể có một đặt chân phương, không đến nổi đầu đường xó chợ”</p>
+			<p>Huyết Nguyệt liếc mắt nhìn sang, lại nhìn một cái không sót gì, một tấm rách nát giường gỗ, cũng chính là hai cây trên cái băng thả gỗ miếng bản, phía trên cửa hàng để một tầng sợi bông, trước giường có một cái bàn gỗ, cái bàn gỗ cũ nát không chịu nổi, trên bàn để một ngọn đèn dầu, không có Đăng Tâm cũng không có đèn dầu hoàn toàn chính là một chưng bày, sau đó, sau đó cũng chưa có</p>
+			<p>Nóc nhà còn có một lổ lớn, căn bản ngăn cản không mưa gió.</p>
+			<p> Huyết Nguyệt nhìn hết thảy các thứ này nhất thời liền giận, đứng ở trên bàn một cước đá lộn mèo trên bàn ngọn đèn dầu, nổi giận mắng “Thứ gì a, ngươi không phải là Tử Tộc Lục thiếu gia sao? Mang đến mạch bên trong lại cho ngươi ở đây loại rách nát địa phương?”</p>
+			<p>Tử Hàn tự giễu cười một tiếng, nhẹ khẽ than thở ngồi ở tấm ván đạt được trên giường, cười nói “Ta có biện pháp gì, ai bảo ta không cách nào tu hành, coi như là Tử Tộc Lục thiếu gia thì thế nào, ở cha sau khi rời khỏi ta sinh hoạt trở nên chẳng bằng con chó”</p>
+			<p>“Vương Bát Đản, đám này Thiên Sát, lại cho Bản vương truyền nhân ở loại địa phương này, có cái xẻng sao? Bản vương phải đi đào nhà hắn mộ tổ tiên”</p>
+			<p>Huyết Nguyệt vừa nói liền muốn xông ra đi, Tử Hàn tiến lên bắt Huyết Nguyệt, trong lòng có loại không khỏi làm rung động, dù sao hắn và Huyết Nguyệt quen biết mới bất quá mấy giờ, nhưng là Huyết Nguyệt lại có thể lấy bất bình dùm cho mình, Tử Hàn nhẹ nhàng thư một hơi thở nói “Không việc gì, một ngày nào đó thuộc về ta đều sẽ cầm về”</p>
+			<p>Huyết Nguyệt thấy Tử Hàn trong ánh mắt lộ ra một vệt vẻ kiên nghị, nhẹ nhàng gõ đầu ánh mắt lộ ra công nhận vẻ mặt.</p>
+			<p>Huyết Nguyệt nằm ở Tử Hàn phá ngủ trên giường đi qua, Tử Hàn lại không chút nào buồn ngủ, đi tới bên đầm nước, lần nữa xuất ra Huyết Nguyệt cho hắn Thôn Linh Chưởng, chăm chỉ luyện tập đứng lên, nơi mi tâm từng tia linh lực rót vào hắn Tứ Chi Bách Hài, từng lần một đánh.</p>
+			<p>“Thôn Linh Chưởng”</p>
+			<p>Tử Hàn một chưởng đánh ở bên cạnh một cây liễu bên trên, to cở miệng chén cây liễu bị Tử Hàn miễn cưỡng một chưởng chặn ngang cắt đứt, Tử Hàn nhìn mình tay kinh ngạc nhìn ngã xuống cây liễu, sau một khắc ánh mắt lộ ra một vẻ vui mừng.</p>
+			<p>Lúc này Huyết Nguyệt đứng ở cửa Tĩnh Tĩnh nhìn Tử Hàn, nó ánh mắt lộ ra kinh hãi ý.</p>
+			<p>“Trời sinh thánh mạch lại đối với võ đạo hiểu sâu như vậy khắc, một bộ Huyền Giai hạ phẩm Chưởng Pháp lại bị hắn ở thời gian ngắn như vậy tu luyện thành công, hắn hôm nay mới khó khăn lắm phá vỡ mà vào Thông Linh cảnh mà thôi”</p>
+			<p>Tử Hàn nhướng mày một cái, hắn nghe được Huyết Nguyệt lời nói, hắn Ngũ Cảm ở tối nay trở nên phá lệ bén nhạy, Huyết Nguyệt thanh âm rất nhẹ, hắn lại nghe chân thiết, quay đầu đang lúc, thấy Huyết Nguyệt, nói “Ngươi không phải là ngủ đi?”</p>
+			<p>“Bản vương nghe phía bên ngoài động tĩnh đặc biệt đến xem thử, không nghĩ tới coi như Bản vương truyền nhân, ngươi biểu hiện vẫn không tệ nha, lại nhưng đã luyện thành Thôn Linh Chưởng”</p>
+			<p>Tử Hàn lộ ra một nụ cười, nói "Nhưng là ta cảm giác một chưởng này bổ xuống,</p>
+			<p>Ta linh lực tựa hồ cũng tiêu hao sắp tới 1 phần 3 "</p>
+			<p>“Thiếu niên Lang, đừng nóng, ngươi mới Thông Linh sơ kỳ, hơn nữa Thôn Linh Chưởng nhưng là Huyền Giai Chưởng Pháp tinh diệu rất, đối với ngươi mà nói Tự Nhiên tiêu hao đại”</p>
+			<p>Huyết Nguyệt nhìn Tử Hàn đáy mắt lộ ra vẻ quái dị, lần nữa mở miệng nói “Đi, với Bản vương vào nhà, cho ngươi đồ tốt”</p>
+			<p>“Thứ gì?”</p>
+			<p>Huyết Nguyệt không nói gì, đi vào phòng, cánh trôi lơ lửng đang lúc một vệt ánh sáng màu bạc chợt lóe, một khối to lớn Ngọc Thạch nổi lên, rơi trên mặt đất, cả nhà nhẹ nhàng run rẩy, lớn như vậy Ngọc Thạch giống như một giường lớn như thế.</p>
+			<p>Tử Hàn nhìn trước mắt Ngọc Thạch, há to mồm nói “Khối ngọc lớn như vậy, có thể bán không ít tiền đi”</p>
+			<p>“Thật là không có kiến thức, đây chính là Thánh Ngọc chế tạo, lớn như vậy khối Thánh Ngọc, ngươi có nhiều tiền hơn nữa cũng mua không được, này nhưng năm đó Bản vương trải qua Cửu Tử Nhất Sinh mới đến chí bảo”</p>
+			<p>Tử Hàn duỗi tay sờ xoạng đến Thánh Ngọc giường, một cổ cực kỳ linh khí nồng nặc truyền tới, nhất thời hắn lần nữa cảm thấy giật mình.</p>
+			<p>“Sau này ngươi ngay tại Thánh trên giường ngọc tu luyện tu hành, một năm tu hành tốc độ sánh được ở thiên địa linh khí đậm đà Bảo Địa tu luyện ba năm”</p>
+			<p>Tử Hàn trừng mắt to nhìn Thánh Ngọc giường, ở phía trên khoanh chân ngồi xuống, một cổ linh khí nồng nặc nhất thời tràn vào thân thể của hắn hóa thành linh lực, Tử Hàn há hốc miệng ba, sau đó hơi khẽ cau mày nhìn Huyết Nguyệt, hỏi “Ngươi là thế nào mang theo lớn như vậy món đồ”</p>
+			<p>“Bản vương có không gian bảo vật, cái gì không thể mang, coi như đem cả tòa thành trì dọn đi cũng không có vấn đề gì”</p>
+			<p>“Oa” Tử Hàn nhìn Huyết Nguyệt ánh mắt lộ ra vẻ nôn nóng, nói “Có thể cho ta mượn dùng hai ngày sao?”</p>
+			<p>Huyết Nguyệt một cái lông chim ở móc mũi, một đôi mắt nhỏ hơi nheo lại, nói “Lợi hại như vậy đồ vật tại sao có thể tùy tiện dùng linh tinh”</p>
+			<p>Tử Hàn cười một tiếng, sau đó ở Thánh trên giường ngọc bắt đầu tu luyện, một đạo Ấn Pháp kết xuất, từng đạo linh khí không có vào thân thể của hắn tụ vào mi tâm hóa thành linh lực, thẳng đến trời sáng, Tử Hàn mở mắt, ngạc nhiên phát hiện trải qua một đêm tu luyện trong thân thể linh lực so với trước muốn hùng hậu rất nhiều, trong lúc mơ hồ sắp đạt tới Thông Linh trung kỳ.</p>
+			<p>Tử Hàn đứng dậy, nói “Đi thôi, hôm nay lần đầu tiên, nên đi Tàng Thư Lâu”</p>
+			<p>Huyết Nguyệt vô cùng không tình nguyện bò dậy, lần nữa đem Thánh Ngọc giường thu, nằm ở Tử Hàn đầu vai, đi theo hắn đi ra ngoài, Tử Hàn trong tay sau lưng cõng lấy sau lưng trường kiếm, đi xuyên qua tu luyện tràng, đi tới một tòa kiến trúc cao lớn lâu vũ trước, lâu vũ chi trên có ba cái thiếp vàng chữ to —— Tàng Thư Lâu.</p>
+			<p>Ở Tử Tộc hoa rơi thành chi nhánh bên trong, mỗi tháng ban đầu nhất gia tộc Trung Võ người đều có thể đi vào Tàng Thư Lâu xem duyệt công pháp võ thuật, cho nên mỗi tháng lần đầu tiên thời điểm luôn là trong gia tộc võ giả tụ tập nhiều khi nhất sau khi, lúc này Tử Hàn đi tới Tàng Thư Lâu trước.</p>
+			<p>Lúc này mới khó khăn lắm lúc sáng sớm, đã có rất nhiều trong gia tộc đệ tử đi tới Tàng Thư Lâu trước chờ đợi lầu cửa mở ra.</p>
+			<p>Làm Tử Hàn đi tới nơi này thời điểm, nhất thời hội tụ vô số quái dị ánh mắt, Tử Hàn mặc dù không có thể tu hành, nhưng là ở Tử Tộc cái này chi nhánh bên trong nhưng là cực kỳ Nổi danh ". Bởi vì là mọi người đều biết Tử tộc chủ nhà Lục thiếu gia là một không thể tu hành phế vật, là bị chủ nhà đày đi tới đây chờ chết.</p>
+			<p>“Đây không phải là chủ nhà Lục thiếu gia sao? Hắn thế nào cũng tới Tàng Thư Lâu?”</p>
+			<p>“Tên phế vật kia thật đúng là không biết tự lượng sức mình, muốn tiến vào Tàng Thư Lâu?”</p>
+			<p>Tử Hàn thẳng tắp đứng ở Tàng Thư Lâu trước, bọn họ lời nói lại rõ ràng rơi tại chính mình trong tai, nhưng là Tử Hàn lại chưa từng chút nào để ý, tựa như ư đã thành thói quen.</p>
+			<p>“Các ngươi quá mức, chớ nói người ta như vậy”</p>
+			<p>Tử Hàn hơi kinh ngạc, có chút ghé mắt, một tên mười bốn mười lăm tuổi thiếu nữ người mặc quần dài màu lam nhạt, non nớt khuôn mặt nhỏ nhắn rất là thanh tú, nàng được đặt tên là Tử Diệp, là Tử Tộc điều này chi nhánh thiên tài, lúc này Tử Diệp đang nhìn Tử Hàn hiếu kỳ đánh giá.</p>
+			<p>Tử Hàn ghé mắt hướng về phía Tử Diệp nhẹ nhàng cười cười, Tử Diệp đầu tiên là sửng sốt một chút sau đó đi lên, đứng ở Tử Hàn trước mặt, mở miệng nói “Tử Hàn ca ca, ngươi đi nhanh đi, đợi một hồi Tử Lạc tới hắn khẳng định lại phải đánh ngươi”</p>
+			<p>“Nữ Oa, ngươi là có nhiều khinh bỉ hắn a, chẳng lẽ hắn cũng chỉ có thể là bị đánh đoán?”</p>
+			<p>Huyết Nguyệt nhàn nhạt liếc mắt nhìn Tử Diệp, Tử Diệp đánh giá Huyết Nguyệt cảm giác mười phần tức cười, đưa tay thì đi bắt Huyết Nguyệt muốn ngắt nhéo một cái.</p>
+			<p>Mọi người nghe được Huyết Nguyệt mở miệng mới vừa chú ý tới cái này chưa đủ ba tấc Tiểu Thú, mặc dù là có chút ngạc nhiên, lại cũng không phải là như thế nào ý, dù sao thế giới lớn không thiếu cái lạ, rất nhiều Yêu Thú linh trí cực cao, trời sinh liền có thể miệng nói tiếng người, bị người thu làm Linh Sủng, nhưng là mọi người kinh dị chỗ nhưng ở với trong mắt bọn họ cái phế vật này thiếu gia đi nơi nào thu Linh Sủng.</p>
+			<p>Tử Hàn hướng về phía Tử Diệp cười nói “Cám ơn ngươi, Tử Diệp, bất quá ta không sợ hắn”</p>
+			<p>Tử Diệp thu tay về nhìn Tử Hàn giương mắt nói “Không được, ngươi đánh không lại hắn, đến lúc đó ngươi lại phải đau chừng mấy ngày”</p>
+			<p>Tử Hàn ôn uyển cười một tiếng, vừa muốn mở miệng, xa xa Tử Lạc đi đi tới, trong mắt mang theo vẻ ngạo mạn căn bản không đem Tử Hàn coi vào đâu, sau lưng như cũ đi theo ngày hôm qua hai người kia, hai người trong mắt mang theo vẻ châm chọc nhìn Tử Hàn, khinh thường nói “Ồ, một đêm không thấy Tử Hàn thiếu gia dài tính khí, thậm chí ngay cả Tử Lạc đại ca cũng không sợ?”</p>
+			<p>Tử Diệp nhìn Tử Lạc đi tới, nhút nhát tránh qua một bên, không dám nhìn nữa Tử Hàn, Tử Hàn nhìn Tử Diệp lại không có một tia trách cứ ý tứ, ngược lại đáy lòng có một tia ấm áp, dù sao cùng hắn nói như vậy những năm gần đây cũng liền một cái Tử Diệp mà thôi.</p>
+			<p>Mọi người thấy Tử Lạc đi tới, ánh mắt lộ ra một bộ vẻ chờ mong, có người nhẹ nhàng mở miệng nói “Xem ra hôm nay lại có trò hay nhìn, Tử Lạc nhưng là một mực không ưa Tử Hàn a”</p>
+			<p>“Ai, cái này chủ nhà thiếu gia thật là đáng thương a, phỏng chừng lần này nửa tháng đều xuống không giường”</p>
+			<p>Ngay tại cũng cho là Tử Hàn sẽ ảo não chạy trốn lúc, Tử Hàn khóe miệng vén lên một tia độ cong, khẽ cười nói “Ta Tử Hàn chính là chủ nhà thiếu gia, ngươi coi là cái gì chó má, coi như ngươi mạch gia chủ cũng không xứng nói với ta như vậy”</p>
+			<p>Hí!</p>
+			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.'),
+			(60, 3, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, null, 
+			N'"Cái gì mà bao nhiêu tiền? Triệu Trạch Cương đâu!"Doãn Tư Thần nhíu mày, người phụ nữ trước mắt này dường như có chút kỳ quái, trước đó hình như cô cũng nói một câu "Trạch Cương"?
+			Lẽ nào bọn họ thật sự bị tính kế!Đêm qua hắn rõ ràng hẹn Dina, có người quẹt thẻ vào phòng, lúc ấy trong phòng không bật đèn, mà cô gái trước mắt có hương nước hoa giống của Dina, 
+			hắn đương nhiên cho rằng cô là Dina, nhưng cuối cùng lại là cô gái này.Hắn định mở miệng hỏi thì điện thoại liền vang lên, là Dina gọi đến."Dina, chuyện gì vậy?"Giọn của Dina 
+			trong điện thoại tràn đầy áy náy: "Tư Thần, em thật sự xin lỗi, hôm qua em nhận được lời mời từ Milan, bọn họ muốn mời em làm người mẫu chính. Tối hôm qua em đã bay đến Milan lúc 8 giờ, 
+			anh biết làm người mẫu chính luôn là ước mơ từ lâu của em, em không muốn bỏ lỡ cơ hội này, anh có thể tha thứ cho em không? À, đúng rồi, tối qua em tặng anh một món quà, xem như là bồi 
+			thường, anh có hài lòng không?""Quà?" Ánh mắt Doãn Tư Thần trầm xuống, nhìn thoáng qua cô gái khoác áo choàng tắm tìm Triệu Trạch Cương trong phòng, ý tứ trong mắt có chút không rõ.
+			"Đúng vậy, món quà này em đã chọn lựa rất kỹ. Cô ấy còn là xử nữ, trải nghiệm đêm qua có phải không tệ không?""Đương nhiên không tệ, có một cô người yêu chu đáo như vậy, sao có thể 
+			giận chứ? Nếu em đã thích làm người mẫu như vậy, vậy thì ở Milan biểu diễn thật tốt đi." Doan Tư Thần nói xong câu này lập tức tắt điện thoại.Cố Tư Tư lúc này lục lọi khắp phòng cũng 
+			không thấy Triệu Trạch Cương, cô đã không thể bình tĩnh được nữa!Cô thế nào lại cùng một người đàn ông xa lạ ngủ một đêm, sau này cô còn mặt mũi gì tìm Trạch Cương đây.
+			Nước mắt cô cứ vậy mà rơi xuống, cô ngồi xổm ở góc tường, nức nở khóc không thành tiếng, không để ý đến người đàn ông kia vẫn dùng ánh mắt phức tạp nhìn cô.
+			Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. 
+			Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?'),
+			(61, 4, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, null, 
+			N'"Cái gì mà bao nhiêu tiền? Triệu Trạch Cương đâu!"Doãn Tư Thần nhíu mày, người phụ nữ trước mắt này dường như có chút kỳ quái, trước đó hình như cô cũng nói một câu "Trạch Cương"?
+			Lẽ nào bọn họ thật sự bị tính kế!Đêm qua hắn rõ ràng hẹn Dina, có người quẹt thẻ vào phòng, lúc ấy trong phòng không bật đèn, mà cô gái trước mắt có hương nước hoa giống của Dina, 
+			hắn đương nhiên cho rằng cô là Dina, nhưng cuối cùng lại là cô gái này.Hắn định mở miệng hỏi thì điện thoại liền vang lên, là Dina gọi đến."Dina, chuyện gì vậy?"Giọn của Dina 
+			trong điện thoại tràn đầy áy náy: "Tư Thần, em thật sự xin lỗi, hôm qua em nhận được lời mời từ Milan, bọn họ muốn mời em làm người mẫu chính. Tối hôm qua em đã bay đến Milan lúc 8 giờ, 
+			anh biết làm người mẫu chính luôn là ước mơ từ lâu của em, em không muốn bỏ lỡ cơ hội này, anh có thể tha thứ cho em không? À, đúng rồi, tối qua em tặng anh một món quà, xem như là bồi 
+			thường, anh có hài lòng không?""Quà?" Ánh mắt Doãn Tư Thần trầm xuống, nhìn thoáng qua cô gái khoác áo choàng tắm tìm Triệu Trạch Cương trong phòng, ý tứ trong mắt có chút không rõ.
+			"Đúng vậy, món quà này em đã chọn lựa rất kỹ. Cô ấy còn là xử nữ, trải nghiệm đêm qua có phải không tệ không?""Đương nhiên không tệ, có một cô người yêu chu đáo như vậy, sao có thể 
+			giận chứ? Nếu em đã thích làm người mẫu như vậy, vậy thì ở Milan biểu diễn thật tốt đi." Doan Tư Thần nói xong câu này lập tức tắt điện thoại.Cố Tư Tư lúc này lục lọi khắp phòng cũng 
+			không thấy Triệu Trạch Cương, cô đã không thể bình tĩnh được nữa!Cô thế nào lại cùng một người đàn ông xa lạ ngủ một đêm, sau này cô còn mặt mũi gì tìm Trạch Cương đây.
+			Nước mắt cô cứ vậy mà rơi xuống, cô ngồi xổm ở góc tường, nức nở khóc không thành tiếng, không để ý đến người đàn ông kia vẫn dùng ánh mắt phức tạp nhìn cô.
+			Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. 
+			Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?'),
+			(62, 5, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, null, 
+			N'"Cái gì mà bao nhiêu tiền? Triệu Trạch Cương đâu!"Doãn Tư Thần nhíu mày, người phụ nữ trước mắt này dường như có chút kỳ quái, trước đó hình như cô cũng nói một câu "Trạch Cương"?
+			Lẽ nào bọn họ thật sự bị tính kế!Đêm qua hắn rõ ràng hẹn Dina, có người quẹt thẻ vào phòng, lúc ấy trong phòng không bật đèn, mà cô gái trước mắt có hương nước hoa giống của Dina, 
+			hắn đương nhiên cho rằng cô là Dina, nhưng cuối cùng lại là cô gái này.Hắn định mở miệng hỏi thì điện thoại liền vang lên, là Dina gọi đến."Dina, chuyện gì vậy?"Giọn của Dina 
+			trong điện thoại tràn đầy áy náy: "Tư Thần, em thật sự xin lỗi, hôm qua em nhận được lời mời từ Milan, bọn họ muốn mời em làm người mẫu chính. Tối hôm qua em đã bay đến Milan lúc 8 giờ, 
+			anh biết làm người mẫu chính luôn là ước mơ từ lâu của em, em không muốn bỏ lỡ cơ hội này, anh có thể tha thứ cho em không? À, đúng rồi, tối qua em tặng anh một món quà, xem như là bồi 
+			thường, anh có hài lòng không?""Quà?" Ánh mắt Doãn Tư Thần trầm xuống, nhìn thoáng qua cô gái khoác áo choàng tắm tìm Triệu Trạch Cương trong phòng, ý tứ trong mắt có chút không rõ.
+			"Đúng vậy, món quà này em đã chọn lựa rất kỹ. Cô ấy còn là xử nữ, trải nghiệm đêm qua có phải không tệ không?""Đương nhiên không tệ, có một cô người yêu chu đáo như vậy, sao có thể 
+			giận chứ? Nếu em đã thích làm người mẫu như vậy, vậy thì ở Milan biểu diễn thật tốt đi." Doan Tư Thần nói xong câu này lập tức tắt điện thoại.Cố Tư Tư lúc này lục lọi khắp phòng cũng 
+			không thấy Triệu Trạch Cương, cô đã không thể bình tĩnh được nữa!Cô thế nào lại cùng một người đàn ông xa lạ ngủ một đêm, sau này cô còn mặt mũi gì tìm Trạch Cương đây.
+			Nước mắt cô cứ vậy mà rơi xuống, cô ngồi xổm ở góc tường, nức nở khóc không thành tiếng, không để ý đến người đàn ông kia vẫn dùng ánh mắt phức tạp nhìn cô.
+			Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. 
+			Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?'),
+			(63, 5, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, null, 
+			N'Nhưng tiếc là không ai trả lời.Cô bước trên đường, nhớ lại tất cả chuyện của mình và Triệu Trạch Cương.Từ lúc bắt đầu yêu nhau, cho đến sự khẩn trương vui sướng của ngày hôm qua, 
+			tất cả đều là ký ức tốt đẹp, giống như một thước phim tua ngược, từng cảnh từng cảnh đều sống động như thật, dần trở nên xa vời không thể với đến.Hôm qua bọn họ còn nói đùa về hôn lễ 
+			tương lai, hắn còn cam đoan với cô trong vòng hai năm, mỗi ngày sẽ đều gọi điện thoại, gửi wechat, để cô có thể được nghe giọng của hắn, nhìn thấy gương mặt của hắn.Nhưng tất cả những 
+			điều này, đều trở thành nguyện vọng không thể thực hiện.Cô thật sự còn có thể xem như chưa từng xảy ra chuyện gì, cùng hắn nói chuyện điện thoại, gửi tin nhắn wechat sao?Không thể 
+			nữa rồi…Bọn họ cũng không thể có hôn lễ, không thể có con…Không có, cái gì cũng không có…Mội loạt tiếng thắng xe cùng tiếng chuông điện thoại dồn dập cắt đứt dòng suy nghĩ của 
+			cô, cô chợt giật mình phát hiện mình đang đứng giữa đường, một chiếc xe đang dừng rất gần cô, gần đến mức suýt thì đụng vào.Cố Tư Tư rất nhanh thanh tỉnh lại, lùi về phía sau, nhìn xe 
+			hơi lần nữa đi nhanh.Chuông điện thoại vẫn vang lên, cô xem, là mẹ của Triệu Trạch Cường gọi đến.Cô nhanh chóng lau nước mắt, bắt máy: "Dì…"Không đợi Cố Tư Tư nói xong, đầu dây 
+			bên kia lạnh như băng cắt ngang lời nói của cô."Cô Cố, cô cũng thấy đấy, Trạch Cương của chúng tôi hiện đã được công ty cử sang nước ngoài để đào tạo chuyên sâu, chờ nó từ nước ngoài 
+			trở về, giá trị con người của nó đương nhiên sẽ khác. Trước kia hai đứa ở bên nhau, tôi vốn không đồng ý, chỉ vì Trạch Cương nhà chúng tôi thích cô, nên tôi mới không nói gì.Hiện tại nếu 
+			hai người đã không ở cùng một thành phố, hi vọng cô Cố có thể chủ động rời khỏi Trạch Cương của chúng tôi, đừng dây dưa với nó nữa."Tay cầm điện thoại của Cố Tư Tư hơi run lên."Tôi 
+			cũng không giấu cô, lần này Trạch Cương ra nước ngoài, bên cạnh còn có một cô gái khác. Cô gái đó gia thế rất tốt, tương lai sẽ trợ giúp Trạch Cương nhà chúng tôi. Hơn nữa con bé cũng 
+			rất thích Trạch Cương, cơ hội ra nước ngoài lần này chính là cô ấy mang lại, nên chúng tôi đều mong cô ấy sẽ là con dâu tương lại của Triệu gia. Cô Cố đến từ nông thôn phải không? 
+			Thân phận như vậy sao có thể xứng với Trạch Cương nhà chúng tôi? Nếu chúng tôi ngăn cản, Trạch Cương sẽ không đồng ý chia tay, nhưng nếu là cô Cố chủ động nói chia tay..."Mẹ Triệu 
+			Trạch Cương nói đến đây thì không nói nữa. Tất cả đều là người thông minh, cho dù không nói, cũng sẽ hiểu ý tứ của lời nói đó là gì.Cô và Trạch Cương rõ ràng là thật lòng yêu nhau, 
+			tại sao mọi người đều muốn chia rẽ bọn họ?
+			'),
+			(64, 6, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, null, 
+			N'Nhưng tiếc là không ai trả lời.Cô bước trên đường, nhớ lại tất cả chuyện của mình và Triệu Trạch Cương.Từ lúc bắt đầu yêu nhau, cho đến sự khẩn trương vui sướng của ngày hôm qua, 
+			tất cả đều là ký ức tốt đẹp, giống như một thước phim tua ngược, từng cảnh từng cảnh đều sống động như thật, dần trở nên xa vời không thể với đến.Hôm qua bọn họ còn nói đùa về hôn lễ 
+			tương lai, hắn còn cam đoan với cô trong vòng hai năm, mỗi ngày sẽ đều gọi điện thoại, gửi wechat, để cô có thể được nghe giọng của hắn, nhìn thấy gương mặt của hắn.Nhưng tất cả những 
+			điều này, đều trở thành nguyện vọng không thể thực hiện.Cô thật sự còn có thể xem như chưa từng xảy ra chuyện gì, cùng hắn nói chuyện điện thoại, gửi tin nhắn wechat sao?Không thể 
+			nữa rồi…Bọn họ cũng không thể có hôn lễ, không thể có con…Không có, cái gì cũng không có…Mội loạt tiếng thắng xe cùng tiếng chuông điện thoại dồn dập cắt đứt dòng suy nghĩ của 
+			cô, cô chợt giật mình phát hiện mình đang đứng giữa đường, một chiếc xe đang dừng rất gần cô, gần đến mức suýt thì đụng vào.Cố Tư Tư rất nhanh thanh tỉnh lại, lùi về phía sau, nhìn xe 
+			hơi lần nữa đi nhanh.Chuông điện thoại vẫn vang lên, cô xem, là mẹ của Triệu Trạch Cường gọi đến.Cô nhanh chóng lau nước mắt, bắt máy: "Dì…"Không đợi Cố Tư Tư nói xong, đầu dây 
+			bên kia lạnh như băng cắt ngang lời nói của cô."Cô Cố, cô cũng thấy đấy, Trạch Cương của chúng tôi hiện đã được công ty cử sang nước ngoài để đào tạo chuyên sâu, chờ nó từ nước ngoài 
+			trở về, giá trị con người của nó đương nhiên sẽ khác. Trước kia hai đứa ở bên nhau, tôi vốn không đồng ý, chỉ vì Trạch Cương nhà chúng tôi thích cô, nên tôi mới không nói gì.Hiện tại nếu 
+			hai người đã không ở cùng một thành phố, hi vọng cô Cố có thể chủ động rời khỏi Trạch Cương của chúng tôi, đừng dây dưa với nó nữa."Tay cầm điện thoại của Cố Tư Tư hơi run lên."Tôi 
+			cũng không giấu cô, lần này Trạch Cương ra nước ngoài, bên cạnh còn có một cô gái khác. Cô gái đó gia thế rất tốt, tương lai sẽ trợ giúp Trạch Cương nhà chúng tôi. Hơn nữa con bé cũng 
+			rất thích Trạch Cương, cơ hội ra nước ngoài lần này chính là cô ấy mang lại, nên chúng tôi đều mong cô ấy sẽ là con dâu tương lại của Triệu gia. Cô Cố đến từ nông thôn phải không? 
+			Thân phận như vậy sao có thể xứng với Trạch Cương nhà chúng tôi? Nếu chúng tôi ngăn cản, Trạch Cương sẽ không đồng ý chia tay, nhưng nếu là cô Cố chủ động nói chia tay..."Mẹ Triệu 
+			Trạch Cương nói đến đây thì không nói nữa. Tất cả đều là người thông minh, cho dù không nói, cũng sẽ hiểu ý tứ của lời nói đó là gì.Cô và Trạch Cương rõ ràng là thật lòng yêu nhau, 
+			tại sao mọi người đều muốn chia rẽ bọn họ?
+			')
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
 GO
 
