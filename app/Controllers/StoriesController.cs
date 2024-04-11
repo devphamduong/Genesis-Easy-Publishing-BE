@@ -476,7 +476,7 @@ namespace app.Controllers
             }
             try
             {
-                currentStory.Status = 0;
+                currentStory.Status = -1;
                 _context.Entry<Story>(currentStory).State = EntityState.Modified;
                 _context.SaveChanges();
             }
