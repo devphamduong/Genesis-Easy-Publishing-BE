@@ -9,14 +9,6 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            @*  <div class="card-header">
-            <div class="d-flex align-items-center">
-            <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
-            <i class="fa fa-plus"></i>
-            Add User
-            </button>
-            </div>
-            </div> *@
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="datatables" class="display table table-striped table-hover">
@@ -89,16 +81,17 @@
                         data: null,
                         render(data) {
                             if (data.status == true) {
-                                return `<a style="color: blue; cursor: pointer">Approved</a>`
+                                return `<a class="text-success">Approved</a>`
                             } else {
-                                return `<a style="color: red; cursor: pointer">Awaiting approval</a>`
+                                return `<a class="text-danger">Awaiting approval</a>`
                             }
                         }
                     },
                     {
                         data: null,
                         render(data) {
-                            return `<a style="color: blue; cursor: pointer" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-inbox"></i></a>`
+                            return `<a style="cursor: pointer" class="text-primary" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-inbox"></i></a>
+                                        <a style="cursor: pointer" class="text-primary ml-2" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
                         }
                     }
                 ]
@@ -117,13 +110,29 @@
             data: JSON.stringify({
                 ticketId: ticketId,
                 userId: userId
-            }),
-            success: function (data, textStatus, xhr) {
-                console.log(data);
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log('Error in Operation');
-            }
+            })
+        }).done(data => {
+            var title = data.em;
+
+            $.notify({
+                title: title,
+                icon: 'fa fa-bell'
+            }, {
+                type: 'success',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                delay: 3000,
+                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                    '<span data-notify="icon"></span> ' +
+                    '<span data-notify="title">{1}</span> ' +
+                    '</div>'
+            });
+            loadData();
+        }).fail(error => {
+            console.error('Error :', error);
         });
     }
 
