@@ -2116,7 +2116,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		BEGIN
 			INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 				VALUES
-					(@Counter_Chapters, @Counter_ChapterNum, 1, @Counter_Volumes, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 1, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
+					(@Counter_Chapters, @Counter_ChapterNum, 1, @Counter_Volumes, 5, N'NICK DUNNE',CAST(N'2022-09-24T05:52:10.323' AS DateTime),null, 0, N'When I think of my wife, I always think of her head. The shape of it, to begin with. The very first time I saw her, it was the back of the head I saw, and there was something lovely about it, the angles of it. Like a shiny, hard corn kernel or a riverbed fossil. She had what the Victorians would call a finely shaped head. You could imagine the skull quite easily.
 					I’d know her head anywhere.
 					And what’s inside it. I think of that, too: her mind. Her brain, all those coils, and her thoughts shuttling through those coils like fast, frantic centipedes. Like a child, I picture opening her skull, unspooling her brain and sifting through it, trying to catch and pin down her thoughts. What are you thinking, Amy? The question I’ve asked most often during our marriage, if not out loud, if not to the person who could answer. I suppose these questions stormcloud over every marriage: What are you thinking? How are you feeling? Who are you? What have we done to each other? What will we do?
 					My eyes flipped open at exactly six a.m. This was no avian fluttering of the lashes, no gentle blink toward consciousness. The awakening was mechanical. A spooky ventriloquist-dummy click of the lids: The world is black and then, showtime! 6-0-0 the clock said – in my face, first thing I saw. 6-0-0. It felt different. I rarely woke at such a rounded time. I was a man of jagged risings: 8:43, 11:51, 9:26. My life was alarmless.
@@ -2168,7 +2168,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 	
 INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[chapter_price],[chapter_title],[create_time],[update_time],[status],[chapter_content_html]) 
 	VALUES
-		(44, 1, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(44, 1, 23, 26, 5, N'Ngủ Với Người Lạ',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'Cố Tư Tư cảm nhận được sự ấm ấp trong lòng đối phương, không nhịn được mà rúc vào lòng người nọ. Tuy rằng cả đêm qua đều không được nghỉ ngơi, khiến toàn thân cô đau nhức, nhưng cô một chút cũng không hối hận.
 		Cô chuẩn bị lâu như vậy, chính là muốn đem mình trở thành món quà quý giá nhất tặng cho hắn!Cô và Triệu Trạch yêu nhau hai năm, mỗi lần Triệu Trạch muốn cùng cô thân mật đều sẽ bị cô cự tuyệt, 
 		cô không muốn bản thân mình tùy tiện như vậy.Nhưng lần này thì khác, ngày mai Triệu Trạch sẽ xuất ngoại và đây cũng là sinh nhật hai mươi ba tuổi của cô!
@@ -2199,7 +2199,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. 
 		Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?
 		'),
-		(46, 3, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(46, 3, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'"Cốc cốc cốc.." lúc ngày bên ngoài truyền đến tiếng gõ cửa, "Chào Doãn tiên sinh, tôi là nhân viên phục vụ khách sạn, tôi mang bữa sáng cho ngài."Doãn Tư Thần nhíu mày, 
 		đặt chi phiếu lên giường rồi đi mở cửa.Bữa sáng vô cùng phong phú, Doãn Tư Thần nhìn cô gái trong góc nói: "Đến ăn trước đi đã."Kết quả, cô gái vẫn ngồi khóc.
 		Doãn Tư Thần cũng không nói nhiều, liền tự mình ăn, vừa ăn vừa nói: "Chuyện tối qua, tôi sẽ cho cô một lời giải thích, tôi cho cô năm trăm vạn, chuyện của chúng ta, cô không được tiết lộ 
@@ -2232,7 +2232,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		Trạch Cương nói đến đây thì không nói nữa. Tất cả đều là người thông minh, cho dù không nói, cũng sẽ hiểu ý tứ của lời nói đó là gì.Cô và Trạch Cương rõ ràng là thật lòng yêu nhau, 
 		tại sao mọi người đều muốn chia rẽ bọn họ?
 		'),
-		(48, 5, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(48, 5, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'Cô đã bị hủy hoại, cô đã không còn tương lai nữa rồi, sớm muộn gì cô và Trạch Cương cũng sẽ phải chia tay, cuộc điện thoại này chỉ là để ngày đó đến sớm hơn mà thôi.Cố Tư Tư cố nén
 		nước mắt nghẹn ngào, nói qua điện thoại: "Cháu hiểu rồi. Cháu sẽ làm theo ý dì."Đối phương nghe được câu trả lời của Cố Tư Tư lúc này mới hài lòng cúp máy. Cúp điện thoại,
 		Cố Tư Tư đứng dưới ánh mặt trời chói chang, ngẩng cao đầu, không để cho nước mắt tràn mi.Cô cảm thấy toàn thân mình rất lạnh, lạnh như chưa từng.Mặt trời chói chang trên đầu,
@@ -2248,7 +2248,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		của cô và người đàn ông đó cùng nhau ân ái!Cô đem ảnh chụp ném thật xa! Đây là thứ gì! Sao lại có những bức ảnh này?!Hơn nữa...những bức ảnh này sao lại ở trong tay bà nội!
 		"Bà nội..." Cô mở miệng muốn giải thích, lại phát hiện mình lời nào cũng không thốt ra được, bởi vì tất cả trên ảnh đều là sự thật!Mẹ cô cố gắng giải thích: "Mẹ, mẹ...."
 		'),
-		(49, 6, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(49, 6, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'Lời của mẹ cô còn chưa nói xong, bà Cố nóng giận đập bàn quát to: "Ai cho cô lá gan, dám ngụy biện! Ảnh chụp người ta đã gửi đến tận cửa rồi, chẳng lẽ còn có thể hãm hại con gái của cô
 		sao? Lớn là gà không đẻ trứng, nhỏ thì không đứng đắn!"Bà Cố cầm chén trà ném mạnh vào trán mẹ Cố Tư Tư.Cố Tư Tư thấy bà nội lại muốn ném đồ, xoay người ôm lấy mẹ.
 		"Choang---" tách trà trực tiếp rơi xuống sau lưng Cố Tư Tư, vỡ nát.Cố Tư Tư chỉ cảm thấy phía sau vô cùng nóng và đau nhức, toàn bộ phía sau lưng đều trở nên nóng bỏng, 
@@ -2292,7 +2292,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			Trong mắt tất cả đều là khinh miệt, trong thanh âm tràn đầy giễu cợt, đạo “Chỉ bằng ngươi? Một đại đội linh khí cũng không cảm giác được phế vật? Thật không nghĩ ra phụ thân ngươi cũng coi như một nhân vật, làm sao biết sinh ra ngươi một phế vật như vậy đến, thật là hổ phụ khuyển tử a”
 			“Im miệng, khốn kiếp”
 		'),
-		(51, 2, 24, 29, 7, N'Trời sinh Song Mạch',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+		(51, 2, 24, 29, 7, N'Trời sinh Song Mạch',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 		N'Tử Hàn một cái bước dài xông lên, lửa giận trong lòng dấy lên, hôm nay hắn liên tục chịu nhục, trong lòng sớm đã là lên cơn giận dữ, giơ tay lên chính là một quyền hướng Tử Lạc đánh, nhưng là Tử Hàn đứng tại chỗ khinh miệt nhìn hắn, hoàn toàn xem nhẹ hắn một quyền, giơ tay lên đang lúc bắt lại Tử Hàn cổ tay.
 			“Chỉ bằng ngươi cũng dám mắng ta?”
 			Tử Lạc khẽ cau mày, bàn tay dùng sức đang lúc, một cổ vặn vẹo cảm giác đau đớn từ Tử Hàn trên cánh tay truyền tới, Tử Lạc lại không có buông tay ý tứ, gắt gao nắm Tử Hàn tay, mặt đầy tất cả đều là vẻ đắc ý.
@@ -2322,7 +2322,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			“Bản vương không phải là gia cầm, ngươi mới là gia cầm”
 			“Chẳng lẽ là đi địa Kê? Thả rông?”
 		'),
-		(52, 3, 24, 29, 7, N'Thượng cổ truyền thừa',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+		(52, 3, 24, 29, 7, N'Thượng cổ truyền thừa',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 		N'“Bản vương chính là Cửu Thiên Thập Địa, Đồ Thần diệt Thánh Huyết Nguyệt Vương”
 			Kê Nhi đạp nước cánh, hạt đậu Con mắt to cố gắng trợn to nhìn Tử Hàn, hết mình có thể làm ra một bộ hình tượng cao lớn vì chính mình tranh cãi đến.
 			“Ai!”
@@ -2388,7 +2388,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			“Thiên Địa Vạn Vật, Tương Sinh Vô Tướng, Thôn Thiên Phệ Địa, Vạn Pháp Bất Xâm...”
 			Tử Hàn Tĩnh Tĩnh nhìn trong thiên địa, trong đầu từng đạo hư ảnh đang ngưng kết, giờ phút này Tử Hàn hai tay Kết Ấn, ngồi xếp bằng ở bờ hồ, từng đạo u ám linh lực không có vào thân thể của hắn, đỉnh đầu hắn bên trên một cái vòng xoáy ngưng tụ, cắn nuốt trong thiên địa vô số linh lực...
 		'),
-		(54, 5, 24, 29, 7, N'Thông Linh cảnh',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+		(54, 5, 24, 29, 7, N'Thông Linh cảnh',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 		N'Tử Hàn ngồi xếp bằng ở bờ hồ, cố gắng hết sức an tĩnh, trong đầu hắc ám toàn bộ thối lui, không ngừng hồi tưởng những thứ kia cổ xưa tối tăm câu nói, trong tay bắt đầu kết xuất không lưu loát Ấn Pháp, tay tại kết xuất Ấn Pháp thời điểm lại đang không nhịn được khẽ run.
 			Vô số lần thất bại Tử Hàn đã sợ thất bại, nếu như thất bại nữa, chỉ sợ hắn thật sẽ mất đi thật sự có lòng tin, không biết như thế nào tự xử, từ nay chưa gượng dậy nổi.
 			“Thiếu niên Lang, trầm Tâm Tĩnh khí, tập trung ý chí, bắt đầu vận chuyển Thôn Linh Điển”
@@ -2519,7 +2519,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			<p>Tử Hàn thủ đoạn ngay cả Huyết Nguyệt nhìn cũng có chút kinh ngạc, hắn cũng không nghĩ tới Tử Hàn lại có thể như thế cường thế, dù ai cũng không cách nào tưởng tượng Tử Hàn lúc trước cứu qua có nhiều khuất nhục, bây giờ mới sẽ hung hăng như vậy, chỉ có Tử Hàn mình mới rõ ràng, hắn trải qua cái gì.</p>
 			<p>“Hừ”</p>
 			<p>Tử Hàn nhẹ rên một tiếng, cầm kiếm hướng trong trang viên đi tới, Người giữ cửa nhìn nằm ở một bên Tử Lực, nhìn Tử Hàn biến mất ở trong màn đêm bóng lưng, lập tức liền lăn một vòng hướng đình viện sâu bên trong chạy đi.'),
-			(56, 7, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			(56, 7, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
 			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
 			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
