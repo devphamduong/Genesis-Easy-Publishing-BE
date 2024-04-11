@@ -163,9 +163,13 @@ namespace app.Controllers
                 _context.Entry(report).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
             return new JsonResult(new
             {

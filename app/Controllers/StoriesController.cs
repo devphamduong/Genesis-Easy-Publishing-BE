@@ -344,7 +344,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Lưu truyện thất bại"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new
@@ -443,7 +443,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Cập nhật thất bại!"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new
@@ -485,7 +485,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Xóa truyện thất bại!"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new
@@ -543,7 +543,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Yêu cầu đăng nhập"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new

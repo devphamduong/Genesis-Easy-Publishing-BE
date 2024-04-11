@@ -154,23 +154,36 @@ namespace app.Controllers
                 chapter.Status = null;
             }
             chapter.Status = 1;
-            // new review
-            Review newReview = new Review()
+
+            try
             {
-                UserId = userId,
-                ChapterId = data.ChapterId,
-                ReviewDate = DateTime.Now,
-                SpellingError = data.SpellingError,
-                LengthError = data.LengthError,
-                PoliticalContentError = data.PoliticalContentError,
-                DistortHistoryError = data.DistortHistoryError,
-                SecretContentError = data.SecretContentError,
-                OffensiveContentError = data.OffensiveContentError,
-                UnhealthyContentError = data.UnhealthyContentError,
-                ReviewContent = data.ReviewContent
-            };
-            _context.Reviews.Add(newReview);
-            await _context.SaveChangesAsync();
+                // new review
+                Review newReview = new Review()
+                {
+                    UserId = userId,
+                    ChapterId = data.ChapterId,
+                    ReviewDate = DateTime.Now,
+                    SpellingError = data.SpellingError,
+                    LengthError = data.LengthError,
+                    PoliticalContentError = data.PoliticalContentError,
+                    DistortHistoryError = data.DistortHistoryError,
+                    SecretContentError = data.SecretContentError,
+                    OffensiveContentError = data.OffensiveContentError,
+                    UnhealthyContentError = data.UnhealthyContentError,
+                    ReviewContent = data.ReviewContent
+                };
+                _context.Reviews.Add(newReview);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+            
             // send mail
             try
             {

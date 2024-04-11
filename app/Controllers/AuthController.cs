@@ -218,21 +218,32 @@ namespace app.Controllers
                 });
             }
             string passwordHash = hashService.Hash(data.Password);
-            _context.Users.Add(new User
+            try
             {
-                Email = data.Email,
-                Password = passwordHash,
-                Username = data.Username,
-                Gender = true
-            });
-            _context.SaveChanges();
-            _context.Wallets.Add(new Wallet
+                _context.Users.Add(new User
+                {
+                    Email = data.Email,
+                    Password = passwordHash,
+                    Username = data.Username,
+                    Gender = true
+                });
+                _context.SaveChanges();
+                _context.Wallets.Add(new Wallet
+                {
+                    UserId = _context.Users.FirstOrDefault(u => u.Username.Equals(data.Username)).UserId,
+                    Fund = 0,
+                    Refund = 0
+                });
+                _context.SaveChanges();
+            }
+            catch (Exception)
             {
-                UserId = _context.Users.FirstOrDefault(u => u.Username.Equals(data.Username)).UserId,
-                Fund = 0,
-                Refund = 0
-            });
-            _context.SaveChanges();
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
             return new JsonResult(new
             {
                 EC = 0,
@@ -522,7 +533,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Yêu cầu đăng nhập"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new
@@ -577,7 +588,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Yêu cầu đăng nhập"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new
@@ -625,7 +636,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Yêu cầu đăng nhập"
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
             return new JsonResult(new

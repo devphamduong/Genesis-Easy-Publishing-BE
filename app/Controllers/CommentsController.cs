@@ -107,17 +107,27 @@ namespace app.Controllers
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             if (!ModelState.IsValid) return _msgService.MsgActionReturn(-1, "Thiếu điều kiện");
-            Comment cmt = new Comment()
+            try
             {
-                UserId = userId,
-                StoryId = commentDTO.StoryId,
-                ChapterId = commentDTO.ChapterId,
-                CommentContent = commentDTO.CommentContent,
-                CommentDate = DateTime.Now,
-            };
-            _context.Comments.Add(cmt);
-            await _context.SaveChangesAsync();
-
+                Comment cmt = new Comment()
+                {
+                    UserId = userId,
+                    StoryId = commentDTO.StoryId,
+                    ChapterId = commentDTO.ChapterId,
+                    CommentContent = commentDTO.CommentContent,
+                    CommentDate = DateTime.Now,
+                };
+                _context.Comments.Add(cmt);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
             return _msgService.MsgActionReturn(0, "Bình luận thành công");
         }
 
@@ -135,15 +145,27 @@ namespace app.Controllers
 
             Comment cmt = await _context.Comments.FirstOrDefaultAsync(c => c.UserId == userId && c.CommentId == commentId);
             if (cmt == null) return _msgService.MsgActionReturn(-1, "Không có comment");
-            if (String.IsNullOrEmpty(cmtUpdate.CommentContent)) _context.Comments.Remove(cmt);
-            else
+
+            try
             {
-                cmt.CommentContent = cmtUpdate.CommentContent;
-                _context.Entry(cmt).State = EntityState.Modified;
+                if (String.IsNullOrEmpty(cmtUpdate.CommentContent)) _context.Comments.Remove(cmt);
+                else
+                {
+                    cmt.CommentContent = cmtUpdate.CommentContent;
+                    _context.Entry(cmt).State = EntityState.Modified;
+                }
+
+                await _context.SaveChangesAsync();
+
             }
-
-            await _context.SaveChangesAsync();
-
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
             return _msgService.MsgActionReturn(0, "Bình luận thành công");
         }
     }

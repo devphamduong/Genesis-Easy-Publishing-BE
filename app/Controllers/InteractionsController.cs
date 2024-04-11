@@ -61,23 +61,34 @@ namespace app.Controllers
             var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyId && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
             var msg = interaction == null || interaction.Follow == false ? "Bạn đã thích truyện" : "Bạn đã bỏ thích truyện";
-            if (interaction != null)
+            try
             {
-                story_interaction.Like = interaction.Like == true ? story_interaction.Like - 1 : story_interaction.Like + 1;
-                interaction.Like = !interaction.Like;
-                _context.Entry(interaction).State = EntityState.Modified;
+                if (interaction != null)
+                {
+                    story_interaction.Like = interaction.Like == true ? story_interaction.Like - 1 : story_interaction.Like + 1;
+                    interaction.Like = !interaction.Like;
+                    _context.Entry(interaction).State = EntityState.Modified;
 
+                }
+                else
+                {
+                    story_interaction.Like += 1;
+                    StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyId, Follow = false, Like = true };
+                    _context.StoryFollowLikes.Add(storyFollowLike);
+
+                }
+
+                _context.Entry(story_interaction).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
-            else
+            catch (Exception)
             {
-                story_interaction.Like += 1;
-                StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyId, Follow = false, Like = true };
-                _context.StoryFollowLikes.Add(storyFollowLike);
-
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
-
-            _context.Entry(story_interaction).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
 
             return _msgService.MsgActionReturn(0, "Bạn đã thích truyện");
         }
@@ -93,21 +104,33 @@ namespace app.Controllers
             var interaction = await _context.StoryFollowLikes.FirstOrDefaultAsync(c => c.StoryId == storyId && c.UserId == userId);
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
             var msg = interaction == null || interaction.Follow == false ? "Bạn đã theo dõi truyện" : "Bạn đã bỏ theo dõi truyện";
-            if (interaction != null)
-            {
-                story_interaction.Follow = interaction.Follow == true ? story_interaction.Follow - 1 : story_interaction.Follow + 1;
-                interaction.Follow = !interaction.Follow;
-                _context.Entry(interaction).State = EntityState.Modified;
-            }
-            else
-            {
-                story_interaction.Follow += 1;
-                StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyId, Follow = true, Like = false };
-                _context.StoryFollowLikes.Add(storyFollowLike);
-            }
-            _context.Entry(story_interaction).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
 
+            try
+            {
+                if (interaction != null)
+                {
+                    story_interaction.Follow = interaction.Follow == true ? story_interaction.Follow - 1 : story_interaction.Follow + 1;
+                    interaction.Follow = !interaction.Follow;
+                    _context.Entry(interaction).State = EntityState.Modified;
+                }
+                else
+                {
+                    story_interaction.Follow += 1;
+                    StoryFollowLike storyFollowLike = new StoryFollowLike { UserId = userId, StoryId = storyId, Follow = true, Like = false };
+                    _context.StoryFollowLikes.Add(storyFollowLike);
+                }
+                _context.Entry(story_interaction).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+            
             return _msgService.MsgActionReturn(0, msg);
         }
 
@@ -122,20 +145,31 @@ namespace app.Controllers
             var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyId);
 
             var msg = interaction == null ? "Bạn đã thích chương" : "Bạn đã bỏ thích chương";
-            if (interaction != null)
+            try
             {
-                story_interaction.Like -= 1;
-                _context.ChapterLikeds.Remove(interaction);
-            }
-            else
-            {
-                story_interaction.Like += 1;
-                ChapterLiked chapterLiked = new ChapterLiked { UserId = userId, ChapterId = chapter.ChapterId, Status = null };
-                _context.ChapterLikeds.Add(chapterLiked);
-            }
+                if (interaction != null)
+                {
+                    story_interaction.Like -= 1;
+                    _context.ChapterLikeds.Remove(interaction);
+                }
+                else
+                {
+                    story_interaction.Like += 1;
+                    ChapterLiked chapterLiked = new ChapterLiked { UserId = userId, ChapterId = chapter.ChapterId, Status = null };
+                    _context.ChapterLikeds.Add(chapterLiked);
+                }
 
-            _context.Entry(story_interaction).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+                _context.Entry(story_interaction).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
 
             return _msgService.MsgActionReturn(0, msg);
         }
