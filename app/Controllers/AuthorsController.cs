@@ -2,6 +2,7 @@
 using app.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace app.Controllers
@@ -23,14 +24,16 @@ namespace app.Controllers
         {
             var story = await _context.Stories.FirstOrDefaultAsync(c => c.StoryId == storyId);
             var author = await _context.Users.Where(c => c.UserId == story.AuthorId)
-                .Include(c => c.Stories)
+                .Include(c => c.Stories).ThenInclude(c=>c.StoryInteraction)
                 .Select(c => new
                 {
                     AuthorId = c.UserId,
                     AuthorName = c.UserFullname,
                     AuthorImage = c.UserImage,
                     AuthorStories = c.Stories.Count,
-                    AuthorNewestStory = c.Stories.Where(c => c.AuthorId == story.AuthorId && c.StoryId != storyId).OrderByDescending(c => c.StoryId)
+                    Like = c.Stories.Select(c=>c.StoryInteraction.Like).Sum(),
+                    Read = c.Stories.Select(c=>c.StoryInteraction.Read).Sum(),
+                    AuthorNewestStory = c.Stories.Where(c => c.AuthorId == story.AuthorId).OrderByDescending(c => c.StoryId)
                     .Select(s => new { s.StoryId, s.StoryTitle, s.StoryImage, s.StoryDescription, s.CreateTime })
                     .FirstOrDefault()
                 })
