@@ -209,7 +209,8 @@ namespace app.Controllers
                         c.ChapterNumber,
                         c.ChapterTitle,
                         c.ChapterPrice,
-                        c.CreateTime
+                        c.CreateTime,
+                        c.Status
                     }).OrderBy(c => c.ChapterNumber).ToList()
                 }).OrderBy(v => v.volumeNumber)
                 .ToListAsync();
