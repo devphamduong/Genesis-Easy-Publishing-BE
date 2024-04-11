@@ -122,7 +122,7 @@ namespace app.Controllers
                     EM = "Chương này đã được review"
                 });
             }
-            // story status
+            // chapter status
             bool[] errorList = {
                     data.SpellingError,
                     data.LengthError,
@@ -151,9 +151,9 @@ namespace app.Controllers
             }
             if (hasError)
             {
-                story.Status = null;
+                chapter.Status = null;
             }
-            story.Status = 1;
+            chapter.Status = 1;
             // new review
             Review newReview = new Review()
             {
