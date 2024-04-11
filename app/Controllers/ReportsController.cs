@@ -77,7 +77,7 @@ namespace app.Controllers
                     CommentContent = r.Comment.CommentContent,
                     ReportContent1 = r.ReportContent1,
                     ReportDate = r.ReportDate,
-                    Status = (r.Status == null || r.Status == false) ? "Unsolved": "Solved"
+                    Status = (r.Status == null || r.Status == false) ? "Unsolved": "Resolved"
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Thể loại tố cáo", reports);
@@ -116,19 +116,31 @@ namespace app.Controllers
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             if (!ModelState.IsValid) return _msgService.MsgActionReturn(-1, "Thiếu điều kiện");
-            ReportContent report = new ReportContent()
+            try
             {
-                UserId = userId,
-                ReportTypeId = reportDTO.ReportTypeId,
-                StoryId = reportDTO.StoryId,
-                ChapterId = reportDTO.ChapterId,
-                CommentId = reportDTO.CommentId,
-                ReportContent1 = reportDTO.ReportContent,
-                ReportDate = DateTime.Now,
-                Status = false,
-            };
-            _context.ReportContents.Add(report);
-            await _context.SaveChangesAsync();
+                ReportContent report = new ReportContent()
+                {
+                    UserId = userId,
+                    ReportTypeId = reportDTO.ReportTypeId,
+                    StoryId = reportDTO.StoryId,
+                    ChapterId = reportDTO.ChapterId,
+                    CommentId = reportDTO.CommentId,
+                    ReportContent1 = reportDTO.ReportContent,
+                    ReportDate = DateTime.Now,
+                    Status = false,
+                };
+                _context.ReportContents.Add(report);
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+            
             return _msgService.MsgActionReturn(0, "Báo cáo thành công");
         }
 
@@ -136,6 +148,7 @@ namespace app.Controllers
         public async Task<ActionResult> SwitchStatus(int id)
         {
             var report = await _context.ReportContents.FirstOrDefaultAsync(r => r.ReportId == id);
+            string msg = "Resolved report successfully!";
             try
             {
                 if(report.Status == null || report.Status == false)
@@ -144,6 +157,7 @@ namespace app.Controllers
                 }
                 else
                 {
+                    msg = "Unsolved report successfully!";
                     report.Status = false;
                 }
                 _context.Entry(report).State = EntityState.Modified;
@@ -153,7 +167,11 @@ namespace app.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            return Ok(report);
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = msg
+            });
         }
     }
 }

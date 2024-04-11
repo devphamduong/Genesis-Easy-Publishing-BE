@@ -27,11 +27,11 @@ namespace app.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private string ErrorAuthenMessage = "Yều cầu đăng nhập";
         private string ErrorAuthorMessage = "Bạn đã có truyện(chương) này!";
-        private string NotEnoughMoney = "Bạn không đủ THL! Hãy nạp tiền";
+        private string NotEnoughMoney = "Bạn không đủ TLT! Hãy nạp tiền";
         private string BuyStory(string story) => $"Mua truyện {story}";
         private string BuyChapter(long chapter, string story) => $"Mua chương {chapter} của truyện {story}";
         private string BuyManyChapter(long chapter, string story) => $"Mua {chapter} chương của truyện {story}";
-        private string RecieveMoney(string story) => $"Nhận TLH từ truyện {story}";
+        private string RecieveMoney(string story) => $"Nhận TLT từ truyện {story}";
 
 
         public TransactionsController(EasyPublishingContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
@@ -83,7 +83,9 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
-            catch (Exception) { }
+            catch (Exception) {
+                
+            }
             return userId;
         }
 
@@ -115,7 +117,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -212,8 +214,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
-
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -288,7 +293,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -331,11 +340,17 @@ namespace app.Controllers
                          StoriesNavigation = u.StoriesNavigation
                      })
                      .FirstOrDefaultAsync();
+                if (user_wallet.Fund < Amount)
+                    return _msgService.MsgActionReturn(-2, NotEnoughMoney);
+
                 if (userId == story.AuthorId || user_story.StoriesNavigation.Contains(story))
                     return _msgService.MsgActionReturn(-3, ErrorAuthorMessage);
 
+
                 user_wallet.Fund = user_wallet.Fund - Amount;
                 author_wallet.Refund = author_wallet.Refund + Amount;
+
+
 
                 foreach (var chapter in chapter_buy)
                 {
@@ -388,7 +403,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -415,7 +434,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -457,7 +480,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, ErrorAuthenMessage);
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -509,7 +536,11 @@ namespace app.Controllers
             }
             catch (Exception)
             {
-                return _msgService.MsgActionReturn(-1, "Lỗi nạp tiền");
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 
@@ -551,7 +582,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -592,7 +623,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -632,7 +663,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -673,7 +704,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = ErrorAuthenMessage
+                    EM = "Hệ thống xảy ra lỗi!"
                 });
             }
         }
@@ -682,10 +713,10 @@ namespace app.Controllers
         public async Task<ActionResult> GetAdminTransactionHistory()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var transactions = await _context.Transactions
             .Include(c => c.Wallet).Where(c => c.Wallet.UserId == 1)
@@ -772,7 +803,11 @@ namespace app.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
             }
         }
 

@@ -245,9 +245,10 @@ namespace app.Controllers
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             var user_wallet = await _context.Wallets.Where(w => w.UserId == userId).FirstOrDefaultAsync();
-            if (refund.Amount > user_wallet.Refund) return _msgService.MsgActionReturn(-2, "Bạn không đủ số dư");
+            if (refund.Amount < (decimal)100) return _msgService.MsgActionReturn(-2, "Rút tối thiểu 100TLT!");
+            if (refund.Amount > user_wallet.Refund) return _msgService.MsgActionReturn(-2, "Bạn không đủ số dư!");
             var request_exist = await _context.RefundRequests.Where(w => w.WalletId == user_wallet.WalletId && w.Status == null).FirstOrDefaultAsync();
-            if (request_exist != null) return _msgService.MsgActionReturn(-2, "Yêu cầu trước đó của bạn vẫn đang xử lý");
+            if (request_exist != null) return _msgService.MsgActionReturn(-2, "Yêu cầu trước đó của bạn vẫn đang xử lý!");
 
             _context.Entry<Wallet>(user_wallet).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             RefundRequest request = new RefundRequest()
@@ -262,16 +263,16 @@ namespace app.Controllers
             };
             _context.RefundRequests.Add(request);
             await _context.SaveChangesAsync();
-            return _msgService.MsgActionReturn(0, "Yêu cầu rút tiền của bạn đã được gửi đi");
+            return _msgService.MsgActionReturn(0, "Yêu cầu rút tiền của bạn đã được gửi đi!");
         }
 
         [HttpGet("refunds")]
         public async Task<ActionResult> GetAllRefund()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var requests = await _context.RefundRequests.Where(c => c.Status == null)
            .Include(c => c.Wallet).ThenInclude(c => c.User)
@@ -294,9 +295,9 @@ namespace app.Controllers
         public async Task<ActionResult> ExportRefunds()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var requests = await _context.RefundRequests
                .Where(c => c.ResponseTime == null && c.Status == null)
@@ -326,9 +327,9 @@ namespace app.Controllers
         public async Task<ActionResult> ExportRefunds2()
         {
             int userId = GetUserId();
-            //if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-            //var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
-            //if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
             var requests = await _context.RefundRequests
                .Where(c => c.ResponseTime == null && c.Status == null)

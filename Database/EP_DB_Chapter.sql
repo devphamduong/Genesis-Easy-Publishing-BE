@@ -37,7 +37,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		Doãn Tư Thần cất điện thoại đi, mặc kệ cô gái này đã xảy ra chuyện gì, nhưng quả nhiên đêm qua không phải cô ta đến phục vụ hắn, món quà Dina tặng có lẽ cũng không phải cô ấy. 
 		Nhưng mặc kệ cô là ai, chuyện xảy ra hôm nay, nhất định không thể nói ra.Hắn tìm áo khoác, lấy ra chi phiếu, viết xong thì xé xuống, nhiều tiên như vậy, có lẽ đủ để bịt miệng chứ?
 		'),
-		(46, 3, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(46, 3, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'"Cốc cốc cốc.." lúc ngày bên ngoài truyền đến tiếng gõ cửa, "Chào Doãn tiên sinh, tôi là nhân viên phục vụ khách sạn, tôi mang bữa sáng cho ngài."Doãn Tư Thần nhíu mày, 
 		đặt chi phiếu lên giường rồi đi mở cửa.Bữa sáng vô cùng phong phú, Doãn Tư Thần nhìn cô gái trong góc nói: "Đến ăn trước đi đã."Kết quả, cô gái vẫn ngồi khóc.
 		Doãn Tư Thần cũng không nói nhiều, liền tự mình ăn, vừa ăn vừa nói: "Chuyện tối qua, tôi sẽ cho cô một lời giải thích, tôi cho cô năm trăm vạn, chuyện của chúng ta, cô không được tiết lộ 
@@ -53,7 +53,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		Có lẽ, cứ kết thúc như vậy cũng tốt.Cố Tư Tư vừa nghĩ đến việc phải rời xa Trạch Cương, trong lòng không khỏi đau đớn, run rẩy.Tất cả mọi chuyện, đều vì tối hôm qua.Tiểu Nhã, 
 		thật sự là cậu làm sao?Đầu dây bên kia tuyền đến giọng nói điện tử quen thuộc "Người bạn gọi hiện đã tắt máy", lúc này Cố Tư Tư phát hiện bản thân mình đã gọi cho Lâm Tiểu Nhã.
 		'),
-		(47, 4, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(47, 4, 23, 27, 5, N'CEO nhất định muốn cưới tôi',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'Nhưng tiếc là không ai trả lời.Cô bước trên đường, nhớ lại tất cả chuyện của mình và Triệu Trạch Cương.Từ lúc bắt đầu yêu nhau, cho đến sự khẩn trương vui sướng của ngày hôm qua, 
 		tất cả đều là ký ức tốt đẹp, giống như một thước phim tua ngược, từng cảnh từng cảnh đều sống động như thật, dần trở nên xa vời không thể với đến.Hôm qua bọn họ còn nói đùa về hôn lễ 
 		tương lai, hắn còn cam đoan với cô trong vòng hai năm, mỗi ngày sẽ đều gọi điện thoại, gửi wechat, để cô có thể được nghe giọng của hắn, nhìn thấy gương mặt của hắn.Nhưng tất cả những 
@@ -86,7 +86,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 		của cô và người đàn ông đó cùng nhau ân ái!Cô đem ảnh chụp ném thật xa! Đây là thứ gì! Sao lại có những bức ảnh này?!Hơn nữa...những bức ảnh này sao lại ở trong tay bà nội!
 		"Bà nội..." Cô mở miệng muốn giải thích, lại phát hiện mình lời nào cũng không thốt ra được, bởi vì tất cả trên ảnh đều là sự thật!Mẹ cô cố gắng giải thích: "Mẹ, mẹ...."
 		'),
-		(49, 6, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 1, 
+		(49, 6, 23, 28, 5, N'Bị Ép Chia Tay',CAST(N'2024-01-01T05:52:10.323' AS DateTime),null, 0, 
 		N'Lời của mẹ cô còn chưa nói xong, bà Cố nóng giận đập bàn quát to: "Ai cho cô lá gan, dám ngụy biện! Ảnh chụp người ta đã gửi đến tận cửa rồi, chẳng lẽ còn có thể hãm hại con gái của cô
 		sao? Lớn là gà không đẻ trứng, nhỏ thì không đứng đắn!"Bà Cố cầm chén trà ném mạnh vào trán mẹ Cố Tư Tư.Cố Tư Tư thấy bà nội lại muốn ném đồ, xoay người ôm lấy mẹ.
 		"Choang---" tách trà trực tiếp rơi xuống sau lưng Cố Tư Tư, vỡ nát.Cố Tư Tư chỉ cảm thấy phía sau vô cùng nóng và đau nhức, toàn bộ phía sau lưng đều trở nên nóng bỏng, 
@@ -160,7 +160,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			“Bản vương không phải là gia cầm, ngươi mới là gia cầm”
 			“Chẳng lẽ là đi địa Kê? Thả rông?”
 		'),
-		(52, 3, 24, 29, 7, N'Thượng cổ truyền thừa',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+		(52, 3, 24, 29, 7, N'Thượng cổ truyền thừa',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 		N'“Bản vương chính là Cửu Thiên Thập Địa, Đồ Thần diệt Thánh Huyết Nguyệt Vương”
 			Kê Nhi đạp nước cánh, hạt đậu Con mắt to cố gắng trợn to nhìn Tử Hàn, hết mình có thể làm ra một bộ hình tượng cao lớn vì chính mình tranh cãi đến.
 			“Ai!”
@@ -283,7 +283,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			Nhưng mà sau một khắc, Huyết Nguyệt ngừng chửi rủa, chết nhìn chòng chọc Tử Hàn bóng người, thiếu chút nữa liền xuống ba cũng kinh điệu, lúc này Tử Hàn lại đang Luyện bàn tay, phảng phất trước học qua một dạng tự học, sau một khắc trong tay trường kiếm, trường kiếm trong tay hoành vũ lên, trên không trung vạch qua một vệt độ cong
 			Chỉ lưu lại Huyết Nguyệt ở trong gió xốc xếch, nhìn Tử Hàn, Huyết Nguyệt đôi mắt trở nên thâm thúy đứng lên.
 			“Trời sinh thánh mạch, coi là thật bất phàm”'),
-			(55, 5, 24, 29, 7, N'Ác Nô Khi Chủ',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			(55, 5, 24, 29, 7, N'Ác Nô Khi Chủ',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 			N'Đêm đã khuya, Huyết Nguyệt ngáp một cái, nghiêng dựa vào bên cây nhìn phía xa Tử Hàn, trong tay múa kiếm chính Luyện phi thường cao hứng, trong lúc mơ hồ hội tụ ra một loại Kiếm Thế, trên mũi kiếm có từng luồng kiếm khí lưu chuyển, trường kiếm hiện ra sắc bén ý, Tử Hàn lúc này khí chất đại biến đã là có dần dần lộ phong mang cảm giác.</p>
 			<p>Làm Tử Hàn thu hồi trường kiếm, nhìn đến trường kiếm trong tay, càng xem càng là hoan hỉ, bàn tay nhẹ nhàng ma sát thân kiếm, ngẩng đầu nhìn liếc mắt sắc trời, hướng Tử gia trang viên đi tới.</p>
 			<p>“Ai, thiếu niên Lang, ngươi không đợi Bản vương?”</p>
@@ -357,7 +357,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			<p>Tử Hàn thủ đoạn ngay cả Huyết Nguyệt nhìn cũng có chút kinh ngạc, hắn cũng không nghĩ tới Tử Hàn lại có thể như thế cường thế, dù ai cũng không cách nào tưởng tượng Tử Hàn lúc trước cứu qua có nhiều khuất nhục, bây giờ mới sẽ hung hăng như vậy, chỉ có Tử Hàn mình mới rõ ràng, hắn trải qua cái gì.</p>
 			<p>“Hừ”</p>
 			<p>Tử Hàn nhẹ rên một tiếng, cầm kiếm hướng trong trang viên đi tới, Người giữ cửa nhìn nằm ở một bên Tử Lực, nhìn Tử Hàn biến mất ở trong màn đêm bóng lưng, lập tức liền lăn một vòng hướng đình viện sâu bên trong chạy đi.'),
-			(56, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			(56, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
 			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
 			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
@@ -419,7 +419,7 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			<p>Ngay tại cũng cho là Tử Hàn sẽ ảo não chạy trốn lúc, Tử Hàn khóe miệng vén lên một tia độ cong, khẽ cười nói “Ta Tử Hàn chính là chủ nhà thiếu gia, ngươi coi là cái gì chó má, coi như ngươi mạch gia chủ cũng không xứng nói với ta như vậy”</p>
 			<p>Hí!</p>
 			<p>Tử Hàn lời nói một nơi, mọi người đều là hít một hơi lãnh khí, có chút khiếp sợ nhìn Tử Hàn, nhưng mà lại lộ ra một vệt thương hại ánh mắt.'),
-			(57, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 1, 
+			(57, 5, 24, 29, 7, N'Tàng Thư Lâu trước',CAST(N'2024-01-20T05:52:10.323' AS DateTime),null, 0, 
 			N'"Thiếu niên, mới vừa học được tu luyện liền hung hăng như vậy? Bản vương thế nào cảm giác ngươi có loại trả thù trong lòng a”</p>
 			<p>Tử Hàn đứng ở trong gió, nhìn dưới đất có ba lượng trích (dạng) vết máu khô khốc, cười nói “Hôm nay chính là ở chỗ này, ta bị Tử Lạc làm nhục, bị một người đàn bà đáng thương, ngươi cũng thấy ngay cả cái nô tài đều không đem coi ra gì, dám cưỡi ở trên đầu ta”</p>
 			<p>Huyết Nguyệt bật xuống Tử Hàn đầu vai, nhẹ nhàng gõ đầu như có điều suy nghĩ nói “Xác thực, một cái nô tài cũng lớn lối như vậy, Bản vương cũng quả thực không nhìn nổi”</p>
