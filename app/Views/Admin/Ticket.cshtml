@@ -9,13 +9,13 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-           @*  <div class="card-header">
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
-                        <i class="fa fa-plus"></i>
-                        Add User
-                    </button>
-                </div>
+            @*  <div class="card-header">
+            <div class="d-flex align-items-center">
+            <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+            <i class="fa fa-plus"></i>
+            Add User
+            </button>
+            </div>
             </div> *@
             <div class="card-body">
                 <div class="table-responsive">
@@ -23,10 +23,11 @@
                         <thead>
                             <tr>
                                 <th>Ticket ID</th>
-                                <th>User ID</th>
                                 <th>Username</th>
+                                <th>Email</th>
                                 <th>Date</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,14 +82,48 @@
                 data: data.dt.tickets,
                 columns: [
                     { data: 'ticketId' },
-                    { data: 'user.userId' },
                     { data: 'user.username' },
+                    { data: 'user.email' },
                     { data: 'ticketDate' },
-                    { data: 'status' },
+                    {
+                        data: null,
+                        render(data) {
+                            if (data.status == true) {
+                                return `<a style="color: blue; cursor: pointer">Approved</a>`
+                            } else {
+                                return `<a style="color: red; cursor: pointer">Awaiting approval</a>`
+                            }
+                        }
+                    },
+                    {
+                        data: null,
+                        render(data) {
+                            return `<a style="color: blue; cursor: pointer" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-inbox"></i></a>`
+                        }
+                    }
                 ]
             })
         }).fail(error => {
             console.error('Error fetching data:', error);
+        });
+    }
+
+    async function approve(userId, ticketId) {
+        $.ajax({
+            url: 'http://localhost:5188/api/v1/Tickets/approve',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify({
+                ticketId: ticketId,
+                userId: userId
+            }),
+            success: function (data, textStatus, xhr) {
+                console.log(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
         });
     }
 
