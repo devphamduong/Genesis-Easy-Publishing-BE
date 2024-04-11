@@ -91,7 +91,7 @@
                         data: null,
                         render(data) {
                             return `<a style="cursor: pointer" class="text-primary" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-inbox"></i></a>
-                                        <a style="cursor: pointer" class="text-primary ml-2" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
+                                            <a style="cursor: pointer" class="text-primary ml-2" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
                         }
                     }
                 ]
@@ -113,7 +113,6 @@
             })
         }).done(data => {
             var title = data.em;
-
             $.notify({
                 title: title,
                 icon: 'fa fa-bell'
@@ -130,7 +129,9 @@
                     '<span data-notify="title">{1}</span> ' +
                     '</div>'
             });
-            loadData();
+            if (data.ec == 0) {
+                loadData();
+            }
         }).fail(error => {
             console.error('Error :', error);
         });
