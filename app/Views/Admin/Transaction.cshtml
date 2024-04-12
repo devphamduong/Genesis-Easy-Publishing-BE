@@ -81,15 +81,15 @@
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>TransactionNum</th>
-                                                <th>Amount</th>
-                                                <th>TransactionTime</th>
-                                                <th>Description</th>
-                                            </tr>
-                                        </thead>`);
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <th>TransactionNum</th>
+                                                                                <th>Amount</th>
+                                                                                <th>TransactionTime</th>
+                                                                                <th>Description</th>
+                                                                            </tr>
+                                                                        </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -144,25 +144,27 @@
                 "Content-Type": "application/json",
             },
             success: (data) => {
-                $('#form').empty().append(`<button id="exportRefund" onClick="exportData()" class="btn btn-primary">Export</button>
-                                                           <button style="padding-lef:3px" id="approveRefund" onClick="approve()" class="btn btn-primary">Approve</button>
-                            `);
+                $('#form').empty().append(`<p>
+                                                                            <button id="exportRefund" onClick="exportData()" class="btn btn-primary">Export</button>
+                                                                            <button id="approveRefund" onClick="approve()" class="btn btn-success">Approve</button>
+                                                                            </p>
+                                                            `);
 
                 if ($.fn.DataTable.isDataTable('#basic-datatables')) {
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                                <thead>
-                                                    <tr>
-                                                        <th>RequestNum</th>
-                                                        <th>UserRequest</th>
-                                                        <th>Bank</th>
-                                                        <th>BankNum</th>
-                                                        <th>Amount</th>
-                                                        <th>TransactionTime</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </thead>`);
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>RequestNum</th>
+                                                                                        <th>UserRequest</th>
+                                                                                        <th>Bank</th>
+                                                                                        <th>BankNum</th>
+                                                                                        <th>Amount</th>
+                                                                                        <th>TransactionTime</th>
+                                                                                        <th>Status</th>
+                                                                                    </tr>
+                                                                                </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -194,7 +196,6 @@
         });
     }
 
-
     // $('#exportBtn').click(function () {
     //     var fromDate = $('#fromDate').val();
     //     var toDate = $('#toDate').val();
@@ -206,6 +207,26 @@
     // }
 
     var check
+
+    var notify = (type, title) => {
+        $.notify({
+            title: title,
+            icon: 'fa fa-bell'
+        }, {
+            type: type,
+            placement: {
+                from: "bottom",
+                align: "right"
+            },
+            delay: 3000,
+            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                '<span data-notify="icon"></span> ' +
+                '<span data-notify="title">{1}</span> ' +
+                '</div>'
+        });
+    }
+
     var exportData = () => {
         $.ajax({
             url: `http://localhost:5188/api/v1/tickets/refund_export`,
@@ -213,7 +234,12 @@
             headers: {
                 "Content-Type": "application/json",
             },
-            success: (data) => { check = data; exportExcel(data.dt); loadRefund() },
+            success: (data) => {
+                if (data.ec == 0) {
+                    notify('success', data.em)
+                    exportExcel(data.dt); loadRefund()
+                } else notify('danger', data.em);
+            },
             error: () => console.error('Error fetching data:', error),
         });
     }
@@ -226,8 +252,11 @@
                 "Content-Type": "application/json",
             },
             success: (data) => {
-                $('#request').removeClass('active');
-                loadTransaction()
+                if (data.ec == 0) {
+                    $('#request').removeClass('active');
+                    notify('success', data.em)
+                    loadTransaction();
+                } else notify('danger', data.em);
             },
             error: () => console.error('Error fetching data:', error),
         });

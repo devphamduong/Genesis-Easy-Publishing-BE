@@ -247,7 +247,7 @@ namespace app.Controllers
                     EM = "Hệ thống xảy ra lỗi!"
                 });
             }
-            
+
             return new JsonResult(new
             {
                 EC = 0,
@@ -333,6 +333,10 @@ namespace app.Controllers
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
             var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
             if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
+
+            var request_exist = await _context.RefundRequests.Where(c => c.ResponseTime != null && c.Status == null).ToListAsync();
+            if (request_exist.Count() != 0) return _msgService.MsgActionReturn(-2, "Xử lý các yêu cầu đang dở");
+
 
             var requests = await _context.RefundRequests
                .Where(c => c.ResponseTime == null && c.Status == null)
