@@ -453,6 +453,31 @@ namespace app.Controllers
             });
         }
 
+        [HttpGet("getAuthorAndStoryNumber")]
+        public async Task<ActionResult> getAuthorAndStoryNumber()
+        {
+            try
+            {
+                var authorNumber = await _context.Stories.Select(s => s.AuthorId).Distinct().CountAsync();
+                var storyNumber = await _context.Stories.CountAsync();
+                return new JsonResult(new
+                {
+                    EC = 0,
+                    EM = "Số truyện và tác giá",
+                    DT = new { authorNumber = authorNumber , storyNumber = storyNumber }
+                });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+
+        }
+
         [HttpPut("delete_story")]
         public async Task<ActionResult> DeleteStory(int storyId)
         {
