@@ -679,7 +679,7 @@ INSERT [dbo].[User]([user_id],[user_fullname]  ,[gender] ,[dob] ,[email] ,[phone
 		,(98, N'Katya Corbyn', 0, CAST(N'1969-12-31' AS Date), N'Bookie_User96@qa.team', N'7693285889', N'D506R', N'user_no96', N'5M5g7rO37L', null, 1, null, null, 2)
 		,(99, N'Rahab Octo', 0, CAST(N'1989-05-01' AS Date), N'Bookie_User97@qa.team', N'5723628843', N'A079L', N'user_no97', N'38622s3j03', null, 1, null, null, 2)
 		,(100, N'Hansel May', 1, CAST(N'2003-06-22' AS Date), N'Bookie_User98@qa.team', N'0343057780', N'E443R', N'user_no98', N'1oST7ll09m', null, 1, null, null, 2)
-
+		,(101, null, 1, null, N'huynqhe163812@fpt.edu.vn', null, null, N'HuyNQ123', N'miPC1NoqPjvEnDUw2QkIMA==;xjY9eYmNxPWBr/o//7uH9ySCzYezaXviqxnnICvq5XI=', null, 1, null, null, 2)
 SET IDENTITY_INSERT [dbo].[User] OFF
 GO
 
@@ -698,6 +698,7 @@ INSERT [dbo].[Wallet]([wallet_id] ,[user_id]  ,[fund] ,[refund])
 		,(8, 8, CAST(22999 AS Decimal(10, 2)), CAST(1123 AS Decimal(10, 2)))
 		,(9, 9, CAST(22999 AS Decimal(10, 2)), CAST(42255 AS Decimal(10, 2)))
 		,(10, 10, CAST(22999 AS Decimal(10, 2)), CAST(1146 AS Decimal(10, 2)))
+		,(101, 101, CAST(100 AS Decimal(10, 2)), CAST(0 AS Decimal(10, 2)))
 
 	DECLARE @Counter INT = 11; -- Start with the next number after the existing data
 
@@ -3026,7 +3027,10 @@ INSERT INTO [dbo].[Transaction]([transaction_id],[wallet_id],[story_id],[chapter
 		(23,12,1,NULL,5.00,127.00,122.00,0.00,0.00,CAST(N'2024-08-20 20:30:22.103' AS DateTime),1,N'Mua 2 chương của truyện Gone Girl '),
 		(24,2,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-02-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
 		(25,9,1,NULL,0.00,127.00,127.00,0.00,0.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Mua 1 chương của truyện Gone Girl '),
-		(26,2,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl ')
+		(26,2,1,NULL,0.00,0.00,0.00,75.00,75.00,CAST(N'2024-01-20 20:30:22.103' AS DateTime),1,N'Nhận TLH từ truyện Gone Girl '),
+		(145,101,NULL,NULL,100.00,0.00,100.00,75.00,75.00,CAST(N'2024-04-12 13:48:18.627' AS DateTime),1,N'Nạp 100.000 VND'),
+		(146,1,NULL,NULL,100.00,0.00,0.00,97383.00,97483.00,CAST(N'2024-04-12 13:48:18.637' AS DateTime),1,N'Nạp 100.000 VND vào hệ thống')
+
 DECLARE @transaction_id INT = 27; -- Start comment_id from 1
 DECLARE @wallet_id INT = 2; -- Start user_id from 1
 DECLARE @transaction_time datetime = CAST(N'2024-01-20 20:30:22.103' AS DateTime);
