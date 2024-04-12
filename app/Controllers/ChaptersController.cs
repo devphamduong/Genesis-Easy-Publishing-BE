@@ -508,7 +508,7 @@ namespace app.Controllers
                     EC = -1,
                     EM = "Chương không tồn tại"
                 });
-            if (chapter.Owned == true)
+            if (chapter.Owned == true && userId != 0)
             {
                 var story_interaction = await _context.StoryInteractions.FirstOrDefaultAsync(c => c.StoryId == storyid);
                 story_interaction.Read += 1;
