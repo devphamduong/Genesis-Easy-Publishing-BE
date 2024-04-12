@@ -70,7 +70,7 @@ namespace app.Controllers
                     StoryId = c.StoryId,
                     StoryTitle = c.StoryTitle,
                     StoryImage = c.StoryImage,
-                    StoryDescription = c.StoryDescriptionHtml.Substring(0,90)+"...",
+                    StoryDescription = c.StoryDescriptionHtml.Substring(0, 90) + "...",
                     StoryPrice = c.StoryPrice,
                     StorySale = c.StorySale,
                     CreateTime = c.CreateTime,
@@ -181,17 +181,31 @@ namespace app.Controllers
         }
 
 
-        [HttpGet("GetDataForChart")]
-        public async Task<ActionResult> GetDataForChart(int storyId)
+        [HttpGet("prints")]
+        public async Task<ActionResult> CreatePrint(int storyId)
         {
             var data = await _context.Stories.Where(s => s.StoryId == storyId)
-                    .Include(s => s.StoryInteraction)
-                    .Select(s => new
+                    .Include(c => c.Volumes).ThenInclude(c => c.Chapters)
+                    .Select(c => new
                     {
-                        StoryId = s.StoryId,
-                        StoryTitle = s.StoryTitle,
-                        Like = s.StoryInteraction.Like,
-                        Follow = s.StoryInteraction.Follow,
+                        StoryTitle = c.StoryTitle,
+                        StoryImage = c.StoryImage,
+                        StoryDescription = c.StoryDescription,
+                        StoryDescriptionHtml = c.StoryDescriptionHtml,
+                        StoryDescriptionMarkdown = c.StoryDescriptionMarkdown,
+                        StoryPrice = c.StoryPrice,
+                        StoryVolumes = c.Volumes.Select(s => new
+                        {
+                            VolumeNumber = s.VolumeNumber,
+                            VolumeTitle = s.VolumeTitle,
+                            VolumeChapters = s.Chapters.Select(se => new
+                            {
+                                se.ChapterNumber,
+                                se.ChapterTitle,
+                                se.ChapterContentMarkdown,
+                                se.ChapterContentHtml
+                            })
+                        }).ToList(),
                     }).FirstOrDefaultAsync();
             return _msgService.MsgReturn(0, "List Story", data);
         }
@@ -406,7 +420,7 @@ namespace app.Controllers
                     currentStory.Status = story.Status;
                     currentStory.StoryPrice = story.StoryPrice;
                     currentStory.StorySale = story.StorySale;
-                    if(story.StoryImage != null)
+                    if (story.StoryImage != null)
                     {
                         currentStory.StoryImage = story.StoryImage;
                     }
@@ -464,7 +478,7 @@ namespace app.Controllers
                 {
                     EC = 0,
                     EM = "Số truyện và tác giá",
-                    DT = new { authorNumber = authorNumber , storyNumber = storyNumber }
+                    DT = new { authorNumber = authorNumber, storyNumber = storyNumber }
                 });
             }
             catch (Exception)
@@ -530,7 +544,8 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 int userId = int.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
                 var story = _context.Stories.Include(s => s.Categories).FirstOrDefault(s => s.StoryId == data.storyId && s.AuthorId == userId);
-                if (story == null) {
+                if (story == null)
+                {
                     return new JsonResult(new
                     {
                         EC = 1,
