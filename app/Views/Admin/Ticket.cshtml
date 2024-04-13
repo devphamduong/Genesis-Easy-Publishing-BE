@@ -110,8 +110,8 @@
                         data: null,
                         render(data) {
                             return `<a style="cursor: pointer" class="text-primary" onclick="checkOpenInviteModal(${data.ticketId}, ${data.status}, ${data.seen})"><i class="far fa-envelope"></i></a>
-                                                                                                                            <a style="cursor: pointer" class="text-success ml-1" onclick="approve(${data.ticketId})"><i class="fas fa-ban"></i></a>
-                                                                                                                            <a style="cursor: pointer" class="text-danger ml-1" onclick="deny(${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
+                                                                                                                                <a style="cursor: pointer" class="text-success ml-1" onclick="approve(${data.ticketId})"><i class="fas fa-check-circle"></i></a>
+                                                                                                                                <a style="cursor: pointer" class="text-danger ml-1" onclick="deny(${data.ticketId})"><i class="fas fa-ban"></i></a>`
                         }
                     }
                 ]
