@@ -29,34 +29,49 @@
             </div>
         </div>
     </div>
-
-    <div class="modal" tabindex="-1" role="dialog" id="myModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">User Detail</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="userInfo">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="inviteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Invite interview</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inviteForm" class="px-3">
+                    <input type="hidden" id="ticketId" value="">
+                    <div class="form-group form-floating-label">
+                        <select class="form-control input-border-bottom" id="selectLocation" onchange="onLocationChange()">
+                            <option value="FPT University Hoa Lac">FPT University Hoa Lac</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label for="selectLocation" class="placeholder">Select location</label>
+                    </div>
+                    <div class="form-group form-floating-label" id="inputLocationWrap" style="display:none">
+                        <input id="inputLocation" type="text" class="form-control input-border-bottom">
+                        <label for="inputLocation" class="placeholder">Enter other location</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTime" class="placeholder">Select time</label>
+                        <input type="datetime-local" id="inputTime" style="font-size: 85%" class="form-control input-border-bottom" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" form="#inviteForm" onclick="sendInvite()">Send invite</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="modalStatus">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" id="userStatus">
-            </div>
+<div class="modal" tabindex="-1" role="dialog" id="confirmModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="confirm-content">
         </div>
     </div>
-
-
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -71,7 +86,7 @@
         }).done(data => {
             $('#datatables').DataTable({
                 data: data.dt.tickets,
-                columnDefs: [{ width: '10%', targets: 0 }, { width: '20%', targets: 1 }],
+                columnDefs: [{ width: '10%', targets: 0 }, { width: '17%', targets: 1 }],
                 columns: [
                     { data: 'ticketId' },
                     { data: 'user.username' },
@@ -94,9 +109,9 @@
                     {
                         data: null,
                         render(data) {
-                            return `<a style="cursor: pointer" class="text-primary" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="far fa-envelope"></i></a>
-                                            <a style="cursor: pointer" class="text-success ml-1" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-ban"></i></a>
-                                            <a style="cursor: pointer" class="text-danger ml-1" onclick="deny(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
+                            return `<a style="cursor: pointer" class="text-primary" onclick="checkOpenInviteModal(${data.ticketId}, ${data.status}, ${data.seen})"><i class="far fa-envelope"></i></a>
+                                                                                                                            <a style="cursor: pointer" class="text-success ml-1" onclick="approve(${data.ticketId})"><i class="fas fa-ban"></i></a>
+                                                                                                                            <a style="cursor: pointer" class="text-danger ml-1" onclick="deny(${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
                         }
                     }
                 ]
@@ -106,7 +121,7 @@
         });
     }
 
-    async function approve(userId, ticketId) {
+    async function approve(ticketId) {
         $.ajax({
             url: 'http://localhost:5188/api/v1/Tickets/approve',
             type: 'POST',
@@ -117,22 +132,7 @@
             })
         }).done(data => {
             var title = data.em;
-            $.notify({
-                title: title,
-                icon: 'fa fa-bell'
-            }, {
-                type: data.ec == 0 ? 'success' : 'danger',
-                placement: {
-                    from: "bottom",
-                    align: "right"
-                },
-                delay: 3000,
-                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
-                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                    '<span data-notify="icon"></span> ' +
-                    '<span data-notify="title">{1}</span> ' +
-                    '</div>'
-            });
+            notify(title, data.ec == 0 ? 'success' : 'danger')
             if (data.ec == 0) {
                 loadData();
             }
@@ -141,7 +141,7 @@
         });
     }
 
-    async function deny(userId, ticketId) {
+    async function deny(ticketId) {
         $.ajax({
             url: 'http://localhost:5188/api/v1/Tickets/deny',
             type: 'POST',
@@ -152,22 +152,7 @@
             })
         }).done(data => {
             var title = data.em;
-            $.notify({
-                title: title,
-                icon: 'fa fa-bell'
-            }, {
-                type: data.ec == 0 ? 'success' : 'danger',
-                placement: {
-                    from: "bottom",
-                    align: "right"
-                },
-                delay: 3000,
-                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
-                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                    '<span data-notify="icon"></span> ' +
-                    '<span data-notify="title">{1}</span> ' +
-                    '</div>'
-            });
+            notify(title, data.ec == 0 ? 'success' : 'danger');
             if (data.ec == 0) {
                 loadData();
             }
@@ -176,4 +161,87 @@
         });
     }
 
+    async function checkOpenInviteModal(id, status, seen) {
+        if (status) {
+            notify('This request has been approved', 'danger');
+        }
+        else if (status == null) {
+            notify('This request has been denied', 'danger');
+        }
+        else if (!status && seen) {
+            $('#confirm-content').html(`<div class="modal-header">
+                                                                                            <h4 class="modal-title">There is already an interview invitation email for this user, would you like to send a new email?</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+
+                                                                            <div class="modal-footer">
+                                                                                        <button type="button" onclick="openInviteModal('${id}')" class="btn btn-primary">Yes</button>
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                            </div>
+                                                                                `);
+            $("#confirmModal").modal();
+        } else {
+            openInviteModal(id);
+        }
+    }
+
+    function openInviteModal(id) {
+        $("#confirmModal").modal('hide');
+        $('#inviteForm')[0].reset();
+        $('#ticketId').val(id);
+        $('#inviteModal').modal()
+    }
+
+    function notify(msg, type) {
+        $.notify({
+            title: msg,
+            icon: 'fa fa-bell'
+        }, {
+            type: type,
+            placement: {
+                from: "bottom",
+                align: "right"
+            },
+            delay: 3000,
+            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                '<span data-notify="icon"></span> ' +
+                '<span data-notify="title">{1}</span> ' +
+                '</div>'
+        });
+    }
+
+    function onLocationChange() {
+        if ($('#selectLocation').val() == 'Other') {
+            $('#inputLocationWrap').show();
+        } else {
+            $('#inputLocationWrap').hide();
+        }
+    }
+
+    async function sendInvite() {
+        let param = {
+            ticketId: $('#ticketId').val(),
+            location: $('#selectLocation').val() == 'Other' ? $('#inputLocation').val() : $('#selectLocation').val(),
+            time: $('#inputTime').val()
+        }
+        $.ajax({
+            url: 'http://localhost:5188/api/v1/Tickets/invite_interview',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(param)
+        }).done(data => {
+            var title = data.em;
+            notify(title, data.ec == 0 ? 'success' : 'danger')
+            if (data.ec == 0) {
+                $('#inviteModal').modal('hide');
+                loadData();
+            }
+        }).fail(error => {
+            console.error('Error :', error);
+        });
+    }
 </script>

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.NetworkInformation;
 
 namespace app.Controllers
 {
@@ -27,7 +28,12 @@ namespace app.Controllers
         {
             public int TicketId { get; set; }
         }
-
+        public class InviteForm
+        {
+            public int TicketId { get; set; }
+            public string Location { get; set; }
+            public string Time { get; set; }
+        }
         private JwtSecurityToken VerifyToken()
         {
             var tokenCookie = Request.Cookies["access_token"];
@@ -176,6 +182,71 @@ namespace app.Controllers
             });
         }
 
+        [HttpPost("invite_interview")]
+        public async Task<ActionResult> ApproveRequest([FromBody] InviteForm data)
+        {
+
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Login required"
+                });
+            };
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId != 1)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Not an administrator"
+                });
+            }
+            if (string.IsNullOrEmpty(data.Location) || string.IsNullOrEmpty(data.Time))
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Please fill all fields"
+                });
+            }
+            DateTime dt = DateTime.Parse(data.Time);
+            var date = dt.ToString("dd/MM/yyyy");
+            var time = dt.ToString("hh:mm tt");
+            var ticket = _context.Tickets.Where(t => t.TicketId == data.TicketId).FirstOrDefault();
+            var ticketUser = _context.Users.Where(u => u.UserId == ticket.UserId).FirstOrDefault();
+            try
+            {
+                mailService.Send(ticketUser.Email,
+                        "Easy Publishing: Thư mời phỏng vấn",
+                        "<p>Xin chào <b>" + ticketUser.Username + ",</b></p>" +
+                        "<p>Chúng tôi đã nhận được yêu cầu trở thành reviewer của bạn.</p>" +
+                        "<p>Chúng tôi trân trọng kính mời bạn đến tham gia buổi phỏng vấn của công ty chúng tôi tại:</p>" +
+                        "<ul><li>Thời gian: " + time + ", " + date + "</li>" +
+                        "<li>Địa điểm: " + data.Location + "</li></ul>" +
+                        "<p>Để buổi phỏng vấn được diễn ra thuận lợi, bạn vui lòng phản hồi lại email này trong 24h kể từ khi nhận được.</p>" +
+                        "<p>Chúc bạn sẽ có một buổi phỏng vấn thành công.</p>");
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Error: " + ex.Message
+                });
+            }
+            ticket.Seen = true;
+            _context.SaveChanges();
+
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Send interview invitations successfully"
+            });
+        }
+
         [HttpPost("approve")]
         public async Task<ActionResult> ApproveRequest([FromBody] TicketForm data)
         {
@@ -186,7 +257,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Yêu cầu đăng nhập"
+                    EM = "Login required"
                 });
             };
             var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
@@ -195,7 +266,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "Không có quyền quản trị viên"
+                    EM = "Not an administrator"
                 });
             }
             var ticket = _context.Tickets.Where(t => t.TicketId == data.TicketId).FirstOrDefault();
@@ -204,7 +275,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "Yêu cầu đã được phê duyệt rồi"
+                    EM = "This request has been approved"
                 });
             }
             try
@@ -216,7 +287,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = 3,
-                        EM = "Người dùng hiện đã là reviewer"
+                        EM = "This user is already a reviewer"
                     });
                 }
                 ticketUser.RoleId = 3;
@@ -224,7 +295,7 @@ namespace app.Controllers
                 {
                     mailService.Send(ticketUser.Email,
                             "Easy Publishing: Yêu cầu trở thành reviewer đã được phê duyệt",
-                            "<b>Chúc mừng " + ticketUser.Username + ",</b>" +
+                            "<p>Chúc mừng <b>" + ticketUser.Username + ",</b></p>" +
                             "<p>Bạn đã được phê duyệt trở thành reviewer.</p>");
                 }
                 catch (Exception ex)
@@ -242,14 +313,14 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Hệ thống xảy ra lỗi!"
+                    EM = "Server error!"
                 });
             }
 
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Phê duyệt yêu cầu trờ thành reviewer thành công"
+                EM = "Approved reviewer request successfully"
             });
         }
 
@@ -263,7 +334,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Yêu cầu đăng nhập"
+                    EM = "Login required"
                 });
             };
             var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
@@ -272,7 +343,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 1,
-                    EM = "Không có quyền quản trị viên"
+                    EM = "Not an administrator"
                 });
             }
             var ticket = _context.Tickets.Where(t => t.TicketId == data.TicketId).FirstOrDefault();
@@ -281,7 +352,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "Yêu cầu này đã được phê duyệt rồi"
+                    EM = "This request has been approved"
                 });
             }
             try
@@ -293,7 +364,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = 3,
-                        EM = "Người dùng hiện đã là reviewer"
+                        EM = "This user is already a reviewer"
                     });
                 }
                 ticketUser.RoleId = 3;
@@ -301,7 +372,7 @@ namespace app.Controllers
                 {
                     mailService.Send(ticketUser.Email,
                             "Easy Publishing: Yêu cầu trở thành reviewer bị từ chối",
-                            "<b>Xin chào " + ticketUser.Username + ",</b>" +
+                            "<p>Xin chào <b>" + ticketUser.Username + ",</b></p>" +
                             "<p>Yêu cầu trở thành reviewer của bạn đã bị từ chối.</p>");
                 }
                 catch (Exception ex)
@@ -319,14 +390,14 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = -1,
-                    EM = "Hệ thống xảy ra lỗi!"
+                    EM = "Server error!"
                 });
             }
 
             return new JsonResult(new
             {
                 EC = 0,
-                EM = "Từ chối yêu cầu trờ thành reviewer thành công"
+                EM = "Deny reviewer request successfully"
             });
         }
 
