@@ -67,8 +67,9 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        $('#nav-menu li').removeClass("active");
+        $('#nav-report').addClass("active");
         loadData();
-
     });
 
     async function loadData() {

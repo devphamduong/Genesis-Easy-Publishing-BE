@@ -101,7 +101,8 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        
+        $('#nav-menu li').removeClass("active");
+        $('#nav-category').addClass("active");
         loadData();
         const addCategoryName = document.getElementById('addCategoryName');
         const addCategoryDescription = document.getElementById('addCategoryDescription');

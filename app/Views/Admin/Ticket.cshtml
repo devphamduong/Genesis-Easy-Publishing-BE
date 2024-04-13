@@ -75,6 +75,8 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
+        $('#nav-menu li').removeClass("active");
+        $('#nav-ticket').addClass("active");
         loadData();
     });
 
@@ -110,8 +112,8 @@
                         data: null,
                         render(data) {
                             return `<a style="cursor: pointer" class="text-primary" onclick="checkOpenInviteModal(${data.ticketId}, ${data.status}, ${data.seen})"><i class="far fa-envelope"></i></a>
-                                                                                                                                <a style="cursor: pointer" class="text-success ml-1" onclick="approve(${data.ticketId})"><i class="fas fa-check-circle"></i></a>
-                                                                                                                                <a style="cursor: pointer" class="text-danger ml-1" onclick="deny(${data.ticketId})"><i class="fas fa-ban"></i></a>`
+                                                                                                                                    <a style="cursor: pointer" class="text-success ml-1" onclick="approve(${data.ticketId})"><i class="fas fa-check-circle"></i></a>
+                                                                                                                                    <a style="cursor: pointer" class="text-danger ml-1" onclick="deny(${data.ticketId})"><i class="fas fa-ban"></i></a>`
                         }
                     }
                 ]
@@ -170,17 +172,17 @@
         }
         else if (!status && seen) {
             $('#confirm-content').html(`<div class="modal-header">
-                                                                                            <h4 class="modal-title">There is already an interview invitation email for this user, would you like to send a new email?</h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
+                                                                                                <h4 class="modal-title">There is already an interview invitation email for this user, would you like to send a new email?</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
 
-                                                                            <div class="modal-footer">
-                                                                                        <button type="button" onclick="openInviteModal('${id}')" class="btn btn-primary">Yes</button>
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                                            </div>
-                                                                                `);
+                                                                                <div class="modal-footer">
+                                                                                            <button type="button" onclick="openInviteModal('${id}')" class="btn btn-primary">Yes</button>
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                                </div>
+                                                                                    `);
             $("#confirmModal").modal();
         } else {
             openInviteModal(id);

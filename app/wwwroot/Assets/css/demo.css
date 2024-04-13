@@ -353,3 +353,25 @@ body[data-background-color="dark"] .demo-icon .icon-class {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    background: #eee;
+    z-index: 999;
+    opacity: 50%;
+    display: none;
+}
+
+.my-loader {
+    display: block;
+    position: absolute;
+    left: 56%;
+    top: 40%;
+    width: 40px;
+    height: 40px;
+}

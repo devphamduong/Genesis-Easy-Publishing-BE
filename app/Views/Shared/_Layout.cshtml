@@ -107,67 +107,58 @@
 
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
             <div class="sidebar-content">
-                <ul class="nav nav-primary">
-                    <li class="nav-item">
+                <ul class="nav nav-primary" id="nav-menu">
+                    <li class="nav-item" id="nav-dashboard">
                         <a asp-controller="Admin" asp-action="Dashboard">
                             <i class="fas fa-home"></i>
                             <p>Dashboard</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
                     <li class="nav-section">
                         <span class="sidebar-mini-icon">
                             <i class="fa fa-ellipsis-h"></i>
                         </span>
-                        <h4 class="text-section">Management</h4>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="nav-user">
                         <a asp-controller="Admin" asp-action="User">
                             <i class="fas fa-user"></i>
                             <p>User</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="nav-category">
                         <a asp-controller="Admin" asp-action="Category">
                             <i class="fas fa-th-list"></i>
                             <p>Genre</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="nav-story">
                         <a asp-controller="Admin" asp-action="Story">
                             <i class="fas fa-book"></i>
                             <p>Story</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="nav-report">
                         <a asp-controller="Admin" asp-action="Report">
                             <i class="fas fa-flag"></i>
                             <p>Report</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="nav-transaction">
                         <a asp-controller="Admin" asp-action="Transaction">
                             <i class="fas fa-money-check"></i>
                             <p>Transaction</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="nav-ticket">
                         <a asp-controller="Admin" asp-action="Ticket">
                             <i class="fas fa-ticket-alt"></i>
                             <p>Ticket</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="nav-review">
                         <a asp-controller="Admin" asp-action="Review">
                             <i class="fas fa-chalkboard-teacher"></i>
                             <p>Review</p>
-                            <span class="badge badge-success"></span>
                         </a>
                     </li>
                 </ul>
@@ -177,6 +168,9 @@
     <div class="main-panel">
         <div class="content" id="content">
             <div class="page-inner">
+                <div class="text-center loader-container">
+                    <div class="loader loader-lg my-loader"></div>
+                </div>
                     @RenderBody()
             </div>
         </div>
@@ -184,11 +178,6 @@
             <div class="container-fluid">
                 <nav class="pull-left">
                     <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://www.themekita.com">
-                                ThemeKita
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 Help
@@ -207,79 +196,7 @@
             </div>
         </footer>
     </div>
-
-    <!-- Custom template | don't include it in your project! -->
-    <div class="custom-template">
-        <div class="title">Settings</div>
-        <div class="custom-content">
-            <div class="switcher">
-                <div class="switch-block">
-                    <h4>Logo Header</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
-                        <button type="button" class="selected changeLogoHeaderColor" data-color="blue"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="green"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
-                        <br />
-                        <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
-                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
-                    </div>
-                </div>
-                <div class="switch-block">
-                    <h4>Navbar Header</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="changeTopBarColor" data-color="dark"></button>
-                        <button type="button" class="changeTopBarColor" data-color="blue"></button>
-                        <button type="button" class="changeTopBarColor" data-color="purple"></button>
-                        <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
-                        <button type="button" class="changeTopBarColor" data-color="green"></button>
-                        <button type="button" class="changeTopBarColor" data-color="orange"></button>
-                        <button type="button" class="changeTopBarColor" data-color="red"></button>
-                        <button type="button" class="changeTopBarColor" data-color="white"></button>
-                        <br />
-                        <button type="button" class="changeTopBarColor" data-color="dark2"></button>
-                        <button type="button" class="selected changeTopBarColor" data-color="blue2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="purple2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="green2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="orange2"></button>
-                        <button type="button" class="changeTopBarColor" data-color="red2"></button>
-                    </div>
-                </div>
-                <div class="switch-block">
-                    <h4>Sidebar</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="selected changeSideBarColor" data-color="white"></button>
-                        <button type="button" class="changeSideBarColor" data-color="dark"></button>
-                        <button type="button" class="changeSideBarColor" data-color="dark2"></button>
-                    </div>
-                </div>
-                <div class="switch-block">
-                    <h4>Background</h4>
-                    <div class="btnSwitch">
-                        <button type="button" class="changeBackgroundColor" data-color="bg2"></button>
-                        <button type="button" class="changeBackgroundColor selected" data-color="bg1"></button>
-                        <button type="button" class="changeBackgroundColor" data-color="bg3"></button>
-                        <button type="button" class="changeBackgroundColor" data-color="dark"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="custom-toggle">
-            <i class="flaticon-settings"></i>
-        </div>
-    </div>
-    <!-- End Custom template -->
-    </div>
+    
 
     <!--   Core JS Files   -->
     <script src="~/Assets/js/core/jquery.3.2.1.min.js"></script>

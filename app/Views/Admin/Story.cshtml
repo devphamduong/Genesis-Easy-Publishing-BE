@@ -61,11 +61,14 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-
+        $('#nav-menu li').removeClass("active");
+        $('#nav-story').addClass("active");
         //async function loadData() {
+        $('.loader-container').show();
         fetch('http://localhost:5188/api/v1/story/get_all_stories')
             .then(response => response.json())
             .then(data => {
+                $('.loader-container').hide();
                 $('#basic-datatables').DataTable({
                     data: data.dt,
                     columns: [
