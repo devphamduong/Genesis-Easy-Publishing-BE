@@ -23,7 +23,7 @@ namespace app.Controllers
             _context = context;
         }
 
-        public class ApproveForm
+        public class TicketForm
         {
             public int TicketId { get; set; }
         }
@@ -178,7 +178,7 @@ namespace app.Controllers
         }
 
         [HttpPost("approve")]
-        public async Task<ActionResult> ApproveRequest([FromBody] ApproveForm data)
+        public async Task<ActionResult> ApproveRequest([FromBody] TicketForm data)
         {
 
             int userId = GetUserId();
@@ -208,10 +208,9 @@ namespace app.Controllers
                     EM = "Yêu cầu đã được phê duyệt rồi"
                 });
             }
-            ticket.Status = true;
-
             try
             {
+                ticket.Status = true;
                 var ticketUser = _context.Users.Where(u => u.UserId == ticket.UserId).FirstOrDefault();
                 if (ticketUser.RoleId == 3)
                 {
@@ -247,11 +246,88 @@ namespace app.Controllers
                     EM = "Hệ thống xảy ra lỗi!"
                 });
             }
-            
+
             return new JsonResult(new
             {
                 EC = 0,
                 EM = "Phê duyệt yêu cầu trờ thành reviewer thành công"
+            });
+        }
+
+        [HttpPost("deny")]
+        public async Task<ActionResult> DenyRequest([FromBody] TicketForm data)
+        {
+
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Yêu cầu đăng nhập"
+                });
+            };
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId != 1)
+            {
+                return new JsonResult(new
+                {
+                    EC = 1,
+                    EM = "Không có quyền quản trị viên"
+                });
+            }
+            var ticket = _context.Tickets.Where(t => t.TicketId == data.TicketId).FirstOrDefault();
+            if (ticket.Status == true)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "Yêu cầu này đã được phê duyệt rồi"
+                });
+            }
+            try
+            {
+                ticket.Status = null;
+                var ticketUser = _context.Users.Where(u => u.UserId == ticket.UserId).FirstOrDefault();
+                if (ticketUser.RoleId == 3)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 3,
+                        EM = "Người dùng hiện đã là reviewer"
+                    });
+                }
+                ticketUser.RoleId = 3;
+                try
+                {
+                    mailService.Send(ticketUser.Email,
+                            "Easy Publishing: Yêu cầu trở thành reviewer bị từ chối",
+                            "<b>Xin chào " + ticketUser.Username + ",</b>" +
+                            "<p>Yêu cầu trở thành reviewer của bạn đã bị từ chối.</p>");
+                }
+                catch (Exception ex)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = 4,
+                        EM = "Error: " + ex.Message
+                    });
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Từ chối yêu cầu trờ thành reviewer thành công"
             });
         }
 

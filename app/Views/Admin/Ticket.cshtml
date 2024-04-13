@@ -69,7 +69,6 @@
             url: 'http://localhost:5188/api/v1/tickets/all_ticket',
             type: 'GET',
         }).done(data => {
-            console.log(data)
             $('#datatables').DataTable({
                 data: data.dt.tickets,
                 columns: [
@@ -82,16 +81,19 @@
                         render(data) {
                             if (data.status == true) {
                                 return `<a class="text-success">Approved</a>`
+                            } else if (data.status == false) {
+                                return `<a class="text-warning">Awaiting approval</a>`
                             } else {
-                                return `<a class="text-danger">Awaiting approval</a>`
+                                return `<a class="text-danger">Denied</a>`
                             }
                         }
                     },
                     {
                         data: null,
                         render(data) {
-                            return `<a style="cursor: pointer" class="text-primary" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-inbox"></i></a>
-                                            <a style="cursor: pointer" class="text-primary ml-2" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
+                            return `<a style="cursor: pointer" class="text-primary" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="far fa-envelope"></i></a>
+                                                    <a style="cursor: pointer" class="text-success" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-ban"></i></a>
+                                                    <a style="cursor: pointer" class="text-danger" onclick="deny(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
                         }
                     }
                 ]
@@ -108,8 +110,7 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             data: JSON.stringify({
-                ticketId: ticketId,
-                userId: userId
+                ticketId: ticketId
             })
         }).done(data => {
             var title = data.em;
@@ -117,7 +118,42 @@
                 title: title,
                 icon: 'fa fa-bell'
             }, {
-                type: 'success',
+                type: data.ec == 0 ? 'success' : 'danger',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                delay: 3000,
+                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                    '<span data-notify="icon"></span> ' +
+                    '<span data-notify="title">{1}</span> ' +
+                    '</div>'
+            });
+            if (data.ec == 0) {
+                loadData();
+            }
+        }).fail(error => {
+            console.error('Error :', error);
+        });
+    }
+
+    async function deny(userId, ticketId) {
+        $.ajax({
+            url: 'http://localhost:5188/api/v1/Tickets/deny',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify({
+                ticketId: ticketId
+            })
+        }).done(data => {
+            var title = data.em;
+            $.notify({
+                title: title,
+                icon: 'fa fa-bell'
+            }, {
+                type: data.ec == 0 ? 'success' : 'danger',
                 placement: {
                     from: "bottom",
                     align: "right"

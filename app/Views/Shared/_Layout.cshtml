@@ -24,6 +24,7 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Assets/css/atlantis.min.css">
+    <link rel="stylesheet" href="~/Assets/css/tree-table.min.css">
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="~/Assets/css/demo.css">
 </head>
@@ -162,6 +163,13 @@
                             <span class="badge badge-success"></span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a asp-controller="Admin" asp-action="Review">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <p>Review</p>
+                            <span class="badge badge-success"></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -296,6 +304,7 @@
 
     <!-- Datatables -->
     <script src="~/Assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="~/Assets/js/plugin/datatables/treeTable.js"></script>
     
 
 

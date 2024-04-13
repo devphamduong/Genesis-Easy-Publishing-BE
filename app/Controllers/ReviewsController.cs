@@ -135,7 +135,7 @@ namespace app.Controllers
             bool hasError = false;
             foreach (var item in errorList)
             {
-                if (item)
+                if (!item)
                 {
                     hasError = true;
                     break;
@@ -153,7 +153,10 @@ namespace app.Controllers
             {
                 chapter.Status = null;
             }
-            chapter.Status = 1;
+            else
+            {
+                chapter.Status = 1;
+            }
 
             try
             {
@@ -183,7 +186,7 @@ namespace app.Controllers
                     EM = "Hệ thống xảy ra lỗi!"
                 });
             }
-            
+
             // send mail
             try
             {
@@ -429,6 +432,59 @@ namespace app.Controllers
                 return msgService.MsgActionReturn(4, "Chương đã được review");
             }
             return msgService.MsgReturn(0, "Thông tin chương", chapter);
+        }
+
+        [HttpGet("story_admin")]
+        public async Task<ActionResult> GetStoriesAdmin()
+        {
+            int userId = GetUserId();
+            if (userId == 0)
+            {
+                return msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            }
+            var user = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+            if (user.RoleId == 2)
+            {
+                return msgService.MsgActionReturn(1, "Không có quyền Reviewer");
+            }
+            var stories = await _context.Stories
+                .Include(s => s.Author)
+                .Include(s => s.Volumes).ThenInclude(v => v.Chapters)
+                .Where(s => s.Chapters.Any(c => c.Status == 0))
+                .Select(s => new
+                {
+                    tt_key = s.StoryId + 0.1,
+                    tt_parent = 0,
+                    StoryId = s.StoryId,
+                    Title = s.StoryTitle,
+                    CreateTime = s.CreateTime.ToString("MM/dd/yyyy HH:mm:ss"),
+                    Status = s.Status,
+                    Author = s.Author.Username,
+                    Volumes = s.Volumes.Where(v => v.StoryId == s.StoryId && v.Chapters.Any(c => c.Status == 0)).Select(v => new
+                    {
+                        tt_key = v.VolumeId + 0.2,
+                        tt_parent = v.StoryId + 0.1,
+                        VolumeId = v.VolumeId,
+                        VolumeNumber = v.VolumeNumber,
+                        Title = "Volume " + v.VolumeNumber + ": " + v.VolumeTitle,
+                        CreateTime = v.CreateTime.ToString("MM/dd/yyyy HH:mm:ss"),
+                        Chapters = v.Chapters.Where(c => c.VolumeId == v.VolumeId && c.Status == 0).Select(c => new
+                        {
+                            tt_key = c.ChapterId,
+                            tt_parent = c.VolumeId + 0.2,
+                            ChapterId = c.ChapterId,
+                            ChapterNumber = c.ChapterNumber,
+                            Title = "Chaper " + c.ChapterNumber + ": " + c.ChapterTitle,
+                            CreateTime = c.CreateTime.ToString("MM/dd/yyyy HH:mm:ss")
+                        }).OrderBy(c => c.ChapterNumber).ToList()
+                    }).OrderBy(v => v.VolumeNumber).ToList()
+                })
+                .ToListAsync();
+            return msgService.MsgReturn(0, "Danh sách truyện có chương cần review",
+                new
+                {
+                    stories = stories,
+                });
         }
     }
 }

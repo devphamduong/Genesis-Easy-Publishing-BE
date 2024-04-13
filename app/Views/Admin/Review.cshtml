@@ -1,0 +1,232 @@
+﻿@{
+    ViewData["Title"] = "Review Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h4 class="page-title">Review Story</h4>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive" id="table-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="reviewModal">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Review</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="chapter-title"></div>
+                <div class="w-75 mx-auto mt-3 mb-4 overflow-auto" id="chapter-content">
+                </div>
+                <form id="reviewForm" class="px-3">
+                    <input type="hidden" id="chapterId" value="">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="spellingError" name="option1" value="">
+                        <label class="form-check-sign" for="spellingError">Contains no spelling errors.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="lengthError" name="option2" value="">
+                        <label class="form-check-sign" for="lengthError">Chapter length is not too long or too short.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="politicalContentError" name="option2" value="">
+                        <label class="form-check-sign" for="politicalContentError">Does not contain propaganda content against the State of the Socialist Republic of Vietnam; destroying the great national unity; spreading reactionary ideology; inciting wars of aggression, and causing hatred between nations and people of other countries.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="distortHistoryError" name="option2" value="">
+                        <label class="form-check-sign" for="distortHistoryError">Does not contain content that distorts historical truth or denies revolutionary achievements; insults the nation, famous people, or national heroes; does not express or improperly demonstrates national sovereignty.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="secretContentError" name="option2" value="">
+                        <label class="form-check-sign" for="secretContentError">Does not contain content revealing state secrets, personal privacy secrets, or other secrets prescribed by law.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="offensiveContentError" name="option2" value="">
+                        <label class="form-check-sign" for="offensiveContentError">Does not contain content that slanders or insults the reputation of agencies, organizations, or the honor and dignity of individuals.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="unhealthyContentError" name="option2" value="">
+                        <label class="form-check-sign" for="unhealthyContentError">Does not contain content that incites violence, propagates lewd and depraved lifestyles, criminal acts, social evils, superstitions, or destruction of good customs and traditions.</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="reviewContent" rows="5" placeholder="Your comment..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="sendReview()">Send review</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Assets/js/core/jquery.3.2.1.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        loadData();
+    });
+
+    async function loadData() {
+        $('#table-wrapper').html('')
+        const table = $(`<table id="datatables" class="display table table-head-bg-primary table-hover">
+                                <thead>
+                                <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Created Date</th>
+                                <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>`)
+        $('#table-wrapper').append(table);
+        $.ajax({
+            url: 'http://localhost:5188/api/v1/reviews/story_admin',
+            type: 'GET',
+        }).done(data => {
+            let list = [];
+            data.dt.stories.forEach(i => {
+                list.push({
+                    tt_key: i.tt_key,
+                    tt_parent: i.tt_parent,
+                    storyId: i.storyId,
+                    title: i.title,
+                    author: i.author,
+                    createTime: i.createTime
+                });
+                i.volumes.forEach(v => {
+                    list.push({
+                        tt_key: v.tt_key,
+                        tt_parent: v.tt_parent,
+                        title: v.title,
+                        createTime: v.createTime
+                    });
+                    v.chapters.forEach(c => {
+                        list.push({
+                            tt_key: c.tt_key,
+                            tt_parent: c.tt_parent,
+                            title: c.title,
+                            createTime: c.createTime,
+                            chapterId: c.chapterId
+                        });
+                    })
+                })
+            })
+            $('#datatables').treeTable({
+                data: list,
+                pageLength: -1,
+                lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
+                collapsed: true,
+                columns: [
+                    {
+                        data: 'title',
+                    },
+                    {
+                        data: 'author',
+                        render: function (data, type, row, meta) {
+                            return (type === 'display' && data)
+                                ? data : '';
+                        }
+                    },
+                    { data: 'createTime' },
+                    {
+                        data: null,
+                        render(data) {
+                            if (data.chapterId != null) {
+                                return `<a style="cursor: pointer; font-size:20px" class="text-primary" onclick="openReviewModal(${data.chapterId})"><i class="fas fa-pen-square"></i></a>`
+                            }
+                            return ''
+                        }
+                    }
+                ]
+            })
+        }).fail(error => {
+            console.error('Error fetching data:', error);
+        });
+    }
+
+    async function openReviewModal(id) {
+        $('#reviewForm')[0].reset();
+        $.ajax({
+            url: 'http://localhost:5188/api/v1/reviews/chapter_information?chapterId=' + id,
+            type: 'GET',
+        }).done(data => {
+            const chapter = data.dt;
+            $('#chapter-title').html(`<h5>Chapter ${chapter.chapterNumber}: <strong>${chapter.chapterTitle}</strong> of story <strong>${chapter.storyTitle}</strong></h5>`);
+            $('#chapter-content').html(chapter.chapterContentHtml);
+            $('#chapterId').val(chapter.chapterId);
+        }).fail(error => {
+            console.error('Error fetching data:', error);
+        });
+
+        $('#reviewModal').modal()
+    }
+
+    async function sendReview() {
+        let param = {
+            chapterId: $('#chapterId').val(),
+            spellingError: $('#spellingError').is(":checked"),
+            lengthError: $('#lengthError').is(":checked"),
+            politicalContentError: $('#politicalContentError').is(":checked"),
+            distortHistoryError: $('#distortHistoryError').is(":checked"),
+            secretContentError: $('#secretContentError').is(":checked"),
+            offensiveContentError: $('#offensiveContentError').is(":checked"),
+            unhealthyContentError: $('#unhealthyContentError').is(":checked"),
+            reviewContent: $('#reviewContent').val()
+        }
+        $.ajax({
+            url: 'http://localhost:5188/api/v1/reviews/send',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(param)
+        }).done(data => {
+            var title = data.em;
+            $.notify({
+                title: title,
+                icon: 'fa fa-bell'
+            }, {
+                type: data.ec == 0 ? 'success' : 'danger',
+                placement: {
+                    from: "bottom",
+                    align: "right"
+                },
+                delay: 3000,
+                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                    '<span data-notify="icon"></span> ' +
+                    '<span data-notify="title">{1}</span> ' +
+                    '</div>'
+            });
+            if (data.ec == 0) {
+                loadData();
+            }
+        }).fail(error => {
+            console.error('Error :', error);
+        });
+    }
+
+    function loadPage(pageName) {
+
+        // Use jQuery to load content from the server
+        $.get(`Pages/${pageName}.html`, function (data) {
+            // Replace the content of the #content div with the loaded data
+            $('#content').html(data);
+
+            $('#basic-datatables').DataTable();
+        });
+    }
+</script>
