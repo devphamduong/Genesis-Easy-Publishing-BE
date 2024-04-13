@@ -71,6 +71,7 @@
         }).done(data => {
             $('#datatables').DataTable({
                 data: data.dt.tickets,
+                columnDefs: [{ width: '10%', targets: 0 }, { width: '20%', targets: 1 }],
                 columns: [
                     { data: 'ticketId' },
                     { data: 'user.username' },
@@ -81,7 +82,9 @@
                         render(data) {
                             if (data.status == true) {
                                 return `<a class="text-success">Approved</a>`
-                            } else if (data.status == false) {
+                            } else if (data.status == false && data.seen == true) {
+                                return `<a class="text-info">Awaiting interview</a>`
+                            } else if (data.status == false && data.seen == false) {
                                 return `<a class="text-warning">Awaiting approval</a>`
                             } else {
                                 return `<a class="text-danger">Denied</a>`
@@ -92,8 +95,8 @@
                         data: null,
                         render(data) {
                             return `<a style="cursor: pointer" class="text-primary" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="far fa-envelope"></i></a>
-                                                    <a style="cursor: pointer" class="text-success" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-ban"></i></a>
-                                                    <a style="cursor: pointer" class="text-danger" onclick="deny(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
+                                            <a style="cursor: pointer" class="text-success ml-1" onclick="approve(${data.user.userId}, ${data.ticketId})"><i class="fas fa-ban"></i></a>
+                                            <a style="cursor: pointer" class="text-danger ml-1" onclick="deny(${data.user.userId}, ${data.ticketId})"><i class="fas fa-check-circle"></i></a>`
                         }
                     }
                 ]

@@ -82,13 +82,13 @@ namespace app.Controllers
                 });
             }
             var tickets = await _context.Tickets.Where(t => t.UserId > 0)
-           .Include(t => t.User)
+           .Include(t => t.User).OrderByDescending(t => t.TicketDate)
            .Select(t => new
            {
                TicketId = t.TicketId,
                Status = t.Status,
                Seen = t.Seen,
-               TicketDate = t.TicketDate,
+               TicketDate = t.TicketDate.ToString("yyyy-MM-dd HH:mm:ss"),
                User = new
                {
                    UserId = t.UserId,
@@ -106,7 +106,6 @@ namespace app.Controllers
                    DescriptionHTML = t.User.DescriptionHtml,
                }
            })
-           .OrderByDescending(t => t.TicketDate)
            .ToListAsync();
             return new JsonResult(new
             {

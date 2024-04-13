@@ -73,7 +73,7 @@ namespace app.Controllers
                     StoryDescription = c.StoryDescriptionHtml.Substring(0, 90) + "...",
                     StoryPrice = c.StoryPrice,
                     StorySale = c.StorySale,
-                    CreateTime = c.CreateTime,
+                    CreateTime = c.CreateTime.ToString("yyyy-MM-dd HH:mm:ss"),
                     StoryCategories = string.Join(",", c.Categories.Select(c => c.CategoryName).ToList()),
                     StoryAuthor = c.Author.UserFullname,
                     StoryChapterNumber = c.Chapters.Count,

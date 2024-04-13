@@ -9,7 +9,7 @@ public partial class Ticket
 
     public int UserId { get; set; }
 
-    public DateTime? TicketDate { get; set; }
+    public DateTime TicketDate { get; set; }
 
     public bool? Status { get; set; }
 

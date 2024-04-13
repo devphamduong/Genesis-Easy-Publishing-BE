@@ -457,7 +457,7 @@ namespace app.Controllers
                     tt_parent = 0,
                     StoryId = s.StoryId,
                     Title = s.StoryTitle,
-                    CreateTime = s.CreateTime.ToString("MM/dd/yyyy HH:mm:ss"),
+                    CreateTime = s.CreateTime.ToString("yyyy-MM-dd HH:mm:ss"),
                     Status = s.Status,
                     Author = s.Author.Username,
                     Volumes = s.Volumes.Where(v => v.StoryId == s.StoryId && v.Chapters.Any(c => c.Status == 0)).Select(v => new
@@ -467,7 +467,7 @@ namespace app.Controllers
                         VolumeId = v.VolumeId,
                         VolumeNumber = v.VolumeNumber,
                         Title = "Volume " + v.VolumeNumber + ": " + v.VolumeTitle,
-                        CreateTime = v.CreateTime.ToString("MM/dd/yyyy HH:mm:ss"),
+                        CreateTime = v.CreateTime.ToString("yyyy-MM-dd HH:mm:ss"),
                         Chapters = v.Chapters.Where(c => c.VolumeId == v.VolumeId && c.Status == 0).Select(c => new
                         {
                             tt_key = c.ChapterId,
@@ -475,7 +475,7 @@ namespace app.Controllers
                             ChapterId = c.ChapterId,
                             ChapterNumber = c.ChapterNumber,
                             Title = "Chaper " + c.ChapterNumber + ": " + c.ChapterTitle,
-                            CreateTime = c.CreateTime.ToString("MM/dd/yyyy HH:mm:ss")
+                            CreateTime = c.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")
                         }).OrderBy(c => c.ChapterNumber).ToList()
                     }).OrderBy(v => v.VolumeNumber).ToList()
                 })
