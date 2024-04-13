@@ -2,18 +2,10 @@ using app.Models;
 using app.Service;
 using app.Service.MomoService;
 using app.Service.VNPayService;
-using Azure.Core;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using OfficeOpenXml;
-using System;
-using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using static app.Controllers.AuthController;
 
 namespace app.Controllers
 {
@@ -87,6 +79,86 @@ namespace app.Controllers
                 
             }
             return userId;
+        }
+
+        [HttpGet("getTodayRevenue")]
+        public async Task<ActionResult> getTodayRevenue()
+        {
+            var today = DateTime.Today;
+            var todaySale = GetTotalAmountForDay(today);
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Doanh thu hôm nay",
+                DT = todaySale
+            });
+        }
+
+        [HttpGet("getOverallRevenue")]
+        public async Task<ActionResult> getOverallRevenue()
+        {
+            try
+            {
+                var sum = await _context.Transactions
+                .Where(t => t.FundAfter > t.FundBefore)
+                .SumAsync(t => t.Amount)*1000;
+                return _msgService.MsgReturn(0, "Danh thu tổng", sum);
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+           
+        }
+
+        [HttpGet("getRevenue")]
+        public async Task<ActionResult> GetWeekRevenue()
+        {
+            var today = DateTime.Today;
+
+
+            var Labels = new[]
+               {
+                today.AddDays(-6).ToString("dd/MM"),
+                today.AddDays(-5).ToString("dd/MM"),
+                today.AddDays(-4).ToString("dd/MM"),
+                today.AddDays(-3).ToString("dd/MM"),
+                today.AddDays(-2).ToString("dd/MM"),
+                today.AddDays(-1).ToString("dd/MM"),
+                today.ToString("dd/MM")
+                };
+            var Data = new[]
+                {
+                GetTotalAmountForDay(today.AddDays(-6)),
+                GetTotalAmountForDay(today.AddDays(-5)),
+                GetTotalAmountForDay(today.AddDays(-4)),
+                GetTotalAmountForDay(today.AddDays(-3)),
+                GetTotalAmountForDay(today.AddDays(-2)),
+                GetTotalAmountForDay(today.AddDays(-1)),
+                GetTotalAmountForDay(today)
+                };
+
+
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Doanh thu trong 7 ngày",
+                DT = new { labels= Labels, data= Data}
+            });
+        }
+
+        private decimal GetTotalAmountForDay(DateTime date)
+        {
+            var startOfDay = date.Date;
+            var endOfDay = date.Date.AddDays(1).AddTicks(-1);
+
+            return _context.Transactions
+                .Where(t => t.TransactionTime >= startOfDay && t.TransactionTime <= endOfDay && t.FundAfter > t.FundBefore)
+                .Sum(t => t.Amount)*1000;
         }
 
         [HttpGet("wallet")]
@@ -507,7 +579,7 @@ namespace app.Controllers
                     RefundAfter = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Nạp {amount}"
+                    Description = $"Nạp {amount}000"
                 };
                 user_wallet.Fund = user_wallet.Fund + amount;
 
@@ -522,7 +594,7 @@ namespace app.Controllers
                     RefundAfter = admin_wallet.Refund + amount,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Nạp {amount} VND vào hệ thống"
+                    Description = $"Nạp {amount}000 VND vào hệ thống"
                 };
                 admin_wallet.Fund = admin_wallet.Fund + amount;
 

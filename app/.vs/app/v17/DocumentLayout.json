@@ -11,20 +11,12 @@
       "RelativeMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|solutionrelative:controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|d:\\code\\genesis-easy-publishing-be\\app\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|d:\\code\\genesis-easy-publishing-be\\app\\controllers\\interactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|solutionrelative:controllers\\interactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|d:\\code\\genesis-easy-publishing-be\\app\\views\\admin\\report.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|solutionrelative:views\\admin\\report.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|d:\\code\\genesis-easy-publishing-be\\app\\views\\admin\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|solutionrelative:views\\admin\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|d:\\code\\genesis-easy-publishing-be\\app\\controllers\\transactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6DACAE38-3913-4E30-842E-B3BB09BDCD19}|app.csproj|solutionrelative:controllers\\transactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,19 +26,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TransactionsController.cs",
-              "DocumentMoniker": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Controllers\\TransactionsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TransactionsController.cs",
-              "ToolTip": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Controllers\\TransactionsController.cs",
-              "RelativeToolTip": "Controllers\\TransactionsController.cs",
-              "ViewState": "AQIAALgCAAAAAAAAAAAAALUCAABqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-10T17:21:24.859Z"
+              "DocumentIndex": 2,
+              "Title": "Report.cshtml",
+              "DocumentMoniker": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Views\\Admin\\Report.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\Report.cshtml",
+              "ToolTip": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Views\\Admin\\Report.cshtml",
+              "RelativeToolTip": "Views\\Admin\\Report.cshtml",
+              "ViewState": "AQIAAJAAAAAAAAAAAAAowKIAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-12T10:24:24.076Z"
             },
             {
               "$type": "Document",
@@ -56,25 +48,13 @@
               "RelativeDocumentMoniker": "Controllers\\TicketsController.cs",
               "ToolTip": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Controllers\\TicketsController.cs",
               "RelativeToolTip": "Controllers\\TicketsController.cs",
-              "ViewState": "AQIAACABAAAAAAAAAAAqwC4BAAA0AAAA",
+              "ViewState": "AQIAANcBAAAAAAAAAAAowKcBAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-10T17:14:58.756Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "InteractionsController.cs",
-              "DocumentMoniker": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Controllers\\InteractionsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\InteractionsController.cs",
-              "ToolTip": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Controllers\\InteractionsController.cs",
-              "RelativeToolTip": "Controllers\\InteractionsController.cs",
-              "ViewState": "AQIAAGMAAAAAAAAAAAAmwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-10T17:13:37.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Login.cshtml",
               "DocumentMoniker": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Views\\Admin\\Login.cshtml",
               "RelativeDocumentMoniker": "Views\\Admin\\Login.cshtml",
@@ -86,25 +66,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAowEkAAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-04-10T17:06:48.161Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Transaction.cshtml",
               "DocumentMoniker": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Views\\Admin\\Transaction.cshtml",
               "RelativeDocumentMoniker": "Views\\Admin\\Transaction.cshtml",
               "ToolTip": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\Views\\Admin\\Transaction.cshtml",
               "RelativeToolTip": "Views\\Admin\\Transaction.cshtml",
-              "ViewState": "AQIAAHwAAAAAAAAAAAAcwIIAAAAHAAAA",
+              "ViewState": "AQIAAOIAAAAAAAAAAAAcwAABAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-04-10T17:01:53.954Z",
               "EditorCaption": ""

@@ -173,14 +173,4 @@
         });
     }
 
-    function loadPage(pageName) {
-
-        // Use jQuery to load content from the server
-        $.get(`Pages/${pageName}.html`, function (data) {
-            // Replace the content of the #content div with the loaded data
-            $('#content').html(data);
-
-            $('#basic-datatables').DataTable();
-        });
-    }
 </script>
