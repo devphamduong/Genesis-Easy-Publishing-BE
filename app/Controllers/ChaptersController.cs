@@ -203,7 +203,7 @@ namespace app.Controllers
                     VolumeTitle = v.VolumeTitle,
                     StoryId = v.StoryId,
                     CreateTime = v.CreateTime,
-                    Chapters = v.Chapters.Where(c => c.Status >= 0).Select(c => new
+                    Chapters = v.Chapters.Select(c => new
                     {
                         c.ChapterId,
                         c.ChapterNumber,
