@@ -82,10 +82,12 @@
 
     async function loadData() {
         $('#datatables').DataTable().destroy();
+        $('.loader-container').show();
         $.ajax({
             url: 'http://localhost:5188/api/v1/tickets/all_ticket',
             type: 'GET',
         }).done(data => {
+            $('.loader-container').hide();
             $('#datatables').DataTable({
                 data: data.dt.tickets,
                 columnDefs: [{ width: '10%', targets: 0 }, { width: '17%', targets: 1 }],
@@ -119,13 +121,15 @@
                 ]
             })
         }).fail(error => {
+            $('.loader-container').hide();
             console.error('Error fetching data:', error);
         });
     }
 
     async function approve(ticketId) {
+        $('.loader-container').show();
         $.ajax({
-            url: 'http://localhost:5188/api/v1/Tickets/approve',
+            url: 'http://localhost:5188/api/v1/tickets/approve',
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -133,19 +137,22 @@
                 ticketId: ticketId
             })
         }).done(data => {
+            $('.loader-container').hide();
             var title = data.em;
             notify(title, data.ec == 0 ? 'success' : 'danger')
             if (data.ec == 0) {
                 loadData();
             }
         }).fail(error => {
+            $('.loader-container').hide();
             console.error('Error :', error);
         });
     }
 
     async function deny(ticketId) {
+        $('.loader-container').show();
         $.ajax({
-            url: 'http://localhost:5188/api/v1/Tickets/deny',
+            url: 'http://localhost:5188/api/v1/tickets/deny',
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -153,12 +160,14 @@
                 ticketId: ticketId
             })
         }).done(data => {
+            $('.loader-container').hide();
             var title = data.em;
             notify(title, data.ec == 0 ? 'success' : 'danger');
             if (data.ec == 0) {
                 loadData();
             }
         }).fail(error => {
+            $('.loader-container').hide();
             console.error('Error :', error);
         });
     }
@@ -229,13 +238,15 @@
             location: $('#selectLocation').val() == 'Other' ? $('#inputLocation').val() : $('#selectLocation').val(),
             time: $('#inputTime').val()
         }
+        $('.loader-full-container').show();
         $.ajax({
-            url: 'http://localhost:5188/api/v1/Tickets/invite_interview',
+            url: 'http://localhost:5188/api/v1/tickets/invite_interview',
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             data: JSON.stringify(param)
         }).done(data => {
+            $('.loader-full-container').hide();
             var title = data.em;
             notify(title, data.ec == 0 ? 'success' : 'danger')
             if (data.ec == 0) {
@@ -243,6 +254,7 @@
                 loadData();
             }
         }).fail(error => {
+            $('.loader-full-container').hide();
             console.error('Error :', error);
         });
     }

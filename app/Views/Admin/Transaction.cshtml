@@ -83,15 +83,15 @@
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th></th>
-                                                                                        <th>TransactionNum</th>
-                                                                                        <th>Amount</th>
-                                                                                        <th>TransactionTime</th>
-                                                                                        <th>Description</th>
-                                                                                    </tr>
-                                                                                </thead>`);
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th></th>
+                                                                                                        <th>TransactionNum</th>
+                                                                                                        <th>Amount</th>
+                                                                                                        <th>TransactionTime</th>
+                                                                                                        <th>Description</th>
+                                                                                                    </tr>
+                                                                                                </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -142,6 +142,7 @@
     });
 
     var loadRefund = () => {
+        $('.loader-container').show();
         $.ajax({
             url: `http://localhost:5188/api/v1/tickets/refunds`,
             type: "GET",
@@ -149,27 +150,28 @@
                 "Content-Type": "application/json",
             },
             success: (data) => {
+                $('.loader-container').hide();
                 $('#form').empty().append(`<p>
-                                                                                    <button id="exportRefund" onClick="exportData()" class="btn btn-primary">Export</button>
-                                                                                    <button id="approveRefund" onClick="approve()" class="btn btn-success">Approve</button>
-                                                                                    </p>
-                                                                    `);
+                                                                                                    <button id="exportRefund" onClick="exportData()" class="btn btn-primary">Export</button>
+                                                                                                    <button id="approveRefund" onClick="approve()" class="btn btn-success">Approve</button>
+                                                                                                    </p>
+                                                                                    `);
 
                 if ($.fn.DataTable.isDataTable('#basic-datatables')) {
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>RequestNum</th>
-                                                                                                <th>UserRequest</th>
-                                                                                                <th>Bank</th>
-                                                                                                <th>BankNum</th>
-                                                                                                <th>Amount</th>
-                                                                                                <th>TransactionTime</th>
-                                                                                                <th>Status</th>
-                                                                                            </tr>
-                                                                                        </thead>`);
+                                                                                                        <thead>
+                                                                                                            <tr>
+                                                                                                                <th>RequestNum</th>
+                                                                                                                <th>UserRequest</th>
+                                                                                                                <th>Bank</th>
+                                                                                                                <th>BankNum</th>
+                                                                                                                <th>Amount</th>
+                                                                                                                <th>TransactionTime</th>
+                                                                                                                <th>Status</th>
+                                                                                                            </tr>
+                                                                                                        </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -197,7 +199,10 @@
                     order: [[0, 'asc']],
                 });
             },
-            error: () => console.error('Error fetching data:', error),
+            error: () => {
+                $('.loader-container').hide();
+                console.error('Error fetching data:', error)
+            },
         });
     }
 

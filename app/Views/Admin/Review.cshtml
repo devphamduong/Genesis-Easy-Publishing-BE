@@ -95,10 +95,12 @@
                                 </tbody>
                             </table>`)
         $('#table-wrapper').append(table);
+        $('.loader-container').show();
         $.ajax({
             url: 'http://localhost:5188/api/v1/reviews/story_admin',
             type: 'GET',
         }).done(data => {
+            $('.loader-container').hide();
             let list = [];
             data.dt.stories.forEach(i => {
                 list.push({
@@ -156,6 +158,7 @@
                 ]
             })
         }).fail(error => {
+            $('.loader-container').hide();
             console.error('Error fetching data:', error);
         });
     }
@@ -189,6 +192,7 @@
             unhealthyContentError: $('#unhealthyContentError').is(":checked"),
             reviewContent: $('#reviewContent').val()
         }
+        $('.loader-full-container').show();
         $.ajax({
             url: 'http://localhost:5188/api/v1/reviews/send',
             type: 'POST',
@@ -196,6 +200,7 @@
             dataType: 'json',
             data: JSON.stringify(param)
         }).done(data => {
+            $('.loader-full-container').hide();
             var title = data.em;
             $.notify({
                 title: title,
@@ -214,6 +219,7 @@
                     '</div>'
             });
             if (data.ec == 0) {
+                $('.loader-full-container').hide();
                 loadData();
             }
         }).fail(error => {

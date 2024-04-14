@@ -184,9 +184,11 @@
 
     async function loadData() {
         $('#basic-datatables').DataTable().destroy();
+        $('.loader-container').show();
         fetch('http://localhost:5188/api/v1/category')
             .then(response => response.json())
             .then(data => {
+                $('.loader-container').hide();
                 $('#basic-datatables').DataTable({
                     data: data.dt,
                     columns: [
@@ -210,6 +212,7 @@
                 });
             })
             .catch(error => {
+                $('.loader-container').hide();
                 console.error('Error fetching data:', error);
             });
     }

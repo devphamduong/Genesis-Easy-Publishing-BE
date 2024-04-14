@@ -114,10 +114,12 @@
     });
 
     async function loadData() {
+        $('.loader-container').show();
         $('#basic-datatables').DataTable().destroy();
         fetch('http://localhost:5188/api/v1/Users/getAllUser')
             .then(response => response.json())
             .then(data => {
+                $('.loader-container').hide();
                 $('#basic-datatables').DataTable({
                     data: data.dt,
                     columns: [
@@ -146,6 +148,7 @@
                 });
             })
             .catch(error => {
+                $('.loader-container').hide();
                 console.error('Error fetching data:', error);
             });
     }
