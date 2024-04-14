@@ -275,7 +275,7 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "This request has been approved"
+                    EM = "This request has already been approved"
                 });
             }
             try
@@ -352,7 +352,15 @@ namespace app.Controllers
                 return new JsonResult(new
                 {
                     EC = 2,
-                    EM = "This request has been approved"
+                    EM = "This request has already been approved"
+                });
+            }
+            else if (ticket.Status == null)
+            {
+                return new JsonResult(new
+                {
+                    EC = 2,
+                    EM = "This request has already been denied"
                 });
             }
             try
