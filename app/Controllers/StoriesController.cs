@@ -184,7 +184,17 @@ namespace app.Controllers
         [HttpGet("prints")]
         public async Task<ActionResult> CreatePrint(int storyId)
         {
-            var data = await _context.Stories.Where(s => s.StoryId == storyId)
+            var jwtSecurityToken = new JwtSecurityToken();
+            int userId = 0;
+            try
+            {
+                jwtSecurityToken = VerifyToken();
+                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
+            }
+            catch (Exception) { }
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+
+            var data = await _context.Stories.Where(s => s.StoryId == storyId && s.AuthorId == userId)
                     .Include(c => c.Volumes).ThenInclude(c => c.Chapters)
                     .Select(c => new
                     {
@@ -207,6 +217,9 @@ namespace app.Controllers
                             })
                         }).ToList(),
                     }).FirstOrDefaultAsync();
+
+            if (data == null) return _msgService.MsgActionReturn(-1, "Bạn không sở hữu truyện");
+
             return _msgService.MsgReturn(0, "List Story", data);
         }
 
