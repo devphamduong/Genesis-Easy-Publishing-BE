@@ -3073,6 +3073,15 @@ INSERT INTO [dbo].[Chapter_Liked]([user_id],[chapter_id]) VALUES
 SET IDENTITY_INSERT [dbo].[Comment] ON
 GO
 
+INSERT INTO [dbo].[Review]
+           ([chapter_id],[spelling_error],[length_error],[review_content],[political_content_error],[distort history_error],[secret_content_error],[offensive_content_error],[unhealthy_content_error],[user_id],[review_date])
+     VALUES
+           (31,1,1,'Nội dung không phù hợp',1,1,0,0,1,4,CAST(N'2022-09-24T05:52:10.323' AS DateTime)),
+		   (32,1,1,'Nội dung không phù hợp',1,1,0,1,1,4,CAST(N'2022-09-24T05:52:10.323' AS DateTime)),
+		   (33,1,1,'Nội dung không phù hợp',1,1,0,0,1,4,CAST(N'2022-09-24T05:52:10.323' AS DateTime)),
+		   (34,1,1,'Nội dung không phù hợp',1,1,0,1,0,4,CAST(N'2022-09-24T05:52:10.323' AS DateTime)),
+		   (35,1,1,'Nội dung không phù hợp',1,1,0,0,1,4,CAST(N'2022-09-24T05:52:10.323' AS DateTime))
+
 DECLARE @CommentId INT = 1; -- Start comment_id from 1
 DECLARE @UserId INT = 2; -- Start user_id from 1
 DECLARE @StoryId INT = 1; -- Start story_id from 1
