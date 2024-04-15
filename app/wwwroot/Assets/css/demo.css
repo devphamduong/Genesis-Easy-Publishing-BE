@@ -397,3 +397,21 @@ body[data-background-color="dark"] .demo-icon .icon-class {
         width: 40px;
         height: 40px;
     }
+
+.modal-dialog-scrollable {
+    display: flex;
+    max-height: calc(100% - 3rem);
+}
+
+    .modal-dialog-scrollable .modal-content {
+        overflow: hidden;
+    }
+
+    .modal-dialog-scrollable .modal-body {
+        overflow-y: auto;
+    }
+
+    .modal-dialog-scrollable .modal-footer,
+    .modal-dialog-scrollable .modal-header {
+        flex-shrink: 0;
+    }
