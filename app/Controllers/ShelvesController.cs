@@ -142,6 +142,63 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Top 6 lượt mua", stories);
         }
 
+        [HttpGet("top6_sale")]
+        public async Task<ActionResult> GetTop6StoriesSale()
+        {
+            var topStories = _context.Transactions
+                                .Where(t => t.StoryId != null)
+                                .GroupBy(t => t.StoryId)
+                                .Select(g => new
+                                {
+                                    StoryId = g.Key.Value,
+                                    Revenue = g.Sum(t => t.Amount)
+                                })
+                                .OrderByDescending(g => g.Revenue)
+                                .Take(6)
+                                .Select(g => new
+                                {
+                                    story = _context.Stories.Where(s => s.StoryId == g.StoryId).Select(s => new
+                                    {
+                                        storyId = s.StoryId,
+                                        storyTitle = s.StoryTitle,
+                                        storyImage = s.StoryImage,
+                                        authorName = s.Author.UserFullname
+                                    }).FirstOrDefault(),
+                                    Revenue = g.Revenue*1000
+                                })
+                                .ToList();
+
+            return _msgService.MsgReturn(0, "Top 6 truyện doanh thu cao nhất", topStories);
+        }
+
+        [HttpGet("top6_authorRevenue")]
+        public async Task<ActionResult> GetTop6AuthorRevenue()
+        {
+            var topAuthors = await _context.Transactions
+                                 .Where(t => t.WalletId != null)
+                                 .GroupBy(t => t.WalletId)
+                                 .Select(g => new
+                                 {
+                                     WalletId = g.Key,
+                                     Revenue = g.Sum(t => t.Amount)
+                                 })
+                                 .OrderByDescending(g => g.Revenue)
+                                 .Take(6)
+                                 .Select(g => new
+                                 {
+                                     Author = _context.Wallets.Where(w => w.WalletId == g.WalletId).Select(a => new
+                                     {
+                                         AuthorFullname = a.User.UserFullname,
+                                         AuthorEmail = a.User.Email,
+                                         AuthorImage = a.User.UserImage
+                                     }).FirstOrDefault(),
+                                     Revenue = g.Revenue * 1000
+                                 })
+                                 .ToListAsync();
+
+            return _msgService.MsgReturn(0, "Top 6 tác giả kiếm được nhiều tiền nhất", topAuthors);
+        }
+
         // GET: api/Stories : top read story
         [HttpGet("top_read")]
         [EnableQuery]

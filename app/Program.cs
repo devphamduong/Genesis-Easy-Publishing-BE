@@ -78,7 +78,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=User}/{id?}");
+    pattern: "{controller=Admin}/{action=Dashboard}/{id?}");
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
