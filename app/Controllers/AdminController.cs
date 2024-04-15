@@ -27,12 +27,7 @@ namespace app.Controllers
             return jwtSecurityToken;
         }
 
-        [AllowAnonymous]
-        public IActionResult Login()
-        {
-            return View();
-        }
-        public IActionResult User()
+        private int GetUserId()
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -41,44 +36,59 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
-            catch (Exception) {
-                return RedirectToAction("Login");
-            }
-           
+            catch (Exception) { }
+            return userId;
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult User()
+        {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
         public IActionResult Dashboard()
         {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Report()
         {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Story()
         {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Transaction()
         {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Category()
         {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Ticket()
         {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Review()
         {
+            if (GetUserId() == 0) return RedirectToAction("Login");
             return View();
         }
     }

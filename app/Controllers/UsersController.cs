@@ -30,7 +30,7 @@ namespace app.Controllers
             string msg = "Kích hoạt tài khoản thành công!";
             try
             {
-                if(user.Status == false || user.Status == null)
+                if (user.Status == false || user.Status == null)
                 {
                     user.Status = true;
                 }
@@ -56,7 +56,7 @@ namespace app.Controllers
         [HttpGet("getAllUser")]
         public async Task<ActionResult> GetAllUsers()
         {
-            var users = await _context.Users.Where(u => u.UserId > 0)
+            var users = await _context.Users.Where(u => u.RoleId != 1)
                .Include(u => u.Wallets)
                .Include(u => u.Stories)
                .Select(u => new
@@ -69,7 +69,7 @@ namespace app.Controllers
                    PassWord = u.Password,
                    DoB = u.Dob.ToString(),
                    UserImage = u.UserImage,
-                   Status = (u.Status == true ? "Active": "Inactive"),
+                   Status = (u.Status == true ? "Active" : "Inactive"),
                    Address = u.Address,
                    Wallets = u.Wallets.ToList(),
                })
