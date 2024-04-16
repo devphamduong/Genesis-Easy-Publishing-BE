@@ -13628,11 +13628,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\FPTU\\sem 4\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
+      "projectUniqueName": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
       "projectName": "test",
-      "projectPath": "E:\\FPTU\\sem 4\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
+      "projectPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "E:\\FPTU\\sem 4\\SE\\Genesis-Easy-Publishing-BE\\test\\obj\\",
+      "outputPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -13649,8 +13649,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "E:\\FPTU\\sem 4\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
-              "projectPath": "E:\\FPTU\\sem 4\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj"
+            "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
+              "projectPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj"
             }
           }
         }

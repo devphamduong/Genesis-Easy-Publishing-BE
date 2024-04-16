@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {}
+    "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {}
   },
   "projects": {
-    "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
+    "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "projectUniqueName": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
         "projectName": "app",
-        "projectPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\Genesis-Easy-Publishing-BE\\app\\obj\\",
+        "projectPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -105,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
