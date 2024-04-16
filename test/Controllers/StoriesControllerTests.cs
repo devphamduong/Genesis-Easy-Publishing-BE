@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Genesis_Easy_Publishing_BE.Tests.Service
+namespace test.Controllers
 {
-    internal class VNPayService
+    internal class StoriesControllerTests
     {
     }
 }
