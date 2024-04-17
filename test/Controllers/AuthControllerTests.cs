@@ -14,7 +14,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static app.Controllers.AuthController;
-using Genesis_Easy_Publishing_BE.Tests.Service;
 using Moq;
 using Microsoft.EntityFrameworkCore;
 
@@ -210,7 +209,100 @@ namespace Genesis_Easy_Publishing_BE.Tests.Controllers
                 EM = "Đăng ký tài khoản thành công",
             });
         }
+        [Fact]
+        public void SendMailConfirm_ReturnsSuccess_WhenEmailIsSent()
+        {
+            // Arrange
+            var mockContext = new Mock<EasyPublishingContext>();
+            var mockMailService = new Mock<MailService>();
+            var data = new ForgotPasswordForm
+            {
+                Email = "test@example.com" // Replace with a valid email address
+            };
 
+            var user = new User
+            {
+                Email = data.Email,
+                Username = "TestUser" // Replace with a valid username
+            };
 
+            mockContext.Setup(m => m.Users.Where(u => u.Email.Equals(data.Email))).Returns(new List<User> { user }.AsQueryable());
+
+            // Act
+            var result = _controller.SendMailConfirm(data);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            dynamic jsonData = jsonResult.Value;
+            Assert.Equal(0, (int)jsonData.EC);
+            Assert.Equal("Chúng tôi đã gửi mail đến tài khoản email đã đăng ký của bạn, vui lòng làm theo hướng dẫn để đặt lại mật khẩu", (string)jsonData.EM);
+            mockMailService.Verify(m => m.Send(data.Email, "Easy Publishing: Đặt lại mật khẩu", It.IsAny<string>()), Times.Once);
+        }
+        [Fact]
+        public void ResetPassword_ReturnsSuccess_WhenPasswordIsReset()
+        {
+            // Arrange
+            var mockContext = new Mock<EasyPublishingContext>();
+            var mockMailService = new Mock<MailService>();
+            var mockHashService = new Mock<HashService>();
+            var data = new ResetPasswordForm
+            {
+                Token = "sampleJwtToken", // Replace with a valid JWT token
+                Password = "newPassword",
+                ConfirmPassword = "newPassword"
+            };
+
+            var user = new User
+            {
+                Email = "test@example.com", // Replace with a valid email address
+                Username = "TestUser" // Replace with a valid username
+            };
+
+            mockContext.Setup(m => m.Users.FirstOrDefault(u => u.Email.Equals(user.Email))).Returns(user);
+            mockHashService.Setup(m => m.Hash(data.Password)).Returns("hashedPassword");
+
+            // Act
+            var result = _controller.ResetPassword(data);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            dynamic jsonData = jsonResult.Value;
+            Assert.Equal(0, (int)jsonData.EC);
+            Assert.Equal("Đặt lại mật khẩu thành công", (string)jsonData.EM);
+         
+        }
+        [Fact]
+        public void ChangePassword_ReturnsSuccess_WhenPasswordIsChanged()
+        {
+            // Arrange
+            var mockContext = new Mock<EasyPublishingContext>();
+            var mockHashService = new Mock<HashService>();
+            var data = new ChangePasswordForm
+            {
+                OldPassword = "oldPassword",
+                Password = "newPassword",
+                ConfirmPassword = "newPassword"
+            };
+
+            var userId = "1"; // Replace with a valid user ID
+            var user = new User
+            {
+                UserId = int.Parse(userId),
+                Password = "oldPasswordHash" // Replace with the hashed old password
+            };
+
+            mockContext.Setup(m => m.Users.FirstOrDefault(u => u.UserId == user.UserId)).Returns(user);
+            mockHashService.Setup(m => m.Verify(user.Password, data.OldPassword)).Returns(true);
+            mockHashService.Setup(m => m.Hash(data.Password)).Returns("newPasswordHash");
+
+            // Act
+            var result = _controller.ChangePassword(data);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            dynamic jsonData = jsonResult.Value;
+            Assert.Equal(0, (int)jsonData.EC);
+            Assert.Equal("Đổi mật khẩu thành công", (string)jsonData.EM);
+        }
     }
 }

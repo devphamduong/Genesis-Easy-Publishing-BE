@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static app.Controllers.ChaptersController;
 using static OfficeOpenXml.ExcelErrorValue;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Genesis_Easy_Publishing_BE.Tests.Controllers
 {
@@ -18,6 +19,7 @@ namespace Genesis_Easy_Publishing_BE.Tests.Controllers
     {
         private readonly Mock<EasyPublishingContext> _contextMock = new Mock<EasyPublishingContext>();
         private readonly ChaptersController _controller;
+        private readonly EasyPublishingContext _context = new EasyPublishingContext();
 
         public ChaptersControllerTests()
         {
@@ -119,6 +121,250 @@ namespace Genesis_Easy_Publishing_BE.Tests.Controllers
             {
                 EC = 0,
                 EM = "Thêm tập mới thành công",
+            });
+        }
+        [Fact]
+        public async Task UpdateVolume_ShouldReturnBadRequest_WhenVolumeTitleIsEmptyOrNull()
+        {
+            // Arrange
+            var volume = new UpdateVolumeForm { VolumeId = 1, VolumeTitle = "" };
+
+            // Act
+            var result = await _controller.UpdateVolume(volume);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Cập nhật thất bại!",
+            });
+        }
+        [Fact]
+        public async Task UpdateVolume_ShouldReturnBadRequest_WhenVolumeDoesNotExist()
+        {
+            // Arrange
+            var volume = new UpdateVolumeForm { VolumeId = 1, VolumeTitle = "Updated Volume Title" };
+            var volumes = new List<Volume>
+            {
+                new Volume
+                {
+                    VolumeId = 1,
+                   VolumeTitle = "Volume 1",
+                   StoryId= 2,
+                   CreateTime = DateTime.Now,
+                   UpdateTime = DateTime.Now,
+                   VolumeNumber = 1,
+                   Chapters = null
+                },
+                new Volume { StoryId = 1, VolumeNumber = 2 }
+            };
+            var volumeDbSet = CreateMockDbSet(volumes);
+            _contextMock.Setup(c => c.Volumes).Returns(volumeDbSet);
+
+            // Act
+            var result = await _controller.UpdateVolume(volume);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Tập không tồn tại",
+            });
+        }
+
+        [Fact]
+        public async Task UpdateVolume_ShouldReturnOk_WhenVolumeIsUpdatedSuccessfully()
+        {
+            // Arrange
+            var volumes = new UpdateVolumeForm
+            {
+                VolumeId = 1,
+                VolumeTitle = "Volume 1"
+            };
+            var _controller = new ChaptersController(_contextMock.Object);
+
+            // Act
+            var result = await _controller.UpdateVolume(volumes);
+
+            // Assert
+         
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Cập nhật thành công",
+            });
+
+        }
+        [Fact]
+        public async Task DeleteChapter_ShouldReturnBadRequest_WhenChapterDoesNotExist()
+        {
+            // Arrange
+            var chapterId = 150;
+            var controller = new ChaptersController(_context);
+            // Act
+            var result = await controller.DeleteChapter(chapterId);
+
+            // Assert
+
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Chương không tồn tại",
+            });
+        }
+
+       
+        [Fact]
+        public async Task DeleteChapter_ShouldReturnOk_WhenChapterIsDeletedSuccessfully()
+        {
+            // Arrange
+            var chapterId = 1;
+            var controller = new ChaptersController(_context);
+            // Act
+            var result = await controller.DeleteChapter(chapterId);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Xóa chương thành công",
+            });
+        }
+        [Fact]
+        public async Task AddChapter_ReturnsSuccess_WhenChapterIsAdded()
+        {
+            // Arrange
+            var mockContext = new Mock<EasyPublishingContext>();
+            var controller = new ChaptersController(mockContext.Object);
+            var form = new addChapterForm
+            {
+                ChapterContentHtml = "<p>Chapter content in HTML</p>",
+                ChapterContentMarkdown = "Chapter content in Markdown",
+                StoryId = 1,
+                VolumeId = 1,
+                ChapterTitle = "Chapter Title",
+                ChapterPrice = 0.99m // Set the price as needed
+            };
+
+            var mockDbSet = new Mock<DbSet<Chapter>>();
+            mockContext.Setup(m => m.Chapters).Returns(mockDbSet.Object);
+
+            // Act
+            var result = await controller.AddChapter(form);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Thêm chương mới thành công",
+            });
+        }
+
+        [Fact]
+        public async Task AddChapter_ReturnsError_WhenChapterContentIsNullOrEmpty()
+        {
+            // Arrange
+            var mockContext = new Mock<EasyPublishingContext>();
+            var controller = new ChaptersController(mockContext.Object);
+            var form = new addChapterForm
+            {
+                // Set other properties as needed
+                ChapterContentHtml = "", // Empty content
+                ChapterContentMarkdown = "Chapter content in Markdown",
+                StoryId = 1,
+                VolumeId = 1,
+                ChapterTitle = "Chapter Title",
+                ChapterPrice = 0.99m
+            };
+
+            // Act
+            var result = await controller.AddChapter(form);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Không được để trống nội dung!"
+            });
+        }
+        [Fact]
+        public async Task EditChapter_ReturnsSuccess_WhenChapterIsUpdated()
+        {
+            // Arrange
+            var chapterId = 1;
+            var form = new UpdateChapterForm
+            {
+                ChapterId = chapterId,
+                ChapterContentHtml = "<p>Updated chapter content in HTML</p>",
+                ChapterContentMarkdown = "Updated chapter content in Markdown",
+                ChapterTitle = "Updated Chapter Title",
+                ChapterPrice = 1.99m // Set the price as needed
+            };
+
+            var existingChapter = new Chapter
+            {
+                ChapterId = chapterId,
+                ChapterContentHtml = "<p>Initial chapter content in HTML</p>",
+                ChapterContentMarkdown = "Initial chapter content in Markdown",
+                ChapterTitle = "Initial Chapter Title",
+                ChapterPrice = 0.99m,
+                UpdateTime = DateTime.Now.AddDays(-1) // Set an older update time for the existing chapter
+            };
+
+            var mockDbSet = new Mock<DbSet<Chapter>>();
+            mockDbSet.Setup(m => m.FirstOrDefault(c => c.ChapterId == chapterId)).Returns(existingChapter);
+
+            var mockContext = new Mock<EasyPublishingContext>();
+            mockContext.Setup(m => m.Chapters).Returns(mockDbSet.Object);
+
+            var controller = new ChaptersController(mockContext.Object);
+
+            // Act
+            var result = await controller.EditChapter(form);
+
+            // Assert
+        
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Cập nhật thành công!"
+            });
+        }
+
+        [Fact]
+        public async Task EditChapter_ReturnsError_WhenChapterContentIsNullOrEmpty()
+        {
+            // Arrange
+            var form = new UpdateChapterForm
+            {
+                ChapterId = 1,
+                ChapterContentHtml = "", // Empty content
+                ChapterContentMarkdown = "Updated chapter content in Markdown",
+                ChapterTitle = "Updated Chapter Title",
+                ChapterPrice = 1.99m
+            };
+
+            var mockContext = new Mock<EasyPublishingContext>();
+            var controller = new ChaptersController(mockContext.Object);
+
+            // Act
+            var result = await controller.EditChapter(form);
+
+            // Assert
+   
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Không được để trống nội dung chương!"
             });
         }
     }
