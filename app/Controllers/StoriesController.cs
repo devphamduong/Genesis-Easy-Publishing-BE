@@ -176,7 +176,7 @@ namespace app.Controllers
                 })
                 .OrderByDescending(c => c.StoryId)
                 .ToListAsync();
-            var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId))).ToList();
+            var verified = stories.Where(c => c.StoryCategories.Any(cat => cates.Contains(cat.CategoryId)) && c.StoryChapterNumber > 0).ToList();
             return _msgService.MsgReturn(0, "Truyện liên quan", verified.Take(3));
         }
 
