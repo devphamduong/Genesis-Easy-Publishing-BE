@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj": {}
+    "E:\\FPTU\\sem 9\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj": {}
   },
   "projects": {
-    "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
+    "E:\\FPTU\\sem 9\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
-        "projectName": "app",
-        "projectPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj",
+        "projectUniqueName": "E:\\FPTU\\sem 9\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
+        "projectName": "test",
+        "projectPath": "E:\\FPTU\\sem 9\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\obj\\",
+        "outputPath": "E:\\FPTU\\sem 9\\SE\\Genesis-Easy-Publishing-BE\\test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,125 +40,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "EPPlus": {
-              "target": "Package",
-              "version": "[7.0.10, )"
-            },
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[7.0.15, )"
-            },
-            "Microsoft.AspNetCore.OData": {
-              "target": "Package",
-              "version": "[8.2.4, )"
-            },
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[7.0.15, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.15, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[7.0.15, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.15, )"
-            },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[7.0.11, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.5.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
-        "projectName": "test",
-        "projectPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\test.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\test\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj": {
-                "projectPath": "E:\\FPTU\\SE\\Genesis-Easy-Publishing-BE\\app\\app.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "dependencies": {
-            "FakeItEasy": {
-              "target": "Package",
-              "version": "[8.2.0, )"
-            },
-            "FluentAssertions": {
-              "target": "Package",
-              "version": "[6.12.0, )"
-            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.3.2, )"
-            },
-            "Moq": {
-              "target": "Package",
-              "version": "[4.20.70, )"
             },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

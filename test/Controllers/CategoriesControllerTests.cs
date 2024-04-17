@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static app.Controllers.AuthController;
 using static app.Controllers.CategoriesController;
+using System.Threading.Tasks;
 
 namespace test.Controllers
 {
@@ -20,9 +21,10 @@ namespace test.Controllers
     {
         private readonly Mock<EasyPublishingContext> _contextMock = new Mock<EasyPublishingContext>();
         private readonly CategoriesController _controller;
+        private readonly EasyPublishingContext _context = new EasyPublishingContext();
 
         public CategoriesControllerTests()
-        {
+        { 
             _controller = new CategoriesController(_contextMock.Object);
 
         }
@@ -110,7 +112,77 @@ namespace test.Controllers
                 EM = "Thêm thể loại thành công",
             });
         }
+        [Fact]
+        public async Task PutCategory_ReturnsBadRequest_WhenIdDoesNotMatchCategoryId()
+        {
+            // Arrange
+            var id = 1;
+            var category = new Category { CategoryId = 2, CategoryName = "Test Category" };
 
+            // Act
+            var result = await _controller.PutCategory(id, category);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Không tìm thấy thể loại!",
+            });
+        }
+
+        [Fact]
+        public async Task PutCategory_ReturnsBadRequest_WhenCategoryNameIsNullOrEmpty()
+        {
+            // Arrange
+            var id = 1;
+            var category = new Category { CategoryId = 1, CategoryName = "" };
+
+            // Act
+            var result = await _controller.PutCategory(id, category);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Tên thể loại không được để trống!",
+            });
+        }
+
+        [Fact]
+        public async Task PutCategory_ReturnsSuccess_WhenCategoryIsUpdated()
+        {
+            // Arrange
+
+            int id = 1;
+            var category = new Category
+            {
+                CategoryId = 1,
+                CategoryName = "manhwa",
+                CategoryBanner = "banner.jpg",
+                CategoryDescription = "This is a test category.",
+                Stories = null
+            };
+            var categoryData = new List<Category>
+            {
+                new Category { CategoryId = 1, CategoryName = "Old Category Name" }
+            }.AsQueryable();
+            _contextMock.Setup(m => m.Categories)
+                  .Returns(CreateMockDbSet(categoryData));
+            // Act
+            var result = await _controller.PutCategory(id, category);
+
+            // Assert
+           
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Cập nhật thể loại thành công!",
+            });
+        }
+   
     }
 
 

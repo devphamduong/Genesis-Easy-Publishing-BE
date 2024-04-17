@@ -29,14 +29,9 @@ namespace test.Controllers
     {
         private readonly EasyPublishingContext _context;
         private Mock<EasyPublishingContext> _contextMock;
-        private Mock<MsgService> _msgServiceMock;
         private readonly Mock<HttpRequest> _requestMock;
         private readonly InteractionsController _controller;
-        private Mock<HttpContext> _mockHttpContext;
-        private Mock<HttpRequest> _mockHttpRequest;
-        private Mock<IHeaderDictionary> _mockHeaders;
-        private Mock<ClaimsPrincipal> _mockUser;
-        private Mock<ClaimsIdentity> _mockIdentity;
+  
         private Mock<IHttpContextAccessor> _httpContextAccessorMock;
         private readonly IConfiguration _configuration;
         private readonly Mock<HttpContext> _httpContextMock = new Mock<HttpContext>();
@@ -48,14 +43,7 @@ namespace test.Controllers
             _contextMock = new Mock<EasyPublishingContext>();
              _controller = new InteractionsController(_contextMock.Object);
             _requestMock = new Mock<HttpRequest>();
-            _mockHttpContext = new Mock<HttpContext>();
-            _mockHttpRequest = new Mock<HttpRequest>();
-            _mockHeaders = new Mock<IHeaderDictionary>();
-            _mockUser = new Mock<ClaimsPrincipal>();
-            _mockIdentity = new Mock<ClaimsIdentity>();
-            _configuration = A.Fake<IConfiguration>();
-            _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
-            httpRequest = A.Fake<HttpRequest>();
+      
 
         }
         [Fact]
@@ -63,16 +51,6 @@ namespace test.Controllers
         {
             // Arrange
             var storyId = 1;
-            var userId = 10;
-            var existingInteraction = new StoryFollowLike { UserId = userId, StoryId = storyId, Follow = false, Like = false };
-            var storyInteraction = new StoryInteraction { StoryId = storyId, Like = 0 };
-
-            _mockHttpContext.Setup(c => c.Request).Returns(_mockHttpRequest.Object);
-            _mockHttpRequest.Setup(r => r.Headers).Returns(_mockHeaders.Object);
-            _mockHttpContext.Setup(c => c.User).Returns(_mockUser.Object);
-            _mockIdentity.Setup(i => i.IsAuthenticated).Returns(true);
-            _mockUser.Setup(u => u.Identity).Returns(_mockIdentity.Object);
-             
 
             // Act
             var result = await _controller.LikeStory(1);
@@ -97,9 +75,7 @@ namespace test.Controllers
             {
                 ControllerContext = new ControllerContext { HttpContext = _httpContextMock.Object },
             };
-            string access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0IiwiZW1haWwiOiJCb29raWVfVXNlcjJAcWEudGVhbSIsInVzZXJuYW1lIjoibmFtbmQiLCJuYmYiOjE3MTI0ODk2NDAsImV4cCI6MTcxMjU3NjA0MCwiaWF0IjoxNzEyNDg5NjQwLCJpc3MiOiJhZG1pbiIsImF1ZCI6InVzZXIifQ.QZMfWqafNNdVA6M2RzKhevUf1he-uiuPVQGq4zqjBlI";
-            _httpContextMock.SetupGet(c => c.User.Identity.IsAuthenticated).Returns(true);
-            _httpContextMock.SetupGet(c => c.Request.Cookies["access_token"]).Returns(access_token);
+
             // Act
             var result = await _controller.LikeStory(2);
 
@@ -111,6 +87,87 @@ namespace test.Controllers
                 EM = "Bạn đã thích truyện",
             });
         }
+        [Fact]
+        public async Task LikeChapter_InvalidUser_Unauthorized()
+        {
+            // Arrange
+            var storyId = 1;
 
+            // Act
+            var result = await _controller.LikeStory(1);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Đăng nhập trước",
+            });
+        }
+
+        [Fact]
+        public async Task LikeChapter_ValidUser_LikeChapter()
+        {
+            // Arrange
+            var controller = new InteractionsController(_contextMock.Object);
+
+            _httpContextAccessorMock.Setup(m => m.HttpContext).Returns(_httpContextMock.Object);
+            controller = new InteractionsController(_contextMock.Object)
+            {
+                ControllerContext = new ControllerContext { HttpContext = _httpContextMock.Object },
+            };
+
+            // Act
+            var result = await _controller.LikeStory(2);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Bạn đã thích truyện",
+            });
+        }
+        [Fact]
+        public async Task FollowStory_InvalidUser_Unauthorized()
+        {
+            // Arrange
+            var storyId = 1;
+
+            // Act
+            var result = await _controller.LikeStory(1);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = -1,
+                EM = "Đăng nhập trước",
+            });
+        }
+
+        [Fact]
+        public async Task FollowStory_ValidUser_Followtory()
+        {
+            // Arrange
+            var controller = new InteractionsController(_contextMock.Object);
+
+            _httpContextAccessorMock.Setup(m => m.HttpContext).Returns(_httpContextMock.Object);
+            controller = new InteractionsController(_contextMock.Object)
+            {
+                ControllerContext = new ControllerContext { HttpContext = _httpContextMock.Object },
+            };
+
+            // Act
+            var result = await _controller.LikeStory(2);
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            jsonResult.Value.Should().BeEquivalentTo(new
+            {
+                EC = 0,
+                EM = "Bạn đã thích truyện",
+            });
+        }
     }
 }
