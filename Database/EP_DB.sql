@@ -679,7 +679,15 @@ INSERT [dbo].[User]([user_id],[user_fullname]  ,[gender] ,[dob] ,[email] ,[phone
 		,(98, N'Katya Corbyn', 0, CAST(N'1969-12-31' AS Date), N'Bookie_User96@qa.team', N'7693285889', N'D506R', N'user_no96', N'5M5g7rO37L', null, 1, null, null, 2)
 		,(99, N'Rahab Octo', 0, CAST(N'1989-05-01' AS Date), N'Bookie_User97@qa.team', N'5723628843', N'A079L', N'user_no97', N'38622s3j03', null, 1, null, null, 2)
 		,(100, N'Hansel May', 1, CAST(N'2003-06-22' AS Date), N'Bookie_User98@qa.team', N'0343057780', N'E443R', N'user_no98', N'1oST7ll09m', null, 1, null, null, 2)
-		,(101, null, 1, null, N'huynqhe163812@fpt.edu.vn', null, null, N'HuyNQ123', N'miPC1NoqPjvEnDUw2QkIMA==;xjY9eYmNxPWBr/o//7uH9ySCzYezaXviqxnnICvq5XI=', null, 1, null, null, 2)
+		
+INSERT [dbo].[User] ([user_id], [user_fullname], [gender], [dob], [email], [phone], [address], [username], [password], [user_image], [status], [description_markdown], [description_html], [role_id]) VALUES (101, N'Ngã Cật Tây Hồng Thị', 1, CAST(N'1995-02-01' AS Date), N'huynqhe163812@fpt.edu.vn', NULL, N'Thái Nguyên', N'HuyNQ123', N'miPC1NoqPjvEnDUw2QkIMA==;xjY9eYmNxPWBr/o//7uH9ySCzYezaXviqxnnICvq5XI=', N'author1202404201614320163.jpg', 1, N'Chu Hồng Chí xuất thân từ huyện Bảo Ứng, thành phố Dương Châu tỉnh Giang Tô.
+
+Chu Hồng Chí đang theo học dở tại khoa Toán ở Trường Đại học Tô Châu, tuy nhiên anh đã quyết định nghỉ giữa chừng để theo đuổi sự nghiệp viết văn online và nhanh chóng gặt hái được những thành công ngoài mong đợi. Bút danh Tôi ăn Cà Chua (Ngã Cật Tây Hồng Thị) đã trở nên cực kỳ nổi tiếng trên internet và giúp nhà văn trẻ này từ một kẻ vô danh trở thành người có thu nhập lên tới hơn 1 triệu Nhân dân Tệ (khoảng 3,5 tỷ Việt Nam Đồng) một năm.
+
+Kể từ khi bút danh Ngã Cật Tây Hồng Thị trở nên nổi danh từ bộ tiểu thuyết kinh điển Tinh Thần Biến (hạng 1 bảng xếp hạng tổng thu các tác phẩm Trung Văn Online, hạng 1 các tiểu thuyết Trung Văn được tìm kiếm trên toàn cầu), những tác phẩm tiếp theo của nhà văn này như Thôn Phệ Tinh Không, Thốn Mang, Cửu Đỉnh Ký… và đỉnh cao nhất là Bàn Long luôn thu hút được sự quan tâm chú ý của đông đảo cư dân mạng, đồng nghĩa với việc thu nhập của Chu Hồng Chí bạo tăng và ngày càng trở nên giàu có.', N'<p>Chu Hồng Chí xuất thân từ huyện Bảo Ứng, thành phố Dương Châu tỉnh Giang Tô.</p>
+<p>Chu Hồng Chí đang theo học dở tại khoa Toán ở Trường Đại học Tô Châu, tuy nhiên anh đã quyết định nghỉ giữa chừng để theo đuổi sự nghiệp viết văn online và nhanh chóng gặt hái được những thành công ngoài mong đợi. Bút danh Tôi ăn Cà Chua (Ngã Cật Tây Hồng Thị) đã trở nên cực kỳ nổi tiếng trên internet và giúp nhà văn trẻ này từ một kẻ vô danh trở thành người có thu nhập lên tới hơn 1 triệu Nhân dân Tệ (khoảng 3,5 tỷ Việt Nam Đồng) một năm.</p>
+<p>Kể từ khi bút danh Ngã Cật Tây Hồng Thị trở nên nổi danh từ bộ tiểu thuyết kinh điển Tinh Thần Biến (hạng 1 bảng xếp hạng tổng thu các tác phẩm Trung Văn Online, hạng 1 các tiểu thuyết Trung Văn được tìm kiếm trên toàn cầu), những tác phẩm tiếp theo của nhà văn này như Thôn Phệ Tinh Không, Thốn Mang, Cửu Đỉnh Ký… và đỉnh cao nhất là Bàn Long luôn thu hút được sự quan tâm chú ý của đông đảo cư dân mạng, đồng nghĩa với việc thu nhập của Chu Hồng Chí bạo tăng và ngày càng trở nên giàu có.</p>
+', 2)
 SET IDENTITY_INSERT [dbo].[User] OFF
 GO
 
@@ -1098,7 +1106,43 @@ INSERT [dbo].[Story] ([story_id] ,[story_title], [author_id], [story_price], [st
 			
 			<h3>Chúc bạn có những giây phút vui vẻ khi đọc truyện Bất Diệt Kiếm Quân!</h3>'
 		,CAST(N'2024-01-01T05:52:10.323' AS DateTime), null, 1)
-		
+
+INSERT [dbo].[Story] ([story_id], [story_title], [author_id], [story_price], [story_sale], [story_image], [story_description], [story_description_markdown], [story_description_html], [create_time], [update_time], [status]) VALUES (25, N'Trò Chơi Này Cũng Quá Chân Thật', 101, CAST(1000.00 AS Decimal(10, 2)), CAST(10 AS Decimal(18, 0)), N'story1202404201539273157.jpg', N'Trò chơi này cũng quá chân thật a! Đánh như thế nào lấy đánh lấy đồng đội quần áo sẽ không có? Cái gì? Ngươi hỏi ta trò chơi này đứng đắn không? Đương nhiên nghiêm chỉnh! Dời gạch, chân chạy, nhặt rác rưởi, đưa chuyển phát nhanh. . . Công ty nhiều nhất có thể để ngươi cảm nhận được 996 gian khổ, ở đây ngươi có thể cảm nhận được siêu cấp gấp bội 007. Còn có so đây càng chân thật trò chơi? Được rồi, không nói nhảm, vĩ đại người quản lý đại nhân gọi ta đi dời gạch. Vị đại nhân kia nói, chỉ cần chúng ta dâng lên bản thân lá gan, tháng sau hắn lại có thể đổi một bộ hoàn toàn mới động lực giáp, đến lúc đó mang bọn ta mở hết mới địa đồ, đi rộng lớn đất hoang nhặt càng nhiều rác rưởi! . . . Nghiêm chỉnh giới thiệu vắn tắt: Xuyên qua đến đất hoang thế giới Sở Quang phát hiện, bản thân giải tỏa chỗ tránh nạn hệ thống, có thể từ bản thân xuyên qua trước thế giới triệu hoán tên là &quot;Player &quot; sinh vật. Từ ngày đó bắt đầu, toàn bộ đất hoang đều không đứng đắn. ', N'Trò chơi này cũng quá chân thật a!
+
+Đánh như thế nào lấy đánh lấy đồng đội quần áo sẽ không có?
+
+Cái gì? Ngươi hỏi ta trò chơi này đứng đắn không?
+
+Đương nhiên nghiêm chỉnh!
+
+Dời gạch, chân chạy, nhặt rác rưởi, đưa chuyển phát nhanh. . . Công ty nhiều nhất có thể để ngươi cảm nhận được 996 gian khổ, ở đây ngươi có thể cảm nhận được siêu cấp gấp bội 007.
+
+Còn có so đây càng chân thật trò chơi?
+
+Được rồi, không nói nhảm, vĩ đại người quản lý đại nhân gọi ta đi dời gạch.
+
+Vị đại nhân kia nói, chỉ cần chúng ta dâng lên bản thân lá gan, tháng sau hắn lại có thể đổi một bộ hoàn toàn mới động lực giáp, đến lúc đó mang bọn ta mở hết mới địa đồ, đi rộng lớn đất hoang nhặt càng nhiều rác rưởi!
+
+. . .
+
+Nghiêm chỉnh giới thiệu vắn tắt:
+
+Xuyên qua đến đất hoang thế giới Sở Quang phát hiện, bản thân giải tỏa chỗ tránh nạn hệ thống, có thể từ bản thân xuyên qua trước thế giới triệu hoán tên là "Player " sinh vật.
+
+Từ ngày đó bắt đầu, toàn bộ đất hoang đều không đứng đắn.', N'<p>Trò chơi này cũng quá chân thật a!</p>
+<p>Đánh như thế nào lấy đánh lấy đồng đội quần áo sẽ không có?</p>
+<p>Cái gì? Ngươi hỏi ta trò chơi này đứng đắn không?</p>
+<p>Đương nhiên nghiêm chỉnh!</p>
+<p>Dời gạch, chân chạy, nhặt rác rưởi, đưa chuyển phát nhanh. . . Công ty nhiều nhất có thể để ngươi cảm nhận được 996 gian khổ, ở đây ngươi có thể cảm nhận được siêu cấp gấp bội 007.</p>
+<p>Còn có so đây càng chân thật trò chơi?</p>
+<p>Được rồi, không nói nhảm, vĩ đại người quản lý đại nhân gọi ta đi dời gạch.</p>
+<p>Vị đại nhân kia nói, chỉ cần chúng ta dâng lên bản thân lá gan, tháng sau hắn lại có thể đổi một bộ hoàn toàn mới động lực giáp, đến lúc đó mang bọn ta mở hết mới địa đồ, đi rộng lớn đất hoang nhặt càng nhiều rác rưởi!</p>
+<p>. . .</p>
+<p>Nghiêm chỉnh giới thiệu vắn tắt:</p>
+<p>Xuyên qua đến đất hoang thế giới Sở Quang phát hiện, bản thân giải tỏa chỗ tránh nạn hệ thống, có thể từ bản thân xuyên qua trước thế giới triệu hoán tên là &quot;Player &quot; sinh vật.</p>
+<p>Từ ngày đó bắt đầu, toàn bộ đất hoang đều không đứng đắn.</p>
+', CAST(N'2024-04-20T15:39:15.547' AS DateTime), CAST(N'2024-04-20T15:53:14.983' AS DateTime), 1)
+
 SET IDENTITY_INSERT [dbo].[Story] OFF
 GO
 
@@ -1130,7 +1174,7 @@ INSERT [dbo].[Story_Interaction] ([story_id] ,[like], [follow], [view], [read])
 		(24 ,128 ,73 ,24 ,128)
 
 
-
+INSERT [dbo].[Story_Interaction] ([story_id], [like], [follow], [view], [read]) VALUES (25, 0, 0, 100, 100)
 
 SET IDENTITY_INSERT [dbo].[Category] ON 
 GO
@@ -1180,7 +1224,7 @@ INSERT INTO [dbo].[Story_Category]([category_id],[story_id]) VALUES
 	(1,21),(2,21),(3,21),(4,21),(5,21),(6,21),(7,21),(8,21),(9,21),(10,21),(11,21),(12,21),(13,21),(14,21),(15,21),
 	(1,22),(2,22),(3,22),(4,22),(5,22),(6,22),(7,22),(8,22),(9,22),(10,22),(11,22),(12,22),(13,22),(14,22),(15,22),
 	(5,23),(10,23),(15,23),
-	(5,24),(7,24),(8,24),(9,24),(12,24),(15,24)
+	(5,24),(7,24),(8,24),(9,24),(12,24),(15,24), (15, 25), (11, 25), (9, 25), (8, 25)
 
 SET IDENTITY_INSERT [dbo].[Volume] ON 
 GO
@@ -1219,8 +1263,8 @@ INSERT [dbo].[Volume] ([volume_id] , [volume_number], [story_id], [volume_title]
 		(30, 2, 24, N'Phần thưởng ngươi', CAST(N'2024-01-03T05:52:10.324' AS DateTime)),
 		(31, 3, 24, N'4 ngồi đều kinh hãi', CAST(N'2024-01-04T05:52:10.324' AS DateTime)),
 		(32, 4, 24, N'Bạch Ngọc Thiên Thê', CAST(N'2024-01-05T05:52:10.324' AS DateTime)),
-		(33, 5, 24, N'Rung động', CAST(N'2024-01-06T05:52:10.323' AS DateTime))
-
+		(33, 5, 24, N'Rung động', CAST(N'2024-01-06T05:52:10.323' AS DateTime)),
+		(34, 1, 25, N'Thanh Tuyền thành phố', CAST(N'2024-04-20T15:40:20.760' AS DateTime))
 SET IDENTITY_INSERT [dbo].[Volume] OFF
 GO
 
@@ -3045,6 +3089,2944 @@ INSERT [dbo].[Chapter]([chapter_id],[chapter_number],[story_id],[volume_id],[cha
 			Trạch Cương nói đến đây thì không nói nữa. Tất cả đều là người thông minh, cho dù không nói, cũng sẽ hiểu ý tứ của lời nói đó là gì.Cô và Trạch Cương rõ ràng là thật lòng yêu nhau, 
 			tại sao mọi người đều muốn chia rẽ bọn họ?
 			')
+
+INSERT [dbo].[Chapter] ([chapter_id], [chapter_number], [story_id], [volume_id], [chapter_title], [chapter_content_markdown], [chapter_content_html], [chapter_price], [create_time], [update_time], [status]) VALUES (65, 1, 25, 34, N'100% chân thật trò chơi là có nhiều chân thật?', N'". . 100% chân thật hoàn toàn chìm thức trò chơi là có nhiều chân thật?"
+
+Địa cầu, đại học nào có phòng máy.
+
+Nhìn xem nhóm chat tin tức, Diệp Vĩ trong đầu ngay lập tức hiển thị hình tượng không phải trò chơi, mà là trắng loá bắp đùi cùng nghĩa.
+
+Hướng tỉ mỉ nói, chính là Đánh kia đánh 200+mod thiếu nữ núm trục 5, cùng 100+ cái tự ngủ lão bà từ kho lưu trữ bên trong cuộc sống lại.
+
+Lại nhỏ một chút không thể nói, muốn không đặt biệt danh.
+
+Bọ ở trong nhóm đặc biệt danh gọi thiếu nữ hiệp đấu mười đêm lần, bởi vì quá dài lại không văn nhã, nhóm lão ca môn đều tên gọi tắt vào đêm thứ mười.
+
+"Chính là mặt chữ trên ý nghĩa chân thực."
+
+"Thị giác, thính giác, khứu giác, xúc giác, vị giác. . . Tất cả đều cùng thế giới hiện thực một dạng, thế giới trò chơi thời gian lưu động cùng thế giới hiện thực là 1: 1, xoáy giờ đại khái niệm 12 giờ, đồng thời bởi vì kỹ thuật nguyên lý là đúng cảnh mộng cảnh, sở thích trò chơi thì tương đương với đi ngủ."
+
+Gõ ra cái này hai hàng chữ lão ca, đặc biệt gọi "Quang" .
+
+Cái này béo trang một chữ độc nhất đặc biệt danh, cùng "Ngưu Mã câu lạc bộ" cái này nhóm danh hiển thị không hợp nhau, sở hữu trong đám Sa điêu nhóm bạn bè, ngẫu nhiên cũng sẽ hoàn hô vị này lão ca " Ultraman", "Gaia", thậm chí là Khai ca hoặc là ngưu bức.
+
+Cấp bậc tám đại hoang phong (nhân viên quản lý): "Đây là cái gì huyễn tưởng hệ thiết lập sao? ( cát) "
+
+Còn nhiều thời gian (nhân viên quản lý): "Mà lại nghe nhiều năm rồi, cảm giác giống như lúc đầu văn học mạng bên trong liên quan tới thực tế trò chơi ảo thiết lập."
+
+Thời gian qua nhanh (chủ nhóm): "Ha ha, tiến là cách nói mang giả mũ bảo hiểm sao? Ta khi còn đi học nhi nhưng rất thích xem."
+
+Thiếu nữ chiến đấu mười lần (nhân viên quản lý): "Giảng đạo lý loại thiết lập này cũng không hợp lý đi, tổng đài không kiếm tiền, liền vì để người chơi thoải mái? Nếu thật là trăm phần trăm chân thật, làm sao thể hiện nhân dân tệ chiến sĩ tôn quý được không?
+
+Diệp Vĩ là không nhìn những tiểu thuyết này, nhưng Đánh cảm thấy mình phải chịu tội chín năm giáo dục bắt buộc, cùng những người khác không giống nhau, nên thoải mái càng chắc chắn là truy cầu lý lý tính.
+
+Sở dĩ đánh càng thích xem Huyền huyễn cùng linh dị.
+
+Còn nhiều thời gian: "Huynh đệ quy, quá béo túc, thật giải thích hợp lý, nên để trong tiểu thuyết hư cấu tổng kiếm được tiền, để tiểu thuyết bên ngoài độc giả thoải mái đến mới thực sự là hợp lý Một?"
+
+Cấp bậc đại chiến: "Cấm chỉ sáo."
+
+Chủ đề cực kỳ trôi rồi.
+
+Mặc dù Ngưu Mã câu lạc bộ là trò chơi nhóm, nhưng rất ít như hôm nay như thế này Fat trang thảo luận trò chơi.
+
+Nhất là một cái bản không tồn tại, hoàn toàn trống rỗng tưởng tượng ra tới "Trò chơi" .
+
+Nhưng mà, cho dù chủ đề đã hoàn toàn để đi xa, nhưng cái đề tài này người xuất đề cũng chính là vị kia gọi "Quang" lão ca, lại vẫn cố gắng cung cấp chủ đề kéo lại.
+
+Quang: "Ta là nói nếu như."
+
+Quang: "Nếu kết quả thực sự có dạng trò chơi này, các bạn thiện ý chơi sao?"
+
+Nhìn xem nhóm chat, Diệp Vĩ cười lắc đầu.
+
+Cái này còn cần hỏi sao?
+
+Thiếu nữ tranh đấu đêm mười lần: "Nguyện ý a! Vì sao không ý ý? 100% chân thật trò chơi, làm gì không thử một chút, hiểu biết. (buồn cười) "
+
+Cấp bậc đại cuồng phong: "+1, bất quá liên quan nói thiết lập, ta vẫn là có chút nghi vấn, if như tại trò chơi thời gian chờ cùng với giấc ngủ thời gian. . . Loại kỹ thuật này ứng dụng đến bên cạnh công việc không phải là lý do hợp lý hơn?"
+
+Thời gian qua nhanh: "Ngọa tào, quái là ma quỷ sao? ? ?"
+
+Còn lại nhiều thời gian: "Kết ta vẫn thành thành thật thật ngủ đi. ( Khó chịu) "
+
+Cai thuốc: "Những đêm hôm nay muộn khoắt không ngủ được, ở trong bầy nằm mơ đâu."
+
+"Chế độ cười ta."
+
+Trong đám đông nổi bong bóng người càng đến nhiều.
+
+Còn chút ít người mặc dù không có phát tin tức, nhưng cũng tại nhiều thú vị dòm bình phong.
+
+200 người chơi nhóm, sinh động các thành viên bình thường tại mười đến hai mươi cái mô tả hữu, ngẫu nhiên cũng sẽ xuất hiện hai cái " kiều nhận biết tiểu, nhưng khinh không biết " gạch mặt lạ, hỏi một chút mới biết được bình luận hơn hai năm.
+
+Cái kia gọi quang lão ca lại là không để ý tới, tiếp tục đắm chìm trong thế giới của mình.
+
+"Trên thực tế, ta gần nhất nhập chức năng này nhà công ty, ngay tại nghiên cứu phát hiện ra một trò chơi ảo hoàn toàn chìm thức tế trực tuyến."
+
+Náo nhiệt nhóm chat ngắn một trạng thái hồi phục.
+
+Nhưng rất nhanh, tựa đề như hẹn xong đồng ý, đụng tới liên tiếp tin tức.
+
+"Ngọa tào?"
+
+"Thật hay giả? !"
+
+"Ngưu a huynh đệ! Ta gần chút đều tin. (buồn cười) "
+
+Diệp Vĩ cảm nhận được kịch bản này cũng không quá nhiều.
+
+Hoàn toàn chìm thức game ảo thực tế trực tuyến?
+
+100% chân thật hả?
+
+Kéo con bê đâu.
+
+Tựa như cơn cuồng phong đại ca nói, cái đồ chơi này nếu thật sự tồn tại tại lời nói, sẽ lấy ra làm trò chơi? ? ?
+
+Đương nhiên, trực tiếp sử dụng tại việc làm lĩnh vực Cánh không quá hoa đồng. Ở Nơi trong Ý tượng, thật có loại này ngưu bức kỹ thuật, nhất định là trước đây dùng tại lĩnh vực quân sự.
+
+Lấy hướng dẫnluyện lính đặc biệt bao nhiêu ngưu bức!
+
+Vị kia gọi "Quang" lão huynh không có lại nói tiếp, chỉ cần ném tới một địa chỉ Internet.
+
+Diệp Vĩ tiện tay ấn mở, phát hiện thế nào là một trang web trò chơi chính thức.
+
+Website chính thức trang giấy làm không ra sao, nhìn xem tương tự như là ngay cả mời trang trí tiền đều ra không tầm thường, trống rỗng trang giấy cũng không có bất luận cái gì nội dung, chỉ có trần thở ba hàng chữ.
+
+[ 100% chân thật thực tế Trò chơi ảo —— « đất hoang OL » ]
+
+[ trước mắt hẹn trước nhân số: 0 ]
+
+[ hẹn trước: Có ∕ không ]
+
+Diệp Vĩ nở nụ cười.
+
+Khá nhiều, làm nền như thế nửa ngày, hóa ra là quảng cáo a.
+
+Cũng không biết rau chân vịt vẫn là lưới chắn.
+
+Bất quá cái này hẹn trước nhân số ngược lại là đủ chân thật, không có hư hỏng cái tám vị đếm tại tuyến nhân số, lại viết cái ngay cả bã bã Huy đều ở đây chơi.
+
+" Được rồi, ngược lại muốn xem xem là cái gì trâu ngựa."
+
+Cầm con chuột nhấn xuống có.
+
+Nhưng mà làm đánh ngoài ý muốn chính là, trong dự đoán đăng ký trang giấy cũng không có bắn ra, trừ hẹn trước nhân số từ 0 biến thành 1 bên ngoài, liền không có bất kỳ biến hóa nào.
+
+"Cái này khám phá trò chơi ngay cả tài khoản đều không cần đăng ký? ? ?"
+
+Cái này tao thao tác Diệp Vĩ cho chỉnh sửa sẽ không, đánh lửa trong thời điểm đó nên cân đo khó định, cái đồ chơi này đến cùng có tính không quảng cáo.
+
+Thích hợp là độc quyền?
+
+Cũng không đủ khả năng.
+
+Cái này đều đại đại gì, phần mềm diệt virus đều nhanh chóng rời khỏi lịch sử võ đài, còn loại kia điểm một lần trang web CÓ, KHÔNG liền có thể lây nhiễm virus?
+
+Đừng nói là ở trường học phòng máy.
+
+Chính là dùng bản thân máy tính, đánh cũng không sợ cái đồ chơi này.
+
+. . .
+
+[ hẹn trước số: 11 ]
+
+Đất hoang, số 404 chỗ tránh cư dân đại sảnh.
+
+Nhìn xem màn hình máy vi tính bên trong trang web phía sau đài số lượng, ngồi ở thu nhỏ bên trong căn phòng Sở hữu Quang nhẹ nhàng thở ra, thả chuột chắc chắn.
+
+"Dạng này đã được rồi sao?"
+
+Trả lời đánh, là hai hàng hiện lên ở trước văn tự mắt.
+
+[ nhiệm vụ đã hoàn thành. ]
+
+[ ban thưởng: Một bộ áo lót bằng nano carbon, ban thưởng số +5. ]
+
+Gian phòng bên vách tường ẩn vách động, theo hình cung cửa hợp kim kim tấm mở ra, một cái màu đen áo lót nằm ở phía sau bình bên trên.
+
+Đưa ra vải lót rộng rãi tới.
+
+Cửa hợp kim một lần nữa đóng cửa lại, gian phòng vậy một lần nữa trở về bình tĩnh.
+
+Sở Quang lập tức từ trước máy vi tính dậy dậy, đi lên trước món ăn kia áo lót mỏng lên.
+
+Trọng lượng của nó rất nhẹ nhàng, cảm nhận cực kỳ giống băng tia áo ngủ, tiến lên tinh tế mềm thương mại, rất khó tưởng tượng cái đồ chơi này có thể chống cự viên đạn xạ kích.
+
+[
+
+Tên: Nano carbon áo lót ngón tay
+
+Nói rõ: Có thể hữu hiệu hấp thu viên đạn động năng, tại bền bỉ trong phạm vi chịu khó phân tán lực trùng kích, chống cự trình nhất định cắt xuyên, cắt chém thâm thương.
+
+Bền bỉ: 100%
+
+]
+
+Từ tránh hệ thống được tặng quà sẽ đăng ký tại trong hòm item, add sung có sản phẩm giới thiệu cùng sử dụng rõ ràng.
+
+Sở Quang lập tức hét áo ra, đưa nó tặng thân mặc.
+
+Ngay từ đầu có một bộ sưu tập lạnh, nhưng rất nhanh chóng phù hợp.
+
+Lúc này, đặt tại loại vật thể trạng thái kim loại góc ống tròn trong phòng, phát hiện không có tốc độ tăng tốc điện tử âm thanh cao.
+
+"Chúc quý vị, chủ nhân, xem quý vị đã hoàn thành nhiệm vụ thứ nhất."
+
+"Có thể không bất kỳ thì tự cường mở sao?"
+
+" Đã qua rồi chủ nhân."
+
+Cái kia lớn lên giống giấy lộn cái sọ người, tên gọi Tiểu Thất.
+
+Làm số 404 phòng tránh người quản lý, nghiêm ngặt trên ý nghĩa nói rằng nó không có danh tự đối với loại vật thể này, chỉ có 777 số hiệu.
+
+Nhưng Sở Quang bận rộn, liền cho nó nổi lên cái tên.
+
+Đến như Sở Quang người thế nào, vì sao lại ở nơi này số 404 trong phòng tránh thở, vậy còn được từ một đêm trăng phong cao nói lên. . . Hãy nhấn like ở mỗi chương trình để ủng hộ tinh thần dịch giả bạn nhé!', N'<p>&quot;. . 100% chân thật hoàn toàn chìm thức trò chơi là có nhiều chân thật?&quot;</p>
+<p>Địa cầu, đại học nào có phòng máy.</p>
+<p>Nhìn xem nhóm chat tin tức, Diệp Vĩ trong đầu ngay lập tức hiển thị hình tượng không phải trò chơi, mà là trắng loá bắp đùi cùng nghĩa.</p>
+<p>Hướng tỉ mỉ nói, chính là Đánh kia đánh 200+mod thiếu nữ núm trục 5, cùng 100+ cái tự ngủ lão bà từ kho lưu trữ bên trong cuộc sống lại.</p>
+<p>Lại nhỏ một chút không thể nói, muốn không đặt biệt danh.</p>
+<p>Bọ ở trong nhóm đặc biệt danh gọi thiếu nữ hiệp đấu mười đêm lần, bởi vì quá dài lại không văn nhã, nhóm lão ca môn đều tên gọi tắt vào đêm thứ mười.</p>
+<p>&quot;Chính là mặt chữ trên ý nghĩa chân thực.&quot;</p>
+<p>&quot;Thị giác, thính giác, khứu giác, xúc giác, vị giác. . . Tất cả đều cùng thế giới hiện thực một dạng, thế giới trò chơi thời gian lưu động cùng thế giới hiện thực là 1: 1, xoáy giờ đại khái niệm 12 giờ, đồng thời bởi vì kỹ thuật nguyên lý là đúng cảnh mộng cảnh, sở thích trò chơi thì tương đương với đi ngủ.&quot;</p>
+<p>Gõ ra cái này hai hàng chữ lão ca, đặc biệt gọi &quot;Quang&quot; .</p>
+<p>Cái này béo trang một chữ độc nhất đặc biệt danh, cùng &quot;Ngưu Mã câu lạc bộ&quot; cái này nhóm danh hiển thị không hợp nhau, sở hữu trong đám Sa điêu nhóm bạn bè, ngẫu nhiên cũng sẽ hoàn hô vị này lão ca &quot; Ultraman&quot;, &quot;Gaia&quot;, thậm chí là Khai ca hoặc là ngưu bức.</p>
+<p>Cấp bậc tám đại hoang phong (nhân viên quản lý): &quot;Đây là cái gì huyễn tưởng hệ thiết lập sao? ( cát) &quot;</p>
+<p>Còn nhiều thời gian (nhân viên quản lý): &quot;Mà lại nghe nhiều năm rồi, cảm giác giống như lúc đầu văn học mạng bên trong liên quan tới thực tế trò chơi ảo thiết lập.&quot;</p>
+<p>Thời gian qua nhanh (chủ nhóm): &quot;Ha ha, tiến là cách nói mang giả mũ bảo hiểm sao? Ta khi còn đi học nhi nhưng rất thích xem.&quot;</p>
+<p>Thiếu nữ chiến đấu mười lần (nhân viên quản lý): &quot;Giảng đạo lý loại thiết lập này cũng không hợp lý đi, tổng đài không kiếm tiền, liền vì để người chơi thoải mái? Nếu thật là trăm phần trăm chân thật, làm sao thể hiện nhân dân tệ chiến sĩ tôn quý được không?</p>
+<p>Diệp Vĩ là không nhìn những tiểu thuyết này, nhưng Đánh cảm thấy mình phải chịu tội chín năm giáo dục bắt buộc, cùng những người khác không giống nhau, nên thoải mái càng chắc chắn là truy cầu lý lý tính.</p>
+<p>Sở dĩ đánh càng thích xem Huyền huyễn cùng linh dị.</p>
+<p>Còn nhiều thời gian: &quot;Huynh đệ quy, quá béo túc, thật giải thích hợp lý, nên để trong tiểu thuyết hư cấu tổng kiếm được tiền, để tiểu thuyết bên ngoài độc giả thoải mái đến mới thực sự là hợp lý Một?&quot;</p>
+<p>Cấp bậc đại chiến: &quot;Cấm chỉ sáo.&quot;</p>
+<p>Chủ đề cực kỳ trôi rồi.</p>
+<p>Mặc dù Ngưu Mã câu lạc bộ là trò chơi nhóm, nhưng rất ít như hôm nay như thế này Fat trang thảo luận trò chơi.</p>
+<p>Nhất là một cái bản không tồn tại, hoàn toàn trống rỗng tưởng tượng ra tới &quot;Trò chơi&quot; .</p>
+<p>Nhưng mà, cho dù chủ đề đã hoàn toàn để đi xa, nhưng cái đề tài này người xuất đề cũng chính là vị kia gọi &quot;Quang&quot; lão ca, lại vẫn cố gắng cung cấp chủ đề kéo lại.</p>
+<p>Quang: &quot;Ta là nói nếu như.&quot;</p>
+<p>Quang: &quot;Nếu kết quả thực sự có dạng trò chơi này, các bạn thiện ý chơi sao?&quot;</p>
+<p>Nhìn xem nhóm chat, Diệp Vĩ cười lắc đầu.</p>
+<p>Cái này còn cần hỏi sao?</p>
+<p>Thiếu nữ tranh đấu đêm mười lần: &quot;Nguyện ý a! Vì sao không ý ý? 100% chân thật trò chơi, làm gì không thử một chút, hiểu biết. (buồn cười) &quot;</p>
+<p>Cấp bậc đại cuồng phong: &quot;+1, bất quá liên quan nói thiết lập, ta vẫn là có chút nghi vấn, if như tại trò chơi thời gian chờ cùng với giấc ngủ thời gian. . . Loại kỹ thuật này ứng dụng đến bên cạnh công việc không phải là lý do hợp lý hơn?&quot;</p>
+<p>Thời gian qua nhanh: &quot;Ngọa tào, quái là ma quỷ sao? ? ?&quot;</p>
+<p>Còn lại nhiều thời gian: &quot;Kết ta vẫn thành thành thật thật ngủ đi. ( Khó chịu) &quot;</p>
+<p>Cai thuốc: &quot;Những đêm hôm nay muộn khoắt không ngủ được, ở trong bầy nằm mơ đâu.&quot;</p>
+<p>&quot;Chế độ cười ta.&quot;</p>
+<p>Trong đám đông nổi bong bóng người càng đến nhiều.</p>
+<p>Còn chút ít người mặc dù không có phát tin tức, nhưng cũng tại nhiều thú vị dòm bình phong.</p>
+<p>200 người chơi nhóm, sinh động các thành viên bình thường tại mười đến hai mươi cái mô tả hữu, ngẫu nhiên cũng sẽ xuất hiện hai cái &quot; kiều nhận biết tiểu, nhưng khinh không biết &quot; gạch mặt lạ, hỏi một chút mới biết được bình luận hơn hai năm.</p>
+<p>Cái kia gọi quang lão ca lại là không để ý tới, tiếp tục đắm chìm trong thế giới của mình.</p>
+<p>&quot;Trên thực tế, ta gần nhất nhập chức năng này nhà công ty, ngay tại nghiên cứu phát hiện ra một trò chơi ảo hoàn toàn chìm thức tế trực tuyến.&quot;</p>
+<p>Náo nhiệt nhóm chat ngắn một trạng thái hồi phục.</p>
+<p>Nhưng rất nhanh, tựa đề như hẹn xong đồng ý, đụng tới liên tiếp tin tức.</p>
+<p>&quot;Ngọa tào?&quot;</p>
+<p>&quot;Thật hay giả? !&quot;</p>
+<p>&quot;Ngưu a huynh đệ! Ta gần chút đều tin. (buồn cười) &quot;</p>
+<p>Diệp Vĩ cảm nhận được kịch bản này cũng không quá nhiều.</p>
+<p>Hoàn toàn chìm thức game ảo thực tế trực tuyến?</p>
+<p>100% chân thật hả?</p>
+<p>Kéo con bê đâu.</p>
+<p>Tựa như cơn cuồng phong đại ca nói, cái đồ chơi này nếu thật sự tồn tại tại lời nói, sẽ lấy ra làm trò chơi? ? ?</p>
+<p>Đương nhiên, trực tiếp sử dụng tại việc làm lĩnh vực Cánh không quá hoa đồng. Ở Nơi trong Ý tượng, thật có loại này ngưu bức kỹ thuật, nhất định là trước đây dùng tại lĩnh vực quân sự.</p>
+<p>Lấy hướng dẫnluyện lính đặc biệt bao nhiêu ngưu bức!</p>
+<p>Vị kia gọi &quot;Quang&quot; lão huynh không có lại nói tiếp, chỉ cần ném tới một địa chỉ Internet.</p>
+<p>Diệp Vĩ tiện tay ấn mở, phát hiện thế nào là một trang web trò chơi chính thức.</p>
+<p>Website chính thức trang giấy làm không ra sao, nhìn xem tương tự như là ngay cả mời trang trí tiền đều ra không tầm thường, trống rỗng trang giấy cũng không có bất luận cái gì nội dung, chỉ có trần thở ba hàng chữ.</p>
+<p>[ 100% chân thật thực tế Trò chơi ảo —— « đất hoang OL » ]</p>
+<p>[ trước mắt hẹn trước nhân số: 0 ]</p>
+<p>[ hẹn trước: Có ∕ không ]</p>
+<p>Diệp Vĩ nở nụ cười.</p>
+<p>Khá nhiều, làm nền như thế nửa ngày, hóa ra là quảng cáo a.</p>
+<p>Cũng không biết rau chân vịt vẫn là lưới chắn.</p>
+<p>Bất quá cái này hẹn trước nhân số ngược lại là đủ chân thật, không có hư hỏng cái tám vị đếm tại tuyến nhân số, lại viết cái ngay cả bã bã Huy đều ở đây chơi.</p>
+<p>&quot; Được rồi, ngược lại muốn xem xem là cái gì trâu ngựa.&quot;</p>
+<p>Cầm con chuột nhấn xuống có.</p>
+<p>Nhưng mà làm đánh ngoài ý muốn chính là, trong dự đoán đăng ký trang giấy cũng không có bắn ra, trừ hẹn trước nhân số từ 0 biến thành 1 bên ngoài, liền không có bất kỳ biến hóa nào.</p>
+<p>&quot;Cái này khám phá trò chơi ngay cả tài khoản đều không cần đăng ký? ? ?&quot;</p>
+<p>Cái này tao thao tác Diệp Vĩ cho chỉnh sửa sẽ không, đánh lửa trong thời điểm đó nên cân đo khó định, cái đồ chơi này đến cùng có tính không quảng cáo.</p>
+<p>Thích hợp là độc quyền?</p>
+<p>Cũng không đủ khả năng.</p>
+<p>Cái này đều đại đại gì, phần mềm diệt virus đều nhanh chóng rời khỏi lịch sử võ đài, còn loại kia điểm một lần trang web CÓ, KHÔNG liền có thể lây nhiễm virus?</p>
+<p>Đừng nói là ở trường học phòng máy.</p>
+<p>Chính là dùng bản thân máy tính, đánh cũng không sợ cái đồ chơi này.</p>
+<p>. . .</p>
+<p>[ hẹn trước số: 11 ]</p>
+<p>Đất hoang, số 404 chỗ tránh cư dân đại sảnh.</p>
+<p>Nhìn xem màn hình máy vi tính bên trong trang web phía sau đài số lượng, ngồi ở thu nhỏ bên trong căn phòng Sở hữu Quang nhẹ nhàng thở ra, thả chuột chắc chắn.</p>
+<p>&quot;Dạng này đã được rồi sao?&quot;</p>
+<p>Trả lời đánh, là hai hàng hiện lên ở trước văn tự mắt.</p>
+<p>[ nhiệm vụ đã hoàn thành. ]</p>
+<p>[ ban thưởng: Một bộ áo lót bằng nano carbon, ban thưởng số +5. ]</p>
+<p>Gian phòng bên vách tường ẩn vách động, theo hình cung cửa hợp kim kim tấm mở ra, một cái màu đen áo lót nằm ở phía sau bình bên trên.</p>
+<p>Đưa ra vải lót rộng rãi tới.</p>
+<p>Cửa hợp kim một lần nữa đóng cửa lại, gian phòng vậy một lần nữa trở về bình tĩnh.</p>
+<p>Sở Quang lập tức từ trước máy vi tính dậy dậy, đi lên trước món ăn kia áo lót mỏng lên.</p>
+<p>Trọng lượng của nó rất nhẹ nhàng, cảm nhận cực kỳ giống băng tia áo ngủ, tiến lên tinh tế mềm thương mại, rất khó tưởng tượng cái đồ chơi này có thể chống cự viên đạn xạ kích.</p>
+<p>[</p>
+<p>Tên: Nano carbon áo lót ngón tay</p>
+<p>Nói rõ: Có thể hữu hiệu hấp thu viên đạn động năng, tại bền bỉ trong phạm vi chịu khó phân tán lực trùng kích, chống cự trình nhất định cắt xuyên, cắt chém thâm thương.</p>
+<p>Bền bỉ: 100%</p>
+<p>]</p>
+<p>Từ tránh hệ thống được tặng quà sẽ đăng ký tại trong hòm item, add sung có sản phẩm giới thiệu cùng sử dụng rõ ràng.</p>
+<p>Sở Quang lập tức hét áo ra, đưa nó tặng thân mặc.</p>
+<p>Ngay từ đầu có một bộ sưu tập lạnh, nhưng rất nhanh chóng phù hợp.</p>
+<p>Lúc này, đặt tại loại vật thể trạng thái kim loại góc ống tròn trong phòng, phát hiện không có tốc độ tăng tốc điện tử âm thanh cao.</p>
+<p>&quot;Chúc quý vị, chủ nhân, xem quý vị đã hoàn thành nhiệm vụ thứ nhất.&quot;</p>
+<p>&quot;Có thể không bất kỳ thì tự cường mở sao?&quot;</p>
+<p>&quot; Đã qua rồi chủ nhân.&quot;</p>
+<p>Cái kia lớn lên giống giấy lộn cái sọ người, tên gọi Tiểu Thất.</p>
+<p>Làm số 404 phòng tránh người quản lý, nghiêm ngặt trên ý nghĩa nói rằng nó không có danh tự đối với loại vật thể này, chỉ có 777 số hiệu.</p>
+<p>Nhưng Sở Quang bận rộn, liền cho nó nổi lên cái tên.</p>
+<p>Đến như Sở Quang người thế nào, vì sao lại ở nơi này số 404 trong phòng tránh thở, vậy còn được từ một đêm trăng phong cao nói lên. . . Hãy nhấn like ở mỗi chương trình để ủng hộ tinh thần dịch giả bạn nhé!</p>
+', CAST(0.00 AS Decimal(10, 2)), CAST(N'2024-04-20T15:41:50.283' AS DateTime), CAST(N'2024-04-20T16:08:26.493' AS DateTime), 1)
+INSERT [dbo].[Chapter] ([chapter_id], [chapter_number], [story_id], [volume_id], [chapter_title], [chapter_content_markdown], [chapter_content_html], [chapter_price], [create_time], [update_time], [status]) VALUES (66, 2, 25, 34, N'Số 404 chỗ tránh nạn', N'Sở Quang, nam, tuổi mục 26, nhỏ tuổi thì cha mẹ ly dị, từ nhỏ đi theo gia gia lớn lên.
+
+Thi lên đại học sau năm thứ hai, gia gia qua đời, liền kề trở thành một người cô đơn.
+
+May mà sinh ở hòa bình niên đại, vừa học vừa làm cũng là chào cái này học thượng xong, sau khi tốt nghiệp tìm phần tiêu thụ công tác. Bởi vì công tác biểu hiện xuất sắc, bụi nuôi lão bản thưởng thức, cũng không lâu lắm liền từ người mới nâng lên chủ quản lý.
+
+Khó khăn nhất kia đoạn thời gian đều yên tĩnh đến rồi, ngay tại Sở Quang lạc quan quan cho rằng, cuối cùng có thể qua vài ngày cuộc sống và thời gian điểm, hết lần này tới lần khác cái này lão thiên chính là không theo bài ra.
+
+Mà lại lần này, vận mệnh cùng thú đùa đùa có chút lớn.
+
+Đại từ tháng trước.
+
+Sở Quang vẫn nhớ, khi đó đang cùng khách nói chuyện bút chì 20 triệu đồng, đúng lúc gặp lão bản tận hưởng, trên bàn rượu uống hơi nhiều, không để ý liền.
+
+Khi chiến đấu lại bình tĩnh lại đến, người đã ở một mảnh rừng núi hoang vắng.
+
+Mà lại, cái này còn không phải thông thường rừng núi hoang vắng.
+
+Liên tiếp đi rồi hai đập địa phương, đánh lửa sốt không nhìn gặp một người ảnh không nói, ngược lại chậm rãi một đầu mọc ra hai cái đầu Đại Cẩu cho tự do.
+
+Cũng có nhiều thiệt hại dài hai cái đầu dồi sinh.
+
+Sở thích thời trang mặc hù là một thân hôi hôi, mà mồ hôi vừa ra, rượu lập tức tỉnh rồi, quay người vắt chân lên cổ mà chạy.
+
+Có lẽ là bởi vì hai cái đầu quá nặng, chạy lên đường tiến không hài hòa, con chó kia ói một một hồi không phản, ngao ngao hai tiếng liền từ bỏ.
+
+Nhìn không thấy khối sinh kia, Sở Quang cũng không tản đi về, càng không biết nên đi đi đâu.
+
+Lúc này chiến binh mới phát hiện trên túi tiền của mình cùng điện thoại cũng bị mất, liền y phục đều bị đổi thành một thân không biết từ chỗ dù nhỏ được lam áo che chắn.
+
+Tìm tới một nơi vũng nước thoải mái, nhờ ánh trăng mời xem xét, khá lắm, bản thân cái này không chỉ thay đổi áo liền quần, ngay cả đầu thay đổi!
+
+Cũng không biết ai là loại đầu tiên có bệnh gia hỏa mang lại cho mình mê hôn mê, trả lại cho việc thay đổi khuôn mặt, nguy hiểm trước đây không được phía sau thôn không được cửa hàng địa phương quái vật quái vật.
+
+Ngay tại Sở Quang ở trên vùng hoang dã hoang mang lo sợ du đãng thời điểm, phương xa bay lên khói bếp hấp dẫn ý ý của Đánh.
+
+Bây giờ trở về nhớ tới, Sở Quang còn chút nghĩ mà sợ.
+
+Lúc đó Đỏ tập trung thần nghĩ đến báo cảnh, giành lĩnh vực phía kia một sợi ở chạy tới, sau đó khen lại, may bản thân gặp chính là đường chính người sống sót khu quần cư.
+
+Đổi lại là những cái kẻ giết người không chớp mắt kẻ cướp chiếm, hoặc là bộ tộc ăn thịt người, kẻ đột biến bộ lạc cái gì, chỉ sợ người đã kiểm tra trong hầm tìm.
+
+Làm không tốt cả giày da đều chín rồi!
+
+Cùng sinh hoạt ở nơi người sống sót tiếp xúc sau, Sở Quang mới từ linh linh toái mối mối bên trong hiểu được đến, nơi này đã không phải là Hoa quốc, thậm chí chí đã không phải là bản thân quen thuộc cái kia Địa cầu!
+
+Ở nơi này thế giới song song, hai trăm năm trước chiến tranh khám phá văn minh hết thành quả, chỉ để lại một mảnh cảnh hoàng tàn khắp nơi đất hoang, cùng tại đất hoang bên trên kéo dài hơi tàn người sống sót.
+
+Mà bây giờ là năm 2340.
+
+Cũng là từ năm 2129 sơ, nhân loại văn minh tiến vào đất hoang kỷ nguyên sau thứ năm 211!
+
+Cuồng phong.
+
+Chấn kinh.
+
+Không có cách nào để tạo ra nỗi sợ hãi.
+
+Cũng có thể Sở Quang năng lực tiếp nhận coi như mạnh, chịu khó qua ban sơ kia đoạn thời gian, vậy tăng dần bắt đầu thích ứng bên này sinh hoạt.
+
+Tại đất hoang bên trên khó khăn sinh sống năm tháng, mỗi ngày ăn bữa trưa trước không có bữa ăn sau, còn phải cùng sinh vật biến dị cùng không có hảo ý mã tiền nhóm chiến đấu trí Dũng.
+
+Ngay tại Sở Quang bi quan cho rằng, mình đời này cứ như vậy thời điểm, hết thời gian lại tại mấy giờ trước xảy ra chuyển cơ.
+
+Tại một nơi bỏ hoang hoang dã một bộ phận hài hước bên trong, số phát hiện chiến đấu là 404 tránh thở lối vào.
+
+Chính xác tới nói, không phải Sở Quang tìm được nó, mà tòa nhà này tên là "Số 404 phòng tránh nạn " thiết bị tìm được Sở Quảng.
+
+Từ không hải vang lên thanh âm, chỉ dẫn kiểm tra nơi này.
+
+Mà khi Sở Quảng tới trại gần an dưỡng phụ cận thì mới đột nhiên phát hiện, nơi này chính là lúc trước ở cái thế giới này vừa khi tỉnh lại cái phòng kia!
+
+Chính mình lúc trước nếu không tiến tới nơi loạn lạc,
+
+Hoặc là sắc trời lại sáng một chút, không nhẹ đều đã tìm tới nơi này!
+
+Vô luận như thế nào, đến chậm năm tháng "Phần mềm hack" cuối cùng vẫn là tới sổ.
+
+Cùng lúc đó, một phần mới tinh công tác được trình bày ở trước mặt bạn.
+
+Khu vực này tránh phản ứng phản đối chính là bởi vì việc chuẩn bị đã trở thành một dạng, đã được chờ đợi trong một thời gian dài.
+
+Từ bước vào phòng tránh đại môn một giải pháp bắt đầu, bộ phận cơ thể của bạn tiếp cận từ một người nhỏ rác, biến thành tòa này số 404 phòng tránh độc duy nhất cư dân cùng người quản lý.
+
+Công việc của một công việc chỉ có một công việc.
+
+Đó chính là lợi ích trên Địa Cầu internet, dẫn đạo —— hoặc là nói lắc lưu một đám tên là "Player " sinh vật, tới đây thế giới cho đánh giá làm công.
+
+Đúng như vậy, nơi này trong phòng tránh hoang khoa kỹ kỹ, dù những có thể kết nối thế giới song Địa cầu internet, thậm chí còn được thuộc về mình "Website chính thức" !
+
+Hẹn giờ trước trò chơi, người chơi sẽ tự động thu thập một số hiệu, đồng thời đăng ký tại quản lý người hệ thống [ tránh nạn cư dân lục lục ] bên trong.
+
+Làm người quản lý Sở Quang, có thể lựa chọn đặc tả số hiệu cấp cho "Trò chơi tư cách" .
+
+Hệ thống sẽ thông báo bất kỳ phương thức nào, cung cấp trò chơi bảo hiểm nguy hiểm cho người chơi trong tay. Người chơi chỉ cần đeo mũ bảo hiểm, có thể cùng tránh nạn bên trong bồi dưỡng khoang thuyền kết nối, lấy nhân bản thân thể tỉnh lại.
+
+Phi thường nhân hóa.
+
+Thì vô cùng thuận lợi!
+
+Mặc dù bãi công cũng sẽ không có bất kỳ hình phạt nào, nhưng hoàn thành nhiệm vụ nhận được ban thưởng, lại là Sở Quang luận như thế nào cũng vô pháp cự tuyệt.
+
+Tỉa như món kia áo chống đạn.
+
+Tại đất hoang bên trên gian nan giãy dụa cầu sinh năm tháng, lửa quá rõ ràng loại này có thể xác mệnh đồ chơi trọng yếu bao nhiêu.
+
+Trừ cái đó ra , nhiệm vụ ban thưởng điểm số cũng là đồ tốt, có thể tại [ người quản lý hỗ trợ cấp ] trang giấy Bão tên là "Hộp mù " ban thưởng.
+
+Mua sơ cấp phấn mù cần 1 điểm ban thưởng, trung cấp mù mù 10 điểm, cao cấp phấn mù 100 điểm.
+
+Căn cứ "Số 404 tránh nạn người quản lý hệ thống" đối [ người quản lý hỗ trợ ] công năng giải thích, hộp phấn mù rút đến đồ vật loại loại, số lượng không nhẹ, bất quá ít nhiều đều sẽ có chút, nói cách khác không có "Cảm ơn hạnh phúc chiếu cố" loại tình huống này.
+
+Các cấp độ khác nhau của mù, quyết định giữ nguyên ban thưởng.
+
+Tỉ lệ như phấn mù cấp cao nhất cũng có thể mở ra các sản phẩm thực phẩm, phấn mù trung cấp giữ gốc được sử dụng dược phẩm, phấn mù cao cấp có thể khai ra vũ khí.
+
+Đến như sơ cấp hộp mù có thể hay không mở ra trung cấp hộp mù phần thưởng, hệ thống trong thuyết minh ngược lại là không có chữ viết, nhưng nghĩ đến dù có, kỳ vọng cao như vậy có thể.
+
+Ngay tại Sở Quang suy nghĩ, trên tay cái này 5 cái điểm số là toàn cầm đi mở sơ cấp hộp mù , vẫn tích lũy đủ 100 điểm rút vũ khí khí thời điểm, ngồi xổm ở góc tường "Giấy lộn cái chết" lại mở miệng nói chuyện.
+
+"Chủ nhân, nhiệm vụ mới đã đổi mới tại người quản lý cập nhật ký lên cờ, xin lưu ý đã kịp xem xét."
+
+“Biết rồi.” Sở Quang không trả lời một câu trả lời.
+
+Tôi không.
+
+Đến cùng ai là ai chủ nhân!
+
+Hướng về phía góc tường khinh khít, Sở hữu quảng cáo rút hộp mù tình tạm thời đặt ở một bên, trong lòng mặc định người quản lý hệ thống.
+
+Rất nhanh, màu lam nhạt 3D màn hình, bắn ra ở Quang cảnh bên trên.
+
+--- người quản lý nhật ký ---
+
+[ nhiệm vụ: số 404 tránh nạn kích hoạt điều kiện mãn tính, nhóm đầu tiên "Thu nhận vật" xác nhận đến, yêu cầu đảm bảo ít nhất một người chơi đăng nhập vào trò chơi.
+
+Loại: Chủ tuyến.
+
+Ban thưởng: Hoạt tính vật chất thiết bị chiết xuất.
+
+]
+
+[ nhiệm vụ: Chuẩn bị một đài công suất lớn hơn 10kw máy phát điện.
+
+Loại: Chi nhánh.
+
+Tiền thưởng: Tiền thưởng +100.
+
+]
+
+Ta đi?
+
+100 điểm thưởng? !
+
+Xem hết đổi mới tại quản lý người nhật ký bên trên nhiệm vụ về sau, Sở Quang hỗ trợ cả mắt lên.
+
+Bất quá càng làm cho lửa để ý, là cái nhiệm vụ chính tuyến ban thưởng.
+
+"Hoạt tính vật chất thiết bị chiết xuất. . . Cái đồ chơi này cuộc gọi là dùng để làm gì?"
+
+Tiểu Thất hồi đáp.
+
+"Hoạt động vật chất là chế tác nhân bản thể nguyên liệu, nhưng làm sao dùng được, chắc chắn sẽ có sách hướng dẫn loại hình đồ vật a?"
+
+Làm AI hỗ trợ thủ thuật, trên thực tế Tiểu Thất biết đến tình báo cũng không nhiều.
+
+Trước mắt Sở Quang nắm quyền hạn chỉ có thể đến khả năng tránh nạn B1 tầng, những tầng lầu khác quyền hạn cần thông qua nhiệm vụ chính tuyến tiến hành giải tỏa.
+
+Thuận tiện nhắc tới, nếu như khuyên ép phá hư tránh bức tường cấu cấu, ý đồ phi pháp xâm lấn những tầng lầu khác lời nói, sẽ dẫn đến phòng tránh điện lực thiết bị, không khí trao đổi thiết bị gián đoạn đoạn.
+
+Cái này tại vừa tiến vào phòng tránh thời điểm, ghi vào chiến đại não "Chỗ tránh hệ thống" liền kề hướng báo cáo cho.
+
+Bất quá coi như không có câu nhắc nhở này, Sở Quang cảm thấy mình đại khái làm không được khám phá nhà chuyện ngu xuẩn.
+
+Nói đùa.
+
+Hủy đi nơi này, đánh giá về sau ở chỗ nào?
+
+Mà lại loại này "Tập trước khi chiến đấu khoa học kỹ thuật Đại Thừa, thiết kế thành có thể chống cấp chiến lược nổ hạt nhân " sức tránh nạn, muốn đi sợ cũng không phải dễ dàng như vậy.
+
+Đừng nói hạt nhân, đánh ngay cả súng cũng không có.
+
+" Đã thôi, ta đại khái niệm dễ hiểu."
+
+Nói cách khác, hoạt tính vật chất cùng loại với "Phục sinh tiền", là những người chơi một lần nữa hợp thành thành nhân bản cần tiêu hao tài nguyên.
+
+Trước mắt B1 tầng tồn tại 100 đài bồi dưỡng khoang thuyền, đồng đều ở vào có thể kích hoạt trạng thái, nghĩ đến bên trong chắc chắn là nội thất 1 đơn vị hoạt tính vật chất, có thể đáp ứng lần đầu hợp thành thành nhân bản có thể tiêu hao.
+
+Căn cứ hệ thống "Một số cơ bản" thiết bị nhập, Sở Quang hiện tại nhiều nhất có thể triệu tập 100 tên "Player", lấy nhân bản có thể hình thành công thức lâm thế giới này.
+
+Đương nhiên, Sở Quang trong lòng cũng tỉnh tường, tình huống cũng không có mặt ngoài đơn giản như vậy.
+
+Đầu tiên trước mắt « đất hoang OL » website chính thức không có lưu lượng.
+
+Tuyệt đại đa số người đang nghe "100% chân thật đắm chìm thực tế trò chơi ảo" loại này tuyên truyền về sau, phản ứng đầu tiên hoặc là gạt người, hoặc vẫn là gạt người.
+
+Dù sao trong hiện thực căn bản không tồn tại tại loại kỹ thuật này, cho dù là tự truyền thông đều biên không ra như thế nói chuyện ma quỷ.
+
+Tiếp theo, cho dù có 11 player bị đánh lừa vừa lừa địa điểm hẹn trước, Đánh cũng vô pháp xác định cái này 1 1 người đều sẽ nghe bản thân.
+
+Tiến vào trò chơi cùng đăng xuất trò chơi quyền chủ động, đều ở đây những người chơi trên tay mình.
+
+Mà quyền lực của mình chỉ có thể gây rắc rối cho người chơi "Cưỡng chế đá ra", "Phong bất hợp pháp đăng nhập hạn chế", cùng "Tịch thu trò chơi tư cách", cũng không thể cưỡng chế kẻ thù mặc mũ bảo hiểm , trực tuyến vì công việc chính của tôi.
+
+By vậy, cấp cho trò chơi tư cách nhân tuyển —— nhất là nhóm đầu tiên "Closed Beta" người chơi ứng cử viên, nhất định phải cẩn thận.
+
+Đó là một chút ít, vậy nên lộn xộn.
+
+Nếu không hoàn toàn thì bạn nên tìm ý nghĩ cho mình!
+
+Sau đó cũng là chốt nhất.
+
+Đất hoang bên điều kiện này đã quyết định rồi, lúc này không phải là người càng nhiều càng tốt.
+
+Thêm một người liền kề mang ý nghĩa thêm một cái miệng.
+
+Hiện tại nghèo cùng quỷ một dạng, chính mình cũng nhanh nuôi không sống, chớ nói chi là lại nuôi một trăm tấm miệng.
+
+Coi như hiện tại Đánh có điều kiện kia, cái cung này 100 đài bồi khoang thuyền cho hết mở, cũng là cho dị chủng cùng kẻ cướp tiền nhóm đưa ra phần lương thực.
+
+Trừ cái đó ra, không có bất kỳ cái gì có ý nghĩa.
+
+Sở Quang trở lại trước máy vi tính lần nữa ngồi xuống.
+
+Bàn luận tỉnh suy nghĩ hồi phục lâu, ý nghĩ của tăng dần rõ ràng.
+
+Một lần nữa leo lên bản thân acc QQ, Sở Quang đánh tiếp mở cái kia gọi "Ngưu Mã câu lạc bộ " nhóm game, cho chủ nhóm cùng ba cái quản lý cò cái thảo luận tổ.
+
+Tiếp đó, ở trong nhóm móc chữ nói.
+
+[ các hẹn trước trò chơi lúc này, website chính thức trang giấy bên trên đổi mới số phát hiện ta xuống. ]
+
+[ Closed Beta tư cách chỉ có bốn cái, phù sa không lưu ruộng người ngoài, ta hướng công ty thỉnh cầu, xem xem có thể hay không cung cấp Closed Beta tư cách cùng trò chơi mũ bảo hiểm trực tiếp phát hiện cho các ngươi. ]
+
+Đều là trước kia thường xuyên mở đen ăn gà đồng đội, tham khảo cố gắng một chút thật cũng không lộ ra đột ngột.
+
+Mấu chốt nhất là Sở Quang nghĩ không ra trong hiện thực có thể xin nhờ ai quen, có thể dựa vào cũng chỉ có những điều này tại trong hiện thực hoàn toàn chưa thấy qua bản thân, nhưng lại có chút giao tình dân network.
+
+Thân thích?
+
+Gia gia đi rồi về sau, khá hơn chút năm đều không đi lại, nếu như cảnh sát không có thông tri đến, đều chưa chắc chắn mình đã không còn.
+
+Chủ nhà?
+
+Lúc này chỉ sợ khắp thế giới tìm bản thân muốn tiền thuê nhà.
+
+Đồng học?
+
+Tốt nghiệp về sau sẽ không liên lạc qua.
+
+Đồng sự?
+
+Hà hà.
+
+Đo nhẹ là cảm thấy xúi quẩy, Sở Quang phát hiện sát thủ đã đem bản thân xóa.
+
+Hồ hồ coi như không có xóa, Sở Quang cũng không có khả năng cho bọn cướp phát tin tức, dù sao mình đương thời nhưng là tại trên bàn rượu nghỉ cơm.
+
+Người chết cho người sống phát tin tức, ngẫm lại đều có đủ kinh dị.
+
+So sánh dưới đây, những điều này Sa điêu đám dân cách mạng không thể nghi ngờ là loại lựa chọn tốt nhất.
+
+Bọn cướp cùng mình tại trong hiện thực cũng không nhận ra, mình coi như năm tháng không có online, băng nhóm cũng sẽ không hướng tới phương diện kia nghĩ quá nhiều.
+
+Thời gian qua nhanh: [ đại lão ngưu phê! ]
+
+Cấp bậc đại cuồng phong: [ngưu a ngưu a! ]
+
+Còn nhiều thời gian: [666! ]
+
+Thiếu nữ chiến đấu mười lần: [ đồng ý! Lão ca vô địch! Chờ đợi trò chơi bảo hiểm nguy hiểm! (buồn cười) ]
+
+Sở Quang tiếp tục viết chữ căn bản.
+
+[ bất quá có chuyện ta phải tuyên bố một lần, thiết bị chỉ có thể coi là cho các lợi dụng, các bạn đừng làm mất đi, càng đừng ađi, muốn không ta không có cách nào cùng công ty bàn giao . ]
+
+[ mặt khác, thiết bị sẽ cùng là người sử dụng bộ phận thân thể tin tức khóa lại, trên nguyên tắc một đài thiết bị chỉ có thể đăng ký một tài khoản, đồng thời có thể chỉ từ một cá nhân sử dụng. ]
+
+Kỳ thật nói là căn nhà, ngọc thật cũng không lo lắng các người chơi không dày thủ.
+
+Căn cứ hệ thống thuyết pháp, mũ bảo hiểm sẽ tranh luận với người chơi thân phận tin tức tiến hành phân tích, không phải người chơi tự mình căn bản không được sử dụng.
+
+Đến như thiết bị. . .
+
+Mới hoàn thành cái này.
+
+Đã hệ thống có thể cung cấp bảo hiểm cho người chơi trên tay, kia tất nhiên có giải pháp giải quyết vấn đề "phục vụ hậu mãi", đây không phải đánh giá cần quan tâm.
+
+Còn nhiều thời gian: [ thu phí sao? ]
+
+Sở Quang: [ Closed Beta giai đoạn không thu bất luận cái gì phí thâm, bất quá bởi vì kinh phí khẩn trương, cũng không g có tiền công là được rồi. ]
+
+Còn nhiều thời gian: [6666, ta số tư vấn phát hiện, cho ta gửi một phần. ]
+
+Thời gian qua nhanh: [ da trâu da trâu, ha ha ha, cho ta vậy làm một cái, nếu thật là người nói hoàn toàn chìm thức thực tế Ảo, ta trực tiếp xây dựng ngược tốc độ! ]
+
+Cấp bậc đại cuồng phong: [ ha ha, ta vậy ủng hộ một trận. ]
+
+Thiếu nữ chiến đấu mười lần: [(buồn cười. jpg) ]
+
+Mặc dù vị trí này lão xác định rõ ràng không tin chiến hào nói, càng không tin trên thế giới này tồn tại loại kia hoàn toàn đắm chìm thực tế Trò chơi ảo, nhưng bọn cướp vẫn là ôm "Phối hợp chiến đấu trò chơi" " tâm tính mình phát ra số hiệu tới.
+
+Chỉ là website chính thức tạo ra số hiệu mà thôi.
+
+Lại không có cùng mã hóa thẻ ngân hàng.
+
+Hồ hồ băng kỵ cũng rất tò mò, người này trong hồ lô đến cùng muốn làm cái gì. . .
+
+Thu được hiệu về sau, Sở Quang không làm dự phòng, lập tức gọi ra người quản lý hệ thống, tìm tới [phòng tránh cư dân lục lục] , tại bốn cái số đằng sau đánh dấu "Cấp cho trò chơi cách thứ tư" .
+
+Bồi dưỡng khoang hợp lý thành nhân bản có thể cần ba ngày trong thời gian.
+
+Ở nơi này trong thời gian ba ngày, hệ thống sẽ thông qua thủ thuật thù địch, cung cấp trò chơi bảo hiểm cho người chơi trong tay. . . Giảm chí ngay cả thu thập địa chỉ đều không cần thiết.
+
+Đến như cụ thể là dùng cái gì thủ đoạn, sẽ hay không gây nên xã hội hiện đại chú ý, hoặc là không một liều thuốc giải kinh doanh những điều phiền toái này vấn đề, Sở Quang là càng lười đi vui lòng.
+
+Mang đến hi vọng chú ý tới website nhà mình chính thức nhiều người một chút, có thể gây ra, oanh động càng tốt nhất.
+
+Dạng này loại lựa chọn nào khác cũng có nhiều một chút.
+
+"Chủ nhân, chúng ta website chính thức không phải đã có 11 người chơi có hẹn trước không? Vì cái gì bạn chỉ cấp cho 4 cái danh quỹ nha."
+
+Có thể là chú ý tới căn phòng cách vách được kích hoạt bồi dưỡng khoang thuyền, ngồi xổm ở góc tường Tiểu Thất bày tỏ nghi hoặc.
+
+" Bởi vì tạm thời không dùng nhiều như vậy."
+
+Tắt đi [khiếm tránh cư dân lục ] .
+
+Sở Quang đánh tiếp mở trong hệ thống [ quản lý tử hỗ trợ ] trang giấy, đưa năm cái ban thưởng tất cả đều đập vào "Sơ cấp hộp mù" bên trên.
+
+Tích lũy mua cao cấp mù không có ý nghĩa.
+
+Nhiệm vụ 2 ban thưởng trực tiếp chính là 100 điểm đếm, cũng không nguy hiểm cái 5 cái điểm này.
+
+Màu lam nhạt 3D trong màn hình huỳnh quang khai thác, gian phòng một bên vách tường lần nữa nhẹ nhàng rung động, theo ca một tiếng vang nhỏ, "Cổng xuất hàng" cửa hợp kim mở ra.
+
+Nhìn xem nằm ở bình đài bên trên đồ vật, Sở Quang có chút sử dụng một chút.
+
+“Cái này… Chính là mù hộp?”
+
+Tiểu Thất hồi đáp.
+
+"Hẳn là đi."
+
+Sở Quang lấy lại bình tĩnh, nói.
+
+"Ta còn tưởng rằng phần thưởng chí ít sẽ dùng hộp đựng."
+
+Tiểu Thất thử cho ra giải pháp thích hợp.
+
+"Có lẽ mù mù chỉ là một loại thiết lập?"
+
+Thế nhưng không dùng hộp phấn mù đến cùng ý nghĩa gì?
+
+Làm gì để không trực tiếp gọi rút tiền?
+
+Sợ hãi hận tiền ban thưởng, Sở Quang trầm mặc một hồi.
+
+"Đạo ta đều hiểu."
+
+" Nhưng vì cái gì rõ ràng nên xóa đổi năm cái, đi lên chỉ có bốn cái? ? ?"', N'<p>Sở Quang, nam, tuổi mục 26, nhỏ tuổi thì cha mẹ ly dị, từ nhỏ đi theo gia gia lớn lên.</p>
+<p>Thi lên đại học sau năm thứ hai, gia gia qua đời, liền kề trở thành một người cô đơn.</p>
+<p>May mà sinh ở hòa bình niên đại, vừa học vừa làm cũng là chào cái này học thượng xong, sau khi tốt nghiệp tìm phần tiêu thụ công tác. Bởi vì công tác biểu hiện xuất sắc, bụi nuôi lão bản thưởng thức, cũng không lâu lắm liền từ người mới nâng lên chủ quản lý.</p>
+<p>Khó khăn nhất kia đoạn thời gian đều yên tĩnh đến rồi, ngay tại Sở Quang lạc quan quan cho rằng, cuối cùng có thể qua vài ngày cuộc sống và thời gian điểm, hết lần này tới lần khác cái này lão thiên chính là không theo bài ra.</p>
+<p>Mà lại lần này, vận mệnh cùng thú đùa đùa có chút lớn.</p>
+<p>Đại từ tháng trước.</p>
+<p>Sở Quang vẫn nhớ, khi đó đang cùng khách nói chuyện bút chì 20 triệu đồng, đúng lúc gặp lão bản tận hưởng, trên bàn rượu uống hơi nhiều, không để ý liền.</p>
+<p>Khi chiến đấu lại bình tĩnh lại đến, người đã ở một mảnh rừng núi hoang vắng.</p>
+<p>Mà lại, cái này còn không phải thông thường rừng núi hoang vắng.</p>
+<p>Liên tiếp đi rồi hai đập địa phương, đánh lửa sốt không nhìn gặp một người ảnh không nói, ngược lại chậm rãi một đầu mọc ra hai cái đầu Đại Cẩu cho tự do.</p>
+<p>Cũng có nhiều thiệt hại dài hai cái đầu dồi sinh.</p>
+<p>Sở thích thời trang mặc hù là một thân hôi hôi, mà mồ hôi vừa ra, rượu lập tức tỉnh rồi, quay người vắt chân lên cổ mà chạy.</p>
+<p>Có lẽ là bởi vì hai cái đầu quá nặng, chạy lên đường tiến không hài hòa, con chó kia ói một một hồi không phản, ngao ngao hai tiếng liền từ bỏ.</p>
+<p>Nhìn không thấy khối sinh kia, Sở Quang cũng không tản đi về, càng không biết nên đi đi đâu.</p>
+<p>Lúc này chiến binh mới phát hiện trên túi tiền của mình cùng điện thoại cũng bị mất, liền y phục đều bị đổi thành một thân không biết từ chỗ dù nhỏ được lam áo che chắn.</p>
+<p>Tìm tới một nơi vũng nước thoải mái, nhờ ánh trăng mời xem xét, khá lắm, bản thân cái này không chỉ thay đổi áo liền quần, ngay cả đầu thay đổi!</p>
+<p>Cũng không biết ai là loại đầu tiên có bệnh gia hỏa mang lại cho mình mê hôn mê, trả lại cho việc thay đổi khuôn mặt, nguy hiểm trước đây không được phía sau thôn không được cửa hàng địa phương quái vật quái vật.</p>
+<p>Ngay tại Sở Quang ở trên vùng hoang dã hoang mang lo sợ du đãng thời điểm, phương xa bay lên khói bếp hấp dẫn ý ý của Đánh.</p>
+<p>Bây giờ trở về nhớ tới, Sở Quang còn chút nghĩ mà sợ.</p>
+<p>Lúc đó Đỏ tập trung thần nghĩ đến báo cảnh, giành lĩnh vực phía kia một sợi ở chạy tới, sau đó khen lại, may bản thân gặp chính là đường chính người sống sót khu quần cư.</p>
+<p>Đổi lại là những cái kẻ giết người không chớp mắt kẻ cướp chiếm, hoặc là bộ tộc ăn thịt người, kẻ đột biến bộ lạc cái gì, chỉ sợ người đã kiểm tra trong hầm tìm.</p>
+<p>Làm không tốt cả giày da đều chín rồi!</p>
+<p>Cùng sinh hoạt ở nơi người sống sót tiếp xúc sau, Sở Quang mới từ linh linh toái mối mối bên trong hiểu được đến, nơi này đã không phải là Hoa quốc, thậm chí chí đã không phải là bản thân quen thuộc cái kia Địa cầu!</p>
+<p>Ở nơi này thế giới song song, hai trăm năm trước chiến tranh khám phá văn minh hết thành quả, chỉ để lại một mảnh cảnh hoàng tàn khắp nơi đất hoang, cùng tại đất hoang bên trên kéo dài hơi tàn người sống sót.</p>
+<p>Mà bây giờ là năm 2340.</p>
+<p>Cũng là từ năm 2129 sơ, nhân loại văn minh tiến vào đất hoang kỷ nguyên sau thứ năm 211!</p>
+<p>Cuồng phong.</p>
+<p>Chấn kinh.</p>
+<p>Không có cách nào để tạo ra nỗi sợ hãi.</p>
+<p>Cũng có thể Sở Quang năng lực tiếp nhận coi như mạnh, chịu khó qua ban sơ kia đoạn thời gian, vậy tăng dần bắt đầu thích ứng bên này sinh hoạt.</p>
+<p>Tại đất hoang bên trên khó khăn sinh sống năm tháng, mỗi ngày ăn bữa trưa trước không có bữa ăn sau, còn phải cùng sinh vật biến dị cùng không có hảo ý mã tiền nhóm chiến đấu trí Dũng.</p>
+<p>Ngay tại Sở Quang bi quan cho rằng, mình đời này cứ như vậy thời điểm, hết thời gian lại tại mấy giờ trước xảy ra chuyển cơ.</p>
+<p>Tại một nơi bỏ hoang hoang dã một bộ phận hài hước bên trong, số phát hiện chiến đấu là 404 tránh thở lối vào.</p>
+<p>Chính xác tới nói, không phải Sở Quang tìm được nó, mà tòa nhà này tên là &quot;Số 404 phòng tránh nạn &quot; thiết bị tìm được Sở Quảng.</p>
+<p>Từ không hải vang lên thanh âm, chỉ dẫn kiểm tra nơi này.</p>
+<p>Mà khi Sở Quảng tới trại gần an dưỡng phụ cận thì mới đột nhiên phát hiện, nơi này chính là lúc trước ở cái thế giới này vừa khi tỉnh lại cái phòng kia!</p>
+<p>Chính mình lúc trước nếu không tiến tới nơi loạn lạc,</p>
+<p>Hoặc là sắc trời lại sáng một chút, không nhẹ đều đã tìm tới nơi này!</p>
+<p>Vô luận như thế nào, đến chậm năm tháng &quot;Phần mềm hack&quot; cuối cùng vẫn là tới sổ.</p>
+<p>Cùng lúc đó, một phần mới tinh công tác được trình bày ở trước mặt bạn.</p>
+<p>Khu vực này tránh phản ứng phản đối chính là bởi vì việc chuẩn bị đã trở thành một dạng, đã được chờ đợi trong một thời gian dài.</p>
+<p>Từ bước vào phòng tránh đại môn một giải pháp bắt đầu, bộ phận cơ thể của bạn tiếp cận từ một người nhỏ rác, biến thành tòa này số 404 phòng tránh độc duy nhất cư dân cùng người quản lý.</p>
+<p>Công việc của một công việc chỉ có một công việc.</p>
+<p>Đó chính là lợi ích trên Địa Cầu internet, dẫn đạo —— hoặc là nói lắc lưu một đám tên là &quot;Player &quot; sinh vật, tới đây thế giới cho đánh giá làm công.</p>
+<p>Đúng như vậy, nơi này trong phòng tránh hoang khoa kỹ kỹ, dù những có thể kết nối thế giới song Địa cầu internet, thậm chí còn được thuộc về mình &quot;Website chính thức&quot; !</p>
+<p>Hẹn giờ trước trò chơi, người chơi sẽ tự động thu thập một số hiệu, đồng thời đăng ký tại quản lý người hệ thống [ tránh nạn cư dân lục lục ] bên trong.</p>
+<p>Làm người quản lý Sở Quang, có thể lựa chọn đặc tả số hiệu cấp cho &quot;Trò chơi tư cách&quot; .</p>
+<p>Hệ thống sẽ thông báo bất kỳ phương thức nào, cung cấp trò chơi bảo hiểm nguy hiểm cho người chơi trong tay. Người chơi chỉ cần đeo mũ bảo hiểm, có thể cùng tránh nạn bên trong bồi dưỡng khoang thuyền kết nối, lấy nhân bản thân thể tỉnh lại.</p>
+<p>Phi thường nhân hóa.</p>
+<p>Thì vô cùng thuận lợi!</p>
+<p>Mặc dù bãi công cũng sẽ không có bất kỳ hình phạt nào, nhưng hoàn thành nhiệm vụ nhận được ban thưởng, lại là Sở Quang luận như thế nào cũng vô pháp cự tuyệt.</p>
+<p>Tỉa như món kia áo chống đạn.</p>
+<p>Tại đất hoang bên trên gian nan giãy dụa cầu sinh năm tháng, lửa quá rõ ràng loại này có thể xác mệnh đồ chơi trọng yếu bao nhiêu.</p>
+<p>Trừ cái đó ra , nhiệm vụ ban thưởng điểm số cũng là đồ tốt, có thể tại [ người quản lý hỗ trợ cấp ] trang giấy Bão tên là &quot;Hộp mù &quot; ban thưởng.</p>
+<p>Mua sơ cấp phấn mù cần 1 điểm ban thưởng, trung cấp mù mù 10 điểm, cao cấp phấn mù 100 điểm.</p>
+<p>Căn cứ &quot;Số 404 tránh nạn người quản lý hệ thống&quot; đối [ người quản lý hỗ trợ ] công năng giải thích, hộp phấn mù rút đến đồ vật loại loại, số lượng không nhẹ, bất quá ít nhiều đều sẽ có chút, nói cách khác không có &quot;Cảm ơn hạnh phúc chiếu cố&quot; loại tình huống này.</p>
+<p>Các cấp độ khác nhau của mù, quyết định giữ nguyên ban thưởng.</p>
+<p>Tỉ lệ như phấn mù cấp cao nhất cũng có thể mở ra các sản phẩm thực phẩm, phấn mù trung cấp giữ gốc được sử dụng dược phẩm, phấn mù cao cấp có thể khai ra vũ khí.</p>
+<p>Đến như sơ cấp hộp mù có thể hay không mở ra trung cấp hộp mù phần thưởng, hệ thống trong thuyết minh ngược lại là không có chữ viết, nhưng nghĩ đến dù có, kỳ vọng cao như vậy có thể.</p>
+<p>Ngay tại Sở Quang suy nghĩ, trên tay cái này 5 cái điểm số là toàn cầm đi mở sơ cấp hộp mù , vẫn tích lũy đủ 100 điểm rút vũ khí khí thời điểm, ngồi xổm ở góc tường &quot;Giấy lộn cái chết&quot; lại mở miệng nói chuyện.</p>
+<p>&quot;Chủ nhân, nhiệm vụ mới đã đổi mới tại người quản lý cập nhật ký lên cờ, xin lưu ý đã kịp xem xét.&quot;</p>
+<p>“Biết rồi.” Sở Quang không trả lời một câu trả lời.</p>
+<p>Tôi không.</p>
+<p>Đến cùng ai là ai chủ nhân!</p>
+<p>Hướng về phía góc tường khinh khít, Sở hữu quảng cáo rút hộp mù tình tạm thời đặt ở một bên, trong lòng mặc định người quản lý hệ thống.</p>
+<p>Rất nhanh, màu lam nhạt 3D màn hình, bắn ra ở Quang cảnh bên trên.</p>
+<p>--- người quản lý nhật ký ---</p>
+<p>[ nhiệm vụ: số 404 tránh nạn kích hoạt điều kiện mãn tính, nhóm đầu tiên &quot;Thu nhận vật&quot; xác nhận đến, yêu cầu đảm bảo ít nhất một người chơi đăng nhập vào trò chơi.</p>
+<p>Loại: Chủ tuyến.</p>
+<p>Ban thưởng: Hoạt tính vật chất thiết bị chiết xuất.</p>
+<p>]</p>
+<p>[ nhiệm vụ: Chuẩn bị một đài công suất lớn hơn 10kw máy phát điện.</p>
+<p>Loại: Chi nhánh.</p>
+<p>Tiền thưởng: Tiền thưởng +100.</p>
+<p>]</p>
+<p>Ta đi?</p>
+<p>100 điểm thưởng? !</p>
+<p>Xem hết đổi mới tại quản lý người nhật ký bên trên nhiệm vụ về sau, Sở Quang hỗ trợ cả mắt lên.</p>
+<p>Bất quá càng làm cho lửa để ý, là cái nhiệm vụ chính tuyến ban thưởng.</p>
+<p>&quot;Hoạt tính vật chất thiết bị chiết xuất. . . Cái đồ chơi này cuộc gọi là dùng để làm gì?&quot;</p>
+<p>Tiểu Thất hồi đáp.</p>
+<p>&quot;Hoạt động vật chất là chế tác nhân bản thể nguyên liệu, nhưng làm sao dùng được, chắc chắn sẽ có sách hướng dẫn loại hình đồ vật a?&quot;</p>
+<p>Làm AI hỗ trợ thủ thuật, trên thực tế Tiểu Thất biết đến tình báo cũng không nhiều.</p>
+<p>Trước mắt Sở Quang nắm quyền hạn chỉ có thể đến khả năng tránh nạn B1 tầng, những tầng lầu khác quyền hạn cần thông qua nhiệm vụ chính tuyến tiến hành giải tỏa.</p>
+<p>Thuận tiện nhắc tới, nếu như khuyên ép phá hư tránh bức tường cấu cấu, ý đồ phi pháp xâm lấn những tầng lầu khác lời nói, sẽ dẫn đến phòng tránh điện lực thiết bị, không khí trao đổi thiết bị gián đoạn đoạn.</p>
+<p>Cái này tại vừa tiến vào phòng tránh thời điểm, ghi vào chiến đại não &quot;Chỗ tránh hệ thống&quot; liền kề hướng báo cáo cho.</p>
+<p>Bất quá coi như không có câu nhắc nhở này, Sở Quang cảm thấy mình đại khái làm không được khám phá nhà chuyện ngu xuẩn.</p>
+<p>Nói đùa.</p>
+<p>Hủy đi nơi này, đánh giá về sau ở chỗ nào?</p>
+<p>Mà lại loại này &quot;Tập trước khi chiến đấu khoa học kỹ thuật Đại Thừa, thiết kế thành có thể chống cấp chiến lược nổ hạt nhân &quot; sức tránh nạn, muốn đi sợ cũng không phải dễ dàng như vậy.</p>
+<p>Đừng nói hạt nhân, đánh ngay cả súng cũng không có.</p>
+<p>&quot; Đã thôi, ta đại khái niệm dễ hiểu.&quot;</p>
+<p>Nói cách khác, hoạt tính vật chất cùng loại với &quot;Phục sinh tiền&quot;, là những người chơi một lần nữa hợp thành thành nhân bản cần tiêu hao tài nguyên.</p>
+<p>Trước mắt B1 tầng tồn tại 100 đài bồi dưỡng khoang thuyền, đồng đều ở vào có thể kích hoạt trạng thái, nghĩ đến bên trong chắc chắn là nội thất 1 đơn vị hoạt tính vật chất, có thể đáp ứng lần đầu hợp thành thành nhân bản có thể tiêu hao.</p>
+<p>Căn cứ hệ thống &quot;Một số cơ bản&quot; thiết bị nhập, Sở Quang hiện tại nhiều nhất có thể triệu tập 100 tên &quot;Player&quot;, lấy nhân bản có thể hình thành công thức lâm thế giới này.</p>
+<p>Đương nhiên, Sở Quang trong lòng cũng tỉnh tường, tình huống cũng không có mặt ngoài đơn giản như vậy.</p>
+<p>Đầu tiên trước mắt « đất hoang OL » website chính thức không có lưu lượng.</p>
+<p>Tuyệt đại đa số người đang nghe &quot;100% chân thật đắm chìm thực tế trò chơi ảo&quot; loại này tuyên truyền về sau, phản ứng đầu tiên hoặc là gạt người, hoặc vẫn là gạt người.</p>
+<p>Dù sao trong hiện thực căn bản không tồn tại tại loại kỹ thuật này, cho dù là tự truyền thông đều biên không ra như thế nói chuyện ma quỷ.</p>
+<p>Tiếp theo, cho dù có 11 player bị đánh lừa vừa lừa địa điểm hẹn trước, Đánh cũng vô pháp xác định cái này 1 1 người đều sẽ nghe bản thân.</p>
+<p>Tiến vào trò chơi cùng đăng xuất trò chơi quyền chủ động, đều ở đây những người chơi trên tay mình.</p>
+<p>Mà quyền lực của mình chỉ có thể gây rắc rối cho người chơi &quot;Cưỡng chế đá ra&quot;, &quot;Phong bất hợp pháp đăng nhập hạn chế&quot;, cùng &quot;Tịch thu trò chơi tư cách&quot;, cũng không thể cưỡng chế kẻ thù mặc mũ bảo hiểm , trực tuyến vì công việc chính của tôi.</p>
+<p>By vậy, cấp cho trò chơi tư cách nhân tuyển —— nhất là nhóm đầu tiên &quot;Closed Beta&quot; người chơi ứng cử viên, nhất định phải cẩn thận.</p>
+<p>Đó là một chút ít, vậy nên lộn xộn.</p>
+<p>Nếu không hoàn toàn thì bạn nên tìm ý nghĩ cho mình!</p>
+<p>Sau đó cũng là chốt nhất.</p>
+<p>Đất hoang bên điều kiện này đã quyết định rồi, lúc này không phải là người càng nhiều càng tốt.</p>
+<p>Thêm một người liền kề mang ý nghĩa thêm một cái miệng.</p>
+<p>Hiện tại nghèo cùng quỷ một dạng, chính mình cũng nhanh nuôi không sống, chớ nói chi là lại nuôi một trăm tấm miệng.</p>
+<p>Coi như hiện tại Đánh có điều kiện kia, cái cung này 100 đài bồi khoang thuyền cho hết mở, cũng là cho dị chủng cùng kẻ cướp tiền nhóm đưa ra phần lương thực.</p>
+<p>Trừ cái đó ra, không có bất kỳ cái gì có ý nghĩa.</p>
+<p>Sở Quang trở lại trước máy vi tính lần nữa ngồi xuống.</p>
+<p>Bàn luận tỉnh suy nghĩ hồi phục lâu, ý nghĩ của tăng dần rõ ràng.</p>
+<p>Một lần nữa leo lên bản thân acc QQ, Sở Quang đánh tiếp mở cái kia gọi &quot;Ngưu Mã câu lạc bộ &quot; nhóm game, cho chủ nhóm cùng ba cái quản lý cò cái thảo luận tổ.</p>
+<p>Tiếp đó, ở trong nhóm móc chữ nói.</p>
+<p>[ các hẹn trước trò chơi lúc này, website chính thức trang giấy bên trên đổi mới số phát hiện ta xuống. ]</p>
+<p>[ Closed Beta tư cách chỉ có bốn cái, phù sa không lưu ruộng người ngoài, ta hướng công ty thỉnh cầu, xem xem có thể hay không cung cấp Closed Beta tư cách cùng trò chơi mũ bảo hiểm trực tiếp phát hiện cho các ngươi. ]</p>
+<p>Đều là trước kia thường xuyên mở đen ăn gà đồng đội, tham khảo cố gắng một chút thật cũng không lộ ra đột ngột.</p>
+<p>Mấu chốt nhất là Sở Quang nghĩ không ra trong hiện thực có thể xin nhờ ai quen, có thể dựa vào cũng chỉ có những điều này tại trong hiện thực hoàn toàn chưa thấy qua bản thân, nhưng lại có chút giao tình dân network.</p>
+<p>Thân thích?</p>
+<p>Gia gia đi rồi về sau, khá hơn chút năm đều không đi lại, nếu như cảnh sát không có thông tri đến, đều chưa chắc chắn mình đã không còn.</p>
+<p>Chủ nhà?</p>
+<p>Lúc này chỉ sợ khắp thế giới tìm bản thân muốn tiền thuê nhà.</p>
+<p>Đồng học?</p>
+<p>Tốt nghiệp về sau sẽ không liên lạc qua.</p>
+<p>Đồng sự?</p>
+<p>Hà hà.</p>
+<p>Đo nhẹ là cảm thấy xúi quẩy, Sở Quang phát hiện sát thủ đã đem bản thân xóa.</p>
+<p>Hồ hồ coi như không có xóa, Sở Quang cũng không có khả năng cho bọn cướp phát tin tức, dù sao mình đương thời nhưng là tại trên bàn rượu nghỉ cơm.</p>
+<p>Người chết cho người sống phát tin tức, ngẫm lại đều có đủ kinh dị.</p>
+<p>So sánh dưới đây, những điều này Sa điêu đám dân cách mạng không thể nghi ngờ là loại lựa chọn tốt nhất.</p>
+<p>Bọn cướp cùng mình tại trong hiện thực cũng không nhận ra, mình coi như năm tháng không có online, băng nhóm cũng sẽ không hướng tới phương diện kia nghĩ quá nhiều.</p>
+<p>Thời gian qua nhanh: [ đại lão ngưu phê! ]</p>
+<p>Cấp bậc đại cuồng phong: [ngưu a ngưu a! ]</p>
+<p>Còn nhiều thời gian: [666! ]</p>
+<p>Thiếu nữ chiến đấu mười lần: [ đồng ý! Lão ca vô địch! Chờ đợi trò chơi bảo hiểm nguy hiểm! (buồn cười) ]</p>
+<p>Sở Quang tiếp tục viết chữ căn bản.</p>
+<p>[ bất quá có chuyện ta phải tuyên bố một lần, thiết bị chỉ có thể coi là cho các lợi dụng, các bạn đừng làm mất đi, càng đừng ađi, muốn không ta không có cách nào cùng công ty bàn giao . ]</p>
+<p>[ mặt khác, thiết bị sẽ cùng là người sử dụng bộ phận thân thể tin tức khóa lại, trên nguyên tắc một đài thiết bị chỉ có thể đăng ký một tài khoản, đồng thời có thể chỉ từ một cá nhân sử dụng. ]</p>
+<p>Kỳ thật nói là căn nhà, ngọc thật cũng không lo lắng các người chơi không dày thủ.</p>
+<p>Căn cứ hệ thống thuyết pháp, mũ bảo hiểm sẽ tranh luận với người chơi thân phận tin tức tiến hành phân tích, không phải người chơi tự mình căn bản không được sử dụng.</p>
+<p>Đến như thiết bị. . .</p>
+<p>Mới hoàn thành cái này.</p>
+<p>Đã hệ thống có thể cung cấp bảo hiểm cho người chơi trên tay, kia tất nhiên có giải pháp giải quyết vấn đề &quot;phục vụ hậu mãi&quot;, đây không phải đánh giá cần quan tâm.</p>
+<p>Còn nhiều thời gian: [ thu phí sao? ]</p>
+<p>Sở Quang: [ Closed Beta giai đoạn không thu bất luận cái gì phí thâm, bất quá bởi vì kinh phí khẩn trương, cũng không g có tiền công là được rồi. ]</p>
+<p>Còn nhiều thời gian: [6666, ta số tư vấn phát hiện, cho ta gửi một phần. ]</p>
+<p>Thời gian qua nhanh: [ da trâu da trâu, ha ha ha, cho ta vậy làm một cái, nếu thật là người nói hoàn toàn chìm thức thực tế Ảo, ta trực tiếp xây dựng ngược tốc độ! ]</p>
+<p>Cấp bậc đại cuồng phong: [ ha ha, ta vậy ủng hộ một trận. ]</p>
+<p>Thiếu nữ chiến đấu mười lần: [(buồn cười. jpg) ]</p>
+<p>Mặc dù vị trí này lão xác định rõ ràng không tin chiến hào nói, càng không tin trên thế giới này tồn tại loại kia hoàn toàn đắm chìm thực tế Trò chơi ảo, nhưng bọn cướp vẫn là ôm &quot;Phối hợp chiến đấu trò chơi&quot; &quot; tâm tính mình phát ra số hiệu tới.</p>
+<p>Chỉ là website chính thức tạo ra số hiệu mà thôi.</p>
+<p>Lại không có cùng mã hóa thẻ ngân hàng.</p>
+<p>Hồ hồ băng kỵ cũng rất tò mò, người này trong hồ lô đến cùng muốn làm cái gì. . .</p>
+<p>Thu được hiệu về sau, Sở Quang không làm dự phòng, lập tức gọi ra người quản lý hệ thống, tìm tới [phòng tránh cư dân lục lục] , tại bốn cái số đằng sau đánh dấu &quot;Cấp cho trò chơi cách thứ tư&quot; .</p>
+<p>Bồi dưỡng khoang hợp lý thành nhân bản có thể cần ba ngày trong thời gian.</p>
+<p>Ở nơi này trong thời gian ba ngày, hệ thống sẽ thông qua thủ thuật thù địch, cung cấp trò chơi bảo hiểm cho người chơi trong tay. . . Giảm chí ngay cả thu thập địa chỉ đều không cần thiết.</p>
+<p>Đến như cụ thể là dùng cái gì thủ đoạn, sẽ hay không gây nên xã hội hiện đại chú ý, hoặc là không một liều thuốc giải kinh doanh những điều phiền toái này vấn đề, Sở Quang là càng lười đi vui lòng.</p>
+<p>Mang đến hi vọng chú ý tới website nhà mình chính thức nhiều người một chút, có thể gây ra, oanh động càng tốt nhất.</p>
+<p>Dạng này loại lựa chọn nào khác cũng có nhiều một chút.</p>
+<p>&quot;Chủ nhân, chúng ta website chính thức không phải đã có 11 người chơi có hẹn trước không? Vì cái gì bạn chỉ cấp cho 4 cái danh quỹ nha.&quot;</p>
+<p>Có thể là chú ý tới căn phòng cách vách được kích hoạt bồi dưỡng khoang thuyền, ngồi xổm ở góc tường Tiểu Thất bày tỏ nghi hoặc.</p>
+<p>&quot; Bởi vì tạm thời không dùng nhiều như vậy.&quot;</p>
+<p>Tắt đi [khiếm tránh cư dân lục ] .</p>
+<p>Sở Quang đánh tiếp mở trong hệ thống [ quản lý tử hỗ trợ ] trang giấy, đưa năm cái ban thưởng tất cả đều đập vào &quot;Sơ cấp hộp mù&quot; bên trên.</p>
+<p>Tích lũy mua cao cấp mù không có ý nghĩa.</p>
+<p>Nhiệm vụ 2 ban thưởng trực tiếp chính là 100 điểm đếm, cũng không nguy hiểm cái 5 cái điểm này.</p>
+<p>Màu lam nhạt 3D trong màn hình huỳnh quang khai thác, gian phòng một bên vách tường lần nữa nhẹ nhàng rung động, theo ca một tiếng vang nhỏ, &quot;Cổng xuất hàng&quot; cửa hợp kim mở ra.</p>
+<p>Nhìn xem nằm ở bình đài bên trên đồ vật, Sở Quang có chút sử dụng một chút.</p>
+<p>“Cái này… Chính là mù hộp?”</p>
+<p>Tiểu Thất hồi đáp.</p>
+<p>&quot;Hẳn là đi.&quot;</p>
+<p>Sở Quang lấy lại bình tĩnh, nói.</p>
+<p>&quot;Ta còn tưởng rằng phần thưởng chí ít sẽ dùng hộp đựng.&quot;</p>
+<p>Tiểu Thất thử cho ra giải pháp thích hợp.</p>
+<p>&quot;Có lẽ mù mù chỉ là một loại thiết lập?&quot;</p>
+<p>Thế nhưng không dùng hộp phấn mù đến cùng ý nghĩa gì?</p>
+<p>Làm gì để không trực tiếp gọi rút tiền?</p>
+<p>Sợ hãi hận tiền ban thưởng, Sở Quang trầm mặc một hồi.</p>
+<p>&quot;Đạo ta đều hiểu.&quot;</p>
+<p>&quot; Nhưng vì cái gì rõ ràng nên xóa đổi năm cái, đi lên chỉ có bốn cái? ? ?&quot;</p>
+', CAST(0.00 AS Decimal(10, 2)), CAST(N'2024-04-20T15:45:57.510' AS DateTime), CAST(N'2024-04-20T16:10:37.560' AS DateTime), 1)
+INSERT [dbo].[Chapter] ([chapter_id], [chapter_number], [story_id], [volume_id], [chapter_title], [chapter_content_markdown], [chapter_content_html], [chapter_price], [create_time], [update_time], [status]) VALUES (67, 3, 25, 34, N'Gia hỏa này là tới thật sự?', N'Tốt a.
+
+Bằng chứng thực sự là bản thân hiểu được nội dung.
+
+Hộp mở ra ban hồng, quả thật có "Năm cái" .
+
+Hệ thống cũng không có làm "Nuốt trang bị" loại này vấn thất đức, cũng xác thực không tồn tại tại "Cảm tạ hạnh phúc tham cố" loại thuyết pháp này.
+
+Chỉ bất quá, cái mù thứ năm mở ra phần thưởng, thiết bị khác bốn phần thưởng để ghi đè lại. . .
+
+Giờ phút này được trình bày ở Sở Quang trước mặt, là một khối chân không đóng gói, khối lượng sạch 100G lương khô, cùng ba cây khối lượng sạch 25g kẹo que —— theo thứ tự là quả táo, chuối tiêu, sản xuất khẩu vị .
+
+Cùng, một tờ giấy.
+
+Lương khô gói hoàn hảo, không có danh mục nổi tiếng, mặc dù bảo đảm chất lượng kỳ cùng sản phẩm sản xuất ngày là một mê, nhưng chắc chắn là ăn không chết người.
+
+Cái đồ chơi này là một đồ tốt.
+
+Hỗn hợp vật liệu bên ngoài nhiệt lượng có 500 kilô calo, bất kể làm gì để ăn vẫn là vứt trong nhuốm thành cháo, đều có thể đuổi đầy cái bao tử.
+
+Đến như kẹo que, nhiệt lượng mặc dù không thấp, nhưng không thể cung cấp chắc chắn về cảm giác giác.
+
+Bất quá, đối nghèo đến nhẹ nhàng vỏ cây Sở Quang mà nói, đã rất tốt.
+
+Lại nói hệ thống này cũng quá mẹ nó keo kiệt, là rất đáng sợ ăn quá no Bụng vẫn là làm sao ngứa, liền lấy những vật này ui đây.
+
+Đứng tại cổng xuất hàng bên cạnh Sở Quang, chào đồ ăn vào mang theo người ba lô, tiếp lấy nhỏ lên bị băng nuôi ra tới tờ giấy, phát triển khai nhìn thoáng qua.
+
+Trên đó viết một ít chữ, sử dụng bên này thế giới ngôn ngữ.
+
+[ . . . Trên thế giới này còn cái gì sinh vật nên người chơi càng thích hợp làm rau hẹ?
+
+Bọn tội phạm những thứ có tràn lòng mộng bất kỳ, mà lại vĩnh viễn lũ ngập nhiệt tình, đối mặt khó khăn vượt khó tiến lên, sẽ không tuyệt vọng ở trước mắt quẫn cảnh. Đương nhiên, ít nhất là chốt chặn chính, đám chiến binh thậm chí còn có thể đứng ở vị trí phát hiện vấn đề thúc đẩy tuyến cân, giúp nhà phát hành một bản thân chiến lược!
+
+Move bộ thiết bị này đóng gói thành trò chơi thực sự là tài năng!
+
+—— số 404 phòng tránh nạn đời thứ nhất người quản lý;(mời tờ giấy này đặt ở cái thứ năm sơ cấp hộp phấn bên trong, đây là ta lưu cho người kế hoạch trứng màu! ) ]
+
+Sở Quang: ". . . "
+
+Nói thực ra, tẩy rửa những điều không cảm thấy tí xíu thu phóng màu kinh kinh, thậm chí có một chút im lặng.
+
+Bất quá. . .
+
+Trang là có ý gì?
+
+"Tiểu Thất."
+
+"Làm như vậy, chủ nhân."
+
+"lời biết đời thứ nhất người quản lý sao?"
+
+"Không biết, khi bạn tiến hành tránh nạn lúc này, ta chủ chương trình mới được kích hoạt. Căn cứ sức tránh kho số liệu bên trong tư liệu ghi chép, đời trước người quản lý thao tác quyền hạn chuyển giao, đã hơn một cái thế kỷ trước chuyện."
+
+Sở Quang tiếp tục hỏi.
+
+"Cụ thể là năm nào?"
+
+Tiểu Thất trả lời.
+
+"Năm 2157 ngày mùng 1 tháng 1."
+
+Năm 2129 chiến tranh kết thúc, nhân loại văn minh tiến vào đất hoang kỷ nguyên, năm 2157 cũng chính là đất hoang kỷ nguyên thứ 28 năm.
+
+Hiện tại khoảng cách. . .
+
+183 năm!
+
+Sở Quang từ nhỏ đối số cũng rất mẫn cảm, nhất là loại này chốt yên tin tức, bạch căn bản là nhớ liền sẽ không tùy tiện quên mất.
+
+" Nói cách khác, năm 183 trước đời thứ nhất người quản lý, phát minh bộ này có thể đưa thế giới song ý thức thể, bắn ra đến người nhân bản trên người trang bị, cũng cung đóng gói thành trò chơi, nhưng xuất phát từ một số nguyên một cấp không có cách sử dụng đúng phải không?"
+
+Có lẽ là do mùa đông hạt nhân.
+
+Do đó hoặc là nguyên nhân khác dẫn đến tình trạng tránh nạn chưa đủ điều kiện khởi động.
+
+Vô luận như thế nào, một trăm năm trước người, nghĩ như thế nào cũng đã qua đời.
+
+Tiểu Thất nói.
+
+"Hẳn là đi."
+
+"Hồi gọi tên là gì? Cái kia đời thứ nhất người quản lý."
+
+Sở Quang tranh luận về lửa thân đốt nhiên có chút mơ kỳ.
+
+Nghĩ ra những cái kia ác thú vị thiết kế người không nhất định là thiên tài, nhưng có thể tại văn minh suy yếu về sau, bằng sức lực một mình phát minh ra như thế ngưu bức bạch khoa kỹ người, thiên tài cái từ này Tất cả đều chưa đủ để sử dụng để hiển thị phân tích.
+
+Move thế giới song ý thức thể bắn ra đến bản vị,
+
+Đồng thời lưu trữ vào một vật chứa nhân bản.
+
+Sở Quang không tưởng tượng nổi tiếng, cuối cùng là như thế nào được.
+
+Vượt qua biết kỹ thuật, đối thoại mà nói cùng ma pháp không có gì khác biệt.
+
+"Ta cũng không biết, đã biết kho số liệu bên trong cũng không có liên quan tới Đánh giá tài liệu chất vụn, có phải hay không bị xóa rồi?"
+
+" Đã rồi. . . Hỏi tương đương hỏi không."
+
+Sở Quang sơ thất vọng, cũng không có nhụt chí.
+
+Trước mắt khan tránh chỉ giải tỏa đến tầng B1.
+
+Theo nhiệm vụ không ngừng đưa ra, giấu kín nơi này tránh nạn bên trong bí mật, một ngày nào đó sẽ ở trước mặt kín có thể hiện ra toàn cảnh.
+
+tờ giấy tiện tay đi vào bàn máy tính khoa kéo, Sở Quang nắm thật chặt Đêm người ba lô.
+
+Chú ý tới hoạt động của Voi, ngồi xổm ở góc Tường Tiểu Thất hỏi.
+
+"Chủ nhân, bạn phải đi sao?"
+
+Cái kia không có cao thấp phập phồng thanh âm, nghe quá đáng thương.
+
+" Humm, player ba ngày sau mới có thể đăng nhập, ta ở đây tiếp tục bảo vệ cũng không có bất cứ ý nghĩa gì, không bằng trước ở nơi chuẩn bị được chuẩn bị xuống."
+
+Cái phòng chết tiệt này nói là tránh nạn, lại ngay cả ăn uống cũng không có.
+
+Sở Quang trên thân hiện tại liền kề nửa khối lớn khoảng bàn tay bánh cùng nửa bình nước, cùng dùng ban thưởng đổi lương không cùng kẹo que.
+
+Điểm tiếp theo này có thể hiển thị không đến ba ngày sau.
+
+Cuối cùng người sống sót khu quần cư, có một đơn ổ đĩa nhỏ, bên trong lấy một chút tiếp theo cần sử dụng công cụ.
+
+Sở Quảng dự định trở về thu thập một chút, có thể tiến tới đều chậm rãi tới.
+
+Về sau nơi này chính là căn cứ mới.
+
+"Đúng, Tiểu Thất."
+
+"Ai chủ nhân?"
+
+"Ta cần giúp ta một chuyện."
+
+Dừng lại một chút, Sở Quang tiếp tục nói.
+
+"Chúng ta ta ta website chính thức quá đơn sơ, ta cần phải sử dụng nó, tăng thêm một diễn đàn công năng cùng tư liệu, sơ đồ giám sát năng lực, có thể làm được sao?"
+
+Đơn giản tới nói, bạn muốn để người chơi hiểu rõ hơn cái này "Trò chơi" .
+
+Chỉ dựa vào một cái miệng đã muốn lắc người vào bể, độ khó có chút lớn, chí ít mặt ngoài công phu cần phải làm một lần.
+
+"Đương nhiên có thể,bạn có trang web chính thức biên tập quyền hạn, trừ mục chơi hẹn trước trang giấy bên ngoài, có thể tăng tốc thêm tử trang giấy hoặc là đối đã có trang giấy tiến hành sửa đổi."
+
+"Rất tốt, vậy liền kề cho bạn."
+
+"Bảo trên người ta!"
+
+Đối với chủ nhân bàn giao cho mình nhiệm vụ, Tiểu Thất tựa hồ thật cao hứng, ngay cả máy biến điện năng thành âm thanh âm lượng đều đề cao nửa cái decibel.
+
+Đương nhiên, điều này cũng có thể là sở thích chính của Quang hiểu các rắc rối.
+
+"Chủ nhân, lúc nào bạn đã về đâu?"
+
+Sở Quang nghĩ, nói.
+
+"Trễ nhất ba ngày."
+
+"Nếu như hết thuận lợi, có thể trời tối ngày mai trước đó."
+
+. . .
+
+Hiện thế, Ngưu Mã câu lạc bộ bầy.
+
+Cái kia gọi "Quang" nhóm lão ca, hoàn thành địa chỉ Internet liên tiếp người sẽ không có ảnh, không biết là hạ tuyến vẫn trốn ở một bên bình phong.
+
+Lúc đầu liên quan tới "Hoàn toàn chìm thức thực tế trò chơi ảo " chủ đề đều nhanh đi qua, kết quả vài phút trước vị trí này già ca kéo tiểu Quần tao thao tác, lại cung cấp nhóm lớn bên trong chủ đề cho kẻ săn mồi trở về.
+
+Cai thuốc: [đậu đen rau muống, gia hỏa này là tới thật sự? ]
+
+Cái này cai thuốc cũng thường nổi bong bóng sinh động nhóm thành viên, mặc dù không phải quản lý.
+
+Thời gian qua nhanh: [ân, các bái điểm xong hẹn trước về sau, ác quỷ cái tiểu quần, mang chúng ta mấy cái bầy quản lý đều kéo tiến vào. (vò đầu) ]
+
+Thời gian qua nhanh là chủ nhóm, tự nhiên cũng ở đây cái quần nhỏ bên trong.
+
+Nghe xong lời này, các thành viên nhóm chớp mắt sôi sục.
+
+[ móa! Màn hình đen a! ]
+
+[ Quang ca nhập chức nhà kia công ty gọi cái gì các bạn biết hay không? Ta muốn báo cáo giao dịch PY! (buồn cười) ]
+
+[ kéo con bê đi, còn công ty! Năm ung thư thư có cái làm VR công ty, bồi dưỡng mẹ nó lão bản đều bị nhốt vào rồi! Bây giờ đầu gió đã sớm phải VR rồi! ]
+
+[ các người nói nhỏ nhỏ thảo luận, nhân gia a Quang không nhẹ tại dòm bình phong đâu. (buồn cười) ]
+
+[ nói đánh giá đến cùng một đồ họa gì? Nguy hiểm vì chỉ đùa một chút? ]
+
+[ quỷ hiểu được, không cần tiện lợi những con sói này thân huynh đệ dẫn lưu đến rau chân vịt trang web, đám nhiều người cạc cắt rau hẹ! ]
+
+[ ta xem gia hỏa này cũng không phải là vật gì tốt! Đá được. ]
+
+Chủ đề tăng dần khó khăn.
+
+Nhẹ nhàng lên cao đến nhân sinh công kích.
+
+Diệp Vĩ nhìn xem thẳng mày, vừa định nghĩa chi tiết gì, liền nhìn thấy chủ nhóm ra tới phanh xe.
+
+(toàn nhóm ngôn ngữ)
+
+Thời gian qua nhanh: [ đại gia đừng như vậy, mới tới các thành viên có khả năng không biết a Quang, người khác cũng không tệ lắm, chính là thương pháp ngựa một chút, con mắt mù điểm, người thức ăn điểm, cái khác cũng tốt. ]
+
+Còn nhiều thời gian: [xác thực, ta tin tưởng a Quang không phải ngộ nhập lạc đường làm cái gì rau chân vịt. Hiện tại chúng tôi chưa được xác định chính xác, có đánh dấu hoặc không bị trộm nick. Nếu như vậy thì cái này chúng ta quản lý tổ hợp sẽ xử lý. Một hồi tin tức ta đều rút về, đại gia thay cái chủ đề a. ( hiện tại) ]
+
+(trừ loại trừ ngôn ngữ đa dạng)
+
+Chủ nhóm cùng quản lý đều đi ra buông lời, đại gia cũng rất cho mặt mũi không còn trò chuyện cái đề tài này, rất chạy mau trôi đến Cúp Châu Âu bên trên.
+
+Diệp Vĩ không nhìn, chí ít không nhìn bóng đá.
+
+Nhìn màn hình phía dưới góc phải thời gian, lúc này đã 18:00, vừa vặn đến giờ cơm.
+
+không làm xong đại tác nghiệp truyền lên đến vân bàn, Diệp Vĩ Cung Vũ ra giáo, đi xuống lầu nhà ăn điểm phần thịt gà cơm chiên, đắc ý mà ăn xong.
+
+Khi thoải mái thoải mái nhà yên trở lại phòng ngủ thời điểm, nhìn thấy trên bàn thùng giấy con, cả người hô sửng sốt một chút.
+
+Chuyển phát nhanh?
+
+"A Vĩ, ngốc mua vật gì? Như thế để con đồ chơi?"
+
+Ngủ chung phòng anh em lại, các mặt hàng khác bổ sung sức mạnh chú ý bỏ vào bên trong này.
+
+Tất cả mọi người đều là người có tư cách.
+
+Trước đó Diệp Vĩ không ở phòng ngủ, không hậu động vật vật. Hiện tại người quay lại rồi, cũng không sao.
+
+Bọn chiến binh cực kỳ kỳ diệu, gia hỏa này mua cái gì.
+
+"Ta không có vật thể mua a. . . Cái đồ chơi này được đưa ra?"
+
+Ba cái bạn cùng phòng quen biết mắt.
+
+"Ta không có chú ý. . ."
+
+"Ta cũng không có chú ý."
+
+"Không biết, ta vừa đi lấy thức ăn ngoài."
+
+Hắc.
+
+Bất thường rồi!
+
+Bình thường chuyển phát nhanh đều là ném xiên dưới chuyển nhanh, hôm nay ngược lại là đưa tới cửa.
+
+Càng bất thường chính là, Diệp Vĩ suy nghĩ mình cũng không có ở mua hàng trực tuyến địa chỉ bên trong bài viết, mình đang ngồi cái nào chỗ ngồi.
+
+Bây giờ chuyển phát nhanh tiểu ca đều ngưu bức như vậy sao?
+
+Mở thùng giấy bên trong một bảo hiểm mũ bảo hiểm.
+
+Cái đồ chơi này tạo hình cùng xe gắn máy mũ bảo hiểm rất nguy hiểm, trong ngoài đều xóat lấy nước sơn đen, nhìn xem chiều ngoài không đẹp.
+
+Muốn nói bất cứ nơi nào đặc biệt, chỉ sợ sẽ là không có trước mặt, đeo lên đi toàn bộ đều có thể lại, cơ bản cái gì nhìn không thấy.
+
+Nhìn nhìn, Diệp Vĩ còn tưởng rằng cái đồ chơi này là một cái nội dung.
+
+"Cái này cái gì chơi."
+
+Sát vách bàn anh em cầm mũ bảo hiểm loay hoay lại, đội ở trên đầu, lại hái xuống, không hiểu ra sao trả lại cho Diệp Vĩ.
+
+"đại hỏi ta, ta hỏi ai."
+
+Thực tế là nội dung?
+
+Diệp Vĩ như một bức mộng mơ được đưa ra chụp ở trên đầu.
+
+Xem nội dung đen một màu.
+
+Ngay tại lúc đó đang muốn đưa nó xuống thời điểm, một chùm màu lam nhạt ánh sáng nhẹ nhàng xuyên qua chuông mơ, ánh sáng vào rừng sa mạc.
+
+[ chờ đợi trò chơi kích hoạt: 71 giờ 19 phút ]
+
+Cái này. . .
+
+Một chút may mắn là cái trò chơi bảo hiểm nguy hiểm? !
+
+Ngọa tào.
+
+Giao hàng tốc độ nhanh như sao?
+
+Diệp Vĩ cả người đều xung quanh.
+
+"Các thứ đều không được nhìn thấy?"
+
+Mũ giáp bỏ xuống phía dưới, Diệp Vĩ nhìn về phía vừa rồi mang theo mũ bảo vệ bạn cùng phòng.
+
+Nhưng mà cái kia bạn cùng phòng , tương tự một mặt mơ bức mà nhìn đánh qua.
+
+"Trống tìm thấy cái gì?"
+
+Diệp vĩ vĩ vàng nói: "Cái kia đếm ngược a! Trên đó viết chờ trò chơi kích hoạt!"
+
+"Cái gì? Cái đồ chơi này còn có thể là máy chơi game?"
+
+"Tránh ra tránh ra, Lưu ca con mắt không tốt, ta tới nhìn một cái."
+
+Một tên khác bạn cùng phòng tiếp tục nhận mũ bảo hiểm nguy hiểm, nhưng một lát sau, lại là cùng một dạng trước đó, không hiểu sao mang áo giáp bỏ xuống dưới.
+
+"Không có a."
+
+"Ta tới."
+
+Cái này ba cái bạn cùng phòng đều thử một lần, đều không ngoại lệ cái gì cũng không còn thấy.
+
+Nhìn nhau, băng tần không hẹn mà cùng nhìn về phía Diệp Vĩ, biểu hiện cổ quái.
+
+"Huỳnh đệ."
+
+Diệp Vĩ: “… Thế nào?”
+
+"Muốn không. . . Người đi bệnh viện nhìn một cái?"
+
+"Cắt!"
+
+Diệp Vĩ hùng hùng hổ hoàng kiếm mũ bảo hiểm, không tin tà lần nữa đeo lên.
+
+Màu lam nhạt chữ nhỏ đúng mà hướng tới.
+
+[ chờ đợi trò chơi kích hoạt: 71 giờ 17 phút ]
+
+Đếm ngược tới 2 phút.
+
+No only like here. . .
+
+Đúng lúc này đột nhiên phát hiện, mặc kệ chính mình làm sao chuyển động mũ bảo hiểm, vậy nên được đếm ngược viễn viễn xuất hiện ở bản thân xem khu vực chính giữa.
+
+Dù là ánh mắt lại.
+
+Diệp vĩ độ xuống mũ bảo hiểm, một mặt quỷ.
+
+Ngọa tào?
+
+Đúng là quỷ rồi!', N'<p>Tốt a.</p>
+<p>Bằng chứng thực sự là bản thân hiểu được nội dung.</p>
+<p>Hộp mở ra ban hồng, quả thật có &quot;Năm cái&quot; .</p>
+<p>Hệ thống cũng không có làm &quot;Nuốt trang bị&quot; loại này vấn thất đức, cũng xác thực không tồn tại tại &quot;Cảm tạ hạnh phúc tham cố&quot; loại thuyết pháp này.</p>
+<p>Chỉ bất quá, cái mù thứ năm mở ra phần thưởng, thiết bị khác bốn phần thưởng để ghi đè lại. . .</p>
+<p>Giờ phút này được trình bày ở Sở Quang trước mặt, là một khối chân không đóng gói, khối lượng sạch 100G lương khô, cùng ba cây khối lượng sạch 25g kẹo que —— theo thứ tự là quả táo, chuối tiêu, sản xuất khẩu vị .</p>
+<p>Cùng, một tờ giấy.</p>
+<p>Lương khô gói hoàn hảo, không có danh mục nổi tiếng, mặc dù bảo đảm chất lượng kỳ cùng sản phẩm sản xuất ngày là một mê, nhưng chắc chắn là ăn không chết người.</p>
+<p>Cái đồ chơi này là một đồ tốt.</p>
+<p>Hỗn hợp vật liệu bên ngoài nhiệt lượng có 500 kilô calo, bất kể làm gì để ăn vẫn là vứt trong nhuốm thành cháo, đều có thể đuổi đầy cái bao tử.</p>
+<p>Đến như kẹo que, nhiệt lượng mặc dù không thấp, nhưng không thể cung cấp chắc chắn về cảm giác giác.</p>
+<p>Bất quá, đối nghèo đến nhẹ nhàng vỏ cây Sở Quang mà nói, đã rất tốt.</p>
+<p>Lại nói hệ thống này cũng quá mẹ nó keo kiệt, là rất đáng sợ ăn quá no Bụng vẫn là làm sao ngứa, liền lấy những vật này ui đây.</p>
+<p>Đứng tại cổng xuất hàng bên cạnh Sở Quang, chào đồ ăn vào mang theo người ba lô, tiếp lấy nhỏ lên bị băng nuôi ra tới tờ giấy, phát triển khai nhìn thoáng qua.</p>
+<p>Trên đó viết một ít chữ, sử dụng bên này thế giới ngôn ngữ.</p>
+<p>[ . . . Trên thế giới này còn cái gì sinh vật nên người chơi càng thích hợp làm rau hẹ?</p>
+<p>Bọn tội phạm những thứ có tràn lòng mộng bất kỳ, mà lại vĩnh viễn lũ ngập nhiệt tình, đối mặt khó khăn vượt khó tiến lên, sẽ không tuyệt vọng ở trước mắt quẫn cảnh. Đương nhiên, ít nhất là chốt chặn chính, đám chiến binh thậm chí còn có thể đứng ở vị trí phát hiện vấn đề thúc đẩy tuyến cân, giúp nhà phát hành một bản thân chiến lược!</p>
+<p>Move bộ thiết bị này đóng gói thành trò chơi thực sự là tài năng!</p>
+<p>—— số 404 phòng tránh nạn đời thứ nhất người quản lý;(mời tờ giấy này đặt ở cái thứ năm sơ cấp hộp phấn bên trong, đây là ta lưu cho người kế hoạch trứng màu! ) ]</p>
+<p>Sở Quang: &quot;. . . &quot;</p>
+<p>Nói thực ra, tẩy rửa những điều không cảm thấy tí xíu thu phóng màu kinh kinh, thậm chí có một chút im lặng.</p>
+<p>Bất quá. . .</p>
+<p>Trang là có ý gì?</p>
+<p>&quot;Tiểu Thất.&quot;</p>
+<p>&quot;Làm như vậy, chủ nhân.&quot;</p>
+<p>&quot;lời biết đời thứ nhất người quản lý sao?&quot;</p>
+<p>&quot;Không biết, khi bạn tiến hành tránh nạn lúc này, ta chủ chương trình mới được kích hoạt. Căn cứ sức tránh kho số liệu bên trong tư liệu ghi chép, đời trước người quản lý thao tác quyền hạn chuyển giao, đã hơn một cái thế kỷ trước chuyện.&quot;</p>
+<p>Sở Quang tiếp tục hỏi.</p>
+<p>&quot;Cụ thể là năm nào?&quot;</p>
+<p>Tiểu Thất trả lời.</p>
+<p>&quot;Năm 2157 ngày mùng 1 tháng 1.&quot;</p>
+<p>Năm 2129 chiến tranh kết thúc, nhân loại văn minh tiến vào đất hoang kỷ nguyên, năm 2157 cũng chính là đất hoang kỷ nguyên thứ 28 năm.</p>
+<p>Hiện tại khoảng cách. . .</p>
+<p>183 năm!</p>
+<p>Sở Quang từ nhỏ đối số cũng rất mẫn cảm, nhất là loại này chốt yên tin tức, bạch căn bản là nhớ liền sẽ không tùy tiện quên mất.</p>
+<p>&quot; Nói cách khác, năm 183 trước đời thứ nhất người quản lý, phát minh bộ này có thể đưa thế giới song ý thức thể, bắn ra đến người nhân bản trên người trang bị, cũng cung đóng gói thành trò chơi, nhưng xuất phát từ một số nguyên một cấp không có cách sử dụng đúng phải không?&quot;</p>
+<p>Có lẽ là do mùa đông hạt nhân.</p>
+<p>Do đó hoặc là nguyên nhân khác dẫn đến tình trạng tránh nạn chưa đủ điều kiện khởi động.</p>
+<p>Vô luận như thế nào, một trăm năm trước người, nghĩ như thế nào cũng đã qua đời.</p>
+<p>Tiểu Thất nói.</p>
+<p>&quot;Hẳn là đi.&quot;</p>
+<p>&quot;Hồi gọi tên là gì? Cái kia đời thứ nhất người quản lý.&quot;</p>
+<p>Sở Quang tranh luận về lửa thân đốt nhiên có chút mơ kỳ.</p>
+<p>Nghĩ ra những cái kia ác thú vị thiết kế người không nhất định là thiên tài, nhưng có thể tại văn minh suy yếu về sau, bằng sức lực một mình phát minh ra như thế ngưu bức bạch khoa kỹ người, thiên tài cái từ này Tất cả đều chưa đủ để sử dụng để hiển thị phân tích.</p>
+<p>Move thế giới song ý thức thể bắn ra đến bản vị,</p>
+<p>Đồng thời lưu trữ vào một vật chứa nhân bản.</p>
+<p>Sở Quang không tưởng tượng nổi tiếng, cuối cùng là như thế nào được.</p>
+<p>Vượt qua biết kỹ thuật, đối thoại mà nói cùng ma pháp không có gì khác biệt.</p>
+<p>&quot;Ta cũng không biết, đã biết kho số liệu bên trong cũng không có liên quan tới Đánh giá tài liệu chất vụn, có phải hay không bị xóa rồi?&quot;</p>
+<p>&quot; Đã rồi. . . Hỏi tương đương hỏi không.&quot;</p>
+<p>Sở Quang sơ thất vọng, cũng không có nhụt chí.</p>
+<p>Trước mắt khan tránh chỉ giải tỏa đến tầng B1.</p>
+<p>Theo nhiệm vụ không ngừng đưa ra, giấu kín nơi này tránh nạn bên trong bí mật, một ngày nào đó sẽ ở trước mặt kín có thể hiện ra toàn cảnh.</p>
+<p>tờ giấy tiện tay đi vào bàn máy tính khoa kéo, Sở Quang nắm thật chặt Đêm người ba lô.</p>
+<p>Chú ý tới hoạt động của Voi, ngồi xổm ở góc Tường Tiểu Thất hỏi.</p>
+<p>&quot;Chủ nhân, bạn phải đi sao?&quot;</p>
+<p>Cái kia không có cao thấp phập phồng thanh âm, nghe quá đáng thương.</p>
+<p>&quot; Humm, player ba ngày sau mới có thể đăng nhập, ta ở đây tiếp tục bảo vệ cũng không có bất cứ ý nghĩa gì, không bằng trước ở nơi chuẩn bị được chuẩn bị xuống.&quot;</p>
+<p>Cái phòng chết tiệt này nói là tránh nạn, lại ngay cả ăn uống cũng không có.</p>
+<p>Sở Quang trên thân hiện tại liền kề nửa khối lớn khoảng bàn tay bánh cùng nửa bình nước, cùng dùng ban thưởng đổi lương không cùng kẹo que.</p>
+<p>Điểm tiếp theo này có thể hiển thị không đến ba ngày sau.</p>
+<p>Cuối cùng người sống sót khu quần cư, có một đơn ổ đĩa nhỏ, bên trong lấy một chút tiếp theo cần sử dụng công cụ.</p>
+<p>Sở Quảng dự định trở về thu thập một chút, có thể tiến tới đều chậm rãi tới.</p>
+<p>Về sau nơi này chính là căn cứ mới.</p>
+<p>&quot;Đúng, Tiểu Thất.&quot;</p>
+<p>&quot;Ai chủ nhân?&quot;</p>
+<p>&quot;Ta cần giúp ta một chuyện.&quot;</p>
+<p>Dừng lại một chút, Sở Quang tiếp tục nói.</p>
+<p>&quot;Chúng ta ta ta website chính thức quá đơn sơ, ta cần phải sử dụng nó, tăng thêm một diễn đàn công năng cùng tư liệu, sơ đồ giám sát năng lực, có thể làm được sao?&quot;</p>
+<p>Đơn giản tới nói, bạn muốn để người chơi hiểu rõ hơn cái này &quot;Trò chơi&quot; .</p>
+<p>Chỉ dựa vào một cái miệng đã muốn lắc người vào bể, độ khó có chút lớn, chí ít mặt ngoài công phu cần phải làm một lần.</p>
+<p>&quot;Đương nhiên có thể,bạn có trang web chính thức biên tập quyền hạn, trừ mục chơi hẹn trước trang giấy bên ngoài, có thể tăng tốc thêm tử trang giấy hoặc là đối đã có trang giấy tiến hành sửa đổi.&quot;</p>
+<p>&quot;Rất tốt, vậy liền kề cho bạn.&quot;</p>
+<p>&quot;Bảo trên người ta!&quot;</p>
+<p>Đối với chủ nhân bàn giao cho mình nhiệm vụ, Tiểu Thất tựa hồ thật cao hứng, ngay cả máy biến điện năng thành âm thanh âm lượng đều đề cao nửa cái decibel.</p>
+<p>Đương nhiên, điều này cũng có thể là sở thích chính của Quang hiểu các rắc rối.</p>
+<p>&quot;Chủ nhân, lúc nào bạn đã về đâu?&quot;</p>
+<p>Sở Quang nghĩ, nói.</p>
+<p>&quot;Trễ nhất ba ngày.&quot;</p>
+<p>&quot;Nếu như hết thuận lợi, có thể trời tối ngày mai trước đó.&quot;</p>
+<p>. . .</p>
+<p>Hiện thế, Ngưu Mã câu lạc bộ bầy.</p>
+<p>Cái kia gọi &quot;Quang&quot; nhóm lão ca, hoàn thành địa chỉ Internet liên tiếp người sẽ không có ảnh, không biết là hạ tuyến vẫn trốn ở một bên bình phong.</p>
+<p>Lúc đầu liên quan tới &quot;Hoàn toàn chìm thức thực tế trò chơi ảo &quot; chủ đề đều nhanh đi qua, kết quả vài phút trước vị trí này già ca kéo tiểu Quần tao thao tác, lại cung cấp nhóm lớn bên trong chủ đề cho kẻ săn mồi trở về.</p>
+<p>Cai thuốc: [đậu đen rau muống, gia hỏa này là tới thật sự? ]</p>
+<p>Cái này cai thuốc cũng thường nổi bong bóng sinh động nhóm thành viên, mặc dù không phải quản lý.</p>
+<p>Thời gian qua nhanh: [ân, các bái điểm xong hẹn trước về sau, ác quỷ cái tiểu quần, mang chúng ta mấy cái bầy quản lý đều kéo tiến vào. (vò đầu) ]</p>
+<p>Thời gian qua nhanh là chủ nhóm, tự nhiên cũng ở đây cái quần nhỏ bên trong.</p>
+<p>Nghe xong lời này, các thành viên nhóm chớp mắt sôi sục.</p>
+<p>[ móa! Màn hình đen a! ]</p>
+<p>[ Quang ca nhập chức nhà kia công ty gọi cái gì các bạn biết hay không? Ta muốn báo cáo giao dịch PY! (buồn cười) ]</p>
+<p>[ kéo con bê đi, còn công ty! Năm ung thư thư có cái làm VR công ty, bồi dưỡng mẹ nó lão bản đều bị nhốt vào rồi! Bây giờ đầu gió đã sớm phải VR rồi! ]</p>
+<p>[ các người nói nhỏ nhỏ thảo luận, nhân gia a Quang không nhẹ tại dòm bình phong đâu. (buồn cười) ]</p>
+<p>[ nói đánh giá đến cùng một đồ họa gì? Nguy hiểm vì chỉ đùa một chút? ]</p>
+<p>[ quỷ hiểu được, không cần tiện lợi những con sói này thân huynh đệ dẫn lưu đến rau chân vịt trang web, đám nhiều người cạc cắt rau hẹ! ]</p>
+<p>[ ta xem gia hỏa này cũng không phải là vật gì tốt! Đá được. ]</p>
+<p>Chủ đề tăng dần khó khăn.</p>
+<p>Nhẹ nhàng lên cao đến nhân sinh công kích.</p>
+<p>Diệp Vĩ nhìn xem thẳng mày, vừa định nghĩa chi tiết gì, liền nhìn thấy chủ nhóm ra tới phanh xe.</p>
+<p>(toàn nhóm ngôn ngữ)</p>
+<p>Thời gian qua nhanh: [ đại gia đừng như vậy, mới tới các thành viên có khả năng không biết a Quang, người khác cũng không tệ lắm, chính là thương pháp ngựa một chút, con mắt mù điểm, người thức ăn điểm, cái khác cũng tốt. ]</p>
+<p>Còn nhiều thời gian: [xác thực, ta tin tưởng a Quang không phải ngộ nhập lạc đường làm cái gì rau chân vịt. Hiện tại chúng tôi chưa được xác định chính xác, có đánh dấu hoặc không bị trộm nick. Nếu như vậy thì cái này chúng ta quản lý tổ hợp sẽ xử lý. Một hồi tin tức ta đều rút về, đại gia thay cái chủ đề a. ( hiện tại) ]</p>
+<p>(trừ loại trừ ngôn ngữ đa dạng)</p>
+<p>Chủ nhóm cùng quản lý đều đi ra buông lời, đại gia cũng rất cho mặt mũi không còn trò chuyện cái đề tài này, rất chạy mau trôi đến Cúp Châu Âu bên trên.</p>
+<p>Diệp Vĩ không nhìn, chí ít không nhìn bóng đá.</p>
+<p>Nhìn màn hình phía dưới góc phải thời gian, lúc này đã 18:00, vừa vặn đến giờ cơm.</p>
+<p>không làm xong đại tác nghiệp truyền lên đến vân bàn, Diệp Vĩ Cung Vũ ra giáo, đi xuống lầu nhà ăn điểm phần thịt gà cơm chiên, đắc ý mà ăn xong.</p>
+<p>Khi thoải mái thoải mái nhà yên trở lại phòng ngủ thời điểm, nhìn thấy trên bàn thùng giấy con, cả người hô sửng sốt một chút.</p>
+<p>Chuyển phát nhanh?</p>
+<p>&quot;A Vĩ, ngốc mua vật gì? Như thế để con đồ chơi?&quot;</p>
+<p>Ngủ chung phòng anh em lại, các mặt hàng khác bổ sung sức mạnh chú ý bỏ vào bên trong này.</p>
+<p>Tất cả mọi người đều là người có tư cách.</p>
+<p>Trước đó Diệp Vĩ không ở phòng ngủ, không hậu động vật vật. Hiện tại người quay lại rồi, cũng không sao.</p>
+<p>Bọn chiến binh cực kỳ kỳ diệu, gia hỏa này mua cái gì.</p>
+<p>&quot;Ta không có vật thể mua a. . . Cái đồ chơi này được đưa ra?&quot;</p>
+<p>Ba cái bạn cùng phòng quen biết mắt.</p>
+<p>&quot;Ta không có chú ý. . .&quot;</p>
+<p>&quot;Ta cũng không có chú ý.&quot;</p>
+<p>&quot;Không biết, ta vừa đi lấy thức ăn ngoài.&quot;</p>
+<p>Hắc.</p>
+<p>Bất thường rồi!</p>
+<p>Bình thường chuyển phát nhanh đều là ném xiên dưới chuyển nhanh, hôm nay ngược lại là đưa tới cửa.</p>
+<p>Càng bất thường chính là, Diệp Vĩ suy nghĩ mình cũng không có ở mua hàng trực tuyến địa chỉ bên trong bài viết, mình đang ngồi cái nào chỗ ngồi.</p>
+<p>Bây giờ chuyển phát nhanh tiểu ca đều ngưu bức như vậy sao?</p>
+<p>Mở thùng giấy bên trong một bảo hiểm mũ bảo hiểm.</p>
+<p>Cái đồ chơi này tạo hình cùng xe gắn máy mũ bảo hiểm rất nguy hiểm, trong ngoài đều xóat lấy nước sơn đen, nhìn xem chiều ngoài không đẹp.</p>
+<p>Muốn nói bất cứ nơi nào đặc biệt, chỉ sợ sẽ là không có trước mặt, đeo lên đi toàn bộ đều có thể lại, cơ bản cái gì nhìn không thấy.</p>
+<p>Nhìn nhìn, Diệp Vĩ còn tưởng rằng cái đồ chơi này là một cái nội dung.</p>
+<p>&quot;Cái này cái gì chơi.&quot;</p>
+<p>Sát vách bàn anh em cầm mũ bảo hiểm loay hoay lại, đội ở trên đầu, lại hái xuống, không hiểu ra sao trả lại cho Diệp Vĩ.</p>
+<p>&quot;đại hỏi ta, ta hỏi ai.&quot;</p>
+<p>Thực tế là nội dung?</p>
+<p>Diệp Vĩ như một bức mộng mơ được đưa ra chụp ở trên đầu.</p>
+<p>Xem nội dung đen một màu.</p>
+<p>Ngay tại lúc đó đang muốn đưa nó xuống thời điểm, một chùm màu lam nhạt ánh sáng nhẹ nhàng xuyên qua chuông mơ, ánh sáng vào rừng sa mạc.</p>
+<p>[ chờ đợi trò chơi kích hoạt: 71 giờ 19 phút ]</p>
+<p>Cái này. . .</p>
+<p>Một chút may mắn là cái trò chơi bảo hiểm nguy hiểm? !</p>
+<p>Ngọa tào.</p>
+<p>Giao hàng tốc độ nhanh như sao?</p>
+<p>Diệp Vĩ cả người đều xung quanh.</p>
+<p>&quot;Các thứ đều không được nhìn thấy?&quot;</p>
+<p>Mũ giáp bỏ xuống phía dưới, Diệp Vĩ nhìn về phía vừa rồi mang theo mũ bảo vệ bạn cùng phòng.</p>
+<p>Nhưng mà cái kia bạn cùng phòng , tương tự một mặt mơ bức mà nhìn đánh qua.</p>
+<p>&quot;Trống tìm thấy cái gì?&quot;</p>
+<p>Diệp vĩ vĩ vàng nói: &quot;Cái kia đếm ngược a! Trên đó viết chờ trò chơi kích hoạt!&quot;</p>
+<p>&quot;Cái gì? Cái đồ chơi này còn có thể là máy chơi game?&quot;</p>
+<p>&quot;Tránh ra tránh ra, Lưu ca con mắt không tốt, ta tới nhìn một cái.&quot;</p>
+<p>Một tên khác bạn cùng phòng tiếp tục nhận mũ bảo hiểm nguy hiểm, nhưng một lát sau, lại là cùng một dạng trước đó, không hiểu sao mang áo giáp bỏ xuống dưới.</p>
+<p>&quot;Không có a.&quot;</p>
+<p>&quot;Ta tới.&quot;</p>
+<p>Cái này ba cái bạn cùng phòng đều thử một lần, đều không ngoại lệ cái gì cũng không còn thấy.</p>
+<p>Nhìn nhau, băng tần không hẹn mà cùng nhìn về phía Diệp Vĩ, biểu hiện cổ quái.</p>
+<p>&quot;Huỳnh đệ.&quot;</p>
+<p>Diệp Vĩ: “… Thế nào?”</p>
+<p>&quot;Muốn không. . . Người đi bệnh viện nhìn một cái?&quot;</p>
+<p>&quot;Cắt!&quot;</p>
+<p>Diệp Vĩ hùng hùng hổ hoàng kiếm mũ bảo hiểm, không tin tà lần nữa đeo lên.</p>
+<p>Màu lam nhạt chữ nhỏ đúng mà hướng tới.</p>
+<p>[ chờ đợi trò chơi kích hoạt: 71 giờ 17 phút ]</p>
+<p>Đếm ngược tới 2 phút.</p>
+<p>No only like here. . .</p>
+<p>Đúng lúc này đột nhiên phát hiện, mặc kệ chính mình làm sao chuyển động mũ bảo hiểm, vậy nên được đếm ngược viễn viễn xuất hiện ở bản thân xem khu vực chính giữa.</p>
+<p>Dù là ánh mắt lại.</p>
+<p>Diệp vĩ độ xuống mũ bảo hiểm, một mặt quỷ.</p>
+<p>Ngọa tào?</p>
+<p>Đúng là quỷ rồi!</p>
+', CAST(0.00 AS Decimal(10, 2)), CAST(N'2024-04-20T15:51:40.610' AS DateTime), CAST(N'2024-04-20T16:11:55.483' AS DateTime), 1)
+INSERT [dbo].[Chapter] ([chapter_id], [chapter_number], [story_id], [volume_id], [chapter_title], [chapter_content_markdown], [chapter_content_html], [chapter_price], [create_time], [update_time], [status]) VALUES (68, 4, 25, 34, N'Sở Quang cùng kẹo que', N'Hai trăm năm trước.
+
+Chuẩn xác mà nói là năm 2125, thành viên này hoàn thiện cầu thủ bên trong khi phát ra một trận chiến tranh.
+
+Trong chiến tranh song phương đều yên tâm để tiêu diệt đối phương quyết tâm, cơ hồ dùng tới tất cả mọi thứ có thể dùng tiến thủ đoạn.
+
+Chiến tranh kéo dài ba năm chỉ.
+
+Nhưng chỉ được sử dụng ba năm, liền kền phá bỏ trên mặt đất hết khả năng.
+
+Rất dài mùa đông hạt nhân hồ cung cấp văn minh hỏa lực dập tắt, song phương đều thành công cung cấp phương tiện đưa vào địa ngục, cũng thành công mai táng chính mình.
+
+Từ đó, mở ra để lớn tiêu điều càng thêm tiêu đất hoang kỷ nguyên.
+
+Mặc dù cự ly này cuối cùng thế chiến đấu đã qua hai cái thế kỷ, mùa đông hạt nhân vậy sớm hơn một cái thế kỷ trước đã cơ bản kết thúc, nhưng nhân loại cũng không có một lần nữa trở lại đỉnh cao của sinh vật chuỗi.
+
+Tràn lan vũ khí hạt nhân, vũ khí sinh vật, thậm chí chí gien vũ khí, dẫn đến toàn bộ tinh cầu sinh thái hệ thống đều hướng cực đoan phương hướng diễn biến.
+
+Mà những cái kia được ngọc là "Dị chủ" chiến biến, cũng là giãy dụa tại tích bên trong những người sống sót, đối mặt chủ yếu uy uy.
+
+Tỷ như Sở Quảng vừa tới đến thế giới lúc này, phải nhánh kia mọc ra hai cái đầu chó săn, chính là một cái trong số đó.
+
+Bất kỳ quá liền xem như dị chủng, cũng là có phân chia mạnh yếu.
+
+Giống như loại đầu tiên của loại linh cẩu này từ tuyến Gamma xạ đưa ra "Dị loại", chiến đấu bình thường không cao, trừ khi bỏ đi một số ít có thể may mắn ngoại lệ, chiến đấu thậm chí chí nên ra chiến tranh trước đó.
+
+So sánh dưới đây, trả thù ăn người, người bò sát chờ đợi một khoảnh khắc này từ vũ khí sinh vật tạo thành, lại biến biến đến đã không có cách nào tối ưu tổ dị chủng, mới thực sự là vì giết mà thành quái vật .
+
+Thần kinh của bọn nó hệ thống biến dị nấm ăn mòn, ban ngày bình yên ở lối tích, cống thoát nước, hoặc là tàu điện những thứ này không có thiết bị sáng sủa bên trong, chỉ cần đến khi màn đêm tiến về phía trước mới có thể ra đường bên trên trang kiếm ăn.
+
+Khu vực ngoại thành có thể có vấn đề như vậy trong thành phố tốt hơn nhiều.
+
+Nhất là ngoại thành.
+
+Đi qua vòng năm, Sở Quảng phải nguy hiểm nhất loại dị hợp, cũng bất chấp là một biến thể ngựa giống đầu tiên. Tên kia mặc dù năng lượng mạnh mẽ, nhưng tương phản phản ứng rất tiến bộ.
+
+Tại bị phát hiện trước đó, Sở Quang rất nhỏ tâm tránh được nó.
+
+Nắng nhẹ sớm sáng xuyên qua tổng tổn thương bê tông, cùng cốt thép cái bóng một hầm, rơi vào tràn đầy ô hài cốt cùng đá vụn trên đường.
+
+Thời gian bây giờ là buổi sáng tám điểm.
+
+Nơi đây thời gian cùng hiện thế bên kia đông tám giờ khu, có mức độ mười hai giờ trôi giờ.
+
+Nhìn xem du thoáng ở trên đường hai con biến dịch linh cẩu, Sở Quang ôm chặt trong tay cây kia mang thai nhi ống nước, cẩn thận vây quanh bên cạnh sau.
+
+Mặc dù Wiki có hai trình xử lý tự động, nhưng không cần thiết bị phức tạp.
+
+Huống hồ những câu chuyện này rất thông minh, thậm chí chí biết rõ cầm đồng loại làm mồi nhử, ai cũng không biết bên cạnh cạnh trong bóng tối còn cất giấu bao nhiêu.
+
+Đọc theo đường nhỏ xuyên qua rách nát quảng trường.
+
+Khi tìm thấy Bethe đường phố nhi đồng công viên vui chơi bảng hiệu lúc này, Sở Quang cuối cùng là nhẹ nhàng thở ra.
+
+Phía trước chính là "Bethe đường phố" —— phụ cận vùng này tương đối với người sống sót khu quần cư, bên trong cư dân hơn một phần trăm người sống sót.
+
+Cuộc chiến tranh bùng nổ trước đó, nơi đây từng là Tòa nhà nhi đồng công viên vui chơi, có rất nhiều trò chơi thiết bị chơi game cùng một mặt cỏ rộng lớn.
+
+Chiến hậu nơi này bị quân đội chia làm thời gian trú gió điểm, thu lợi nhuận từ Thanh Tuyền thành phố bên trong thị trấn trốn đi thị dân.
+
+Những cái kia nạn dân về sau thế nào rồi chưa biết ai được, bất quá có thể trăm năm sau hôm nay, nơi này đã phát triển trở thành một tòa nhà "Trấn nhỏ" .
+
+Mọi người dùng bỏ hoàng tấm tấm, mỏ tránh mưa cùng khối gỗ cùng kim loại giá hỗ trợ, tại trọc bur trên mặt đất lộn hoàng thành giản dị túp bóng.
+
+Cực kỳ giống "Điêu dân thời đại" bên trong loại kia.
+
+Công viên trò chơi tường vây là các tấm bình phong thiên nhiên, cũng ở đây trải qua thông nhanh tu sửa về sau, ngựa lên dây kẽm cùng mang mảnh mảnh gỗ.
+
+Thành viên trò chơi trung tâm là một toà năm tầng cao cổ điển thành lũy, rất có cổ tích cảm giác giác. Chỉ là kia mặt ngoài sơn sớm đã rơi sạch, mặt hướng trung tâm chợ kia một bên bức tường càng là giảm bớt phân nửa, chỉ còn lại cánh bắc nửa cùng một tòa phổi sắp xếp cô tháp.
+
+Lau xem như cổ tích, như vậy tuyệt đối Hắc Ám Cổ Tích.
+
+Bất chấp việc cho dù tòa nhà kiến trúc này bị hư hỏng như thế này, nó vẫn là Bethe đường phố bên trên kiến trúc "Xa hoa nhất".
+
+Đồng thời cũng là nhà của trưởng trấn.
+
+Mặc dù đang ở nơi sinh sống năm tháng này, nhưng Sở Quang cũng không có gặp qua trưởng trấn. Vị đại nhân kia rất thần bí, rất ít xuất hiện bề ngoài.
+
+"Nha, sớm như vậy trở lại."
+
+Nhìn xem từ khu phố góc Phóng đi về phía Sở Quang, treo thuốc lá hút tẩu bụi Walter lip lip mắt, từ trong lỗ mũi phun ra một tia sương khói trắng.
+
+Trong tay của Tay cầm một cây súng săn.
+
+Mđặc dù đã xem nhiều năm rồi, nhưng không ai sẽ hoài nghi uy lực của nó.
+
+Sở Quang đã từng tận dụng tầm nhìn được nhìn thấy qua, lão nhân này chỉ bắn hai phát súng, liền đánh rơi một đầu xe phóng tới Bethe đường phố đại học biến thể ngựa chiến.
+
+Từ đó về sau, lửa liền một khát khát cũng có thể được thanh hóa.
+
+"Ở bên ngoài trì hoãn một đêm."
+
+"Bên ngoài?"
+
+Lão đầu xem xét mắt Sở Quang cõng ở sau lưng cây kia mang hoàng nhi ống nước, lông mày nâng cao một tia kinh ngạc.
+
+Ban đêm có bất kỳ kích thước nguy hiểm nào, không có ai để rõ ràng hơn.
+
+Từng lần trực ca đêm, ngón tay móng vuốt cũng không từ trên cò súng dịch chuyển ra khỏi , bất kỳ cái gì tí chút gió lốc cỏ lay, đều sẽ để toàn thân thần kinh kinh kéo căng thẳng.
+
+Ngoại thành dịch mặc dù không có trong thành khu nguy hiểm như vậy, nhưng có quá nhiều kẻ cướp tiền đối với nơi này nhìn nguy hiểm.
+
+Rơi vào tay kẻ thù, hạ tràng không thể chết ở dị vật trên tay tốt quá nhiều.
+
+Lão Walter không quá tin tưởng, gia hỏa này chỉ dựa vào một cây ống thép, thế mà tại đất hoang bên trên bình an vượt qua một đêm.
+
+"Xảy ra chút ngoài ý muốn."
+
+Sở Quang cũng không giải thích, chỉ cấp lão Walter một cái mắt già mệt mỏi để chính chiến đi thể hội, tiếp tục trực tiếp xuyên qua khu quần cư đại môn.
+
+Bethe đường phố chỉ có một nhà sản phẩm vựa ve chai, vị trí rất dễ tìm, sát bên khu quần cư cửa chính bên cạnh.
+
+Cửa cuốn cà vạt áo lấy một viễn viễn đi không được kiểu cũ cân điện tử, bên cạnh thẳng "Giá vừa phải, già trẻ không rụng" đền thờ.
+
+Tiệm này là trấn trưởng đại nhân sản nghiệp, cũng là Bethe đường phố duy nhất thu mua cú bỏ linh kiện cùng biến dị chuột đồng da địa phương.
+
+Vì độc quyền xả rác sinh ý, nhà độc tài này thậm chí còn ngang ngược cấm bố trí một luật pháp cấp.
+
+Tức, tất cả mọi người không được tặng một túi rác, tự mình bán cho dọc đường nơi đây thương đội.
+
+Mà lý do thì là vì cam dòng Bethe đường phố hàng hóa có thể bán đi hợp lý cả giá, mà không phải là "Giảo hoạt các thương nhân" tại giá cả bên trên vô sỉ ép ép.
+
+Loại này ngang ngược với quy luật của trí thông minh có thể thông qua, trình độ cao nhất cũng được xác định cùng nơi đây những người sống sót rất ngu muội có quan hệ.
+
+Mà bình thường thương anh hùng cũng sẽ không xông lên thu tội nhà độc tài này phong hiểm, đi những người nhỏ rác trên tay thu mua một chút kia ít đến thương cảm vật tư.
+
+Các chiến binh chỉ thực hiện mua bán lớn.
+
+Mà lại chỉ có rất nhiều người buôn bán.
+
+"Bán? Vẫn là mua?"
+
+Chủ cửa hàng là một vị trí năm tuổi lão nhân, tên gọi Charles, nghe nói trước kia là tỉnh ngoài cái nào đó tránh nạn cư dân dân, về sau bị hộp thư tới làm nô lệ, thẳng đến trưởng trấn chữa bệnh từ cái nào Chủ nhân nô trên tay mua lại, mang lại những thứ tương tự như người tí hon giao dịch vệ công giao giao cho băng.
+
+Nơi này đại đa số cư dân đều là sinh trưởng ở địa phương "Đất hoang người", không có chịu tội bất luận cái gì giáo dục, toán học đều rất sạch, mà lại là nghiền nát 100 trong vòng cộng trừ đều có có thể tính toán sai trình độ.
+
+Nhưng Charles thì khác.
+
+Là từ trong tình trạng tránh né tới.
+
+Mặc dù mảnh đất hoang bên trên tránh nạn không có một tòa nhà nào hoàn toàn giống nhau, nhưng có một chút lại là na ná như nhau.
+
+Có thể vào ở nơi đó không có chỗ nào mà không phải là trước khi chiến đấu xã hội tinh anh, con của băng cướp đã đuổi theo những cha bối rối nơi đó thừa kế thông minh đầu não, càng đến từ bên bờ biển tiếp theo nhận rồi giáo dục tốt đẹp.
+
+Nếu như không phải thế giới này bét, thì đại đại khái sẽ giống tầng lớp cha chú một dạng, trở thành thành một tiến sĩ, bác sĩ hoặc là học giả.
+
+Mà không có ở đây ký tự.
+
+"Lệnh cấm."
+
+Không nói nhảm, Sở Quang từ ba lô bên trong móc ra 6 khối bong pin, cùng 5 ống keo ném vào cân điện tử trên khay.
+
+Đây là chiến tử tại phát hiện số 404 tránh nạn trước đó, tại phụ cận kiến trúc hài hòa bên trong cơn thịnh nộ đến.
+
+Lão Charles nhỏ lên trên bàn pin, tùy ý kiểm tra một loại hình ảnh nhỏ cùng phải chăng khí cụ nguy hại, liền đưa ra tiện ích sử dụng một bên trên cân.
+
+Cái đồ chơi này được định nghĩa là thông báo không cần thiết, nhưng một lần trong vật liệu vẫn có thể.
+
+"Phẩm chất cũng tạm được, vùng này thuốc kháng là đều được lục kiềm sạch sẽ, miễn phí từ chỗ nào làm cho đồ tốt?"
+
+Điều này cũng có thể gọi đồ tốt?
+
+"Vận khí tốt."
+
+"Ha ha, ta chỉ thuận miệng hỏi một chút . Ừ, pin không sai, nhưng chất keo keo chất lượng liền một loại, thiết bị miệng phá qua, tình huống bên trong kỳ vọng bệnh rối loạn, ta chỉ có thể lựa chọn theo 50% tính . Sở hữu lại hết 3 điểm đồng Chip."
+
+Sở Quang cũng không có cùng đánh giá trả lời, từ trong tay đánh nhận được 3 mai màu trắng đồng Chip.
+
+Loại này có kim loại cảm nhận nhựa tiền xu, là Thanh Tuyền thành phố lớn nhất người sống sót khu quần cự thạch thành phát hành "Tiền tệ", đồng thời tại Thanh Tuyền thành phố đại đa số người sống sót khu quần cư đều có thể thay đổi đồ ăn tiếp theo.
+
+Đồng Chip chính diện in mặt giá trị, mặt sau có đặc thù phòng ngụy mã hóa cùng in hoa, tại ánh mặt trời chiếu xuống sẽ bày tỏ ra đặc quyền quần sáng.
+
+Loại này đồng Chip có chịu nhiệt bao gồm, dễ dàng tồn tại, lại phân biệt độ cao rất nhiều ưu điểm. Nhất là chốt nhất một điểm là, lấy cơ sở kỹ thuật chiến hậu không có cách mô phỏng.
+
+Giống Bethe đường phố loại người này miệng không nhiều, không có công nghiệp năng lượng vừa và nhỏ người sống lang làng xóm, chủ yếu cũng là cùng cự thạch thành thương đội làm ăn, dùng nông sản phẩm, con mồi cùng nhỏ được rác thải trao đổi cần thiết sinh hoạt vật tư ngay cả khi chí là vũ khí.
+
+Tự nhiên như vậy, loại tiền tệ này cũng liền kề tại Bethe đường phố lưu thông.
+
+Đương nhiên, nó cũng không phải bất cứ lúc nào đều dễ dàng sử dụng, dù như tháng nào thương không đến, toàn bộ khu quần cư giá hàng đều phải lộn vịnh.
+
+Trưởng trấn cũng chưa phải thử qua phổ biến chính Bethe đường phố tiền tệ —— một loại ký hiệu phiếu bầu, nhưng làm sao căn bản không ai thừa nhận.
+
+Làm sạch ngay cả Bethe đường phố người sống rụng đều biết, loại kia trang giấy liền ngay cả bồn chồn nhi, cùng giấy lộn không có gì khác biệt.
+
+"Muốn mua chút gì sao? Trong lá rụng tới một nhóm từ cự thạch thành tới hàng mới."
+
+Định nghĩa đi Sở Quang dừng bước, quay lại hỏi nói.
+
+"Có súng sao?"
+
+"Thế thì không có, có sư mua không nổi."
+
+Lão Charles nhếch miệng cười cười, nhìn xem quay người muốn đi Sở Quang tiếp tục nói.
+
+"Bất quá đồ ăn cùng nhiên liệu ngược lại có một ít. Nếu như ta là chậm, nhất định sẽ thừa dịp tăng giá trước nhiều mua sắm."
+
+Thương loại vật này, cho dù là rẻ nhất cái loại kia, đều rất khó tại Bethe đường phố như vậy mua được.
+
+Bởi vì coi như ngẫu nhiên có buôn bán vũ khí thương đội đi ngang qua nơi này, những vũ khí kia bình bình thường cũng đều là tiến vào trưởng trấn bản thân nhà kho, căn bản sẽ không trưng bày ở nơi này kệ hàng mặc định người chọn đơn vị.
+
+Hồ hồ tiêu đề như lão Charles nói như vậy, coi như thật sự có loại đồ vật này, bọn cướp những thứ rác rưởi này cũng không có khả năng mua được.
+
+Sở Quang rất rõ ràng vì cái gì nói như vậy.
+
+Làm tiếp thụ giáo dục tốt phòng tránh cư dân, Charles nhất định sẽ không nhìn không ra, chủ sở hữu sinh sống ở Bethe đường phố người sống thải, bất chấp kể là người nhỏ rác vẫn là thợ săn, bọn họ giá trị dư đều được trưởng thành một nhà bóc lột không còn một mảnh.
+
+Cho dù trấn trưởng đại nhân chưa hề tự mình đưa tay, từ bọn họ trong túi tiếp trực móc đi đâu sợ một thành viên đồng Chip.
+
+" Đồ ăn cùng nhiên liệu muốn tăng giá?"
+
+Nhìn xem trên mặt viết ngoài ý muốn Sở Quang, Charles cười nhạt cười nói.
+
+"Không có chú thích tới a, gần nhất tại hạ nhiệt độ, mà bên ngoài dị bản lại bắt đầu sống."
+
+Sở Quang mày suy tư một lát, mơ nhiên nghĩ tới điều gì, mở miệng nói ra.
+
+"Mùa đông sắp tới?"
+
+"Ta nhớ được đã là năm tháng trước mới tới chỗ này, khả năng không có trải nghiệm qua, những năm qua lúc này không nói Đặc biệt lắm liền muốn bắt đầu chậm rãi hạ nhiệt độ. Năm nay. . . Mùa đông dự đoán sẽ đến sớm một chút, làm không tốt vào lúc mười lăm tháng muốn tuyết rơi.”
+
+Nói đến đây, Charles dừng lại một lát, nói một cách đầy ý nghĩa sâu xa nói.
+
+"Muốn bắt đầu mùa đông."
+
+"Không kể là người vẫn là dịch bệnh, đều phải làm chuẩn bị sớm."
+
+Vừa tới Bethe đường phố thời điểm, Sở Quang mặc trên người màu lam áo bảo vệ, Charles vô ý thức chữa cháy trở thành kháng tránh người, nên tranh luận coi coi như chiếu cố gắng.
+
+Mặc dù loại tài liệu tham khảo này vẫn chưa thể hiện tại tại giao dịch giá cả bên trên, nhưng ở phương diện kinh nghiệm lão nhân này xác thực giúp Sở Quảng có một chút bận rộn.
+
+Nếu không, bạn cũng sẽ không nhanh như vậy thích ứng với đất hoang bên trên sinh hoạt.
+
+Sở Quang liệt kê đầu.
+
+"Ta biết rồi, tạ ơn."
+
+“Không khách khí, “ Charles cười nhạt cười, “ Còn đừng chết rồi.”
+
+Hiện tại đã là đầu tháng chín, nếu kết quả như thật vào tháng mười hai muốn tuyết rơi, lưu chuẩn bị cho Sở Quảng thời gian chỉ còn hơn một tháng.
+
+Đối với sinh sống ở vùng này những người sống sót mà nói, tuyết rơi tuyệt đối không phải là cái gì đáng giá cao ngẫu sự tình. Ý vị này trừ việc ăn đồ bên ngoài, còn phải tăng thêm một lượng nhiên liệu chi tiêu.
+
+Nơi này tuyệt vời đa số người đều là thu gom rác thải cùng săn mà sống, phụ cận nông trường chỉ có tại ngày mùa kỳ mới cần người.
+
+Đến mùa đông, nhỏ rác độ khó sẽ gấp bội lên cao, dù ai cũng không có cách nào mong đợi trước bên trong thùng chính là vật lợi ích linh kiện, vẫn là biến dị con chuột rỗ nanh.
+
+Mà giống như dã thú, những con thỏ này có thể cung cấp thức ăn thịt động vật cũng sẽ giảm bớt thời gian hoạt động, thậm chí là thư giãn ở trong ổ qua mùa đông.
+
+Người chết nhất chính là, một khi bắt đầu mùa đông, thương đội liền sẽ không tới nơi này. Coi như thiện đồ tốt cũng chỉ có thể tích chất tại trong nhà, mong đợi đến năm sau đầu xuân mới có thể bán rơi.
+
+Hoặc là, mạo hiểm tiến về mười cây số bên ngoài cự thạch thành.
+
+Kia là Thanh Tuyền thành phố vùng này lớn nhất người sống sót khu quần cư, cho dù là mùa đông nơi nào thị trường cũng sẽ không đóng cửa.
+
+Nhưng vị trí của nó tại Thanh Tuyền thành phố tam hoàn đường bên cạnh, liên tiếp Thanh Tuyền thành phố thành Bắc khu, trên đường đi lưu trữ đếm không hết nguy hiểm.
+
+Bình thường người ta muốn dựa vào hai cái đùi đi qua, hơn nữa còn là tại nhiệt độ thấp nhất có thể đạt tới âm mười mùa đông, không khác tự sát!
+
+. . .
+
+Từ vựa ve chai rời đi về sau, Sở Quang đầu tiên là trở về một chuyến đi trụ sở của mình.
+
+Kỳ thật cùng đánh nói là trụ sở, thoáng bằng nói là một tòa miễn cưỡng có thể che mưa túp bao, thậm chí cũng không có cái rastyle cửa sổ cùng môn.
+
+Thẳng đến hôm qua mới thôi, dũng mãnh tích lũy ngâm nước hầm, PVC tấm loại hình vật liệu, ui tại mùa đông tiến đến trước đó cung cấp cái này lọt gió tường cho che lại.
+
+Nhưng hiện tại xem ra, đã không cần thiết bị này.
+
+Từ Túi meo trong túi ngủ Cô ra đến một khối rỉ sét nhôm hộp, Sở Quang phí sức đưa ra nó, mang lại núp ở bên trong nhựa tiền xu soạt ngã xuống què chân cái bàn gỗ bên trên.
+
+Hết 47 mai mặt giá trị 1 điểm màu trắng đồng Chip.
+
+Tính đến 3 người của mình, cộng lại 50 điểm!
+
+Cái này tiền đều là một tỉnh khác ăn tiết kiệm dùng, một chút xíu để dành được tới, vì chính là có một ngày có khả năng mở cái địa phương quái vật quái vật này, đi đi điều kiện tốt hơn Quá thạch thành.
+
+Bất cứ lúc nào nha. . .
+
+This account "Tài sản" đã được định nghĩa mới.
+
+Có thể tự lập môn hộ, làm gì giúp ở đậu?
+
+"Hỗ trợ tránh hỏa hoạn trên một khu chăm sóc có sử dụng, còn có kiến trúc chung quanh phòng vây, đều là bê tông cấu hình. . . Có player có thể nói lịch sử nói, tại phụ cận tập khối vật chất data, tu sửa độ khó sẽ không quá lớn."
+
+"Trái an dưỡng phụ cận là vùng đất ngập nước công viên, bộ sưu tập kim loại sản phẩm không tiện lắm, nhưng chung quanh thảm thực vật coi như tươi tốt, hệ thống ấm nhiên liệu mạnh sẽ không quá thiếu, trừ cái đó ra khối gỗ vẫn có thể làm theo cấu trúc bổ sung được sử dụng trong nhà vật liệu . Đúng, phải mua bốn thanh búa."
+
+Đánh quái cấp độ?
+
+Không tồn tại!
+
+Đều nói là trăm phần trăm chân cứng rắn trò chơi, nếu là rắn trò chơi, vậy nên dĩ nhiên là từ trụ cột nhất công tác bắt đầu làm lên!
+
+"Xẻng cùng cái cưa những công cụ này cũng không thể thiếu rồi!" Player but no login, Sở Quang liền đã nghĩ ra một bài thế nào đó của họ.
+
+Đương nhiên, trừ việc làm nhiều công cụ, còn lại có thời gian nhập khẩu phần lương thực.
+
+Bồi dưỡng khoang một khi kích hoạt, liền sẽ lập tức tiêu hao dự phòng chứa bảo dưỡng trong khoang thuyền hoạt tính vật chất, hợp thành cung cấp người chơi sử dụng nhân bản thể.
+
+Mà chút nhân bản thể cũng phải cần ăn cơm!
+
+Mặc dù người chơi không trực tuyến, nhân bản có thể được bồi dưỡng trong khoang thuyền, lấy hơi chậm thay thế chế độ ngủ đông, nhưng luôn không có khả năng ở một mức độ nào đó.
+
+Người sống liền muốn ăn cơm, đây là tuyên ngôn cổ bất biến chân lý!
+
+"Ít nhất phải dự trữ đầy đủ năm tên người trưởng thành một tuần tiêu hao lương thực. . . Nếu như theo một ngày hai bữa tính, mỗi bữa một tấm bánh nếp, cũng được 70 tấm."
+
+Bánh nếp là Bethe đường phố thường thấy nhất bản đồ ăn, 1 điểm đồng Chip liền có thể đổi hai tấm.
+
+Cái đồ chơi này bình thường có bằng bàn tay, cảm giác rất cứng, cũng rất thô ráp, giống trộn hỗn hạt cát thổ, nhưng có thể đuổi đầy cái bao tử, nhưng có thể bổ sung một chút xíu muối phân.
+
+Nhét vào trong nội dung nấu, nhưng có thể làm cháo.
+
+70 tấm bánh, mua được 35 điểm đồng Chip, coi như trả giá, 30 điểm đồng Chip cũng không thiếu. Cứ như vậy, dự tính của mình cũng chưa đủ rồi,
+
+Sở Quang chân mày cau lại, bất quá nhanh lại thư giãn ra.
+
+Mới vừa rồi là giải quyết vấn đề phức tạp.
+
+Kỳ thật không cần thiết để những cái kia người chơi ăn quá tốt.
+
+Nếu như cung cấp bánh nếp biến thành chế tác bánh nếp nguyên vật liệu —— cũng chính là phụ cận nông trường sản xuất thanh mạch, thì chỉ cần 3 điểm đồng Chip liền có thể mua được một ki-lô-gam!
+
+Độ cái 5 ki-lô-gam, đủ một mình bạn ăn hai tuần lễ!
+
+Đến như những thứ khác, đến lúc đó lại nghĩ pháp.
+
+"Tạm thời trước khi hết chuẩn bị những thứ này đã được rồi. ."
+
+Chuyển phân phối xong đồng Chip quét vào ba lô, Sở Quang đem ba lô một lần nữa vượt tại trên thân.
+
+Dù dù một đêm không ngủ, nhưng chiến binh hiện tại tinh thần phấn khởi động không được, phản phản một lần nữa tìm được cuộc sống ý nghĩa, căn bản nhất một chút bối rối cũng không có.
+
+Khi chào cửa ra đi ra ngoài, thấy nhà hàng xóm tiểu cô nương chính thối tại sát vách túp cổng, tò mò nhìn phía bên mình.
+
+Sở Quang nhận ra tên của nàng, gọi Dư Tiểu Ngư, là Dư gia tiểu nữ nhi.
+
+Đất hoang bên trên người sống phần lớn xanh xao vàng, Dư gia tiểu nữ nhi tự nhiên cũng không ngoại lệ, kia lô lô một cánh cánh tay nhỏ bắp chân, thoải mái cho người khó có thể tưởng tượng nàng đã là phải lập gia đình tuổi tác.
+
+Tìm Sở Quang chú ý tới bản thân, nàng cũng không còn xấu hổ, từ trong nhà đi ra.
+
+"Ta nghe tới trong nhà tĩnh, liền đến xem."
+
+Mỗi ngày rực rỡ, Bethe đường phố đám nam nhân đều sẽ ra ngoài nhỏ ve chai hoặc là đi săn, người già trẻ em thì bình thường để ở nhà giữ nhà, hoặc làm chút có thể kiếm tiền việc làm.
+
+Mặc dù mọi người đều là một nghèo hai trắng, ăn bữa trước không có bữa sau, tồn tại không dưới tiền, trong nhà cũng không còn cái gì có thể ăn trộm, nhưng ai cũng không muốn bản thân lúc ra cửa, có người đến nhà mình bên trong sử dụng những món đồ nhỏ.
+
+Cái này gọi Sở Quang nam nhân, là từ bên ngoài tới, bình thường đi sớm về chậm, rất ít cùng khu quần cư hàng xóm láng giềng giao lưu.
+
+Đối số đối với Utah hiểu rõ cũng không phải nhiều, chỉ thấy rõ anh chàng dài đến không quá giống là có thể có bộ trang phục khó khăn.
+
+Ngay từ đầu tất cả mọi người rất đề phòng đánh răng, danh mục cũng làm cho cô nhiều nhìn kiếm điểm cái này từ bên ngoài tới người tha hương.
+
+Bất quá, tiểu ngư cảm thấy bạn không giống người xấu, bởi vì có lần tại cửa ra vào nấu canh, chia rồi nàng một bát.
+
+"Cảm ơn."
+
+"Không có khách, sử dụng ngoài thời điểm, ta có thể giúp già xem nhà." Nàng hơi chớp mắt, vui sướng bồi thêm một câu, "Dù sao cũng là nhà lý tưởng."
+
+Hài tử đáng thương.
+
+Nếu như là tại cái kia thế giới lời nói, nàng bây giờ tuổi tác chắc còn ở đọc sách đi.
+
+Không muốn để cho người cảm giác được lừa phạm, Sở Quang giấu ở trong mắt một chút thương tổn, mặt không thay đổi từ trong túi móc ra một cây kẹo que, chui vào tiểu cô nương trên tay.
+
+"Cầm ăn đi."
+
+"Đừng nói cho người khác ta cho."
+
+"Nếu không về sau sẽ không có."
+
+Cho tới bây giờ vẫn chưa tìm thấy loại thức ăn này.
+
+Dư Tiểu Ngư đầu tiên là một cái giấy đóng gói, phát hiện hiện không ra, lúc này mới có ý thức được bên ngoài gói là muốn xé mở.
+
+Ô trượt mắt để nhìn hạ thấp cây viết nhựa bên trên cắm quả hồng cầu, nàng cẩn thận từng li từng tí lè kiểu, nhẹ nhàng nhẹ nhàng một lần.
+
+Đây là mùi gì? !
+
+Rất đáng yêu!
+
+Trong mắt mơ ra tiểu tinh tinh, nàng hạnh phúc trả lời đầu, muốn nói tiếng cảm ơn.
+
+Nhưng mà cho nàng đường ăn người kia, cũng đã đi xa.', N'<p>Hai trăm năm trước.</p>
+<p>Chuẩn xác mà nói là năm 2125, thành viên này hoàn thiện cầu thủ bên trong khi phát ra một trận chiến tranh.</p>
+<p>Trong chiến tranh song phương đều yên tâm để tiêu diệt đối phương quyết tâm, cơ hồ dùng tới tất cả mọi thứ có thể dùng tiến thủ đoạn.</p>
+<p>Chiến tranh kéo dài ba năm chỉ.</p>
+<p>Nhưng chỉ được sử dụng ba năm, liền kền phá bỏ trên mặt đất hết khả năng.</p>
+<p>Rất dài mùa đông hạt nhân hồ cung cấp văn minh hỏa lực dập tắt, song phương đều thành công cung cấp phương tiện đưa vào địa ngục, cũng thành công mai táng chính mình.</p>
+<p>Từ đó, mở ra để lớn tiêu điều càng thêm tiêu đất hoang kỷ nguyên.</p>
+<p>Mặc dù cự ly này cuối cùng thế chiến đấu đã qua hai cái thế kỷ, mùa đông hạt nhân vậy sớm hơn một cái thế kỷ trước đã cơ bản kết thúc, nhưng nhân loại cũng không có một lần nữa trở lại đỉnh cao của sinh vật chuỗi.</p>
+<p>Tràn lan vũ khí hạt nhân, vũ khí sinh vật, thậm chí chí gien vũ khí, dẫn đến toàn bộ tinh cầu sinh thái hệ thống đều hướng cực đoan phương hướng diễn biến.</p>
+<p>Mà những cái kia được ngọc là &quot;Dị chủ&quot; chiến biến, cũng là giãy dụa tại tích bên trong những người sống sót, đối mặt chủ yếu uy uy.</p>
+<p>Tỷ như Sở Quảng vừa tới đến thế giới lúc này, phải nhánh kia mọc ra hai cái đầu chó săn, chính là một cái trong số đó.</p>
+<p>Bất kỳ quá liền xem như dị chủng, cũng là có phân chia mạnh yếu.</p>
+<p>Giống như loại đầu tiên của loại linh cẩu này từ tuyến Gamma xạ đưa ra &quot;Dị loại&quot;, chiến đấu bình thường không cao, trừ khi bỏ đi một số ít có thể may mắn ngoại lệ, chiến đấu thậm chí chí nên ra chiến tranh trước đó.</p>
+<p>So sánh dưới đây, trả thù ăn người, người bò sát chờ đợi một khoảnh khắc này từ vũ khí sinh vật tạo thành, lại biến biến đến đã không có cách nào tối ưu tổ dị chủng, mới thực sự là vì giết mà thành quái vật .</p>
+<p>Thần kinh của bọn nó hệ thống biến dị nấm ăn mòn, ban ngày bình yên ở lối tích, cống thoát nước, hoặc là tàu điện những thứ này không có thiết bị sáng sủa bên trong, chỉ cần đến khi màn đêm tiến về phía trước mới có thể ra đường bên trên trang kiếm ăn.</p>
+<p>Khu vực ngoại thành có thể có vấn đề như vậy trong thành phố tốt hơn nhiều.</p>
+<p>Nhất là ngoại thành.</p>
+<p>Đi qua vòng năm, Sở Quảng phải nguy hiểm nhất loại dị hợp, cũng bất chấp là một biến thể ngựa giống đầu tiên. Tên kia mặc dù năng lượng mạnh mẽ, nhưng tương phản phản ứng rất tiến bộ.</p>
+<p>Tại bị phát hiện trước đó, Sở Quang rất nhỏ tâm tránh được nó.</p>
+<p>Nắng nhẹ sớm sáng xuyên qua tổng tổn thương bê tông, cùng cốt thép cái bóng một hầm, rơi vào tràn đầy ô hài cốt cùng đá vụn trên đường.</p>
+<p>Thời gian bây giờ là buổi sáng tám điểm.</p>
+<p>Nơi đây thời gian cùng hiện thế bên kia đông tám giờ khu, có mức độ mười hai giờ trôi giờ.</p>
+<p>Nhìn xem du thoáng ở trên đường hai con biến dịch linh cẩu, Sở Quang ôm chặt trong tay cây kia mang thai nhi ống nước, cẩn thận vây quanh bên cạnh sau.</p>
+<p>Mặc dù Wiki có hai trình xử lý tự động, nhưng không cần thiết bị phức tạp.</p>
+<p>Huống hồ những câu chuyện này rất thông minh, thậm chí chí biết rõ cầm đồng loại làm mồi nhử, ai cũng không biết bên cạnh cạnh trong bóng tối còn cất giấu bao nhiêu.</p>
+<p>Đọc theo đường nhỏ xuyên qua rách nát quảng trường.</p>
+<p>Khi tìm thấy Bethe đường phố nhi đồng công viên vui chơi bảng hiệu lúc này, Sở Quang cuối cùng là nhẹ nhàng thở ra.</p>
+<p>Phía trước chính là &quot;Bethe đường phố&quot; —— phụ cận vùng này tương đối với người sống sót khu quần cư, bên trong cư dân hơn một phần trăm người sống sót.</p>
+<p>Cuộc chiến tranh bùng nổ trước đó, nơi đây từng là Tòa nhà nhi đồng công viên vui chơi, có rất nhiều trò chơi thiết bị chơi game cùng một mặt cỏ rộng lớn.</p>
+<p>Chiến hậu nơi này bị quân đội chia làm thời gian trú gió điểm, thu lợi nhuận từ Thanh Tuyền thành phố bên trong thị trấn trốn đi thị dân.</p>
+<p>Những cái kia nạn dân về sau thế nào rồi chưa biết ai được, bất quá có thể trăm năm sau hôm nay, nơi này đã phát triển trở thành một tòa nhà &quot;Trấn nhỏ&quot; .</p>
+<p>Mọi người dùng bỏ hoàng tấm tấm, mỏ tránh mưa cùng khối gỗ cùng kim loại giá hỗ trợ, tại trọc bur trên mặt đất lộn hoàng thành giản dị túp bóng.</p>
+<p>Cực kỳ giống &quot;Điêu dân thời đại&quot; bên trong loại kia.</p>
+<p>Công viên trò chơi tường vây là các tấm bình phong thiên nhiên, cũng ở đây trải qua thông nhanh tu sửa về sau, ngựa lên dây kẽm cùng mang mảnh mảnh gỗ.</p>
+<p>Thành viên trò chơi trung tâm là một toà năm tầng cao cổ điển thành lũy, rất có cổ tích cảm giác giác. Chỉ là kia mặt ngoài sơn sớm đã rơi sạch, mặt hướng trung tâm chợ kia một bên bức tường càng là giảm bớt phân nửa, chỉ còn lại cánh bắc nửa cùng một tòa phổi sắp xếp cô tháp.</p>
+<p>Lau xem như cổ tích, như vậy tuyệt đối Hắc Ám Cổ Tích.</p>
+<p>Bất chấp việc cho dù tòa nhà kiến trúc này bị hư hỏng như thế này, nó vẫn là Bethe đường phố bên trên kiến trúc &quot;Xa hoa nhất&quot;.</p>
+<p>Đồng thời cũng là nhà của trưởng trấn.</p>
+<p>Mặc dù đang ở nơi sinh sống năm tháng này, nhưng Sở Quang cũng không có gặp qua trưởng trấn. Vị đại nhân kia rất thần bí, rất ít xuất hiện bề ngoài.</p>
+<p>&quot;Nha, sớm như vậy trở lại.&quot;</p>
+<p>Nhìn xem từ khu phố góc Phóng đi về phía Sở Quang, treo thuốc lá hút tẩu bụi Walter lip lip mắt, từ trong lỗ mũi phun ra một tia sương khói trắng.</p>
+<p>Trong tay của Tay cầm một cây súng săn.</p>
+<p>Mđặc dù đã xem nhiều năm rồi, nhưng không ai sẽ hoài nghi uy lực của nó.</p>
+<p>Sở Quang đã từng tận dụng tầm nhìn được nhìn thấy qua, lão nhân này chỉ bắn hai phát súng, liền đánh rơi một đầu xe phóng tới Bethe đường phố đại học biến thể ngựa chiến.</p>
+<p>Từ đó về sau, lửa liền một khát khát cũng có thể được thanh hóa.</p>
+<p>&quot;Ở bên ngoài trì hoãn một đêm.&quot;</p>
+<p>&quot;Bên ngoài?&quot;</p>
+<p>Lão đầu xem xét mắt Sở Quang cõng ở sau lưng cây kia mang hoàng nhi ống nước, lông mày nâng cao một tia kinh ngạc.</p>
+<p>Ban đêm có bất kỳ kích thước nguy hiểm nào, không có ai để rõ ràng hơn.</p>
+<p>Từng lần trực ca đêm, ngón tay móng vuốt cũng không từ trên cò súng dịch chuyển ra khỏi , bất kỳ cái gì tí chút gió lốc cỏ lay, đều sẽ để toàn thân thần kinh kinh kéo căng thẳng.</p>
+<p>Ngoại thành dịch mặc dù không có trong thành khu nguy hiểm như vậy, nhưng có quá nhiều kẻ cướp tiền đối với nơi này nhìn nguy hiểm.</p>
+<p>Rơi vào tay kẻ thù, hạ tràng không thể chết ở dị vật trên tay tốt quá nhiều.</p>
+<p>Lão Walter không quá tin tưởng, gia hỏa này chỉ dựa vào một cây ống thép, thế mà tại đất hoang bên trên bình an vượt qua một đêm.</p>
+<p>&quot;Xảy ra chút ngoài ý muốn.&quot;</p>
+<p>Sở Quang cũng không giải thích, chỉ cấp lão Walter một cái mắt già mệt mỏi để chính chiến đi thể hội, tiếp tục trực tiếp xuyên qua khu quần cư đại môn.</p>
+<p>Bethe đường phố chỉ có một nhà sản phẩm vựa ve chai, vị trí rất dễ tìm, sát bên khu quần cư cửa chính bên cạnh.</p>
+<p>Cửa cuốn cà vạt áo lấy một viễn viễn đi không được kiểu cũ cân điện tử, bên cạnh thẳng &quot;Giá vừa phải, già trẻ không rụng&quot; đền thờ.</p>
+<p>Tiệm này là trấn trưởng đại nhân sản nghiệp, cũng là Bethe đường phố duy nhất thu mua cú bỏ linh kiện cùng biến dị chuột đồng da địa phương.</p>
+<p>Vì độc quyền xả rác sinh ý, nhà độc tài này thậm chí còn ngang ngược cấm bố trí một luật pháp cấp.</p>
+<p>Tức, tất cả mọi người không được tặng một túi rác, tự mình bán cho dọc đường nơi đây thương đội.</p>
+<p>Mà lý do thì là vì cam dòng Bethe đường phố hàng hóa có thể bán đi hợp lý cả giá, mà không phải là &quot;Giảo hoạt các thương nhân&quot; tại giá cả bên trên vô sỉ ép ép.</p>
+<p>Loại này ngang ngược với quy luật của trí thông minh có thể thông qua, trình độ cao nhất cũng được xác định cùng nơi đây những người sống sót rất ngu muội có quan hệ.</p>
+<p>Mà bình thường thương anh hùng cũng sẽ không xông lên thu tội nhà độc tài này phong hiểm, đi những người nhỏ rác trên tay thu mua một chút kia ít đến thương cảm vật tư.</p>
+<p>Các chiến binh chỉ thực hiện mua bán lớn.</p>
+<p>Mà lại chỉ có rất nhiều người buôn bán.</p>
+<p>&quot;Bán? Vẫn là mua?&quot;</p>
+<p>Chủ cửa hàng là một vị trí năm tuổi lão nhân, tên gọi Charles, nghe nói trước kia là tỉnh ngoài cái nào đó tránh nạn cư dân dân, về sau bị hộp thư tới làm nô lệ, thẳng đến trưởng trấn chữa bệnh từ cái nào Chủ nhân nô trên tay mua lại, mang lại những thứ tương tự như người tí hon giao dịch vệ công giao giao cho băng.</p>
+<p>Nơi này đại đa số cư dân đều là sinh trưởng ở địa phương &quot;Đất hoang người&quot;, không có chịu tội bất luận cái gì giáo dục, toán học đều rất sạch, mà lại là nghiền nát 100 trong vòng cộng trừ đều có có thể tính toán sai trình độ.</p>
+<p>Nhưng Charles thì khác.</p>
+<p>Là từ trong tình trạng tránh né tới.</p>
+<p>Mặc dù mảnh đất hoang bên trên tránh nạn không có một tòa nhà nào hoàn toàn giống nhau, nhưng có một chút lại là na ná như nhau.</p>
+<p>Có thể vào ở nơi đó không có chỗ nào mà không phải là trước khi chiến đấu xã hội tinh anh, con của băng cướp đã đuổi theo những cha bối rối nơi đó thừa kế thông minh đầu não, càng đến từ bên bờ biển tiếp theo nhận rồi giáo dục tốt đẹp.</p>
+<p>Nếu như không phải thế giới này bét, thì đại đại khái sẽ giống tầng lớp cha chú một dạng, trở thành thành một tiến sĩ, bác sĩ hoặc là học giả.</p>
+<p>Mà không có ở đây ký tự.</p>
+<p>&quot;Lệnh cấm.&quot;</p>
+<p>Không nói nhảm, Sở Quang từ ba lô bên trong móc ra 6 khối bong pin, cùng 5 ống keo ném vào cân điện tử trên khay.</p>
+<p>Đây là chiến tử tại phát hiện số 404 tránh nạn trước đó, tại phụ cận kiến trúc hài hòa bên trong cơn thịnh nộ đến.</p>
+<p>Lão Charles nhỏ lên trên bàn pin, tùy ý kiểm tra một loại hình ảnh nhỏ cùng phải chăng khí cụ nguy hại, liền đưa ra tiện ích sử dụng một bên trên cân.</p>
+<p>Cái đồ chơi này được định nghĩa là thông báo không cần thiết, nhưng một lần trong vật liệu vẫn có thể.</p>
+<p>&quot;Phẩm chất cũng tạm được, vùng này thuốc kháng là đều được lục kiềm sạch sẽ, miễn phí từ chỗ nào làm cho đồ tốt?&quot;</p>
+<p>Điều này cũng có thể gọi đồ tốt?</p>
+<p>&quot;Vận khí tốt.&quot;</p>
+<p>&quot;Ha ha, ta chỉ thuận miệng hỏi một chút . Ừ, pin không sai, nhưng chất keo keo chất lượng liền một loại, thiết bị miệng phá qua, tình huống bên trong kỳ vọng bệnh rối loạn, ta chỉ có thể lựa chọn theo 50% tính . Sở hữu lại hết 3 điểm đồng Chip.&quot;</p>
+<p>Sở Quang cũng không có cùng đánh giá trả lời, từ trong tay đánh nhận được 3 mai màu trắng đồng Chip.</p>
+<p>Loại này có kim loại cảm nhận nhựa tiền xu, là Thanh Tuyền thành phố lớn nhất người sống sót khu quần cự thạch thành phát hành &quot;Tiền tệ&quot;, đồng thời tại Thanh Tuyền thành phố đại đa số người sống sót khu quần cư đều có thể thay đổi đồ ăn tiếp theo.</p>
+<p>Đồng Chip chính diện in mặt giá trị, mặt sau có đặc thù phòng ngụy mã hóa cùng in hoa, tại ánh mặt trời chiếu xuống sẽ bày tỏ ra đặc quyền quần sáng.</p>
+<p>Loại này đồng Chip có chịu nhiệt bao gồm, dễ dàng tồn tại, lại phân biệt độ cao rất nhiều ưu điểm. Nhất là chốt nhất một điểm là, lấy cơ sở kỹ thuật chiến hậu không có cách mô phỏng.</p>
+<p>Giống Bethe đường phố loại người này miệng không nhiều, không có công nghiệp năng lượng vừa và nhỏ người sống lang làng xóm, chủ yếu cũng là cùng cự thạch thành thương đội làm ăn, dùng nông sản phẩm, con mồi cùng nhỏ được rác thải trao đổi cần thiết sinh hoạt vật tư ngay cả khi chí là vũ khí.</p>
+<p>Tự nhiên như vậy, loại tiền tệ này cũng liền kề tại Bethe đường phố lưu thông.</p>
+<p>Đương nhiên, nó cũng không phải bất cứ lúc nào đều dễ dàng sử dụng, dù như tháng nào thương không đến, toàn bộ khu quần cư giá hàng đều phải lộn vịnh.</p>
+<p>Trưởng trấn cũng chưa phải thử qua phổ biến chính Bethe đường phố tiền tệ —— một loại ký hiệu phiếu bầu, nhưng làm sao căn bản không ai thừa nhận.</p>
+<p>Làm sạch ngay cả Bethe đường phố người sống rụng đều biết, loại kia trang giấy liền ngay cả bồn chồn nhi, cùng giấy lộn không có gì khác biệt.</p>
+<p>&quot;Muốn mua chút gì sao? Trong lá rụng tới một nhóm từ cự thạch thành tới hàng mới.&quot;</p>
+<p>Định nghĩa đi Sở Quang dừng bước, quay lại hỏi nói.</p>
+<p>&quot;Có súng sao?&quot;</p>
+<p>&quot;Thế thì không có, có sư mua không nổi.&quot;</p>
+<p>Lão Charles nhếch miệng cười cười, nhìn xem quay người muốn đi Sở Quang tiếp tục nói.</p>
+<p>&quot;Bất quá đồ ăn cùng nhiên liệu ngược lại có một ít. Nếu như ta là chậm, nhất định sẽ thừa dịp tăng giá trước nhiều mua sắm.&quot;</p>
+<p>Thương loại vật này, cho dù là rẻ nhất cái loại kia, đều rất khó tại Bethe đường phố như vậy mua được.</p>
+<p>Bởi vì coi như ngẫu nhiên có buôn bán vũ khí thương đội đi ngang qua nơi này, những vũ khí kia bình bình thường cũng đều là tiến vào trưởng trấn bản thân nhà kho, căn bản sẽ không trưng bày ở nơi này kệ hàng mặc định người chọn đơn vị.</p>
+<p>Hồ hồ tiêu đề như lão Charles nói như vậy, coi như thật sự có loại đồ vật này, bọn cướp những thứ rác rưởi này cũng không có khả năng mua được.</p>
+<p>Sở Quang rất rõ ràng vì cái gì nói như vậy.</p>
+<p>Làm tiếp thụ giáo dục tốt phòng tránh cư dân, Charles nhất định sẽ không nhìn không ra, chủ sở hữu sinh sống ở Bethe đường phố người sống thải, bất chấp kể là người nhỏ rác vẫn là thợ săn, bọn họ giá trị dư đều được trưởng thành một nhà bóc lột không còn một mảnh.</p>
+<p>Cho dù trấn trưởng đại nhân chưa hề tự mình đưa tay, từ bọn họ trong túi tiếp trực móc đi đâu sợ một thành viên đồng Chip.</p>
+<p>&quot; Đồ ăn cùng nhiên liệu muốn tăng giá?&quot;</p>
+<p>Nhìn xem trên mặt viết ngoài ý muốn Sở Quang, Charles cười nhạt cười nói.</p>
+<p>&quot;Không có chú thích tới a, gần nhất tại hạ nhiệt độ, mà bên ngoài dị bản lại bắt đầu sống.&quot;</p>
+<p>Sở Quang mày suy tư một lát, mơ nhiên nghĩ tới điều gì, mở miệng nói ra.</p>
+<p>&quot;Mùa đông sắp tới?&quot;</p>
+<p>&quot;Ta nhớ được đã là năm tháng trước mới tới chỗ này, khả năng không có trải nghiệm qua, những năm qua lúc này không nói Đặc biệt lắm liền muốn bắt đầu chậm rãi hạ nhiệt độ. Năm nay. . . Mùa đông dự đoán sẽ đến sớm một chút, làm không tốt vào lúc mười lăm tháng muốn tuyết rơi.”</p>
+<p>Nói đến đây, Charles dừng lại một lát, nói một cách đầy ý nghĩa sâu xa nói.</p>
+<p>&quot;Muốn bắt đầu mùa đông.&quot;</p>
+<p>&quot;Không kể là người vẫn là dịch bệnh, đều phải làm chuẩn bị sớm.&quot;</p>
+<p>Vừa tới Bethe đường phố thời điểm, Sở Quang mặc trên người màu lam áo bảo vệ, Charles vô ý thức chữa cháy trở thành kháng tránh người, nên tranh luận coi coi như chiếu cố gắng.</p>
+<p>Mặc dù loại tài liệu tham khảo này vẫn chưa thể hiện tại tại giao dịch giá cả bên trên, nhưng ở phương diện kinh nghiệm lão nhân này xác thực giúp Sở Quảng có một chút bận rộn.</p>
+<p>Nếu không, bạn cũng sẽ không nhanh như vậy thích ứng với đất hoang bên trên sinh hoạt.</p>
+<p>Sở Quang liệt kê đầu.</p>
+<p>&quot;Ta biết rồi, tạ ơn.&quot;</p>
+<p>“Không khách khí, “ Charles cười nhạt cười, “ Còn đừng chết rồi.”</p>
+<p>Hiện tại đã là đầu tháng chín, nếu kết quả như thật vào tháng mười hai muốn tuyết rơi, lưu chuẩn bị cho Sở Quảng thời gian chỉ còn hơn một tháng.</p>
+<p>Đối với sinh sống ở vùng này những người sống sót mà nói, tuyết rơi tuyệt đối không phải là cái gì đáng giá cao ngẫu sự tình. Ý vị này trừ việc ăn đồ bên ngoài, còn phải tăng thêm một lượng nhiên liệu chi tiêu.</p>
+<p>Nơi này tuyệt vời đa số người đều là thu gom rác thải cùng săn mà sống, phụ cận nông trường chỉ có tại ngày mùa kỳ mới cần người.</p>
+<p>Đến mùa đông, nhỏ rác độ khó sẽ gấp bội lên cao, dù ai cũng không có cách nào mong đợi trước bên trong thùng chính là vật lợi ích linh kiện, vẫn là biến dị con chuột rỗ nanh.</p>
+<p>Mà giống như dã thú, những con thỏ này có thể cung cấp thức ăn thịt động vật cũng sẽ giảm bớt thời gian hoạt động, thậm chí là thư giãn ở trong ổ qua mùa đông.</p>
+<p>Người chết nhất chính là, một khi bắt đầu mùa đông, thương đội liền sẽ không tới nơi này. Coi như thiện đồ tốt cũng chỉ có thể tích chất tại trong nhà, mong đợi đến năm sau đầu xuân mới có thể bán rơi.</p>
+<p>Hoặc là, mạo hiểm tiến về mười cây số bên ngoài cự thạch thành.</p>
+<p>Kia là Thanh Tuyền thành phố vùng này lớn nhất người sống sót khu quần cư, cho dù là mùa đông nơi nào thị trường cũng sẽ không đóng cửa.</p>
+<p>Nhưng vị trí của nó tại Thanh Tuyền thành phố tam hoàn đường bên cạnh, liên tiếp Thanh Tuyền thành phố thành Bắc khu, trên đường đi lưu trữ đếm không hết nguy hiểm.</p>
+<p>Bình thường người ta muốn dựa vào hai cái đùi đi qua, hơn nữa còn là tại nhiệt độ thấp nhất có thể đạt tới âm mười mùa đông, không khác tự sát!</p>
+<p>. . .</p>
+<p>Từ vựa ve chai rời đi về sau, Sở Quang đầu tiên là trở về một chuyến đi trụ sở của mình.</p>
+<p>Kỳ thật cùng đánh nói là trụ sở, thoáng bằng nói là một tòa miễn cưỡng có thể che mưa túp bao, thậm chí cũng không có cái rastyle cửa sổ cùng môn.</p>
+<p>Thẳng đến hôm qua mới thôi, dũng mãnh tích lũy ngâm nước hầm, PVC tấm loại hình vật liệu, ui tại mùa đông tiến đến trước đó cung cấp cái này lọt gió tường cho che lại.</p>
+<p>Nhưng hiện tại xem ra, đã không cần thiết bị này.</p>
+<p>Từ Túi meo trong túi ngủ Cô ra đến một khối rỉ sét nhôm hộp, Sở Quang phí sức đưa ra nó, mang lại núp ở bên trong nhựa tiền xu soạt ngã xuống què chân cái bàn gỗ bên trên.</p>
+<p>Hết 47 mai mặt giá trị 1 điểm màu trắng đồng Chip.</p>
+<p>Tính đến 3 người của mình, cộng lại 50 điểm!</p>
+<p>Cái này tiền đều là một tỉnh khác ăn tiết kiệm dùng, một chút xíu để dành được tới, vì chính là có một ngày có khả năng mở cái địa phương quái vật quái vật này, đi đi điều kiện tốt hơn Quá thạch thành.</p>
+<p>Bất cứ lúc nào nha. . .</p>
+<p>This account &quot;Tài sản&quot; đã được định nghĩa mới.</p>
+<p>Có thể tự lập môn hộ, làm gì giúp ở đậu?</p>
+<p>&quot;Hỗ trợ tránh hỏa hoạn trên một khu chăm sóc có sử dụng, còn có kiến trúc chung quanh phòng vây, đều là bê tông cấu hình. . . Có player có thể nói lịch sử nói, tại phụ cận tập khối vật chất data, tu sửa độ khó sẽ không quá lớn.&quot;</p>
+<p>&quot;Trái an dưỡng phụ cận là vùng đất ngập nước công viên, bộ sưu tập kim loại sản phẩm không tiện lắm, nhưng chung quanh thảm thực vật coi như tươi tốt, hệ thống ấm nhiên liệu mạnh sẽ không quá thiếu, trừ cái đó ra khối gỗ vẫn có thể làm theo cấu trúc bổ sung được sử dụng trong nhà vật liệu . Đúng, phải mua bốn thanh búa.&quot;</p>
+<p>Đánh quái cấp độ?</p>
+<p>Không tồn tại!</p>
+<p>Đều nói là trăm phần trăm chân cứng rắn trò chơi, nếu là rắn trò chơi, vậy nên dĩ nhiên là từ trụ cột nhất công tác bắt đầu làm lên!</p>
+<p>&quot;Xẻng cùng cái cưa những công cụ này cũng không thể thiếu rồi!&quot; Player but no login, Sở Quang liền đã nghĩ ra một bài thế nào đó của họ.</p>
+<p>Đương nhiên, trừ việc làm nhiều công cụ, còn lại có thời gian nhập khẩu phần lương thực.</p>
+<p>Bồi dưỡng khoang một khi kích hoạt, liền sẽ lập tức tiêu hao dự phòng chứa bảo dưỡng trong khoang thuyền hoạt tính vật chất, hợp thành cung cấp người chơi sử dụng nhân bản thể.</p>
+<p>Mà chút nhân bản thể cũng phải cần ăn cơm!</p>
+<p>Mặc dù người chơi không trực tuyến, nhân bản có thể được bồi dưỡng trong khoang thuyền, lấy hơi chậm thay thế chế độ ngủ đông, nhưng luôn không có khả năng ở một mức độ nào đó.</p>
+<p>Người sống liền muốn ăn cơm, đây là tuyên ngôn cổ bất biến chân lý!</p>
+<p>&quot;Ít nhất phải dự trữ đầy đủ năm tên người trưởng thành một tuần tiêu hao lương thực. . . Nếu như theo một ngày hai bữa tính, mỗi bữa một tấm bánh nếp, cũng được 70 tấm.&quot;</p>
+<p>Bánh nếp là Bethe đường phố thường thấy nhất bản đồ ăn, 1 điểm đồng Chip liền có thể đổi hai tấm.</p>
+<p>Cái đồ chơi này bình thường có bằng bàn tay, cảm giác rất cứng, cũng rất thô ráp, giống trộn hỗn hạt cát thổ, nhưng có thể đuổi đầy cái bao tử, nhưng có thể bổ sung một chút xíu muối phân.</p>
+<p>Nhét vào trong nội dung nấu, nhưng có thể làm cháo.</p>
+<p>70 tấm bánh, mua được 35 điểm đồng Chip, coi như trả giá, 30 điểm đồng Chip cũng không thiếu. Cứ như vậy, dự tính của mình cũng chưa đủ rồi,</p>
+<p>Sở Quang chân mày cau lại, bất quá nhanh lại thư giãn ra.</p>
+<p>Mới vừa rồi là giải quyết vấn đề phức tạp.</p>
+<p>Kỳ thật không cần thiết để những cái kia người chơi ăn quá tốt.</p>
+<p>Nếu như cung cấp bánh nếp biến thành chế tác bánh nếp nguyên vật liệu —— cũng chính là phụ cận nông trường sản xuất thanh mạch, thì chỉ cần 3 điểm đồng Chip liền có thể mua được một ki-lô-gam!</p>
+<p>Độ cái 5 ki-lô-gam, đủ một mình bạn ăn hai tuần lễ!</p>
+<p>Đến như những thứ khác, đến lúc đó lại nghĩ pháp.</p>
+<p>&quot;Tạm thời trước khi hết chuẩn bị những thứ này đã được rồi. .&quot;</p>
+<p>Chuyển phân phối xong đồng Chip quét vào ba lô, Sở Quang đem ba lô một lần nữa vượt tại trên thân.</p>
+<p>Dù dù một đêm không ngủ, nhưng chiến binh hiện tại tinh thần phấn khởi động không được, phản phản một lần nữa tìm được cuộc sống ý nghĩa, căn bản nhất một chút bối rối cũng không có.</p>
+<p>Khi chào cửa ra đi ra ngoài, thấy nhà hàng xóm tiểu cô nương chính thối tại sát vách túp cổng, tò mò nhìn phía bên mình.</p>
+<p>Sở Quang nhận ra tên của nàng, gọi Dư Tiểu Ngư, là Dư gia tiểu nữ nhi.</p>
+<p>Đất hoang bên trên người sống phần lớn xanh xao vàng, Dư gia tiểu nữ nhi tự nhiên cũng không ngoại lệ, kia lô lô một cánh cánh tay nhỏ bắp chân, thoải mái cho người khó có thể tưởng tượng nàng đã là phải lập gia đình tuổi tác.</p>
+<p>Tìm Sở Quang chú ý tới bản thân, nàng cũng không còn xấu hổ, từ trong nhà đi ra.</p>
+<p>&quot;Ta nghe tới trong nhà tĩnh, liền đến xem.&quot;</p>
+<p>Mỗi ngày rực rỡ, Bethe đường phố đám nam nhân đều sẽ ra ngoài nhỏ ve chai hoặc là đi săn, người già trẻ em thì bình thường để ở nhà giữ nhà, hoặc làm chút có thể kiếm tiền việc làm.</p>
+<p>Mặc dù mọi người đều là một nghèo hai trắng, ăn bữa trước không có bữa sau, tồn tại không dưới tiền, trong nhà cũng không còn cái gì có thể ăn trộm, nhưng ai cũng không muốn bản thân lúc ra cửa, có người đến nhà mình bên trong sử dụng những món đồ nhỏ.</p>
+<p>Cái này gọi Sở Quang nam nhân, là từ bên ngoài tới, bình thường đi sớm về chậm, rất ít cùng khu quần cư hàng xóm láng giềng giao lưu.</p>
+<p>Đối số đối với Utah hiểu rõ cũng không phải nhiều, chỉ thấy rõ anh chàng dài đến không quá giống là có thể có bộ trang phục khó khăn.</p>
+<p>Ngay từ đầu tất cả mọi người rất đề phòng đánh răng, danh mục cũng làm cho cô nhiều nhìn kiếm điểm cái này từ bên ngoài tới người tha hương.</p>
+<p>Bất quá, tiểu ngư cảm thấy bạn không giống người xấu, bởi vì có lần tại cửa ra vào nấu canh, chia rồi nàng một bát.</p>
+<p>&quot;Cảm ơn.&quot;</p>
+<p>&quot;Không có khách, sử dụng ngoài thời điểm, ta có thể giúp già xem nhà.&quot; Nàng hơi chớp mắt, vui sướng bồi thêm một câu, &quot;Dù sao cũng là nhà lý tưởng.&quot;</p>
+<p>Hài tử đáng thương.</p>
+<p>Nếu như là tại cái kia thế giới lời nói, nàng bây giờ tuổi tác chắc còn ở đọc sách đi.</p>
+<p>Không muốn để cho người cảm giác được lừa phạm, Sở Quang giấu ở trong mắt một chút thương tổn, mặt không thay đổi từ trong túi móc ra một cây kẹo que, chui vào tiểu cô nương trên tay.</p>
+<p>&quot;Cầm ăn đi.&quot;</p>
+<p>&quot;Đừng nói cho người khác ta cho.&quot;</p>
+<p>&quot;Nếu không về sau sẽ không có.&quot;</p>
+<p>Cho tới bây giờ vẫn chưa tìm thấy loại thức ăn này.</p>
+<p>Dư Tiểu Ngư đầu tiên là một cái giấy đóng gói, phát hiện hiện không ra, lúc này mới có ý thức được bên ngoài gói là muốn xé mở.</p>
+<p>Ô trượt mắt để nhìn hạ thấp cây viết nhựa bên trên cắm quả hồng cầu, nàng cẩn thận từng li từng tí lè kiểu, nhẹ nhàng nhẹ nhàng một lần.</p>
+<p>Đây là mùi gì? !</p>
+<p>Rất đáng yêu!</p>
+<p>Trong mắt mơ ra tiểu tinh tinh, nàng hạnh phúc trả lời đầu, muốn nói tiếng cảm ơn.</p>
+<p>Nhưng mà cho nàng đường ăn người kia, cũng đã đi xa.</p>
+', CAST(0.00 AS Decimal(10, 2)), CAST(N'2024-04-20T16:21:27.690' AS DateTime), NULL, 1)
+INSERT [dbo].[Chapter] ([chapter_id], [chapter_number], [story_id], [volume_id], [chapter_title], [chapter_content_markdown], [chapter_content_html], [chapter_price], [create_time], [update_time], [status]) VALUES (69, 5, 25, 34, N'Thứ 4 Thiên tai', N'Ngưu Mã quản lý tổng hợp.
+
+Đây là một cái duy nhất có bốn người quần áo nhỏ.
+
+Chủ nhóm thời gian qua nhanh, các thành viên là nhóm sát vách ba cái ngựa ngựa —— nói cách khác chính là chó quản lý: Thiếu nữ công đoàn đêm mười lần, cấp tám đại bão phong, còn nhiều thời gian.
+
+Đêm thứ mười: [ các nguy hiểm đều được bảo vệ rồi? ? ? ]
+
+Lão Bạch: [ thu được. . . Rất tà dị cái đồ chơi này, chuyển tiếp tới cửa nhà nhà. ]
+
+Còn dài: [ ta là tại cửa nhà để xe phát hiện. . . ]
+
+Cuồng phong: [ ta đang ở trên bàn làm việc. . . Ta còn tưởng rằng đó là cái nào đồng sự thật. ]
+
+Đêm mười bảy: [ các đẳng cấp đều không ta tà dị, cái này bao khỏa trực tiếp đưa đến ta phòng ngủ! Ta ba bạn cùng phòng ở đây, không có cái nhìn nào được nhìn thấy cái đồ chơi này là thế nào được đưa vào! Mà lại bất kỳ kỳ lạ nào nhất không biết các loại phát hiện không, đeo lên mũ bảo hiểm có thể nhìn thấy một cái đếm ngược, nhưng người khác cũng không tìm thấy. ]
+
+Trong đám đông một trạng thái tạm thời.
+
+Trước hết thời gian ngừng hoạt động nhất, là nhóm chủ thời gian qua nhanh.
+
+Lão Bạch: [. . . Vừa nói như thế, quả thực có chút dị tài. ]
+
+Còn dài: [ các ngươi nói cho cùng là cái gì công ty game như thế thần thông quảng đại, những điều đã biết ta địa chỉ, còn có thể thần không biết quỷ không hay đem bao khỏa đưa đến ta trên tay? ]
+
+Cuồng phong: [ ân, đây cũng là làm cho ta để ý. Địa chỉ còn dễ nói, dùng điểm kích liên tiếp địa chỉ IP lời nói, phân tích ra chúng ta tại trong hiện thực vị trí, trên lý luận cũng không được phép. Nhưng cần phải có hậu tố. . . Ta nghĩ mãi mà không rõ. Ta tại Kim Lăng, đêm thứ mười ta nhớ đã được đọc sách ở Giang, vào thời điểm này với số lượng hàng trăm cây số, nhưng chúng cơ hồ là đồng thời phát hiện được bảo mật nguy hiểm. ]
+
+Đêm mười: [ là. . . Trả lại ngay tại điểm liên tiếp không lâu về sau. ]
+
+Lão Bạch: [ thảo, muốn cảnh báo sao? ]
+
+Còn dài: [ không có tài sản thám hiểm, cảnh báo dự đoán cũng rất khó làm, mà lại vấn đề là nguy hiểm và cảnh sát nói thế nào? Chuyển lỗi đưa ra nhanh chóng rồi? Mũ bảo hiểm có vấn đề? Tóm tắt cách sử dụng của mình, những người khác đeo lên cái gì nhìn không thấy. ]
+
+Cuồng phong: [ ân, đây là vấn đề lớn nhất, rất khó và những người khác biết rõ thứ này là cái gì. Trước đó vẫn còn thử bên dưới, đeo lên mũ bảo hiểm nguy hiểm đồng thời đưa điện thoại di động đi vào, nhưng rõ ràng là có thể nhìn thấy đồ vật, điện thoại lại cái gì đập không đến. ]
+
+Cuồng phong trong hiện thực là lão sư, dạy đại khái là khoa học tự nhiên, nói chuyện so sánh có trật tự, lời này cũng được nhận còn dài cùng lão Bạch nhất trí bàn đồng.
+
+Đêm mười mười: [ muốn không. . . Chúng tôi cung cấp khả năng hủy bỏ việc xem xét? ]
+
+Cuồng phong: [ làm như vậy không phải là không đi, nhưng có phong hiểm. Chí ít ta không thể tìm thấy khả năng cuốn trôi địa phương, nếu như bạo lực rút sức, rất khó khăn cam nhưng vẫn có thể che chắn bảo vệ gắn kết trở lại. ]
+
+Còn dài: [xác thực, ta cũng không thể hãm hại một Quang. ]
+
+Có thể thần thông quảng đại đem cái mũ bảo hiểm nguy hiểm đặt ở nhà chiến binh để xe cổng, anh hùng đã có một chút tin tưởng cái kia ID gọi quang lão ca nói lời.
+
+Nói không chính xác điều này nhà công ty là cái nào nhận được cơ quan nhà nước hỗ trợ thần bí nghiên cứu cơ cấu?
+
+Kể cả cái gì, sum họp lại xem ra đến bây giờ, đám bạn cũng không có bất luận cái gì thâm thất. Mà lại bản thân chiến đấu hoàn toàn chìm thức VR trò chơi, vậy thật cảm thấy thú vị.
+
+Cái kia đếm ngược, thành công hứng lên thú vị của Cờ.
+
+Cuồng phong: [ ta trên chim cánh cụt nói chuyện riêng Quảng ca, nhưng người còn không có trả lời ta tin tức. Cái kia website chính thức địa chỉ Internet không giống như cảnh nội trang web, thậm chí có một chút không quá giống là bình thường trang web tên, tra không được đăng ký tin tức. ]
+
+Đêm mười chín: [ lúc nào? ! ]
+
+Cuồng phong: [ chưa rõ. ]
+Lão Bạch: [câu chuyện này trước hết như vậy đi, thảo luận cũng không còn cái ý nghĩa gì. Tóm tắt lại mong đợi đến ba ngày sau, ta liền có thể xác nhận cái mũ bảo hiểm nguy hiểm này là cái vấn đề gì! ]
+
+. . .
+
+Ngay tại người chơi thảo luận thời điểm, thân ở đất hoang Sở Quang vẫn bận rộn làm việc chuẩn bị cuối cùng.
+
+5 ký lô thanh mạch cùng một chút bằng công cụ sắt.
+
+Sở Quảng phí hết chút công phu mới đưa ra những điều này, có ở đây không để người viết chú thích câu chuyện dưới đây từ Bethe đường phố cung cấp ngoài ba cây số vùng đất ngập nước công viên.
+
+Số 404 tránh trú ẩn ẩn giấu bên trong công viên dưới mặt đất,
+
+Cửa vào một bề mặt không đẹp trong viện dưỡng lão.
+
+Nơi đây thảm thực vật phong phú, hơn nữa còn dựa vào hồ, trên lý thuyết phải có ít động vật hoang dã ở mảnh này khu vực hoạt động.
+
+Đến gần nơi này về sau Sở Quang liền vô cùng cẩn thận, đề phòng chung quanh khả năng tồn tại tại nguy hiểm.
+
+Bất quá có thể mà chính là, ngoài ý muốn cũng không có phát sinh.
+
+Kiểm tra tại trại nuôi dưỡng cổng làm chiến đấu, xác nhận không có dị hợp hoặc là kẻ cướp thừa số lượng không có ở đây thời điểm tiến vào đi, Sở Quang vươn tay bên trong mang thai nhi ống nước đưa ra môn, cẩn thận mà đi vào.
+
+Số 404 tránh nạn hút vào trại an dưỡng phòng tốt nhất bộ kia thang máy, cũng chỉ có bộ kia thang máy mặt đồng hồ bên trên viết B1 tầng đánh dấu.
+
+Sở Quang đầu tiên là đi xuống một chuyến bay, mang lương thực ném vào thang máy xe cùng giảm xốc bên ngoài cạnh khí cống ở giữa hành lang.
+
+Nơi đây là một mảnh đất trống, khoảng cách mặt đất đại khái bốn năm thứ bảy mét.
+
+Nói thực ra nơi này không phải là rất thích hợp để giữ cửa hàng lương thực, nhưng để ở nơi này dù sao tốt cũng hơn là đặt trại nuôi dưỡng, bị đi ngang qua chuột hoặc là biến dị con gián để mắt tới.
+
+Xuyên qua giảm xốc phòng hải đạo khí cống.
+
+Đi vào đại cổng Sở Quang, nhìn xem ngồi xổm ở góc tường Tiểu Thất nói.
+
+"Website diễn đàn chính thức công năng phát hiện đi ra sao?"
+
+"Xong rồi."
+
+"Người chơi đâu? Bọn họ mũ bảo hiểm được sao?"
+
+"Đã nhận được cờ."
+
+Nhanh như vậy?
+
+Sở Quang hơi kinh ngạc.
+
+Nhẹ nhõm được mình là buổi sáng sáu điểm rời đi tránh nạn, hiện tại cũng mới khoảng một giờ chiều, trung gian chỉ cách bảy giờ.
+
+"Đất hoang bên này thời gian cùng xã hội hiện đại thời gian thật là 1: Nhất lưu động sao?"
+
+"Đương nhiên là, bất chấp quá bên này thời gian tương thích trên Địa cầu khu vực phía tây giờ thứ 4."
+
+Hiện thế bên kia Hoa quốc là đông tám giờ khu, cùng tây múi giờ thứ 4 trôi giờ đại khái là mười hai giờ, nói cách khác Hoa quốc đông bộ địa khu hiện tại chính là trời vừa rạng sáng.
+
+Sở Quang ngồi trước máy tính, hậu trường chính thức của trang web đăng nhập.
+
+Tiểu Thất dựa theo phân phản của Đánh, vì website chính thức tăng thêm diễn đàn công năng, coi qua mắt trước không có lưu lượng, tự nhiên là một cái chim cũng không có.
+
+Kho dữ liệu cùng đồ thị cũng giống như vậy.
+
+"Ta làm như thế nào bên này trên tấm ảnh truyền thông đến nơi này?" Sở Quang chỉ vào trong màn hình kho nói.
+
+"Truyền tiếp tiếp theo đã được rồi cờ."
+
+". . Ta ý tứ chính là, ta làm như thế nào đã chụp ảnh. Hoặc là nói lại máy ảnh loại hình đồ vật sao?"
+
+Như thế để con tránh nạn, toàn bộ B1 tầng lông cũng không có cũng rất không hợp thói quen.Không nói lưu chút vũ khí cho mình, cơ sở cầu sinh công cụ tổng hợp được chuẩn bị một chút?
+
+"Ách, đại khái không có máy ảnh, bất quá ta camera có thể giúp bạn chụp ảnh. . . Người nghĩ đập loại nào? Ngay ở chỗ này sao?"
+
+Nhìn xem góc tường giấy lộn cái sọt một dạng người, Sở Quang viết dài nói.
+
+"Ở đây đập có quỷ dùng. . . Đã rồi, chính ta nghĩ một chút biện pháp."
+
+Cũng không thể dịch mã bắt được ở nơi này.
+
+Bất quá, đem Tiểu Thất làm tới bên ngoài đi làm có thể cân nhắc.
+
+Đại đa số dị vật không thể ăn địa sắt đều không ra thế nào cảm thấy thú vị, hơi ngụy trang một chút làm mắt cắm ở nhà, kết quả thực sự là giữ nhà Thần khí a!
+
+Sở Quang càng nghĩ càng phải dựa vào phổ quát.
+
+Thông qua cư dân đại sảnh máy tính leo lên acc QQ.
+
+Sở Quang phát hiện bốn cái player đều cho mình phát ra nói chuyện riêng tin tức, hướng dẫn lửa nghe chuôngg lọc chức năng đến cuối cùng là nhà nào công ty, hoàn toàn chìm thức trò chơi cuối cuộc là ý gì, cùng trò chơi bảo đảm nguy hiểm đến cùng cực là chuyện gì xảy ra.
+
+Nói thực ra, Sở Quang cũng không biết làm thế nào trả lời nhóm kiểm tra những vấn đề này, cũng không có khả năng cung cấp điều này thế giới vấn đề thật chiến lược cho nhóm đánh.
+
+Chỉ có để nhóm đánh tin tưởng nơi đây là thế giới trò chơi.
+
+Sát thủ mới có thể lấy được "Thứ tư Thiên tai" thân phận giai lâm, không sợ hãi lại chịu khó, trở thành cường mạnh nhất công cụ.
+
+"Chủ nhân."
+
+"Thế nào."
+
+Nhìn xem đóng lại máy tính, từ trước yên đứng người lên Sở Quang, ngồi xổm ở góc tường Tiểu Thất nguy hiểm.
+
+"Không sử dụng hồi phục thông tin của tên lửa sao?"
+
+"Không cần phải vậy."
+
+Giải thích càng nhiều sơ lược càng nhiều, không bằng một câu xí nghiệp cơ mật, quốc gia cơ mật lừa gạt qua.
+
+Đến như những thứ khác?
+
+For chính kiểm tra đã được dự đoán trước đó.
+
+Muốn không sử dụng thời gian dài để làm gì?
+
+Không được phép sử dụng để không thêm sao.', N'<p>Ngưu Mã quản lý tổng hợp.</p>
+<p>Đây là một cái duy nhất có bốn người quần áo nhỏ.</p>
+<p>Chủ nhóm thời gian qua nhanh, các thành viên là nhóm sát vách ba cái ngựa ngựa —— nói cách khác chính là chó quản lý: Thiếu nữ công đoàn đêm mười lần, cấp tám đại bão phong, còn nhiều thời gian.</p>
+<p>Đêm thứ mười: [ các nguy hiểm đều được bảo vệ rồi? ? ? ]</p>
+<p>Lão Bạch: [ thu được. . . Rất tà dị cái đồ chơi này, chuyển tiếp tới cửa nhà nhà. ]</p>
+<p>Còn dài: [ ta là tại cửa nhà để xe phát hiện. . . ]</p>
+<p>Cuồng phong: [ ta đang ở trên bàn làm việc. . . Ta còn tưởng rằng đó là cái nào đồng sự thật. ]</p>
+<p>Đêm mười bảy: [ các đẳng cấp đều không ta tà dị, cái này bao khỏa trực tiếp đưa đến ta phòng ngủ! Ta ba bạn cùng phòng ở đây, không có cái nhìn nào được nhìn thấy cái đồ chơi này là thế nào được đưa vào! Mà lại bất kỳ kỳ lạ nào nhất không biết các loại phát hiện không, đeo lên mũ bảo hiểm có thể nhìn thấy một cái đếm ngược, nhưng người khác cũng không tìm thấy. ]</p>
+<p>Trong đám đông một trạng thái tạm thời.</p>
+<p>Trước hết thời gian ngừng hoạt động nhất, là nhóm chủ thời gian qua nhanh.</p>
+<p>Lão Bạch: [. . . Vừa nói như thế, quả thực có chút dị tài. ]</p>
+<p>Còn dài: [ các ngươi nói cho cùng là cái gì công ty game như thế thần thông quảng đại, những điều đã biết ta địa chỉ, còn có thể thần không biết quỷ không hay đem bao khỏa đưa đến ta trên tay? ]</p>
+<p>Cuồng phong: [ ân, đây cũng là làm cho ta để ý. Địa chỉ còn dễ nói, dùng điểm kích liên tiếp địa chỉ IP lời nói, phân tích ra chúng ta tại trong hiện thực vị trí, trên lý luận cũng không được phép. Nhưng cần phải có hậu tố. . . Ta nghĩ mãi mà không rõ. Ta tại Kim Lăng, đêm thứ mười ta nhớ đã được đọc sách ở Giang, vào thời điểm này với số lượng hàng trăm cây số, nhưng chúng cơ hồ là đồng thời phát hiện được bảo mật nguy hiểm. ]</p>
+<p>Đêm mười: [ là. . . Trả lại ngay tại điểm liên tiếp không lâu về sau. ]</p>
+<p>Lão Bạch: [ thảo, muốn cảnh báo sao? ]</p>
+<p>Còn dài: [ không có tài sản thám hiểm, cảnh báo dự đoán cũng rất khó làm, mà lại vấn đề là nguy hiểm và cảnh sát nói thế nào? Chuyển lỗi đưa ra nhanh chóng rồi? Mũ bảo hiểm có vấn đề? Tóm tắt cách sử dụng của mình, những người khác đeo lên cái gì nhìn không thấy. ]</p>
+<p>Cuồng phong: [ ân, đây là vấn đề lớn nhất, rất khó và những người khác biết rõ thứ này là cái gì. Trước đó vẫn còn thử bên dưới, đeo lên mũ bảo hiểm nguy hiểm đồng thời đưa điện thoại di động đi vào, nhưng rõ ràng là có thể nhìn thấy đồ vật, điện thoại lại cái gì đập không đến. ]</p>
+<p>Cuồng phong trong hiện thực là lão sư, dạy đại khái là khoa học tự nhiên, nói chuyện so sánh có trật tự, lời này cũng được nhận còn dài cùng lão Bạch nhất trí bàn đồng.</p>
+<p>Đêm mười mười: [ muốn không. . . Chúng tôi cung cấp khả năng hủy bỏ việc xem xét? ]</p>
+<p>Cuồng phong: [ làm như vậy không phải là không đi, nhưng có phong hiểm. Chí ít ta không thể tìm thấy khả năng cuốn trôi địa phương, nếu như bạo lực rút sức, rất khó khăn cam nhưng vẫn có thể che chắn bảo vệ gắn kết trở lại. ]</p>
+<p>Còn dài: [xác thực, ta cũng không thể hãm hại một Quang. ]</p>
+<p>Có thể thần thông quảng đại đem cái mũ bảo hiểm nguy hiểm đặt ở nhà chiến binh để xe cổng, anh hùng đã có một chút tin tưởng cái kia ID gọi quang lão ca nói lời.</p>
+<p>Nói không chính xác điều này nhà công ty là cái nào nhận được cơ quan nhà nước hỗ trợ thần bí nghiên cứu cơ cấu?</p>
+<p>Kể cả cái gì, sum họp lại xem ra đến bây giờ, đám bạn cũng không có bất luận cái gì thâm thất. Mà lại bản thân chiến đấu hoàn toàn chìm thức VR trò chơi, vậy thật cảm thấy thú vị.</p>
+<p>Cái kia đếm ngược, thành công hứng lên thú vị của Cờ.</p>
+<p>Cuồng phong: [ ta trên chim cánh cụt nói chuyện riêng Quảng ca, nhưng người còn không có trả lời ta tin tức. Cái kia website chính thức địa chỉ Internet không giống như cảnh nội trang web, thậm chí có một chút không quá giống là bình thường trang web tên, tra không được đăng ký tin tức. ]</p>
+<p>Đêm mười chín: [ lúc nào? ! ]</p>
+<p>Cuồng phong: [ chưa rõ. ]
+Lão Bạch: [câu chuyện này trước hết như vậy đi, thảo luận cũng không còn cái ý nghĩa gì. Tóm tắt lại mong đợi đến ba ngày sau, ta liền có thể xác nhận cái mũ bảo hiểm nguy hiểm này là cái vấn đề gì! ]</p>
+<p>. . .</p>
+<p>Ngay tại người chơi thảo luận thời điểm, thân ở đất hoang Sở Quang vẫn bận rộn làm việc chuẩn bị cuối cùng.</p>
+<p>5 ký lô thanh mạch cùng một chút bằng công cụ sắt.</p>
+<p>Sở Quảng phí hết chút công phu mới đưa ra những điều này, có ở đây không để người viết chú thích câu chuyện dưới đây từ Bethe đường phố cung cấp ngoài ba cây số vùng đất ngập nước công viên.</p>
+<p>Số 404 tránh trú ẩn ẩn giấu bên trong công viên dưới mặt đất,</p>
+<p>Cửa vào một bề mặt không đẹp trong viện dưỡng lão.</p>
+<p>Nơi đây thảm thực vật phong phú, hơn nữa còn dựa vào hồ, trên lý thuyết phải có ít động vật hoang dã ở mảnh này khu vực hoạt động.</p>
+<p>Đến gần nơi này về sau Sở Quang liền vô cùng cẩn thận, đề phòng chung quanh khả năng tồn tại tại nguy hiểm.</p>
+<p>Bất quá có thể mà chính là, ngoài ý muốn cũng không có phát sinh.</p>
+<p>Kiểm tra tại trại nuôi dưỡng cổng làm chiến đấu, xác nhận không có dị hợp hoặc là kẻ cướp thừa số lượng không có ở đây thời điểm tiến vào đi, Sở Quang vươn tay bên trong mang thai nhi ống nước đưa ra môn, cẩn thận mà đi vào.</p>
+<p>Số 404 tránh nạn hút vào trại an dưỡng phòng tốt nhất bộ kia thang máy, cũng chỉ có bộ kia thang máy mặt đồng hồ bên trên viết B1 tầng đánh dấu.</p>
+<p>Sở Quang đầu tiên là đi xuống một chuyến bay, mang lương thực ném vào thang máy xe cùng giảm xốc bên ngoài cạnh khí cống ở giữa hành lang.</p>
+<p>Nơi đây là một mảnh đất trống, khoảng cách mặt đất đại khái bốn năm thứ bảy mét.</p>
+<p>Nói thực ra nơi này không phải là rất thích hợp để giữ cửa hàng lương thực, nhưng để ở nơi này dù sao tốt cũng hơn là đặt trại nuôi dưỡng, bị đi ngang qua chuột hoặc là biến dị con gián để mắt tới.</p>
+<p>Xuyên qua giảm xốc phòng hải đạo khí cống.</p>
+<p>Đi vào đại cổng Sở Quang, nhìn xem ngồi xổm ở góc tường Tiểu Thất nói.</p>
+<p>&quot;Website diễn đàn chính thức công năng phát hiện đi ra sao?&quot;</p>
+<p>&quot;Xong rồi.&quot;</p>
+<p>&quot;Người chơi đâu? Bọn họ mũ bảo hiểm được sao?&quot;</p>
+<p>&quot;Đã nhận được cờ.&quot;</p>
+<p>Nhanh như vậy?</p>
+<p>Sở Quang hơi kinh ngạc.</p>
+<p>Nhẹ nhõm được mình là buổi sáng sáu điểm rời đi tránh nạn, hiện tại cũng mới khoảng một giờ chiều, trung gian chỉ cách bảy giờ.</p>
+<p>&quot;Đất hoang bên này thời gian cùng xã hội hiện đại thời gian thật là 1: Nhất lưu động sao?&quot;</p>
+<p>&quot;Đương nhiên là, bất chấp quá bên này thời gian tương thích trên Địa cầu khu vực phía tây giờ thứ 4.&quot;</p>
+<p>Hiện thế bên kia Hoa quốc là đông tám giờ khu, cùng tây múi giờ thứ 4 trôi giờ đại khái là mười hai giờ, nói cách khác Hoa quốc đông bộ địa khu hiện tại chính là trời vừa rạng sáng.</p>
+<p>Sở Quang ngồi trước máy tính, hậu trường chính thức của trang web đăng nhập.</p>
+<p>Tiểu Thất dựa theo phân phản của Đánh, vì website chính thức tăng thêm diễn đàn công năng, coi qua mắt trước không có lưu lượng, tự nhiên là một cái chim cũng không có.</p>
+<p>Kho dữ liệu cùng đồ thị cũng giống như vậy.</p>
+<p>&quot;Ta làm như thế nào bên này trên tấm ảnh truyền thông đến nơi này?&quot; Sở Quang chỉ vào trong màn hình kho nói.</p>
+<p>&quot;Truyền tiếp tiếp theo đã được rồi cờ.&quot;</p>
+<p>&quot;. . Ta ý tứ chính là, ta làm như thế nào đã chụp ảnh. Hoặc là nói lại máy ảnh loại hình đồ vật sao?&quot;</p>
+<p>Như thế để con tránh nạn, toàn bộ B1 tầng lông cũng không có cũng rất không hợp thói quen.Không nói lưu chút vũ khí cho mình, cơ sở cầu sinh công cụ tổng hợp được chuẩn bị một chút?</p>
+<p>&quot;Ách, đại khái không có máy ảnh, bất quá ta camera có thể giúp bạn chụp ảnh. . . Người nghĩ đập loại nào? Ngay ở chỗ này sao?&quot;</p>
+<p>Nhìn xem góc tường giấy lộn cái sọt một dạng người, Sở Quang viết dài nói.</p>
+<p>&quot;Ở đây đập có quỷ dùng. . . Đã rồi, chính ta nghĩ một chút biện pháp.&quot;</p>
+<p>Cũng không thể dịch mã bắt được ở nơi này.</p>
+<p>Bất quá, đem Tiểu Thất làm tới bên ngoài đi làm có thể cân nhắc.</p>
+<p>Đại đa số dị vật không thể ăn địa sắt đều không ra thế nào cảm thấy thú vị, hơi ngụy trang một chút làm mắt cắm ở nhà, kết quả thực sự là giữ nhà Thần khí a!</p>
+<p>Sở Quang càng nghĩ càng phải dựa vào phổ quát.</p>
+<p>Thông qua cư dân đại sảnh máy tính leo lên acc QQ.</p>
+<p>Sở Quang phát hiện bốn cái player đều cho mình phát ra nói chuyện riêng tin tức, hướng dẫn lửa nghe chuôngg lọc chức năng đến cuối cùng là nhà nào công ty, hoàn toàn chìm thức trò chơi cuối cuộc là ý gì, cùng trò chơi bảo đảm nguy hiểm đến cùng cực là chuyện gì xảy ra.</p>
+<p>Nói thực ra, Sở Quang cũng không biết làm thế nào trả lời nhóm kiểm tra những vấn đề này, cũng không có khả năng cung cấp điều này thế giới vấn đề thật chiến lược cho nhóm đánh.</p>
+<p>Chỉ có để nhóm đánh tin tưởng nơi đây là thế giới trò chơi.</p>
+<p>Sát thủ mới có thể lấy được &quot;Thứ tư Thiên tai&quot; thân phận giai lâm, không sợ hãi lại chịu khó, trở thành cường mạnh nhất công cụ.</p>
+<p>&quot;Chủ nhân.&quot;</p>
+<p>&quot;Thế nào.&quot;</p>
+<p>Nhìn xem đóng lại máy tính, từ trước yên đứng người lên Sở Quang, ngồi xổm ở góc tường Tiểu Thất nguy hiểm.</p>
+<p>&quot;Không sử dụng hồi phục thông tin của tên lửa sao?&quot;</p>
+<p>&quot;Không cần phải vậy.&quot;</p>
+<p>Giải thích càng nhiều sơ lược càng nhiều, không bằng một câu xí nghiệp cơ mật, quốc gia cơ mật lừa gạt qua.</p>
+<p>Đến như những thứ khác?</p>
+<p>For chính kiểm tra đã được dự đoán trước đó.</p>
+<p>Muốn không sử dụng thời gian dài để làm gì?</p>
+<p>Không được phép sử dụng để không thêm sao.</p>
+', CAST(0.00 AS Decimal(10, 2)), CAST(N'2024-04-20T16:24:01.470' AS DateTime), CAST(N'2024-04-20T16:25:35.280' AS DateTime), 1)
+INSERT [dbo].[Chapter] ([chapter_id], [chapter_number], [story_id], [volume_id], [chapter_title], [chapter_content_markdown], [chapter_content_html], [chapter_price], [create_time], [update_time], [status]) VALUES (70, 6, 25, 34, N'Đợt thứ 1 Closed Beta player', N'"Ta là NPC."
+
+Đối mặt tấm gương như vậy một câu, Sở Quang hít một hơi thật sâu, sửa lại cổ áo của mình, cố gắng nhịn cho mình hình tượng xem ra đầy đủ chất béo.
+
+Lại hiện không có biểu hiện gì.
+
+Cự ly này trời đã đi qua ba ngày.
+
+Tiếp qua vài phút, liền kề với người chơi đăng nhập vào trò chơi trong thời gian.
+
+Về phần Đánh trên người cái này lam áo bảo vệ, là rất lâu trước kia vừa xuyên qua đến thế giới lúc này, mặc trên người bộ kia.
+
+Bethe đường phố lão Charles đã từng nói với bạn, từ trong phòng tránh nạn ra tới cư dân, tiêu đề hồ cũng mặc cái này.
+
+"Ta là một NPC."
+
+Sở Quang đối từ bên ngoài góc nhỏ, một lần nữa luyện tập một lần.
+
+Phần này "Công tác mới" tính chất, cùng lúc trước chiến lược kia phần tiêu thụ công tác có thể nói là khác khẳng định hoàn toàn, như mộc xuân phong tiếu dung cùng tao nhã lễ thái độ, vô luận như thế nào cũng không nên xuất hiện ở một người quản lý trên cơ thể.
+
+Dù sao, nơi đây chính là mộng luật hành động đất hoang.
+
+Có thể ở mảnh đất hoang bên này còn sống, hình tượng của chiến binh không nhất định phải là một thiết huyết ngạnh hán, nhưng ít ra được cho người ta đầy đủ lòng cảm cùng giác giác an toàn.
+
+Sờ mờ bản thân gương mặt đường cong, Sở Quang ở trong lòng suy nghĩ, chính mình có phải hay không chắc chắn là tại trên lông mày làm đầu mặt seo?
+
+Hoặc là thanh toán mái tóc chỉnh thành Punk gió mào gà đầu?
+
+Dù sao nơi đây chính là mộng hành luật đất hoang.
+
+Quá tuấn tú.
+
+Sẽ ảnh hưởng đến cảm xúc đại diện.
+
+"Chủ nhân."
+
+Ném tấm gương tạo hình Sở Quang, mặt không thay đổi góc rộng.
+
+“Thế nào?”
+
+Giọng nói Tiểu Thất nhỏ.
+
+"Căn cứ ta tìm đọc dữ liệu, bình thường trong trò chơi NPC sẽ không chiến thắng NPC thân yêu."
+
+Trên mặt biểu thị sơ đồ bản thảo, Sở Quang ho nhẹ vừa nói.
+
+"Ta đương nhiên biết. . ."
+
+Đối mặt gương, một lần nữa lẩm bẩm một câu.
+
+"... Ta là số 404 tránh nạn người quản lý."
+
+Lại nói không nói lắm lắm cũng nên đến thời gian ước định.
+
+Ba giờ trước, bồi dưỡng khoang liền kề đã hoàn thành nhân bản có thể hợp nhất.
+
+Mà trước đó Hoàng tử trên chim cánh cụt cùng bốn tên cầm tới Closed Beta tư cách "Kẻ may mắn" vậy hẹn xong, Yên Kinh thời gian chín giờ tối trước đó đeo lên mũ bảo hiểm, tìm tư thế thoải mái thẳng thẳng hoặc là nằm ngang, thời gian chính xác đến đúng với trò chơi đăng nhập.
+
+Ngay tại Sở Quang suy tư nên tìm loại tư thái ở sử dụng nhóm trước mặt đăng tràng thời điểm, trong đầu khao khát vang lên "Đinh " một tiếng ồn.
+
+Ngay sau đó, một hàng văn tự hiện lên trước mặt Bên.
+
+[ nhiệm vụ đã hoàn thành! ]
+
+Sở Quảng trong lòng có một chút siết chặt.
+
+Đến rồi!
+
+. . .
+
+"Thảo thảo thảo! Tuyệt!"
+
+Cư dân đại tường sát vách khu sinh hoạt, một không gian rộng lớn bên ngoài không đẹp trong phòng, bốn đài bồi bổ khoang thuyền đồng thời giải trừ khóa chặt, mở ra hơi mờ cửa sổ.
+
+Từ rộng mở bồi dưỡng trong khoang yên tĩnh, Diệp Vĩ hỗ trợ mắt mồm mồm, nhìn bốn phía, trên mặt viết đầy ngạc nhiên, thậm chí ngu ngốc.
+
+Cái này ——
+
+Chính là thế giới game? !
+
+Thẳng đến một phút trước, hãy còn tại thì thầm trong lòng, cái này có khả năng hay không là một tỉ mỉ trù lược trò đùa.
+
+Ngay tại lúc đánh mang theo dòng tràn ngập mũ bảo hiểm, nằm thẳng trên giường, cũng nhanh phải ngủ thời điểm, một luồng sáng lại là xuyên trăng gió hướng phóng phóng tới.
+
+Khi đánh lần nữa mở mắt ra, người đã ở tại một căn phòng xa lạ.
+
+Trên thân ẩm ướt.
+
+Thực sự giống như mới từ trong hồ sơ ra tới.
+
+Đỉnh cao sắp xếp đầu gió ra gió rơi vào vai, có thể rõ ràng cảm giác được chất lỏng ngay tại một chút xíu bị khô khô, mang đi trên nhiệt lượng.
+
+Ở trong đó còn mơ hồ nương theo lấy một bữa không tốt lắm nghe mùi vị.
+
+Diệp Vĩ đương nhiên giật mình, trừng lớn hai mắt.
+
+Thị giác!
+Khuu giác!
+
+Đột phá!
+
+Vị trí!
+
+Thính giác!
+
+Ngũ giác đều đủ!
+
+Ngưu bức! ! !
+
+Cái này thân lâm bất kỳ cảnh nào có thể cảm nhận được,
+
+Để giảm mắt của thùng rác không được tràn nước mắt.
+
+Không nghĩ tới thời điểm hiện tại, thế mà thật sự có thể nhìn thấy hoàn toàn chìm công thức nghệ thuật thực tế ảo!
+
+Cái này không thể dùng lô cốt để hình dung!
+
+Không chỉ là một đánh giá của mình.
+
+Cái khác ba tên từ bồi dưỡng trong bình tỉnh dậy player, trên mặt như vậy ao lộ ra không hẹn mà cùng rung động.
+
+"Ta sát, ta sát ta sát."
+
+"... Ta mẹ nó còn tưởng rằng là nói đùa."
+
+"Mẹ ư! Thật đúng là mẹ nó là hoàn toàn đắm chìm!"
+
+" Bây giờ khoa học kỹ thuật đã như thế phát đạt sao? ? ? Lệch nhật, lão tử thế nào chọn tới bây giờ không có ở trên tin tức gặp qua? !"
+
+"Hí. . . Cảm giác đau đều mẹ nó có." Một người chơi bấm vào một cái chính của mình.
+
+"Dựa nha là ai ? NPC?"
+
+"Quỷ NPC, ta già Bạch a! Thời gian qua nhanh! Người cái tên này là ai?"
+
+"Ngọa tào? Lão Tế? ! Ta là cuồng phong a! Cấp bậc đại cuồng phong! Người thế nào dài dạng này? Ha ha ha ha, chết cười cha."
+
+"Cút! Lại mẹ nó gọi ta lão Tế, lão tử liền để biết vì sao kêu quê mùa. . . Hắc, trò chơi này có chút ý tứ, bề ngoài thiết lập được rồi? Không biết Open Beta bản có có thể không có người kích động."
+
+Lão Bạch vậy ép bản thân một thanh, mặc dù đau nhe răng hỗ trợ mắt, nhưng trên mặt lại viết đầy ngẫu hứng.
+
+Kích hoạt!
+
+Hưng phấn!
+
+Khó có thể tin được!
+
+Tham khảo ý tưởng thực hiện!
+
+Sát sàn ngủ Diệp Vĩ, trừng mắt hai con mắt, không nhúc nhích đi lang thang, cố gắng tiêu hóa lấy trong lòng rung động.
+
+Trừ bỏ đánh, còn có một cái mùi ngồi không nhúc nhích, mạnh mẽ là trong đám mây sau Phương Trường.
+
+Chỉ thấy gia hỏa này đang theo dõi hai chân của mình ở giữa trầm tư, không biết là đang suy tư cái gì.
+
+"Nhân vật thiết lập thừa thừa nhận là nam tính nhân vật? Thế mà không có động lực người phân đoạn. Ý của ta là. . . Có thể hay không xây nữ hào?"
+
+"Thao, ngựa mẹ nó thật tao a! Người cái tên này nhất định là đêm mười."
+
+"Ta là Phương Trường. . . "
+
+"Ngọa tào? ! Phương Trường? ! Hảo huynh đệ. . . Người hiểu ta ý tứ a?"
+
+"Biến, ta chính là thuận miệng nói. Bên bờ vị đệ đệ kia ban đêm mười đi. . . Các ngươi đều tới?"
+
+Thấy ba người nhìn về phía cơ thể, Diệp Vĩ cuối cùng cũng lấy lại được tinh thần.
+
+Ý thức được bản thân còn để trần, tắm nắng vàng thu bồi dưỡng khoang thuyền bên cạnh treo chế độ bọc tại trên đầu, thuận miệng trả lời một câu nói.
+
+" Humm, vừa tới. . . Trò chơi này thế nào? Không có tân thủ sách sao?"
+
+"Không biết, chúng tôi cũng vừa tới."
+
+Vừa đáp ứng, mở cửa phòng.
+
+Một vị mặc định màu lam bảo vệ áo nam nhân, từ bên ngoài đi vào.
+
+Phía sau đánh đi theo một đài giấy lộn cái sọt hình như người máy, Đồng Tử một dạng thân hình xem ra có chút ngây thơ chân thành, nhưng hình lá nước xác ngoài cùng phản phảng đánh bóng qua Ngân sơn lại tràn đầy khoa huyễn cảm giác giác.
+
+Bốn tên người chơi con mắt đều nhìn thẳng.
+
+"NPC!"
+"Cung chân nhân giống nhau như đúc!"
+
+"Nơi này thật sự là thế giới trò chơi sao?"
+
+"Đây cũng là quá chân thật bá!"
+
+"Yên tĩnh, " cắt giảm kia ríu hít thở ĩ, Sở Quang nhìn chung quanh bên trong căn phòng bốn tên game thủ mắt, chậm rãi mở miệng nói ra, "Hoàn thiện đi tới số 404 phòng tránh nạn."
+
+"Ta là nơi người quản lý này."
+
+“Danh hiệu—Thự Quang.”
+
+Không khí một chớp mắt yên tĩnh.
+
+Bốn tên người chơi ngoài ý liệu trung thực, hơi thở nhìn chăm chú mà nhìn sốt vào lửa, rất sợ lỗ bất luận cái gì một nơi trầm bản chi tiết.
+
+Xem ra chính mình khí cụ đã thành công tràng tràng.
+
+Sở Quang trong lòng nhẹ nhàng thở ra , dựa theo chuẩn bị xong kịch bản, tiếp tục nói.
+
+"Đầu tiên ta phải nói cho các thú biết một cái tin tức tốt, chiến tranh đã kết thúc."
+
+" Nhưng tin xấu là thế giới của chúng ta đã hoàn toàn thay đổi, nếu như các thám sát trông cậy vào lập tức hành hành lý về nhà tìm danh mục, thì hiển nhiên rất không có khả năng."
+
+" Bây giờ là tận thế sau thứ hai trăm cái đầu năm, đáng được ăn mừng chính là chúng ta đã thành công chịu đựng qua gian nan nhất năm tháng. Các bạn có thể đứng ở bên trong, đã 120 ức người càng có thể may mắn, mà bây giờ ta cần các tốc độ nhanh chóng nhận biết trạng thái, sau đó thực hiện mình ở liên kết cờ bên dưới tuyên ngôn —— trùng lặp kiến trúc gia viên của chúng ta!"
+
+"Bên cạnh này chính là trợ thủ của ta, nó tên gọi Tiểu Thất, có bất kỳ liên quan nào tới tránh vấn đề khẩn cấp, hoặc là chỗ không rõ đều có thể hỏi nó."
+
+Trở lên là thời điểm đầu tiên.
+
+Đám tiếp theo người chơi đến rồi, Sở Quang sẽ lặp lại lần nữa.
+
+Dù sao cũng là một công việc khó khăn ở biên giới tới.
+
+Mà Tiểu Thất bên này, những cái kia có thể nói, những cái kia không thể nói, Sở Quang đã trước đó thông báo nó, thật cũng không dùng lo lắng nói lộ miệng vấn đề.
+
+Kỳ thật coi như nói lỡ miệng cũng không còn tình trạng.
+
+Bất kỳ giải pháp địa phương nào không truy cập được đều có thể sử dụng một câu "Đây là trò chơi thiết bị khai thác" cho qua. Đầu năm nay có hoàn mỹ vô ích thiết lập, nhất định phải tích cực nhi lời nói, bản tin thời sự đều có thể tìm ra BUG.
+
+Thấy Sở Quang cuối cùng nói xong, cái kia đăng ký biệt danh gọi đêm mười người chơi, hơi thở vàng mở miệng hỏi.
+
+"Xin hỏi Quang ca ở đâu? Ý của ta là, cho chúng ta mạo hiểm vị trí trò chơi kế hoạch."
+
+"Ta nghe không hiểu ở đây nói cái gì." Sở Quang không cảm giác trả lời.
+
+"Như thế nào đăng trò chơi?" Lão Bạch Tiếp Nối.
+
+"Trở lại bồi dưỡng trong khoang thuyền xuống, có thể bình thường đăng xuất."
+
+Kỳ thực còn có một loại phương pháp, hôn mê, giấc ngủ, tử vong chờ dị pháp trạng thái thường xuyên cũng sẽ dẫn đến kết nối gián đoạn, nhưng Sở Quang cũng không hi vọng lũ tùy ý nếm thử.
+
+Nằm ở bồi dưỡng trong khoa học so sánh tiết kiệm năng lượng, tùy chọn xử lý này sẽ rất phức tạp.
+
+"Đẳng cấp đâu? Player hệ thống giao diện ở đâu? Ta làm sao tìm được không đến?"
+
+Cuồng phong vừa đưa câu nói này hỏi ra lời, Sở Quang chưa đáp lại, bên rìa Phương Trường tiếp theo sát lấy xen vào hỏi.
+
+"Bóp người hệ thống đâu? Nhân vật thiết lập không thể sửa sao? Còn có nhân vật tính phương diện —— "
+
+"Đủ rồi, những vấn đề này là các câu hỏi. . . Khục, hiện tại vẫn chưa có phiên bản đặt câu hỏi."
+
+Xạm lại cắt những người này không hạn chế vấn đề, Sở Quang xụ mặt, dùng giải quyết công việc chung thái độ, cung cấp bốn bản sách nhỏ, không nói lời vung ra trong tay bọn họ.
+
+"Ta sẽ hướng dẫn các tiến trình làm quen với một khoảnh khắc hoàn cảnh ở đây, đồng thời nói cho các loại công việc cần thiết phải chú thích hạng mục công việc."
+
+“Nhất là tình huống có thể làm được, tình cảm gì cũng không nghĩ.”
+
+-', N'<p>&quot;Ta là NPC.&quot;</p>
+<p>Đối mặt tấm gương như vậy một câu, Sở Quang hít một hơi thật sâu, sửa lại cổ áo của mình, cố gắng nhịn cho mình hình tượng xem ra đầy đủ chất béo.</p>
+<p>Lại hiện không có biểu hiện gì.</p>
+<p>Cự ly này trời đã đi qua ba ngày.</p>
+<p>Tiếp qua vài phút, liền kề với người chơi đăng nhập vào trò chơi trong thời gian.</p>
+<p>Về phần Đánh trên người cái này lam áo bảo vệ, là rất lâu trước kia vừa xuyên qua đến thế giới lúc này, mặc trên người bộ kia.</p>
+<p>Bethe đường phố lão Charles đã từng nói với bạn, từ trong phòng tránh nạn ra tới cư dân, tiêu đề hồ cũng mặc cái này.</p>
+<p>&quot;Ta là một NPC.&quot;</p>
+<p>Sở Quang đối từ bên ngoài góc nhỏ, một lần nữa luyện tập một lần.</p>
+<p>Phần này &quot;Công tác mới&quot; tính chất, cùng lúc trước chiến lược kia phần tiêu thụ công tác có thể nói là khác khẳng định hoàn toàn, như mộc xuân phong tiếu dung cùng tao nhã lễ thái độ, vô luận như thế nào cũng không nên xuất hiện ở một người quản lý trên cơ thể.</p>
+<p>Dù sao, nơi đây chính là mộng luật hành động đất hoang.</p>
+<p>Có thể ở mảnh đất hoang bên này còn sống, hình tượng của chiến binh không nhất định phải là một thiết huyết ngạnh hán, nhưng ít ra được cho người ta đầy đủ lòng cảm cùng giác giác an toàn.</p>
+<p>Sờ mờ bản thân gương mặt đường cong, Sở Quang ở trong lòng suy nghĩ, chính mình có phải hay không chắc chắn là tại trên lông mày làm đầu mặt seo?</p>
+<p>Hoặc là thanh toán mái tóc chỉnh thành Punk gió mào gà đầu?</p>
+<p>Dù sao nơi đây chính là mộng hành luật đất hoang.</p>
+<p>Quá tuấn tú.</p>
+<p>Sẽ ảnh hưởng đến cảm xúc đại diện.</p>
+<p>&quot;Chủ nhân.&quot;</p>
+<p>Ném tấm gương tạo hình Sở Quang, mặt không thay đổi góc rộng.</p>
+<p>“Thế nào?”</p>
+<p>Giọng nói Tiểu Thất nhỏ.</p>
+<p>&quot;Căn cứ ta tìm đọc dữ liệu, bình thường trong trò chơi NPC sẽ không chiến thắng NPC thân yêu.&quot;</p>
+<p>Trên mặt biểu thị sơ đồ bản thảo, Sở Quang ho nhẹ vừa nói.</p>
+<p>&quot;Ta đương nhiên biết. . .&quot;</p>
+<p>Đối mặt gương, một lần nữa lẩm bẩm một câu.</p>
+<p>&quot;... Ta là số 404 tránh nạn người quản lý.&quot;</p>
+<p>Lại nói không nói lắm lắm cũng nên đến thời gian ước định.</p>
+<p>Ba giờ trước, bồi dưỡng khoang liền kề đã hoàn thành nhân bản có thể hợp nhất.</p>
+<p>Mà trước đó Hoàng tử trên chim cánh cụt cùng bốn tên cầm tới Closed Beta tư cách &quot;Kẻ may mắn&quot; vậy hẹn xong, Yên Kinh thời gian chín giờ tối trước đó đeo lên mũ bảo hiểm, tìm tư thế thoải mái thẳng thẳng hoặc là nằm ngang, thời gian chính xác đến đúng với trò chơi đăng nhập.</p>
+<p>Ngay tại Sở Quang suy tư nên tìm loại tư thái ở sử dụng nhóm trước mặt đăng tràng thời điểm, trong đầu khao khát vang lên &quot;Đinh &quot; một tiếng ồn.</p>
+<p>Ngay sau đó, một hàng văn tự hiện lên trước mặt Bên.</p>
+<p>[ nhiệm vụ đã hoàn thành! ]</p>
+<p>Sở Quảng trong lòng có một chút siết chặt.</p>
+<p>Đến rồi!</p>
+<p>. . .</p>
+<p>&quot;Thảo thảo thảo! Tuyệt!&quot;</p>
+<p>Cư dân đại tường sát vách khu sinh hoạt, một không gian rộng lớn bên ngoài không đẹp trong phòng, bốn đài bồi bổ khoang thuyền đồng thời giải trừ khóa chặt, mở ra hơi mờ cửa sổ.</p>
+<p>Từ rộng mở bồi dưỡng trong khoang yên tĩnh, Diệp Vĩ hỗ trợ mắt mồm mồm, nhìn bốn phía, trên mặt viết đầy ngạc nhiên, thậm chí ngu ngốc.</p>
+<p>Cái này ——</p>
+<p>Chính là thế giới game? !</p>
+<p>Thẳng đến một phút trước, hãy còn tại thì thầm trong lòng, cái này có khả năng hay không là một tỉ mỉ trù lược trò đùa.</p>
+<p>Ngay tại lúc đánh mang theo dòng tràn ngập mũ bảo hiểm, nằm thẳng trên giường, cũng nhanh phải ngủ thời điểm, một luồng sáng lại là xuyên trăng gió hướng phóng phóng tới.</p>
+<p>Khi đánh lần nữa mở mắt ra, người đã ở tại một căn phòng xa lạ.</p>
+<p>Trên thân ẩm ướt.</p>
+<p>Thực sự giống như mới từ trong hồ sơ ra tới.</p>
+<p>Đỉnh cao sắp xếp đầu gió ra gió rơi vào vai, có thể rõ ràng cảm giác được chất lỏng ngay tại một chút xíu bị khô khô, mang đi trên nhiệt lượng.</p>
+<p>Ở trong đó còn mơ hồ nương theo lấy một bữa không tốt lắm nghe mùi vị.</p>
+<p>Diệp Vĩ đương nhiên giật mình, trừng lớn hai mắt.</p>
+<p>Thị giác!
+Khuu giác!</p>
+<p>Đột phá!</p>
+<p>Vị trí!</p>
+<p>Thính giác!</p>
+<p>Ngũ giác đều đủ!</p>
+<p>Ngưu bức! ! !</p>
+<p>Cái này thân lâm bất kỳ cảnh nào có thể cảm nhận được,</p>
+<p>Để giảm mắt của thùng rác không được tràn nước mắt.</p>
+<p>Không nghĩ tới thời điểm hiện tại, thế mà thật sự có thể nhìn thấy hoàn toàn chìm công thức nghệ thuật thực tế ảo!</p>
+<p>Cái này không thể dùng lô cốt để hình dung!</p>
+<p>Không chỉ là một đánh giá của mình.</p>
+<p>Cái khác ba tên từ bồi dưỡng trong bình tỉnh dậy player, trên mặt như vậy ao lộ ra không hẹn mà cùng rung động.</p>
+<p>&quot;Ta sát, ta sát ta sát.&quot;</p>
+<p>&quot;... Ta mẹ nó còn tưởng rằng là nói đùa.&quot;</p>
+<p>&quot;Mẹ ư! Thật đúng là mẹ nó là hoàn toàn đắm chìm!&quot;</p>
+<p>&quot; Bây giờ khoa học kỹ thuật đã như thế phát đạt sao? ? ? Lệch nhật, lão tử thế nào chọn tới bây giờ không có ở trên tin tức gặp qua? !&quot;</p>
+<p>&quot;Hí. . . Cảm giác đau đều mẹ nó có.&quot; Một người chơi bấm vào một cái chính của mình.</p>
+<p>&quot;Dựa nha là ai ? NPC?&quot;</p>
+<p>&quot;Quỷ NPC, ta già Bạch a! Thời gian qua nhanh! Người cái tên này là ai?&quot;</p>
+<p>&quot;Ngọa tào? Lão Tế? ! Ta là cuồng phong a! Cấp bậc đại cuồng phong! Người thế nào dài dạng này? Ha ha ha ha, chết cười cha.&quot;</p>
+<p>&quot;Cút! Lại mẹ nó gọi ta lão Tế, lão tử liền để biết vì sao kêu quê mùa. . . Hắc, trò chơi này có chút ý tứ, bề ngoài thiết lập được rồi? Không biết Open Beta bản có có thể không có người kích động.&quot;</p>
+<p>Lão Bạch vậy ép bản thân một thanh, mặc dù đau nhe răng hỗ trợ mắt, nhưng trên mặt lại viết đầy ngẫu hứng.</p>
+<p>Kích hoạt!</p>
+<p>Hưng phấn!</p>
+<p>Khó có thể tin được!</p>
+<p>Tham khảo ý tưởng thực hiện!</p>
+<p>Sát sàn ngủ Diệp Vĩ, trừng mắt hai con mắt, không nhúc nhích đi lang thang, cố gắng tiêu hóa lấy trong lòng rung động.</p>
+<p>Trừ bỏ đánh, còn có một cái mùi ngồi không nhúc nhích, mạnh mẽ là trong đám mây sau Phương Trường.</p>
+<p>Chỉ thấy gia hỏa này đang theo dõi hai chân của mình ở giữa trầm tư, không biết là đang suy tư cái gì.</p>
+<p>&quot;Nhân vật thiết lập thừa thừa nhận là nam tính nhân vật? Thế mà không có động lực người phân đoạn. Ý của ta là. . . Có thể hay không xây nữ hào?&quot;</p>
+<p>&quot;Thao, ngựa mẹ nó thật tao a! Người cái tên này nhất định là đêm mười.&quot;</p>
+<p>&quot;Ta là Phương Trường. . . &quot;</p>
+<p>&quot;Ngọa tào? ! Phương Trường? ! Hảo huynh đệ. . . Người hiểu ta ý tứ a?&quot;</p>
+<p>&quot;Biến, ta chính là thuận miệng nói. Bên bờ vị đệ đệ kia ban đêm mười đi. . . Các ngươi đều tới?&quot;</p>
+<p>Thấy ba người nhìn về phía cơ thể, Diệp Vĩ cuối cùng cũng lấy lại được tinh thần.</p>
+<p>Ý thức được bản thân còn để trần, tắm nắng vàng thu bồi dưỡng khoang thuyền bên cạnh treo chế độ bọc tại trên đầu, thuận miệng trả lời một câu nói.</p>
+<p>&quot; Humm, vừa tới. . . Trò chơi này thế nào? Không có tân thủ sách sao?&quot;</p>
+<p>&quot;Không biết, chúng tôi cũng vừa tới.&quot;</p>
+<p>Vừa đáp ứng, mở cửa phòng.</p>
+<p>Một vị mặc định màu lam bảo vệ áo nam nhân, từ bên ngoài đi vào.</p>
+<p>Phía sau đánh đi theo một đài giấy lộn cái sọt hình như người máy, Đồng Tử một dạng thân hình xem ra có chút ngây thơ chân thành, nhưng hình lá nước xác ngoài cùng phản phảng đánh bóng qua Ngân sơn lại tràn đầy khoa huyễn cảm giác giác.</p>
+<p>Bốn tên người chơi con mắt đều nhìn thẳng.</p>
+<p>&quot;NPC!&quot;
+&quot;Cung chân nhân giống nhau như đúc!&quot;</p>
+<p>&quot;Nơi này thật sự là thế giới trò chơi sao?&quot;</p>
+<p>&quot;Đây cũng là quá chân thật bá!&quot;</p>
+<p>&quot;Yên tĩnh, &quot; cắt giảm kia ríu hít thở ĩ, Sở Quang nhìn chung quanh bên trong căn phòng bốn tên game thủ mắt, chậm rãi mở miệng nói ra, &quot;Hoàn thiện đi tới số 404 phòng tránh nạn.&quot;</p>
+<p>&quot;Ta là nơi người quản lý này.&quot;</p>
+<p>“Danh hiệu—Thự Quang.”</p>
+<p>Không khí một chớp mắt yên tĩnh.</p>
+<p>Bốn tên người chơi ngoài ý liệu trung thực, hơi thở nhìn chăm chú mà nhìn sốt vào lửa, rất sợ lỗ bất luận cái gì một nơi trầm bản chi tiết.</p>
+<p>Xem ra chính mình khí cụ đã thành công tràng tràng.</p>
+<p>Sở Quang trong lòng nhẹ nhàng thở ra , dựa theo chuẩn bị xong kịch bản, tiếp tục nói.</p>
+<p>&quot;Đầu tiên ta phải nói cho các thú biết một cái tin tức tốt, chiến tranh đã kết thúc.&quot;</p>
+<p>&quot; Nhưng tin xấu là thế giới của chúng ta đã hoàn toàn thay đổi, nếu như các thám sát trông cậy vào lập tức hành hành lý về nhà tìm danh mục, thì hiển nhiên rất không có khả năng.&quot;</p>
+<p>&quot; Bây giờ là tận thế sau thứ hai trăm cái đầu năm, đáng được ăn mừng chính là chúng ta đã thành công chịu đựng qua gian nan nhất năm tháng. Các bạn có thể đứng ở bên trong, đã 120 ức người càng có thể may mắn, mà bây giờ ta cần các tốc độ nhanh chóng nhận biết trạng thái, sau đó thực hiện mình ở liên kết cờ bên dưới tuyên ngôn —— trùng lặp kiến trúc gia viên của chúng ta!&quot;</p>
+<p>&quot;Bên cạnh này chính là trợ thủ của ta, nó tên gọi Tiểu Thất, có bất kỳ liên quan nào tới tránh vấn đề khẩn cấp, hoặc là chỗ không rõ đều có thể hỏi nó.&quot;</p>
+<p>Trở lên là thời điểm đầu tiên.</p>
+<p>Đám tiếp theo người chơi đến rồi, Sở Quang sẽ lặp lại lần nữa.</p>
+<p>Dù sao cũng là một công việc khó khăn ở biên giới tới.</p>
+<p>Mà Tiểu Thất bên này, những cái kia có thể nói, những cái kia không thể nói, Sở Quang đã trước đó thông báo nó, thật cũng không dùng lo lắng nói lộ miệng vấn đề.</p>
+<p>Kỳ thật coi như nói lỡ miệng cũng không còn tình trạng.</p>
+<p>Bất kỳ giải pháp địa phương nào không truy cập được đều có thể sử dụng một câu &quot;Đây là trò chơi thiết bị khai thác&quot; cho qua. Đầu năm nay có hoàn mỹ vô ích thiết lập, nhất định phải tích cực nhi lời nói, bản tin thời sự đều có thể tìm ra BUG.</p>
+<p>Thấy Sở Quang cuối cùng nói xong, cái kia đăng ký biệt danh gọi đêm mười người chơi, hơi thở vàng mở miệng hỏi.</p>
+<p>&quot;Xin hỏi Quang ca ở đâu? Ý của ta là, cho chúng ta mạo hiểm vị trí trò chơi kế hoạch.&quot;</p>
+<p>&quot;Ta nghe không hiểu ở đây nói cái gì.&quot; Sở Quang không cảm giác trả lời.</p>
+<p>&quot;Như thế nào đăng trò chơi?&quot; Lão Bạch Tiếp Nối.</p>
+<p>&quot;Trở lại bồi dưỡng trong khoang thuyền xuống, có thể bình thường đăng xuất.&quot;</p>
+<p>Kỳ thực còn có một loại phương pháp, hôn mê, giấc ngủ, tử vong chờ dị pháp trạng thái thường xuyên cũng sẽ dẫn đến kết nối gián đoạn, nhưng Sở Quang cũng không hi vọng lũ tùy ý nếm thử.</p>
+<p>Nằm ở bồi dưỡng trong khoa học so sánh tiết kiệm năng lượng, tùy chọn xử lý này sẽ rất phức tạp.</p>
+<p>&quot;Đẳng cấp đâu? Player hệ thống giao diện ở đâu? Ta làm sao tìm được không đến?&quot;</p>
+<p>Cuồng phong vừa đưa câu nói này hỏi ra lời, Sở Quang chưa đáp lại, bên rìa Phương Trường tiếp theo sát lấy xen vào hỏi.</p>
+<p>&quot;Bóp người hệ thống đâu? Nhân vật thiết lập không thể sửa sao? Còn có nhân vật tính phương diện —— &quot;</p>
+<p>&quot;Đủ rồi, những vấn đề này là các câu hỏi. . . Khục, hiện tại vẫn chưa có phiên bản đặt câu hỏi.&quot;</p>
+<p>Xạm lại cắt những người này không hạn chế vấn đề, Sở Quang xụ mặt, dùng giải quyết công việc chung thái độ, cung cấp bốn bản sách nhỏ, không nói lời vung ra trong tay bọn họ.</p>
+<p>&quot;Ta sẽ hướng dẫn các tiến trình làm quen với một khoảnh khắc hoàn cảnh ở đây, đồng thời nói cho các loại công việc cần thiết phải chú thích hạng mục công việc.&quot;</p>
+<p>“Nhất là tình huống có thể làm được, tình cảm gì cũng không nghĩ.”</p>
+<ul>
+<li></li>
+</ul>
+', CAST(0.00 AS Decimal(10, 2)), CAST(N'2024-04-20T16:26:50.727' AS DateTime), NULL, 1)
+INSERT [dbo].[Chapter] ([chapter_id], [chapter_number], [story_id], [volume_id], [chapter_title], [chapter_content_markdown], [chapter_content_html], [chapter_price], [create_time], [update_time], [status]) VALUES (71, 7, 25, 34, N'Muốn giàu, trước lột cây', N'No quy tắc không thành quy tắc.
+
+Nhất là đối phó với sự nguy hiểm của nhiều người chơi, càng không thể làm phiền.
+
+[ phòng tránh cư trú dân tay 1. 0 bản. ]
+
+[ 1. Người quản lý mệnh lệnh cao hơn hết hạn, khả năng tránh toàn thể cư dân cần phục tùng vô điều kiện. ]
+
+[ 2. Đối với vi phạm quy tắc cư dân, người quản lý giữ lại sử dụng "Cưỡng chế ngủ đông", "Cấm đoán" cuối cùng thủ đoạn. (ghi chú: Cưỡng chế ngủ đông đồng đẳng với mặc quần áo đá ra trò chơi, cấm đoán chính là phong cấm đăng nhập giới hạn. ) ]
+
+[ 3. Người quản lý có thể trở lên toàn bộ điều khoản cuối cùng giải thích quyền. ]
+
+Vi phạm quy tắc sẽ bị đá ra trò chơi, đây cũng không phải là NPC thông thường có quyền.
+
+Nhìn thấy tránh tránh cư dân tay đầu thứ hai phía sau ghi chú, những người chơi xem như tối thiểu để minh bạch, trước mắt cái này NPC không chỉ là NPC, đồng thời còn có GM bộ phận quyền hạn, có thể tặng ảnh hưởng người chơi trò chơi khác có thể trải nghiệm người "Khóa acc" .
+
+Hiện tại người ít, quy sở tạm thời cái này ba cái, nếu như đằng sau còn cần bổ sung địa phương, Sở Quảng sẽ cân nhắc đưa ra 2. 0 phiên bản, thậm chí 20. 0 bản.
+
+Tỷ như quy phạm người chơi cùng người chơi, người chơi cùng "NPC " tiếp xúc quy tắc, cùng trong trò chơi cấm chỉ danh mục công việc vân tay.
+
+Tại A test trước đó đã thực hiện một vòng Closed Beta, có một nửa nguyên nhân cũng là vì cái này.
+
+Trong phòng tránh nạn không gian không lớn, hai mươi cái gian phòng nhìn xem thật nhiều, kỳ thật mỗi cái đều rất nhỏ, được bốn đài bồi dưỡng khoang thuyền nuôi đầy.
+
+Đời trước người quản lý tiêu đề hồ rất sợ hãi không làm việc nhi, ở đây miệng ăn núi lở, thế là đem lại toàn bộ B1 tầng chuyển được sạch sẽ Phá sản, sử dụng sốt một chút đồ tốt đều không cho đánh còn lại.
+
+Sở Quang không có nơi tránh nạn bên trong việc dừng lại quá lâu, kể xong quy tắc về sau đường dẫn bốn người cùng Tiểu Thất, đứng lên thông báo hướng ngoại giới thang máy.
+
+Cái này bốn tên Closed Beta player coi như nghe lời, rất cho đánh cái này người quản lý mũi mũi, chính là lòng an ủi có chút tràn đầy hơi quá.
+
+Từ hai chân đạp ở trên mặt đất một giải quyết bắt đầu, bọn cướp giống như tiến vào đại quan viên Lưu mỗ lỗ, trên đường đi trái mạt phải nhìn một cái, cái gì đều muốn thử thách.
+
+Toàn thân cao thấp, sẽ không một tế bào nào có thể tự do đến ở!
+
+Máy dừng đột ngột.
+
+Nhìn xem vượt qua không cửa sổ, ngồi vào thang máy trước nắng, bốn tên người chơi lại là cùng nhau phát ra chưa thấy qua cảnh đời sợ hãi kinh hãi.
+
+“Ngọa tào…”
+
+"Cái này sáng! Tường này! Cái này, cái này cái này cái này. . ."
+
+"This cũng quá ngưu bức!"
+
+"Ánh nắng từ bê tông khe hở bên trong xuyên qua, chiếu vào chui ra sàn nhà trên cỏ nhỏ, mắt trần có thể tìm thấy bụi cháo tại chùm sáng bên trong lưu động. . . Mỗi một tấm đều là nghệ thuật, mỗi giây đều là chất đốt cháy!"
+
+"Ngưu bức! Vẫn là ta nhật ca có văn hóa!"
+
+"Biển, gọi gia Phương ca!"
+
+"Được rồi lai nhật huỳnh."
+
+". . . "
+
+Một đám mây chưa thấy qua cảnh đời gia thơm. . .
+
+Sở Quang cảm thấy có chút buồn cười, nhưng có thể hiểu được, nguyên nhân giả tưởng như cái gì cũng không còn nghệ thuật, thực hiện bản thân là NPC chức vô địch, mang theo bọn lửa đi tới một dinh dưỡng bên ngoài .
+
+Nhìn xem để ở dưới đất công cụ, Sở Quang xoay người hướng bọn trộm.
+
+"Như trước mắt các nhìn thấy, chiến tranh hạt nhân đã kết thúc hai trăm năm."
+
+"Chúng ta hiện tại đang ở vị trí ở Thanh Tuyền thành phố bắc bộ ngoại thành, cách sỏi hạt nhân hố rất xa. Trừ phi là đụng tới ''Phát sáng mưa'' hoặc là mắt trần có thể thấy phóng xạ đám mây, không cần quá lo lắng Gamma value value quá vấn đề."
+
+"Chỗ tránh tránh không có khả năng viễn viễn che chúng ta ta, chúng ta văn minh cũng không khả năng viễn vong ở phía bên dưới. Ghi nhớ, chúng ta là quay về mặt đất quân tiên phong, sau lưng ta còn hàng ngàn hàng vạn người chờ đợi tin tức tốt của chúng ta, không có thời gian có thể trì hoãn."
+"Bây giờ chúng ta phải làm chuyện thứ nhất, chính là tu chỉnh chúng ta dưới chân tòa nhà trại an dưỡng, ở mảnh này tích bên trong thành lập một tòa nhà tiền tiêu."
+
+" Nó sẽ thành công chúng ta quay về mặt đất lô lô đầu cầu."
+
+"Giao cho các loài một cái nhiệm vụ, nhỏ lên trên đất búa, đi bên ngoài siết nhỏ khối gỗ trở về."
+
+" Ở mùa đông tiến đến trước đó,
+
+Chúng tôi muốn dự trữ đủ nhiều nhiên liệu, đồng thời còn muốn sửa xong chúng ta chung quanh những tường thuật này."
+
+"Nhớ được chớ đi quá xa, gặp được dị chủng không nên khinh cử vang động, lập tức rút về."
+
+"Hành động!"
+
+Sở Quang vốn cho là bản thân cần phí một phen phong cách.
+
+Kết quả không nghĩ tới, những người chơi này so với mình trong tưởng tượng còn muốn nghe lời nói, cam chịu lên búa ra ngoài công việc nhi.
+
+Kia nhanh chóng tác, kết quả thực sự giống như bản thân thân mau nói xong, sợ trì hoãn bản thân thân làm việc.
+
+"Chủ nhân, nhóm gia hỏa này thật sự không có vấn đề sao?" Đi theo một bên Tiểu Thất bày tỏ sự lo lắng của chính mình, nó luôn cảm thấy những người nhân bản đầu không quá bình thường.
+
+"Sở dĩ ta mới tạo cho j như vậy ra tới, " Sở Quang quang đầu nhìn mắt sau lưng lửa an dưỡng, dừng lại một lát, tiếp tục nói, " đi lầu ba phía chính cửa sổ nhìn xem, nếu như hung hung tao ngộ tình trạng, hoặc là đi quá xa, nhẹ nhắc nhở ta một tiếng."
+
+Về phần sơn thân, trước tiên phải đi thăm dò một chút hoàn thành nhiệm vụ ban thưởng.
+
+Dừng ở Sở Quang bên cạnh giấy lộn cái sọt cũng không có động.
+
+Cách một hồi, Tiểu Thất nhỏ mở miệng.
+
+". . Chủ nhân."
+
+“Thế nào?”
+
+“Cái kia, ta không có.”
+
+Biết di động giấy lộn cái sọt, vòng quanh Sở Quảng bắp chân dạo qua một vòng, phô bày bản thân di động phương thức. Cho đến lúc này Sở Quang mới có ý hướng tới, gia hỏa này vẫn luôn dựa vào thanh trượt bốn giày ròng rọc.
+
+". . Được thôi, ta ôm đi lên."
+
+Thở dài.
+
+Sở Quang ngồi xổm người xuống, mang nó tại vai.
+
+Khá nhiều.
+
+Cũng nặng lắm lắm.
+
+. . .
+
+Ken thùng—
+
+Dương!
+
+Bằng cơ đùi cây chậm rãi xuống, đập xuống đất, phát ra tiếng vang trầm nặng.
+"Ta cảm thấy nơi này không giống như đất hoang."
+
+"Kia như cái gì?"
+
+"Càng giống là rừng nước. . . Ta nói chính là «Rừng », không biết các hạng chơi qua không, ở bên trong là giống như vậy cho cây, sau đó lợp nhà."
+
+"Mở đen thần khí, đương nhiên chơi qua, mà lại không chỉ chơi qua, ta còn đem nhà đóng đến trên trời. Bất chấp nơi đó nhà lợp có thể đơn giản nhiều, con chuột điểm một lần được, không giống nơi này . Mẹ nó, rêu cũng nặng lắm."
+
+" Nói đến thiết lập, ta đến cảm thấy cái này ngược lại rất chân thật. Nhớ trước đó nhìn qua một bộ phim phóng sự, nói là quay về Chernobyl, bốn mươi năm thời gian không có nhân loại bướm, nơi đó nhiều thành phố sinh thái hệ thống, cao ốc leo vây quanh, cây lớn lên nên phòng ở cao hơn nữa . Ta thậm chí cảm giác giác, trong thành vấn đề có thể so với nơi này khoa tài khoản hơn."
+
+Hướng về phía sau một bộ bụi rậm, lão bạch lau mồ hôi, cơ thể thon gọn.
+
+"Cái này nếu được đặt trong thực tế, sợ là được ngồi trong khung xương."
+
+Bận rộn có hai giờ.
+
+Mặc dù hiệu suất không cao, lưu lại thớt gỗ tử tế cùng khép kín một dạng, nhưng là chém có tầm mười lăm khỏa thân bằng cơ đùi cây tùng, nhỏ một chút càng là vô số kể.
+
+Chỉ bất quá, người quản lý cũng không nói muốn bao nhiêu, ai cũng không quyết định chắc chắn những điều này có đủ hay không.
+
+"Có sao nói vậy, trò chơi này làm cũng quá chân thật. . . Bất chấp là chém vào trên cây cùn cảm giác, vẫn là kia bay múa mảnh gỗ vụn cùng xuyên qua lá cây ánh nắng, cái này làm ta nghĩ tới —— "
+
+"Đã xong rồi, đừng kéo con bê."
+
+Cắt khắc Phương Trường cảm khái niệm, đêm mười cánh tay xử lý búa, nhìn xuống đất thượng tán rơi nhánh cây cùng Thu Diệp, gấp gấp nói.
+
+“Đã có thể tiến cây, lợp nhà, trồng giàu mạnh cũng không là vấn đề a?”
+
+Trong trò chơi thể lực tăng sức mạnh vận động, nên trong thực tế cơ thể mạnh mẽ hơn nhiều.
+
+Trong thực tế mười đêm thuộc về loại kia bị chín năm giáo dục bắt buộc móc rỗng thân thể loại kia, nhưng ở đất hoang bên này nhưng có thể miễn cưỡng gạt ra hai đống hai đầu cơ bắp.
+
+Đương nhiên, thoải mái nhất vẫn là thời gian qua nhanh —— cũng chính là lão Bạch.
+
+Người này nhân vật mặc dù dài đến không ra sao, miệng hít ria gốc rơm, nhưng vén tay áo lên tất cả đều là cơ bắp, nhìn xem thì có lực lượng.
+
+"Nếu như muốn làm ruộng, ta đề nghị ta nhưng phóng phóng hỏa, đốt ra tới tro than Nữ vào trong đất, chờ mùa đông qua đi, năm sau đầu xuân chính là một mảnh đất màu mỡ. . .Dương nhiên, điều kiện tiên quyết là trò chơi này thật có chân thật như vậy, dù không chính xác là lãng phí biểu hiện."
+
+"Nói đến ta một bình bồn chồn, vì sao sư xem lão Bạch cái thịt rắn rắn tiêu đề như luyện qua, ta đây cầm cái thắt lưng đều tốn sức."
+
+Cuồng phong thở hổn hển.
+
+Nhân vật của đại khái là ở trong mọi người, có khả năng tiếp cận thực tế nhất, vận động không đầy một lát đã chưa xong rồi.
+
+"Mỗi nhân vật thuộc tính đều xác nhận có khác biệt. . . Mặc dù ta cũng không biết cái đồ chơi này là thế nào sẽ được phán đoán." Phương trượng lấy cái ót, suy tư chốc chốc nói, "Nhưng ta ngược lại thật ra có cái phỏng đoán."
+
+"Cái gì phỏng đoán?"
+
+Ba cái player đối đấu với cờ phát hiện đều thật cảm thấy thú vị.
+
+Tại Ngưu Mã câu lạc bộ mong đợi đoạn thời gian mọi người đều biết, gia hỏa này là mấy cái game offline thành công lược tạo thành viên, cũng là trong đám game steam tồn tại kho nhiều nhất.
+
+Kể cả FPS, RPG vẫn là SLG, liền không có loại không chơi loại hình.
+
+"Những điều khẳng định cũng là ý kiến tiến tới, chúng tôi là từ một tòa nhà màu bạc trắng trong tỉnh lại. Cân nhắc đến trò chơi này đề tài, như vậy thiết lập bên cạnh tồn tại hai loại khả năng. Một, chúng ta là thông qua đông lạnh ngủ đông kỹ thuật từ trước khi chiến đấu thẳng tiến tới Hải, chúng ta đều là người bản."
+
+"Đương nhiên, cá nhân ta cảm thấy cái sau thiết lập sẽ dễ dàng hơn một chút, dù sao cứ như vậy phục sinh vấn đề cũng rất dễ dàng giải thích, trực tiếp dùng chứa nuôi tại bồi dưỡng trong khoảng thuyền DNA một lần một lần nữa hợp nhất thành một thân thể."
+Nhìn xem hai mặt nhìn nhau player, Phương Trường tiếp tục nói.
+
+"Ta dự đoán hậu kỳ sẽ tăng thêm thuộc tính bảng cùng cấp loại thiết lập thiết lập, mà chúng ta có thể có khả năng ở bên cạnh, rất có thể chính là trong đó phục bút!"
+
+"Ta vẫn rất chờ mong cơ chế hoạt động có thể khai phá ra một bộ cùng khác bất đồng máy chơi game chế,chiết như. . . Chuyển DNA cùng hệ thống nghề nghiệp nghiệp kết hợp lại, phân chia năng lượng hình người chơi cùng trình phát cấu hình nhanh, chế độ bất chấp thuộc tính chính của thành phố cong. Tệp này có thể bảo đảm chế độ tự động thực hiện, có thể phong phú thêm cách chơi."
+
+"Đáng tiếc nhân vật ngẫu nhiên, nếu có thể bản thân quyết định ban đầu thuộc tính là tốt rồi."
+
+Nói lưỡi sành điệu, Phương Trường cuối cùng là lặp lại.
+
+"Không nói nhảm, một hồi hạ tuyến ta tìm quang ca tâm sự."
+
+Hãy nhớ rằng Quảng ca nói, Đánh lửa là trò chơi này kế hoạch. Trực tiếp tìm kiếm chiến lược cho vấn đề này, khẳng định rằng chiến binh ở chiến trường này sẽ chiến thắng.
+
+Lúc này, nhìn qua phương xa rồng người đêm mười, sương tự nhiên mở miệng nói ra.
+
+"Các thứ nói, địa đồ này có cùng bao nhiêu a."
+
+"Không biết."
+
+"Sáo nói ta muốn là một mực hướng một cái phương hướng đi. . ."
+
+Nhìn xem kích hoạt mười đêm, xử lý tiếng ồn ở một bên yên tĩnh phong gió, chần chừ một lúc nói.
+
+"Quy tắc lớn nhất là Thông báo không khí, cũng có thể là kịch bản giết người. . . Bất kỳ quá bất kể là loại kia, ta kiến nghị nguy hiểm nhất đều không làm như thế."
+
+"Cấp đã quên sao? Người quản lý để ta không cần cách trại an dưỡng quá xa."
+
+"Ta dựa vào, lập tức lập một NPC, ung dung?"
+
+"Nhưng bạn có thể chọn chúng ta hạ tuyến, thậm chí còn có thể chặt chẽ chúng ta Closed Beta tư cách." Cuồng phong nhắc nhở.
+
+Phương Trường cũng ở đây bên cạnh nhắc nhở một câu.
+
+"Đúng, mà ta phỏng đoán, lấy trình độ NPC trò chơi này, không nhẹ nhàng là có cảm giác thiện loại này ẩn thiết bị bảo mật. Người bất kỳ có thể nhận xét tới, nó đối với mỗi thái độ người chơi cũng không phải là hoàn toàn tương tự, ở đó nhất định có tính năng ẩn cho phép Logic."
+
+" Đã được, không thử không thử."
+
+Nghe câu này, nhất không thành thật mười đêm vậy trung thực xuống dưới.
+
+Không có cách nào.
+
+Lời khuyên này là quá mạnh.
+
+Người sáng suốt đều có thể nhìn ra, trò chơi này phía sau chứa giá trị.
+
+Hoàn toàn chìm trong ảo thực tế. . .
+
+Loại kỹ thuật này một khi ra mắt, đối lập với toàn bộ xã hội hiện đại giải trí phương thức —— thậm chí là cách sống, đều sẽ sinh ra có tính đột phá ảnh hưởng!
+
+Dù là không nguyện ý chơi đùa, ai lại sẽ để ý một ngày như vậy người khác nhiều 12 đến 8 giờ đâu?
+
+Dựa theo trong đám đông Quảng ca thuyết pháp, tại thế giới trò chơi ngoài thời gian, thế giới hiện thực thế nhưng tương thích với việc ngủ.
+
+Cũng có thể nói, dù ở nơi này được chờ đợi cả đêm cũng sẽ không ảnh hưởng đến công việc thứ hai!
+
+Thực sự khó có thể tưởng tượng, như thế một cái chú ý cho oanh động toàn thế giới trò chơi, Closed Beta thế nào là lấy như thế "Thảo hiệu", thậm chí Yên Yên không tiếng động phương thức phát triển khai.
+
+Đơn giản cái kia công ty không cần kiếm tiền sao?
+
+Bất quá vô thảo luận nói như thế nào, cơ hội này như đã đến trên tay của đám chiến binh, không ai nguyện dễ dễ buông tha.
+
+Ngay tại đêm thứ mười bỏ đi thăm dò địa đồ biên giới xúc động, chuẩn bị tiếp tục thành thật sự cho cây thời điểm, cảm giác nguy hiểm nguy hiểm thu gọn, nhẹ nhiên bao phủ toàn thân của bay.
+
+Tay chân lạnh.
+Mồ hôi lạnh từ phía sau tiến ra.
+
+Tuyết không biết kia Nửa cảm giác nguy cơ đến tối cùng đến từ đâu, lại phảng mong chờ bản thân chết thảm hạ tràng ——
+
+Hai chân mềm nhũn, đêm mười hướng về sau một cái lảo đảo, nhưng cũng chính là cái này một cái lảo đảo, để tránh thoát kia từ trên trời xuống bóng.
+
+Xé—!
+
+Gỗ dày hơn.
+
+Bờ thân cây, lên ba đạo cân bằng chiều rộng vết trảo!
+
+“Uống—!”
+
+Như quỷ tru lên!
+
+Đáp xuống đại hạ một kích không hoàng, mượn đá Việt hoàng cung ngược lực, chim ưng cánh một lần nữa kéo lên cao độ, biến mất ở ngọn cây.
+
+Nhìn xem rơi xuống màu đen lông vũ, ngồi im trên mặt đất đêm mười bảy người đều vui, vô ý thức thu đầu.
+
+Ngọa tào?', N'<p>No quy tắc không thành quy tắc.</p>
+<p>Nhất là đối phó với sự nguy hiểm của nhiều người chơi, càng không thể làm phiền.</p>
+<p>[ phòng tránh cư trú dân tay 1. 0 bản. ]</p>
+<p>[ 1. Người quản lý mệnh lệnh cao hơn hết hạn, khả năng tránh toàn thể cư dân cần phục tùng vô điều kiện. ]</p>
+<p>[ 2. Đối với vi phạm quy tắc cư dân, người quản lý giữ lại sử dụng &quot;Cưỡng chế ngủ đông&quot;, &quot;Cấm đoán&quot; cuối cùng thủ đoạn. (ghi chú: Cưỡng chế ngủ đông đồng đẳng với mặc quần áo đá ra trò chơi, cấm đoán chính là phong cấm đăng nhập giới hạn. ) ]</p>
+<p>[ 3. Người quản lý có thể trở lên toàn bộ điều khoản cuối cùng giải thích quyền. ]</p>
+<p>Vi phạm quy tắc sẽ bị đá ra trò chơi, đây cũng không phải là NPC thông thường có quyền.</p>
+<p>Nhìn thấy tránh tránh cư dân tay đầu thứ hai phía sau ghi chú, những người chơi xem như tối thiểu để minh bạch, trước mắt cái này NPC không chỉ là NPC, đồng thời còn có GM bộ phận quyền hạn, có thể tặng ảnh hưởng người chơi trò chơi khác có thể trải nghiệm người &quot;Khóa acc&quot; .</p>
+<p>Hiện tại người ít, quy sở tạm thời cái này ba cái, nếu như đằng sau còn cần bổ sung địa phương, Sở Quảng sẽ cân nhắc đưa ra 2. 0 phiên bản, thậm chí 20. 0 bản.</p>
+<p>Tỷ như quy phạm người chơi cùng người chơi, người chơi cùng &quot;NPC &quot; tiếp xúc quy tắc, cùng trong trò chơi cấm chỉ danh mục công việc vân tay.</p>
+<p>Tại A test trước đó đã thực hiện một vòng Closed Beta, có một nửa nguyên nhân cũng là vì cái này.</p>
+<p>Trong phòng tránh nạn không gian không lớn, hai mươi cái gian phòng nhìn xem thật nhiều, kỳ thật mỗi cái đều rất nhỏ, được bốn đài bồi dưỡng khoang thuyền nuôi đầy.</p>
+<p>Đời trước người quản lý tiêu đề hồ rất sợ hãi không làm việc nhi, ở đây miệng ăn núi lở, thế là đem lại toàn bộ B1 tầng chuyển được sạch sẽ Phá sản, sử dụng sốt một chút đồ tốt đều không cho đánh còn lại.</p>
+<p>Sở Quang không có nơi tránh nạn bên trong việc dừng lại quá lâu, kể xong quy tắc về sau đường dẫn bốn người cùng Tiểu Thất, đứng lên thông báo hướng ngoại giới thang máy.</p>
+<p>Cái này bốn tên Closed Beta player coi như nghe lời, rất cho đánh cái này người quản lý mũi mũi, chính là lòng an ủi có chút tràn đầy hơi quá.</p>
+<p>Từ hai chân đạp ở trên mặt đất một giải quyết bắt đầu, bọn cướp giống như tiến vào đại quan viên Lưu mỗ lỗ, trên đường đi trái mạt phải nhìn một cái, cái gì đều muốn thử thách.</p>
+<p>Toàn thân cao thấp, sẽ không một tế bào nào có thể tự do đến ở!</p>
+<p>Máy dừng đột ngột.</p>
+<p>Nhìn xem vượt qua không cửa sổ, ngồi vào thang máy trước nắng, bốn tên người chơi lại là cùng nhau phát ra chưa thấy qua cảnh đời sợ hãi kinh hãi.</p>
+<p>“Ngọa tào…”</p>
+<p>&quot;Cái này sáng! Tường này! Cái này, cái này cái này cái này. . .&quot;</p>
+<p>&quot;This cũng quá ngưu bức!&quot;</p>
+<p>&quot;Ánh nắng từ bê tông khe hở bên trong xuyên qua, chiếu vào chui ra sàn nhà trên cỏ nhỏ, mắt trần có thể tìm thấy bụi cháo tại chùm sáng bên trong lưu động. . . Mỗi một tấm đều là nghệ thuật, mỗi giây đều là chất đốt cháy!&quot;</p>
+<p>&quot;Ngưu bức! Vẫn là ta nhật ca có văn hóa!&quot;</p>
+<p>&quot;Biển, gọi gia Phương ca!&quot;</p>
+<p>&quot;Được rồi lai nhật huỳnh.&quot;</p>
+<p>&quot;. . . &quot;</p>
+<p>Một đám mây chưa thấy qua cảnh đời gia thơm. . .</p>
+<p>Sở Quang cảm thấy có chút buồn cười, nhưng có thể hiểu được, nguyên nhân giả tưởng như cái gì cũng không còn nghệ thuật, thực hiện bản thân là NPC chức vô địch, mang theo bọn lửa đi tới một dinh dưỡng bên ngoài .</p>
+<p>Nhìn xem để ở dưới đất công cụ, Sở Quang xoay người hướng bọn trộm.</p>
+<p>&quot;Như trước mắt các nhìn thấy, chiến tranh hạt nhân đã kết thúc hai trăm năm.&quot;</p>
+<p>&quot;Chúng ta hiện tại đang ở vị trí ở Thanh Tuyền thành phố bắc bộ ngoại thành, cách sỏi hạt nhân hố rất xa. Trừ phi là đụng tới ''Phát sáng mưa'' hoặc là mắt trần có thể thấy phóng xạ đám mây, không cần quá lo lắng Gamma value value quá vấn đề.&quot;</p>
+<p>&quot;Chỗ tránh tránh không có khả năng viễn viễn che chúng ta ta, chúng ta văn minh cũng không khả năng viễn vong ở phía bên dưới. Ghi nhớ, chúng ta là quay về mặt đất quân tiên phong, sau lưng ta còn hàng ngàn hàng vạn người chờ đợi tin tức tốt của chúng ta, không có thời gian có thể trì hoãn.&quot;
+&quot;Bây giờ chúng ta phải làm chuyện thứ nhất, chính là tu chỉnh chúng ta dưới chân tòa nhà trại an dưỡng, ở mảnh này tích bên trong thành lập một tòa nhà tiền tiêu.&quot;</p>
+<p>&quot; Nó sẽ thành công chúng ta quay về mặt đất lô lô đầu cầu.&quot;</p>
+<p>&quot;Giao cho các loài một cái nhiệm vụ, nhỏ lên trên đất búa, đi bên ngoài siết nhỏ khối gỗ trở về.&quot;</p>
+<p>&quot; Ở mùa đông tiến đến trước đó,</p>
+<p>Chúng tôi muốn dự trữ đủ nhiều nhiên liệu, đồng thời còn muốn sửa xong chúng ta chung quanh những tường thuật này.&quot;</p>
+<p>&quot;Nhớ được chớ đi quá xa, gặp được dị chủng không nên khinh cử vang động, lập tức rút về.&quot;</p>
+<p>&quot;Hành động!&quot;</p>
+<p>Sở Quang vốn cho là bản thân cần phí một phen phong cách.</p>
+<p>Kết quả không nghĩ tới, những người chơi này so với mình trong tưởng tượng còn muốn nghe lời nói, cam chịu lên búa ra ngoài công việc nhi.</p>
+<p>Kia nhanh chóng tác, kết quả thực sự giống như bản thân thân mau nói xong, sợ trì hoãn bản thân thân làm việc.</p>
+<p>&quot;Chủ nhân, nhóm gia hỏa này thật sự không có vấn đề sao?&quot; Đi theo một bên Tiểu Thất bày tỏ sự lo lắng của chính mình, nó luôn cảm thấy những người nhân bản đầu không quá bình thường.</p>
+<p>&quot;Sở dĩ ta mới tạo cho j như vậy ra tới, &quot; Sở Quang quang đầu nhìn mắt sau lưng lửa an dưỡng, dừng lại một lát, tiếp tục nói, &quot; đi lầu ba phía chính cửa sổ nhìn xem, nếu như hung hung tao ngộ tình trạng, hoặc là đi quá xa, nhẹ nhắc nhở ta một tiếng.&quot;</p>
+<p>Về phần sơn thân, trước tiên phải đi thăm dò một chút hoàn thành nhiệm vụ ban thưởng.</p>
+<p>Dừng ở Sở Quang bên cạnh giấy lộn cái sọt cũng không có động.</p>
+<p>Cách một hồi, Tiểu Thất nhỏ mở miệng.</p>
+<p>&quot;. . Chủ nhân.&quot;</p>
+<p>“Thế nào?”</p>
+<p>“Cái kia, ta không có.”</p>
+<p>Biết di động giấy lộn cái sọt, vòng quanh Sở Quảng bắp chân dạo qua một vòng, phô bày bản thân di động phương thức. Cho đến lúc này Sở Quang mới có ý hướng tới, gia hỏa này vẫn luôn dựa vào thanh trượt bốn giày ròng rọc.</p>
+<p>&quot;. . Được thôi, ta ôm đi lên.&quot;</p>
+<p>Thở dài.</p>
+<p>Sở Quang ngồi xổm người xuống, mang nó tại vai.</p>
+<p>Khá nhiều.</p>
+<p>Cũng nặng lắm lắm.</p>
+<p>. . .</p>
+<p>Ken thùng—</p>
+<p>Dương!</p>
+<p>Bằng cơ đùi cây chậm rãi xuống, đập xuống đất, phát ra tiếng vang trầm nặng.
+&quot;Ta cảm thấy nơi này không giống như đất hoang.&quot;</p>
+<p>&quot;Kia như cái gì?&quot;</p>
+<p>&quot;Càng giống là rừng nước. . . Ta nói chính là «Rừng », không biết các hạng chơi qua không, ở bên trong là giống như vậy cho cây, sau đó lợp nhà.&quot;</p>
+<p>&quot;Mở đen thần khí, đương nhiên chơi qua, mà lại không chỉ chơi qua, ta còn đem nhà đóng đến trên trời. Bất chấp nơi đó nhà lợp có thể đơn giản nhiều, con chuột điểm một lần được, không giống nơi này . Mẹ nó, rêu cũng nặng lắm.&quot;</p>
+<p>&quot; Nói đến thiết lập, ta đến cảm thấy cái này ngược lại rất chân thật. Nhớ trước đó nhìn qua một bộ phim phóng sự, nói là quay về Chernobyl, bốn mươi năm thời gian không có nhân loại bướm, nơi đó nhiều thành phố sinh thái hệ thống, cao ốc leo vây quanh, cây lớn lên nên phòng ở cao hơn nữa . Ta thậm chí cảm giác giác, trong thành vấn đề có thể so với nơi này khoa tài khoản hơn.&quot;</p>
+<p>Hướng về phía sau một bộ bụi rậm, lão bạch lau mồ hôi, cơ thể thon gọn.</p>
+<p>&quot;Cái này nếu được đặt trong thực tế, sợ là được ngồi trong khung xương.&quot;</p>
+<p>Bận rộn có hai giờ.</p>
+<p>Mặc dù hiệu suất không cao, lưu lại thớt gỗ tử tế cùng khép kín một dạng, nhưng là chém có tầm mười lăm khỏa thân bằng cơ đùi cây tùng, nhỏ một chút càng là vô số kể.</p>
+<p>Chỉ bất quá, người quản lý cũng không nói muốn bao nhiêu, ai cũng không quyết định chắc chắn những điều này có đủ hay không.</p>
+<p>&quot;Có sao nói vậy, trò chơi này làm cũng quá chân thật. . . Bất chấp là chém vào trên cây cùn cảm giác, vẫn là kia bay múa mảnh gỗ vụn cùng xuyên qua lá cây ánh nắng, cái này làm ta nghĩ tới —— &quot;</p>
+<p>&quot;Đã xong rồi, đừng kéo con bê.&quot;</p>
+<p>Cắt khắc Phương Trường cảm khái niệm, đêm mười cánh tay xử lý búa, nhìn xuống đất thượng tán rơi nhánh cây cùng Thu Diệp, gấp gấp nói.</p>
+<p>“Đã có thể tiến cây, lợp nhà, trồng giàu mạnh cũng không là vấn đề a?”</p>
+<p>Trong trò chơi thể lực tăng sức mạnh vận động, nên trong thực tế cơ thể mạnh mẽ hơn nhiều.</p>
+<p>Trong thực tế mười đêm thuộc về loại kia bị chín năm giáo dục bắt buộc móc rỗng thân thể loại kia, nhưng ở đất hoang bên này nhưng có thể miễn cưỡng gạt ra hai đống hai đầu cơ bắp.</p>
+<p>Đương nhiên, thoải mái nhất vẫn là thời gian qua nhanh —— cũng chính là lão Bạch.</p>
+<p>Người này nhân vật mặc dù dài đến không ra sao, miệng hít ria gốc rơm, nhưng vén tay áo lên tất cả đều là cơ bắp, nhìn xem thì có lực lượng.</p>
+<p>&quot;Nếu như muốn làm ruộng, ta đề nghị ta nhưng phóng phóng hỏa, đốt ra tới tro than Nữ vào trong đất, chờ mùa đông qua đi, năm sau đầu xuân chính là một mảnh đất màu mỡ. . .Dương nhiên, điều kiện tiên quyết là trò chơi này thật có chân thật như vậy, dù không chính xác là lãng phí biểu hiện.&quot;</p>
+<p>&quot;Nói đến ta một bình bồn chồn, vì sao sư xem lão Bạch cái thịt rắn rắn tiêu đề như luyện qua, ta đây cầm cái thắt lưng đều tốn sức.&quot;</p>
+<p>Cuồng phong thở hổn hển.</p>
+<p>Nhân vật của đại khái là ở trong mọi người, có khả năng tiếp cận thực tế nhất, vận động không đầy một lát đã chưa xong rồi.</p>
+<p>&quot;Mỗi nhân vật thuộc tính đều xác nhận có khác biệt. . . Mặc dù ta cũng không biết cái đồ chơi này là thế nào sẽ được phán đoán.&quot; Phương trượng lấy cái ót, suy tư chốc chốc nói, &quot;Nhưng ta ngược lại thật ra có cái phỏng đoán.&quot;</p>
+<p>&quot;Cái gì phỏng đoán?&quot;</p>
+<p>Ba cái player đối đấu với cờ phát hiện đều thật cảm thấy thú vị.</p>
+<p>Tại Ngưu Mã câu lạc bộ mong đợi đoạn thời gian mọi người đều biết, gia hỏa này là mấy cái game offline thành công lược tạo thành viên, cũng là trong đám game steam tồn tại kho nhiều nhất.</p>
+<p>Kể cả FPS, RPG vẫn là SLG, liền không có loại không chơi loại hình.</p>
+<p>&quot;Những điều khẳng định cũng là ý kiến tiến tới, chúng tôi là từ một tòa nhà màu bạc trắng trong tỉnh lại. Cân nhắc đến trò chơi này đề tài, như vậy thiết lập bên cạnh tồn tại hai loại khả năng. Một, chúng ta là thông qua đông lạnh ngủ đông kỹ thuật từ trước khi chiến đấu thẳng tiến tới Hải, chúng ta đều là người bản.&quot;</p>
+<p>&quot;Đương nhiên, cá nhân ta cảm thấy cái sau thiết lập sẽ dễ dàng hơn một chút, dù sao cứ như vậy phục sinh vấn đề cũng rất dễ dàng giải thích, trực tiếp dùng chứa nuôi tại bồi dưỡng trong khoảng thuyền DNA một lần một lần nữa hợp nhất thành một thân thể.&quot;
+Nhìn xem hai mặt nhìn nhau player, Phương Trường tiếp tục nói.</p>
+<p>&quot;Ta dự đoán hậu kỳ sẽ tăng thêm thuộc tính bảng cùng cấp loại thiết lập thiết lập, mà chúng ta có thể có khả năng ở bên cạnh, rất có thể chính là trong đó phục bút!&quot;</p>
+<p>&quot;Ta vẫn rất chờ mong cơ chế hoạt động có thể khai phá ra một bộ cùng khác bất đồng máy chơi game chế,chiết như. . . Chuyển DNA cùng hệ thống nghề nghiệp nghiệp kết hợp lại, phân chia năng lượng hình người chơi cùng trình phát cấu hình nhanh, chế độ bất chấp thuộc tính chính của thành phố cong. Tệp này có thể bảo đảm chế độ tự động thực hiện, có thể phong phú thêm cách chơi.&quot;</p>
+<p>&quot;Đáng tiếc nhân vật ngẫu nhiên, nếu có thể bản thân quyết định ban đầu thuộc tính là tốt rồi.&quot;</p>
+<p>Nói lưỡi sành điệu, Phương Trường cuối cùng là lặp lại.</p>
+<p>&quot;Không nói nhảm, một hồi hạ tuyến ta tìm quang ca tâm sự.&quot;</p>
+<p>Hãy nhớ rằng Quảng ca nói, Đánh lửa là trò chơi này kế hoạch. Trực tiếp tìm kiếm chiến lược cho vấn đề này, khẳng định rằng chiến binh ở chiến trường này sẽ chiến thắng.</p>
+<p>Lúc này, nhìn qua phương xa rồng người đêm mười, sương tự nhiên mở miệng nói ra.</p>
+<p>&quot;Các thứ nói, địa đồ này có cùng bao nhiêu a.&quot;</p>
+<p>&quot;Không biết.&quot;</p>
+<p>&quot;Sáo nói ta muốn là một mực hướng một cái phương hướng đi. . .&quot;</p>
+<p>Nhìn xem kích hoạt mười đêm, xử lý tiếng ồn ở một bên yên tĩnh phong gió, chần chừ một lúc nói.</p>
+<p>&quot;Quy tắc lớn nhất là Thông báo không khí, cũng có thể là kịch bản giết người. . . Bất kỳ quá bất kể là loại kia, ta kiến nghị nguy hiểm nhất đều không làm như thế.&quot;</p>
+<p>&quot;Cấp đã quên sao? Người quản lý để ta không cần cách trại an dưỡng quá xa.&quot;</p>
+<p>&quot;Ta dựa vào, lập tức lập một NPC, ung dung?&quot;</p>
+<p>&quot;Nhưng bạn có thể chọn chúng ta hạ tuyến, thậm chí còn có thể chặt chẽ chúng ta Closed Beta tư cách.&quot; Cuồng phong nhắc nhở.</p>
+<p>Phương Trường cũng ở đây bên cạnh nhắc nhở một câu.</p>
+<p>&quot;Đúng, mà ta phỏng đoán, lấy trình độ NPC trò chơi này, không nhẹ nhàng là có cảm giác thiện loại này ẩn thiết bị bảo mật. Người bất kỳ có thể nhận xét tới, nó đối với mỗi thái độ người chơi cũng không phải là hoàn toàn tương tự, ở đó nhất định có tính năng ẩn cho phép Logic.&quot;</p>
+<p>&quot; Đã được, không thử không thử.&quot;</p>
+<p>Nghe câu này, nhất không thành thật mười đêm vậy trung thực xuống dưới.</p>
+<p>Không có cách nào.</p>
+<p>Lời khuyên này là quá mạnh.</p>
+<p>Người sáng suốt đều có thể nhìn ra, trò chơi này phía sau chứa giá trị.</p>
+<p>Hoàn toàn chìm trong ảo thực tế. . .</p>
+<p>Loại kỹ thuật này một khi ra mắt, đối lập với toàn bộ xã hội hiện đại giải trí phương thức —— thậm chí là cách sống, đều sẽ sinh ra có tính đột phá ảnh hưởng!</p>
+<p>Dù là không nguyện ý chơi đùa, ai lại sẽ để ý một ngày như vậy người khác nhiều 12 đến 8 giờ đâu?</p>
+<p>Dựa theo trong đám đông Quảng ca thuyết pháp, tại thế giới trò chơi ngoài thời gian, thế giới hiện thực thế nhưng tương thích với việc ngủ.</p>
+<p>Cũng có thể nói, dù ở nơi này được chờ đợi cả đêm cũng sẽ không ảnh hưởng đến công việc thứ hai!</p>
+<p>Thực sự khó có thể tưởng tượng, như thế một cái chú ý cho oanh động toàn thế giới trò chơi, Closed Beta thế nào là lấy như thế &quot;Thảo hiệu&quot;, thậm chí Yên Yên không tiếng động phương thức phát triển khai.</p>
+<p>Đơn giản cái kia công ty không cần kiếm tiền sao?</p>
+<p>Bất quá vô thảo luận nói như thế nào, cơ hội này như đã đến trên tay của đám chiến binh, không ai nguyện dễ dễ buông tha.</p>
+<p>Ngay tại đêm thứ mười bỏ đi thăm dò địa đồ biên giới xúc động, chuẩn bị tiếp tục thành thật sự cho cây thời điểm, cảm giác nguy hiểm nguy hiểm thu gọn, nhẹ nhiên bao phủ toàn thân của bay.</p>
+<p>Tay chân lạnh.
+Mồ hôi lạnh từ phía sau tiến ra.</p>
+<p>Tuyết không biết kia Nửa cảm giác nguy cơ đến tối cùng đến từ đâu, lại phảng mong chờ bản thân chết thảm hạ tràng ——</p>
+<p>Hai chân mềm nhũn, đêm mười hướng về sau một cái lảo đảo, nhưng cũng chính là cái này một cái lảo đảo, để tránh thoát kia từ trên trời xuống bóng.</p>
+<p>Xé—!</p>
+<p>Gỗ dày hơn.</p>
+<p>Bờ thân cây, lên ba đạo cân bằng chiều rộng vết trảo!</p>
+<p>“Uống—!”</p>
+<p>Như quỷ tru lên!</p>
+<p>Đáp xuống đại hạ một kích không hoàng, mượn đá Việt hoàng cung ngược lực, chim ưng cánh một lần nữa kéo lên cao độ, biến mất ở ngọn cây.</p>
+<p>Nhìn xem rơi xuống màu đen lông vũ, ngồi im trên mặt đất đêm mười bảy người đều vui, vô ý thức thu đầu.</p>
+<p>Ngọa tào?</p>
+', CAST(0.00 AS Decimal(10, 2)), CAST(N'2024-04-20T16:32:45.897' AS DateTime), NULL, 1)
 SET IDENTITY_INSERT [dbo].[Chapter] OFF
 GO
 

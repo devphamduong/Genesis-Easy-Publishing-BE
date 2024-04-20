@@ -156,6 +156,7 @@ namespace app.Controllers
             else
             {
                 chapter.Status = 1;
+                story.Status = 1;
             }
 
             try
