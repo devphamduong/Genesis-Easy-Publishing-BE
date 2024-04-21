@@ -579,7 +579,7 @@ namespace app.Controllers
                     RefundAfter = 0,
                     TransactionTime = DateTime.Now,
                     Status = true,
-                    Description = $"Nạp {amount}000"
+                    Description = $"Nạp {amount}000 VND"
                 };
                 user_wallet.Fund = user_wallet.Fund + amount;
 

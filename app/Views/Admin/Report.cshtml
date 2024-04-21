@@ -29,7 +29,6 @@
                                     <th>Report Content</th>
                                     <th>Report Date</th>
                                     <th>Status</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,12 +97,6 @@
                                 } else {
                                     return `<a style="color: blue; cursor: pointer" onclick="adjustStatus('${data.status}', '${data.reportId}')">${data.status}</a>`
                                 }
-                            }
-                        },
-                        {
-                            data: null,
-                            render(data) {
-                                return `<a style="color: blue; cursor: pointer" onclick="openReportInfor(${data.reportId})"><i class="fas fa-edit"></i></a>`
                             }
                         }
                     ]

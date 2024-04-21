@@ -33,7 +33,7 @@ namespace app.Controllers
                 {
                     c.CategoryId,
                     c.CategoryName,
-                    c.CategoryDescription,
+                    categoryDescription = c.CategoryDescription.Substring(0,50)+"...",
                     c.CategoryBanner,
                     StoriesNumber = c.Stories.Count,
                 })
@@ -58,7 +58,7 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Chi tiết thể loại", cate.FirstOrDefault());
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetUser(int id)
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
             if (_context.Categories == null)
             {
