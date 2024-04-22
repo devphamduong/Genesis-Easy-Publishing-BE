@@ -5,7 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace app.Controllers
 {
@@ -73,14 +77,56 @@ namespace app.Controllers
                     UserName = r.User.Username,
                     ReportTypeContent = r.ReportType.ReportTypeContent,
                     ChapterTitle = r.Chapter.ChapterTitle,
+                    Link = FormatLink(r.Story.StoryId, r.Story.StoryTitle != null ? r.Story.StoryTitle : null, r.Chapter != null ? r.Chapter.ChapterNumber : 0),
                     StoryTitle = r.Story.StoryTitle,
                     CommentContent = r.Comment.CommentContent,
+                    CommentId = r.CommentId,
                     ReportContent1 = r.ReportContent1,
                     ReportDate = r.ReportDate,
                     Status = (r.Status == null || r.Status == false) ? "Unsolved": "Resolved"
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Thể loại tố cáo", reports);
+        }
+
+        private static string FormatLink(int? storyId, string storyTitle, long chapterNumber)
+        {
+            if(storyTitle == null)
+            {
+                return null;
+            }
+            storyTitle = Regex.Replace(storyTitle, @"\s+", " ").Trim();
+
+            string cleanedName = string.Concat(storyTitle.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)));
+
+            cleanedName = cleanedName.ToLower();
+
+            cleanedName = cleanedName.Replace(" ", "-");
+            cleanedName = RemoveDiacritics(cleanedName);
+            if(chapterNumber != 0)
+            {
+                return "https://genesis-easy-publishing.vercel.app/story/read/"+storyId+"/" + cleanedName+".chapter-"+chapterNumber;
+            }
+            else
+            {
+                return "https://genesis-easy-publishing.vercel.app/story/detail/" + storyId + "/" + cleanedName;
+            }
+        }
+
+        private static string RemoveDiacritics(string input)
+        {
+            string normalizedString = input.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (char c in normalizedString)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
         [HttpGet("report/{id}")]
