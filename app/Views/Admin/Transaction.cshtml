@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Transaction";
+    ViewData["Title"] = "Transaction Management";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,8 +12,8 @@
             <div class="card-header">
 
                 <ul class="nav nav-pills nav-primary">
-                    <li class="nav-item"><div id="transaction" class="nav-link">Transaction</div></li>
-                    <li class="nav-item"><div id="request" class="nav-link">Refund Request</div></li>
+                    <li class="nav-item"><div id="transaction" class="nav-link">Giao dịch</div></li>
+                    <li class="nav-item"><div id="request" class="nav-link">Yêu cầu rút tiền</div></li>
                 </ul>
             </div>
             <div class="card-body">
@@ -83,15 +83,16 @@
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                                                                                <thead>
-                                                                                                    <tr>
-                                                                                                        <th></th>
-                                                                                                        <th>TransactionNum</th>
-                                                                                                        <th>Amount</th>
-                                                                                                        <th>TransactionTime</th>
-                                                                                                        <th>Description</th>
-                                                                                                    </tr>
-                                                                                                </thead>`);
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Mã giao dịch</th>
+                            <th>Người thực hiện</th>
+                            <th>Số tiền</th>
+                            <th>Thời gian giao dịch</th>
+                            <th>Miêu tả</th>
+                        </tr>
+                    </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -105,6 +106,7 @@
                             }
                         },
                         { data: 'transactionId' },
+                        { data: 'username' },
                         {
                             data: 'amount',
                             render: function (data) {
@@ -152,26 +154,26 @@
             success: (data) => {
                 $('.loader-container').hide();
                 $('#form').empty().append(`<p>
-                                                                                                    <button id="exportRefund" onClick="exportData()" class="btn btn-primary">Export</button>
-                                                                                                    <button id="approveRefund" onClick="approve()" class="btn btn-success">Approve</button>
-                                                                                                    </p>
-                                                                                    `);
+                        <button id="exportRefund" onClick="exportData()" class="btn btn-primary">Xuất ra Excel</button>
+                        <button id="approveRefund" onClick="approve()" class="btn btn-success">Cập nhật toàn bộ</button>
+                        </p>
+                        `);
 
                 if ($.fn.DataTable.isDataTable('#basic-datatables')) {
                     $('#basic-datatables').DataTable().destroy();
                 }
                 $('#basic-datatables').empty().append(`
-                                                                                                        <thead>
-                                                                                                            <tr>
-                                                                                                                <th>RequestNum</th>
-                                                                                                                <th>UserRequest</th>
-                                                                                                                <th>Bank</th>
-                                                                                                                <th>BankNum</th>
-                                                                                                                <th>Amount</th>
-                                                                                                                <th>TransactionTime</th>
-                                                                                                                <th>Status</th>
-                                                                                                            </tr>
-                                                                                                        </thead>`);
+                    <thead>
+                        <tr>
+                            <th>Mã yêu cầu</th>
+                            <th>Người rút</th>
+                            <th>Ngân hàng</th>
+                            <th>Số ngân hàng</th>
+                            <th>Số tiền</th>
+                            <th>Thời gian gửi</th>
+                            <th>Tình trạng</th>
+                        </tr>
+                    </thead>`);
 
                 $('#basic-datatables').DataTable({
                     data: data.dt,
@@ -218,12 +220,12 @@
 
     var check
 
-    var notify = (type, title) => {
+    var notification = (data) => {
         $.notify({
-            title: title,
+            title: data.em,
             icon: 'fa fa-bell'
         }, {
-            type: type,
+            type: data.ec == 0 ? 'success' : 'danger',
             placement: {
                 from: "bottom",
                 align: "right"
@@ -246,9 +248,9 @@
             },
             success: (data) => {
                 if (data.ec == 0) {
-                    notify('success', data.em)
                     exportExcel(data.dt); loadRefund()
-                } else notify('danger', data.em);
+                }
+                notification(data);
             },
             error: () => console.error('Error fetching data:', error),
         });
@@ -264,9 +266,9 @@
             success: (data) => {
                 if (data.ec == 0) {
                     $('#request').removeClass('active');
-                    notify('success', data.em)
                     loadTransaction();
-                } else notify('danger', data.em);
+                }
+                notification(data);
             },
             error: () => console.error('Error fetching data:', error),
         });

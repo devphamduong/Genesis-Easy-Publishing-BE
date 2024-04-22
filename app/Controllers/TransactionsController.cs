@@ -75,8 +75,9 @@ namespace app.Controllers
                 jwtSecurityToken = VerifyToken();
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
-            catch (Exception) {
-                
+            catch (Exception)
+            {
+
             }
             return userId;
         }
@@ -101,7 +102,7 @@ namespace app.Controllers
             {
                 var sum = await _context.Transactions
                 .Where(t => t.FundAfter > t.FundBefore)
-                .SumAsync(t => t.Amount)*1000;
+                .SumAsync(t => t.Amount) * 1000;
                 return _msgService.MsgReturn(0, "Danh thu tổng", sum);
             }
             catch (Exception)
@@ -112,7 +113,7 @@ namespace app.Controllers
                     EM = "Hệ thống xảy ra lỗi!"
                 });
             }
-           
+
         }
 
         [HttpGet("getRevenue")]
@@ -147,7 +148,7 @@ namespace app.Controllers
             {
                 EC = 0,
                 EM = "Doanh thu trong 7 ngày",
-                DT = new { labels= Labels, data= Data}
+                DT = new { labels = Labels, data = Data }
             });
         }
 
@@ -158,7 +159,7 @@ namespace app.Controllers
 
             return _context.Transactions
                 .Where(t => t.TransactionTime >= startOfDay && t.TransactionTime <= endOfDay && t.FundAfter > t.FundBefore)
-                .Sum(t => t.Amount)*1000;
+                .Sum(t => t.Amount) * 1000;
         }
 
         [HttpGet("wallet")]
@@ -790,10 +791,19 @@ namespace app.Controllers
             var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
             if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
+            var idList = await _context.Transactions.Include(c => c.Wallet).Select(t => new { TransactionId = t.TransactionId, UserId = t.Wallet.UserId, })
+            .OrderByDescending(c => c.TransactionId).ToListAsync();
+
             var transactions = await _context.Transactions
             .Include(c => c.Wallet).Where(c => c.Wallet.UserId == 1)
+            .OrderByDescending(c => c.TransactionId)
             .Select(t => new
             {
+                Username = _context.Transactions
+                    .OrderByDescending(prev => prev.TransactionId)
+                    .Where(prev => prev.TransactionId < t.TransactionId)
+                    .Select(prev => prev.Wallet.User.Username)
+                    .FirstOrDefault(),
                 TransactionId = t.TransactionId,
                 Amount = t.Amount * 1000,
                 RefundBefore = t.RefundBefore,
@@ -802,7 +812,6 @@ namespace app.Controllers
                 Status = t.Status == true ? "Sucess" : "False",
                 Description = t.Description
             })
-            .OrderByDescending(c => c.TransactionId)
             .ToListAsync();
             return _msgService.MsgReturn(0, "Tiền ra vào hệ thống", transactions);
         }

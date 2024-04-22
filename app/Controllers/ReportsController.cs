@@ -1,6 +1,7 @@
 ﻿using app.DTOs;
 using app.Models;
 using app.Service;
+using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace app.Controllers
     public class ReportsController : ControllerBase
     {
         private readonly EasyPublishingContext _context;
+        private MailService _mailService = new MailService();
         private MsgService _msgService = new MsgService();
         public ReportsController(EasyPublishingContext context)
         {
@@ -67,11 +69,11 @@ namespace app.Controllers
         {
             var reports = await _context.ReportContents
                 .Include(r => r.ReportType)
-                .Include(r=>r.Chapter)
-                .Include(r=>r.Story)
-                .Include(r=>r.Comment)
-                .Include(r=>r.User)
-                .Select(r=> new
+                .Include(r => r.Chapter)
+                .Include(r => r.Story)
+                .Include(r => r.Comment)
+                .Include(r => r.User)
+                .Select(r => new
                 {
                     ReportId = r.ReportId,
                     UserName = r.User.Username,
@@ -83,7 +85,7 @@ namespace app.Controllers
                     CommentId = r.CommentId,
                     ReportContent1 = r.ReportContent1,
                     ReportDate = r.ReportDate,
-                    Status = (r.Status == null || r.Status == false) ? "Unsolved": "Resolved"
+                    Status = (r.Status == null || r.Status == false) ? "Unsolved" : "Resolved"
                 })
                 .ToListAsync();
             return _msgService.MsgReturn(0, "Thể loại tố cáo", reports);
@@ -132,7 +134,7 @@ namespace app.Controllers
         [HttpGet("report/{id}")]
         public async Task<ActionResult> GetReport(int id)
         {
-            var reports = await _context.ReportContents.Where(r=>r.ReportId == id)
+            var reports = await _context.ReportContents.Where(r => r.ReportId == id)
                 .Include(r => r.ReportType)
                 .Include(r => r.Chapter)
                 .Include(r => r.Story)
@@ -158,10 +160,50 @@ namespace app.Controllers
         public async Task<ActionResult> SendReport(ReportDTO reportDTO)
         {
             int userId = GetUserId();
-
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-
             if (!ModelState.IsValid) return _msgService.MsgActionReturn(-1, "Thiếu điều kiện");
+            var user_report = 0;
+            var mail_content = "";
+            var link = "";
+            if (reportDTO.CommentId != null)
+            {
+                var cmts = await _context.Comments.Where(c => c.CommentId == reportDTO.CommentId).ToListAsync();
+                int storyId = cmts.FirstOrDefault()?.StoryId ?? 1; // Use -1 as a default value if StoryId is not available
+                link = $"https://genesis-easy-publishing.vercel.app/story/detail/{storyId}/di-the-ta-quan";
+                mail_content = $"<p>Nội dung của bạn: <b>{cmts.FirstOrDefault()?.CommentContent}</b></p>" +
+                               $"<p>Xin hãy chỉnh sửa sớm nhất thông qua đường link dưới</p>" +
+                               $"<a href=\"{link}\">Link chỉnh sửa</a>";
+                user_report = cmts.FirstOrDefault().UserId;
+            }
+            else if (reportDTO.StoryId != null)
+            {
+                var chapter_param = reportDTO.ChapterId != null ? $"&chapterId={reportDTO.ChapterId}" : "";
+                link = $"https://genesis-easy-publishing.vercel.app/author/write-story?mode=edit&storyId={reportDTO.StoryId}{chapter_param}";
+                mail_content = $"<p>Nội dung bạn đăng tải đã vi phạm tiêu chí trên" +
+                               $"<p>Xin hãy chỉnh sửa sớm nhất thông qua đường link dưới</p>" +
+                               $"<a href=\"{link}\">Link chỉnh sửa</a>";
+                var author = await _context.Stories.FirstOrDefaultAsync(c => c.StoryId == reportDTO.StoryId);
+                user_report = author.AuthorId;
+
+            }
+
+            var report_type = await _context.ReportTypes.FirstOrDefaultAsync(c => c.ReportTypeId == reportDTO.ReportTypeId);
+            var user = await _context.Users.FirstOrDefaultAsync(c => c.UserId == user_report);
+            var name = user.UserFullname == null ? user.Email : user.UserFullname;
+            try
+            {
+                _mailService.Send(user.Email,
+                        "Bạn vi phạm nguyên tắc cộng đồng",
+                        "<p>Easy Publishing Xin chào <b> " + name + "</b>,</p>" +
+                        "<b>Thông tin vi phạm như sau:</b>" +
+                        "<p>Nguyên nhân: <b>" + report_type.ReportTypeContent + "</b></p>" +
+                        mail_content +
+                        "<p>Cảm ơn bạn đã tin tưởng.</p>");
+            }
+            catch (Exception ex)
+            {
+                return _msgService.MsgActionReturn(-4, "Hệ thống xảy ra lỗi!");
+            }
             try
             {
                 ReportContent report = new ReportContent()
@@ -178,15 +220,11 @@ namespace app.Controllers
                 _context.ReportContents.Add(report);
                 await _context.SaveChangesAsync();
             }
-            catch(Exception)
+            catch (Exception)
             {
-                return new JsonResult(new
-                {
-                    EC = -1,
-                    EM = "Hệ thống xảy ra lỗi!"
-                });
+                return _msgService.MsgActionReturn(-1, "Hệ thống xảy ra lỗi!");
             }
-            
+
             return _msgService.MsgActionReturn(0, "Báo cáo thành công");
         }
 
@@ -197,7 +235,7 @@ namespace app.Controllers
             string msg = "Resolved report successfully!";
             try
             {
-                if(report.Status == null || report.Status == false)
+                if (report.Status == null || report.Status == false)
                 {
                     report.Status = true;
                 }
