@@ -196,7 +196,7 @@ namespace app.Controllers
                         "<p>Xin chào <b>" + story.Author.Username + "</b>,</p>" +
                         "<p>Chương <b>" + chapter.ChapterTitle + "</b> của Truyện <b>" + story.StoryTitle + "</b> của bạn đã được review.</p> " +
                         "<p>Chi tiết vui lòng truy cập:</p> " +
-                        "<a href =\"http://localhost:3000\">Xem bản review</a>");
+                        "<a href =\"https://genesis-easy-publishing.vercel.app/\">Xem bản review</a>");
             }
             catch (Exception ex)
             {
