@@ -126,7 +126,7 @@ namespace app.Controllers
                     StoryDescription = s.StoryDescription,
                     StoryAuthor = new { s.Author.UserId, s.Author.UserFullname },
                     StoryCreateTime = s.CreateTime,
-                    StoryChapterNumber = s.Chapters.Count,
+                    StoryChapterNumber = s.Chapters.Count(c=> c.Status>0),
                     StoryInteraction = new
                     {
                         s.StoryInteraction.Like,
