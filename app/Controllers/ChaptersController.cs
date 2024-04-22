@@ -218,7 +218,7 @@ namespace app.Controllers
         }
 
         [HttpGet("chapter_not_review")]
-        public async Task<ActionResult> GetVolumeStoryNotReview()
+        public async Task<ActionResult> GetVolumeStoryNotReview(int page, int pageSize)
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -245,8 +245,10 @@ namespace app.Controllers
                 }).OrderBy(v => v.CreateTime)
                 .ToListAsync();
 
-            
-            return _msgService.MsgReturn(0, "Danh sách chương chưa review", chapters);
+            page = page == null || page == 0 ? 1 : page;
+            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
+            return _msgService.MsgPagingReturn("Danh sách chương chưa review",
+            chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, chapters.Count);
         }
 
         public class addChapterForm
