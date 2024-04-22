@@ -488,8 +488,19 @@ namespace app.Controllers
             var admin = _context.Users.Where(u => u.UserId == userId).FirstOrDefault();
             if (admin.RoleId != 1) return _msgService.MsgActionReturn(-1, "Không có quyền quản trị viên");
 
-            var request_exist = await _context.RefundRequests.Where(c => c.ResponseTime != null && c.Status == null).ToListAsync();
-            if (request_exist.Count() != 0) return _msgService.MsgActionReturn(-2, "Xử lý các yêu cầu đang dở");
+            var request_exist = await _context.RefundRequests.Where(c => c.ResponseTime != null && c.Status == null)
+                .Include(c => c.Wallet).ThenInclude(c => c.User)
+                .Select(c => new
+                {
+                    UserFullname = c.Wallet.User.UserFullname,
+                    BankId = c.BankId,
+                    BankAccount = c.BankAccount,
+                    Amount = ((int)c.Amount * 1000).ToString(),
+                    RequestTime = c.RequestTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                    ResponseTime = c.ResponseTime.Value.ToString("yyyy-MM-dd HH:mm:ss"),
+                })
+                .ToListAsync();
+            if (request_exist.Count() != 0) return _msgService.MsgReturn(0, "Xử lý các yêu cầu đang dở", request_exist);
 
 
             var requests = await _context.RefundRequests
