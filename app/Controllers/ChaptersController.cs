@@ -217,40 +217,6 @@ namespace app.Controllers
             return _msgService.MsgReturn(0, "Danh sách tập cụ thể", volumes);
         }
 
-        [HttpGet("chapter_not_review")]
-        public async Task<ActionResult> GetVolumeStoryNotReview(int page, int pageSize)
-        {
-            var jwtSecurityToken = new JwtSecurityToken();
-            int userId = 0;
-            try
-            {
-                jwtSecurityToken = VerifyToken();
-                userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
-            }
-            catch (Exception) { }
-
-            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
-
-            var chapters = await _context.Chapters.Where(c => c.Status == 0 && c.Story.AuthorId == userId)
-                .Select(c => new
-                {
-                    StoryId = c.StoryId,
-                    ChapterId = c.ChapterId,
-                    VolumeId = c.VolumeId,
-                    VolumeTitle = c.Volume.VolumeTitle,
-                    ChapterTitle = c.ChapterTitle,
-                    ChapterNumber = c.ChapterNumber,
-                    CreateTime = c.CreateTime,
-                    Status = c.Status
-                }).OrderBy(v => v.CreateTime)
-                .ToListAsync();
-
-            page = page == null || page == 0 ? 1 : page;
-            pageSize = pageSize == null || pageSize == 0 ? pagesize : pageSize;
-            return _msgService.MsgPagingReturn("Danh sách chương chưa review",
-            chapters.Skip(pageSize * (page - 1)).Take(pageSize), page, pageSize, chapters.Count);
-        }
-
         public class addChapterForm
         {
             public int StoryId { get; set; }
