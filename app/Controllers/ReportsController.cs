@@ -143,6 +143,8 @@ namespace app.Controllers
                 .Select(r => new
                 {
                     ReportId = r.ReportId,
+                    StoryId = r.StoryId,
+                    ChapterId = r.ChapterId,
                     UserName = r.User.Username,
                     ReportTypeContent = r.ReportType.ReportTypeContent,
                     ChapterTitle = r.Chapter.ChapterTitle,

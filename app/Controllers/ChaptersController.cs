@@ -413,11 +413,11 @@ namespace app.Controllers
                         EM = "Chương không tồn tại"
                     });
                 }
-                currentChapter.Status = 0;
+                currentChapter.Status = -1;
                 _context.Entry<Chapter>(currentChapter).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.SaveChanges();
 
-                var chapters = _context.Chapters.Where(c => c.StoryId == storyId && c.Status == 1).OrderBy(c => c.Volume.VolumeNumber).ThenBy(c => c.ChapterNumber).ToList();
+                var chapters = _context.Chapters.Where(c => c.StoryId == storyId && c.Status >= 0).OrderBy(c => c.Volume.VolumeNumber).ThenBy(c => c.ChapterNumber).ToList();
                 for (int i = 0; i < chapters.Count; i++)
                 {
                     chapters[i].ChapterNumber = i + 1;
