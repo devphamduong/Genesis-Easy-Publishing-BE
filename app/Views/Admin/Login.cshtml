@@ -115,7 +115,7 @@
                             localStorage.setItem('user', JSON.stringify(data.dt.user));
                             window.location.href = 'http://localhost:5188/Admin/User';
                         } else {
-                            notify('Thông tin đăng nhập không đúng', 'danger');
+                            notify('Bạn không có quyền truy cập trang này!', 'danger');
                         }
                     } else {
                         notify(data.em, 'danger');

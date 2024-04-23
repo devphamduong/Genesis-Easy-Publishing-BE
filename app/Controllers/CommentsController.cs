@@ -3,6 +3,7 @@ using app.Models;
 using app.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System.IdentityModel.Tokens.Jwt;
@@ -144,7 +145,7 @@ namespace app.Controllers
             if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
             Comment cmt = await _context.Comments.FirstOrDefaultAsync(c => c.UserId == userId && c.CommentId == commentId);
-            if (cmt == null) return _msgService.MsgActionReturn(-1, "Không có comment");
+            if (cmt == null) return _msgService.MsgActionReturn(-1, "Comment không tồn tại");
 
             try
             {
@@ -167,6 +168,54 @@ namespace app.Controllers
                 });
             }
             return _msgService.MsgActionReturn(0, "Bình luận thành công");
+        }
+
+        [HttpDelete("delete_comment")]
+        public async Task<ActionResult> DeleteComment(int commentId)
+        {
+            int userId = GetUserId();
+
+            if (userId == 0) return _msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if(user.RoleId != 1)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Bạn không có quyền thực hiện chức năng này!"
+                });
+            }
+
+            try
+            {
+                var comment = await _context.Comments.FirstOrDefaultAsync(c => c.CommentId == commentId);
+                if(comment == null)
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -1,
+                        EM = "Bình luận không tồn tại"
+                    });
+                }
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Xóa bình luận thành công!"
+            });
         }
     }
 }

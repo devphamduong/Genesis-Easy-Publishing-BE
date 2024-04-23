@@ -517,7 +517,9 @@ namespace app.Controllers
             }
             catch (Exception) { }
 
-            var currentStory = _context.Stories.FirstOrDefault(s => s.StoryId == storyId && s.AuthorId == userId);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var currentStory = _context.Stories.FirstOrDefault(s => s.StoryId == storyId && (s.AuthorId == userId || user.RoleId == 1));
+
             if (currentStory == null)
             {
                 return new JsonResult(new

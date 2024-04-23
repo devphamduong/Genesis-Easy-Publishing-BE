@@ -23,7 +23,7 @@
                                     <th>UserName</th>
                                     <th>Report Type</th>
                                     <th>Chapter</th>
-                                    <th>Stories</th>
+                                    <th>Story</th>
                                     <th>Comment</th>
                                     <th>Report Content</th>
                                     <th>Report Date</th>
@@ -88,11 +88,11 @@
                         { 
                             data: null,
                             render(data){
-                                if (data.chapterTitle){
+                                if (data.chapterTitle && !data.commentContent) {
                                     return `
                                         <div style="display: flex; align-items: center;">
                                             <a href="${data.link}" target="_blank">${data.chapterTitle}</a>
-                                                        <a class="text-danger ml-1" onclick="displayBanChapter(${data.chapterId}, '${data.chapterTitle}')"><i class="fas fa-ban"></i></a>
+                                                            <a style="cursor: pointer" class="text-danger ml-1" onclick="displayBanChapter(${data.chapterId}, '${data.chapterTitle}')"><i class="fas fa-ban"></i></a>
                                         </div>`;
                                 }else{
                                     return null;
@@ -103,18 +103,32 @@
                         { 
                             data: null,
                             render(data) {
-                                if (data.chapterTitle) {
+                                if (data.chapterTitle || data.commentContent) {
                                     return null
                                 }else{
                                     return `
                                             <div style="display: flex; align-items: center;">
                                                 <a href="${data.link}" target="_blank">${data.storyTitle}</a>
-                                                    <a class="text-danger ml-1" onclick="displayBanStory(${data.storyId})"><i class="fas fa-ban"></i></a>
+                                                            <a style="cursor: pointer" class="text-danger ml-1" onclick="displayBanStory(${data.storyId}, '${data.storyTitle}')"><i class="fas fa-ban"></i></a>
                                             </div>`;
                                 }
                             }
                         },
-                        { data: 'commentContent' },
+                        { 
+                            data: null,
+                            render(data) {
+                                if (data.commentContent) {
+                                    return `
+                                                    <div style="display: flex; align-items: center;">
+                                                                <p>${data.commentContent}</p>
+                                                                        <a style="cursor: pointer" class="text-danger ml-1" onclick="displayBanComment(${data.commentId})"><i class="fas fa-ban"></i></a>
+                                                    </div>`;
+                                } else {
+                                    return null;
+                                }
+                            }
+                        
+                        },
                         { data: 'reportContent1' },
                         { data: 'reportDate' },
                         {
@@ -134,6 +148,120 @@
                 $('.loader-container').hide();
                 console.error('Error fetching data:', error);
             });
+    }
+
+    function displayBanComment(id) {
+        document.getElementById('banContent').innerHTML = `
+                                        <div class="modal-header">
+                                                <h2 class="modal-title">Xóa bình luận?</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                                <button type="button" onclick="deleteComment('${id}')" class="btn btn-primary">Xóa</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                        </div>
+                                `;
+        $("#banModal").modal();
+    }
+
+    async function deleteComment(id) {
+        try {
+            await fetch(`http://localhost:5188/api/v1/comments/delete_comment?commentId=${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    var title = data.em;
+
+                    $.notify({
+                        title: title,
+                        icon: 'fa fa-bell'
+                    }, {
+                        type: data.ec == 0 ? 'success' : 'danger',
+                        placement: {
+                            from: "bottom",
+                            align: "right"
+                        },
+                        delay: 3000,
+                        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                            '<span data-notify="icon"></span> ' +
+                            '<span data-notify="title">{1}</span> ' +
+                            '</div>'
+                    });
+
+                })
+                .catch(error => console.error('Xóa bình luận thất bại.', error));;
+            $("#banModal").modal('hide');
+
+        } catch (error) {
+            console.error('Xóa bình luận thất bại.', error);
+        }
+
+    }
+
+    function displayBanStory(id, title) {
+        document.getElementById('banContent').innerHTML = `
+                                    <div class="modal-header">
+                                            <h2 class="modal-title">Khóa truyện ${title}?</h2>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                            <button type="button" onclick="banStory('${id}')" class="btn btn-primary">Khóa</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    </div>
+                            `;
+        $("#banModal").modal();
+    }
+
+    async function banStory(id) {
+        try {
+            await fetch(`http://localhost:5188/api/v1/story/delete_story?storyId=${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    var title = data.em;
+                    if (data.ec == 0){
+                        title = "Khóa truyện thành công!";
+                    }
+                    $.notify({
+                        title: title,
+                        icon: 'fa fa-bell'
+                    }, {
+                        type: data.ec == 0 ? 'success' : 'danger',
+                        placement: {
+                            from: "bottom",
+                            align: "right"
+                        },
+                        delay: 3000,
+                        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                            '<span data-notify="icon"></span> ' +
+                            '<span data-notify="title">{1}</span> ' +
+                            '</div>'
+                    });
+
+                })
+                .catch(error => console.error('Khóa truyện thất bại.', error));;
+            $("#banModal").modal('hide');
+
+        } catch (error) {
+            console.error('Khóa truyện thất bại.', error);
+        }
+
     }
 
     function displayBanChapter(id, title){
@@ -165,6 +293,9 @@
                 .then(data => {
                     var title = data.em;
 
+                    if (data.ec == 0) {
+                        title = "Khóa chương thành công!";
+                    }
                     $.notify({
                         title: title,
                         icon: 'fa fa-bell'
@@ -181,14 +312,13 @@
                             '<span data-notify="title">{1}</span> ' +
                             '</div>'
                     });
-                    loadData();
 
                 })
-                .catch(error => console.error('Xóa chương thất bại.', error));;
+                .catch(error => console.error('Khóa chương thất bại.', error));;
             $("#banModal").modal('hide');
 
         } catch (error) {
-            console.error('Xóa chương thất bại.', error);
+            console.error('Khóa chương thất bại.', error);
         }
 
     }

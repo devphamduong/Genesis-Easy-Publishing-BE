@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using app.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -6,7 +7,11 @@ namespace app.Controllers
 {
     public class AdminController : Controller
     {
-
+        private readonly EasyPublishingContext _context;
+        public AdminController(EasyPublishingContext context)
+        {
+            _context = context;
+        }
         private string extractToken()
         {
             if (!String.IsNullOrEmpty(Request.Headers.Authorization) &&
@@ -27,7 +32,7 @@ namespace app.Controllers
             return jwtSecurityToken;
         }
 
-        private int GetUserId()
+        private bool CheckAdmin()
         {
             var jwtSecurityToken = new JwtSecurityToken();
             int userId = 0;
@@ -37,7 +42,13 @@ namespace app.Controllers
                 userId = Int32.Parse(jwtSecurityToken.Claims.First(c => c.Type == "userId").Value);
             }
             catch (Exception) { }
-            return userId;
+            if(userId == 0)
+            {
+                return false;
+            }
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user.RoleId != 1) return false;
+            return true;
         }
 
         [AllowAnonymous]
@@ -47,48 +58,48 @@ namespace app.Controllers
         }
         public IActionResult User()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
         public IActionResult Dashboard()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Report()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Story()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Transaction()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Category()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Ticket()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
 
         public IActionResult Review()
         {
-            if (GetUserId() == 0) return RedirectToAction("Login");
+            if (!CheckAdmin()) return RedirectToAction("Login");
             return View();
         }
     }

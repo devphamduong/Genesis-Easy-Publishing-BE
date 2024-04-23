@@ -86,7 +86,7 @@ namespace app.Controllers
                     CommentContent = r.Comment.CommentContent,
                     CommentId = r.CommentId,
                     ReportContent1 = r.ReportContent1,
-                    ReportDate = r.ReportDate,
+                    ReportDate = r.ReportDate.ToString("dd/MM/yyyy HH:mm:ss"),
                     Status = (r.Status == null || r.Status == false) ? "Unsolved" : "Resolved"
                 })
                 .ToListAsync();
