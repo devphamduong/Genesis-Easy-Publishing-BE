@@ -95,7 +95,7 @@ namespace app.Controllers
                     return new JsonResult(new
                     {
                         EC = -1,
-                        EM = "Không thể tạo thêm tập mới"
+                        EM = "Tập gần nhất phải có ít nhất hai chương"
                     });
                 }
             }
