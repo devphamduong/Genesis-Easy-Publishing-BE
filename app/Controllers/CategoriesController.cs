@@ -49,9 +49,10 @@ namespace app.Controllers
                 .Select(c => new
                 {
                     c.CategoryId,
-                    c.CategoryName,
+                    CategoryName = c.CategoryName.Replace("Truyện ", ""),
                     c.CategoryDescription,
-                    c.CategoryBanner
+                    c.CategoryBanner,
+                    StoriesNumber = c.Stories.Count(),
                 })
                 .ToListAsync();
             if (cate == null) return _msgService.MsgActionReturn(-1, "Không có loại đó");
