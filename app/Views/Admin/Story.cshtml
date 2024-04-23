@@ -27,10 +27,10 @@
                                     <th>Story Author</th>
                                     <th>Story Chapter</th>
                                     <th>Story Reads</th>
-                                    <th>Volumes</th>
                                     <th>User Owned</th>
                                     <th>User Follow</th>
                                     <th>User Like</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,17 +41,9 @@
             </div>
         </div>
 
-        <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal" tabindex="-2" role="dialog" id="banModal">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Category Detail</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="categoryInfo">
-                    </div>
+                <div class="modal-content" id="banContent">
                 </div>
             </div>
         </div>
@@ -61,10 +53,14 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        $('#nav-menu li').removeClass("active");
-        $('#nav-story').addClass("active");
-        //async function loadData() {
+        loadData();
+        
+        //}
+    });
+
+    async function loadData() {
         $('.loader-container').show();
+        $('#basic-datatables').DataTable().destroy();
         fetch('http://localhost:5188/api/v1/story/get_all_stories')
             .then(response => response.json())
             .then(data => {
@@ -75,17 +71,17 @@
                         {
                             data: null,
                             render(data) {
-                                return `<a style="color: blue; cursor: pointer" onclick="openUserInfor(${data.StoryId})"><i class="fas fa-edit"></i></a>`
+                                return `<a style="cursor: pointer" class="text-danger ml-1" onclick="displayBanStory(${data.storyId}, '${data.storyTitle}')"><i class="fas fa-ban"></i></a>`
                             }
                         },
                         { data: 'storyId' },
                         { data: 'storyTitle' },
                         {
-                             data: null,
-                             render(data) {
+                            data: null,
+                            render(data) {
                                 return `<img src = "../Assets/images/story/${data.storyImage}" alt = "story image" style="width:100px;height:180px;">`
-                             }
-                         },
+                            }
+                        },
                         { data: 'storyDescription' },
                         { data: 'storyPrice' },
                         { data: 'storySale' },
@@ -94,26 +90,95 @@
                         { data: 'storyAuthor' },
                         { data: 'storyChapters' },
                         { data: 'storyReads' },
-                        { data: 'volumes' },
                         { data: 'userOwned' },
                         { data: 'userFollow' },
-                        { data: 'userLike' }
+                        { data: 'userLike' },
+                        {
+                            data: null,
+                            render(data) {
+                                if (data.status == -1) {
+                                    return `<p class="text-danger"">Bị Khóa</p>`;
+                                }
+                                return getStatusText(data.status);
+                            }
+                        }
                     ]
                 });
             })
             .catch(error => {
+                $('.loader-container').hide();
                 console.error('Error fetching data:', error);
             });
-        //}
-    });
+    }
 
-    function loadPage(pageName) {
+    function getStatusText(status) {
+        switch (status) {
+            case -1:
+                return 'Bị Khóa';
+            case 1:
+                return 'Chưa hoàn thành';
+            case 2:
+                return 'Hoàn thành';
+            default:
+                return 'Chưa xuất bản';
+        }
+    }
 
-        // Use jQuery to load content from the server
-        $.get(`${pageName}.html`, function () {
-            // Replace the content of the #content div with the loaded data
+    function displayBanStory(id, title) {
+        document.getElementById('banContent').innerHTML = `
+                                        <div class="modal-header">
+                                                <h2 class="modal-title">Khóa truyện ${title}?</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
 
-            $('#basic-datatables').DataTable();
-        });
+                                        <div class="modal-footer">
+                                                <button type="button" onclick="banStory('${id}')" class="btn btn-primary">Khóa</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                        </div>
+                                `;
+        $("#banModal").modal();
+    }
+
+    async function banStory(id) {
+        try {
+            await fetch(`http://localhost:5188/api/v1/story/delete_story?storyId=${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    var title = data.em;
+                    if (data.ec == 0) {
+                        title = "Khóa truyện thành công!";
+                    }
+                    $.notify({
+                        title: title,
+                        icon: 'fa fa-bell'
+                    }, {
+                        type: data.ec == 0 ? 'success' : 'danger',
+                        placement: {
+                            from: "bottom",
+                            align: "right"
+                        },
+                        delay: 3000,
+                        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                            '<span data-notify="icon"></span> ' +
+                            '<span data-notify="title">{1}</span> ' +
+                            '</div>'
+                    });
+                    loadData();
+                })
+                .catch(error => console.error('Khóa truyện thất bại.', error));;
+            $("#banModal").modal('hide');
+
+        } catch (error) {
+            console.error('Khóa truyện thất bại.', error);
+        }
+
     }
 </script>
