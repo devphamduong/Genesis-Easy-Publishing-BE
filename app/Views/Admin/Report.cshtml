@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -53,12 +52,16 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="modal" tabindex="-1" role="dialog" id="modalStatus">
+        <div class="modal" tabindex="-1" role="dialog" id="modalStatus" >
             <div class="modal-dialog" role="document">
                 <div class="modal-content" id="reportStatus">
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-2" role="dialog" id="banModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="banContent">
             </div>
         </div>
     </div>
@@ -66,8 +69,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        $('#nav-menu li').removeClass("active");
-        $('#nav-report').addClass("active");
         loadData();
     });
 
@@ -88,9 +89,13 @@
                             data: null,
                             render(data){
                                 if (data.chapterTitle){
-                                    return `<a href="${data.link}" target="_blank">${data.chapterTitle}</a>`
+                                    return `
+                                        <div style="display: flex; align-items: center;">
+                                            <a href="${data.link}" target="_blank">${data.chapterTitle}</a>
+                                                        <a class="text-danger ml-1" onclick="displayBanChapter(${data.chapterId}, '${data.chapterTitle}')"><i class="fas fa-ban"></i></a>
+                                        </div>`;
                                 }else{
-                                    return null
+                                    return null;
                                 }
                             }
                         
@@ -101,7 +106,11 @@
                                 if (data.chapterTitle) {
                                     return null
                                 }else{
-                                    return `<a href="${data.link}" target="_blank">${data.storyTitle}</a>`
+                                    return `
+                                            <div style="display: flex; align-items: center;">
+                                                <a href="${data.link}" target="_blank">${data.storyTitle}</a>
+                                                    <a class="text-danger ml-1" onclick="displayBanStory(${data.storyId})"><i class="fas fa-ban"></i></a>
+                                            </div>`;
                                 }
                             }
                         },
@@ -127,7 +136,64 @@
             });
     }
 
-    function adjustStatus(status, id) {
+    function displayBanChapter(id, title){
+        document.getElementById('banContent').innerHTML = `
+                                <div class="modal-header">
+                                        <h2 class="modal-title">Khóa chương ${title}?</h2>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-footer">
+                                        <button type="button" onclick="banChapter('${id}')" class="btn btn-primary">Khóa</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                </div>
+                        `;
+        $("#banModal").modal();
+    }
+
+    async function banChapter(id) {
+        try {
+            await fetch(`http://localhost:5188/api/v1/chapters/delete_chapter?chapterId=${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    var title = data.em;
+
+                    $.notify({
+                        title: title,
+                        icon: 'fa fa-bell'
+                    }, {
+                        type: data.ec == 0 ? 'success' : 'danger',
+                        placement: {
+                            from: "bottom",
+                            align: "right"
+                        },
+                        delay: 3000,
+                        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                            '<span data-notify="icon"></span> ' +
+                            '<span data-notify="title">{1}</span> ' +
+                            '</div>'
+                    });
+                    loadData();
+
+                })
+                .catch(error => console.error('Xóa chương thất bại.', error));;
+            $("#banModal").modal('hide');
+
+        } catch (error) {
+            console.error('Xóa chương thất bại.', error);
+        }
+
+    }
+
+        function adjustStatus(status, id) {
         if (status == 'Unsolved') {
             document.getElementById('reportStatus').innerHTML = `
                                             <div class="modal-header">
