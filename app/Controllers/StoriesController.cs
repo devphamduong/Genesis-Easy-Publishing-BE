@@ -81,6 +81,7 @@ namespace app.Controllers
                     StoryReads = c.StoryReads.Count(),
                     Volumes = c.Volumes.Count(),
                     UserOwned = c.Users.Count(),
+                    Status = c.Status,
                     UserFollow = c.StoryFollowLikes.Where(c => c.Follow == true).Count(),
                     UserLike = c.StoryFollowLikes.Where(c => c.Like == true).Count()
                 })
@@ -423,7 +424,7 @@ namespace app.Controllers
                     StoryDescription = addStoryForm.StoryDescription,
                     StoryDescriptionHtml = addStoryForm.StoryDescriptionHtml,
                     StoryDescriptionMarkdown = addStoryForm.StoryDescriptionMarkdown,
-                    StoryImage = addStoryForm.StoryImage,
+                    StoryImage = addStoryForm.StoryImage != null ? addStoryForm.StoryImage : null,
                     CreateTime = DateTime.Now,
                     Status = 0,
                     StoryPrice = 0,
@@ -591,6 +592,15 @@ namespace app.Controllers
                 {
                     EC = -1,
                     EM = "Bạn không có quyền dùng chức năng này"
+                });
+            }
+
+            if(currentStory.Status == -1)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Truyện này đã bị khóa"
                 });
             }
             try

@@ -457,12 +457,17 @@ namespace app.Controllers
             var user = _context.Users.Where(u => u.UserId == userid).Select(u => new
             {
                 UserId = u.UserId,
+                RoleId = u.RoleId,
                 Stories = u.StoriesNavigation.Select(sn => new { StoryId = sn.StoryId }).ToList(),
                 Chapters = u.Chapters.Select(c => new { chapterId = c.ChapterId, ChapterNumber = c.ChapterNumber, StoryId = c.StoryId }).ToList()
             }).FirstOrDefault();
             if (user == null)
             {
                 return false;
+            }
+            if (user.RoleId == 1)
+            {
+                return true;
             }
             if (user.Chapters.Any(c => c.ChapterNumber == chapterNum && c.StoryId == storyid) || user.Stories.Any(s => s.StoryId == storyid))
             {
