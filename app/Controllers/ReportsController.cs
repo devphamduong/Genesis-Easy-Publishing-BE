@@ -95,7 +95,7 @@ namespace app.Controllers
 
         private static string FormatLink(int? storyId, string storyTitle, long chapterNumber)
         {
-            if(storyTitle == null)
+            if (storyTitle == null)
             {
                 return null;
             }
@@ -107,9 +107,9 @@ namespace app.Controllers
 
             cleanedName = cleanedName.Replace(" ", "-");
             cleanedName = RemoveDiacritics(cleanedName);
-            if(chapterNumber != 0)
+            if (chapterNumber != 0)
             {
-                return "https://genesis-easy-publishing.vercel.app/story/read/"+storyId+"/" + cleanedName+".chapter-"+chapterNumber;
+                return "https://genesis-easy-publishing.vercel.app/story/read/" + storyId + "/" + cleanedName + ".chapter-" + chapterNumber;
             }
             else
             {
@@ -179,8 +179,11 @@ namespace app.Controllers
             }
             else if (reportDTO.StoryId != null)
             {
-                var chapter_param = reportDTO.ChapterId != null ? $"&chapterId={reportDTO.ChapterId}" : "";
-                link = $"https://genesis-easy-publishing.vercel.app/author/write-story?mode=edit&storyId={reportDTO.StoryId}{chapter_param}";
+
+                link = $"https://genesis-easy-publishing.vercel.app/author/write-story?mode=edit&storyId={reportDTO.StoryId}";
+                if (reportDTO.ChapterId != null) link =
+                 $"https://genesis-easy-publishing.vercel.app/author/write-chapter?mode=edit&storyId={reportDTO.StoryId}&chapterId={reportDTO.ChapterId}";
+                
                 mail_content = $"<p>Nội dung bạn đăng tải đã vi phạm tiêu chí trên" +
                                $"<p>Xin hãy chỉnh sửa sớm nhất thông qua đường link dưới</p>" +
                                $"<a href=\"{link}\">Link chỉnh sửa</a>";
