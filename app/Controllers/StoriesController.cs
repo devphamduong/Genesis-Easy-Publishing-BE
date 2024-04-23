@@ -319,7 +319,8 @@ namespace app.Controllers
                     storyImage = s.StoryImage,
                     storyPrice = s.StoryPrice,
                     storySale = s.StorySale,
-                    status = s.Status
+                    status = s.Status,
+                    reviewed = s.Chapters.Any(c => c.Status == 1)
                 }).FirstOrDefaultAsync();
             if (story == null)
             {
