@@ -2,7 +2,7 @@
     ViewData["Title"] = "Review Management";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<input type="hidden" id="displayVal" value="0">
 <div class="page-header">
     <h4 class="page-title">Review Story</h4>
 </div>
@@ -81,86 +81,177 @@
     });
 
     async function loadData() {
+        var type = $('#displayVal').val();
         $('#table-wrapper').html('')
-        const table = $(`<table id="datatables" class="display table table-head-bg-primary table-hover">
-                                <thead>
-                                <tr>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Created Date</th>
-                                <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>`)
-        $('#table-wrapper').append(table);
-        $('.loader-container').show();
-        $.ajax({
-            url: 'http://localhost:5188/api/v1/reviews/story_admin',
-            type: 'GET',
-        }).done(data => {
-            $('.loader-container').hide();
-            let list = [];
-            data.dt.stories.forEach(i => {
-                list.push({
-                    tt_key: i.tt_key,
-                    tt_parent: i.tt_parent,
-                    storyId: i.storyId,
-                    title: i.title,
-                    author: i.author,
-                    createTime: i.createTime
-                });
-                i.volumes.forEach(v => {
+        if (type == '1') {
+            const table = $(`<table id="datatables" class="display table table-head-bg-primary table-hover">
+                                                                                                                <thead>
+                                                                                                                <tr>
+                                                                                                                <th>Title</th>
+                                                                                                                <th>Author</th>
+                                                                                                                <th>Created Date</th>
+                                                                                                                <th></th>
+                                                                                                                </tr>
+                                                                                                                </thead>
+                                                                                                                <tbody>
+                                                                                                                </tbody>
+                                                                                                            </table>`)
+            $('#table-wrapper').append(table);
+            $('.loader-container').show();
+            $.ajax({
+                url: 'http://localhost:5188/api/v1/reviews/story_admin',
+                type: 'GET',
+            }).done(data => {
+                $('.loader-container').hide();
+                let list = [];
+                data.dt.stories.forEach(i => {
                     list.push({
-                        tt_key: v.tt_key,
-                        tt_parent: v.tt_parent,
-                        title: v.title,
-                        createTime: v.createTime
+                        tt_key: i.tt_key,
+                        tt_parent: i.tt_parent,
+                        storyId: i.storyId,
+                        title: i.title,
+                        author: i.author,
+                        createTime: i.createTime
                     });
-                    v.chapters.forEach(c => {
+                    i.volumes.forEach(v => {
                         list.push({
-                            tt_key: c.tt_key,
-                            tt_parent: c.tt_parent,
-                            title: c.title,
-                            createTime: c.createTime,
-                            chapterId: c.chapterId
+                            tt_key: v.tt_key,
+                            tt_parent: v.tt_parent,
+                            title: v.title,
+                            createTime: v.createTime
                         });
+                        v.chapters.forEach(c => {
+                            list.push({
+                                tt_key: c.tt_key,
+                                tt_parent: c.tt_parent,
+                                title: c.title,
+                                createTime: c.createTime,
+                                chapterId: c.chapterId
+                            });
+                        })
                     })
                 })
-            })
-            $('#datatables').treeTable({
-                data: list,
-                pageLength: -1,
-                lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
-                collapsed: true,
-                columns: [
-                    {
-                        data: 'title',
-                    },
-                    {
-                        data: 'author',
-                        render: function (data, type, row, meta) {
-                            return (type === 'display' && data)
-                                ? data : '';
+                $('#datatables').treeTable({
+                    data: list,
+                    pageLength: -1,
+                    lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
+                    collapsed: true,
+                    columns: [
+                        {
+                            data: 'title',
+                        },
+                        {
+                            data: 'author',
+                            render: function (data, type, row, meta) {
+                                return (type === 'display' && data)
+                                    ? data : '';
+                            }
+                        },
+                        { data: 'createTime' },
+                        {
+                            data: null,
+                            render(data) {
+                                if (data.chapterId != null) {
+                                    return `<a style="cursor: pointer; font-size:20px" class="text-primary" onclick="openReviewModal(${data.chapterId})"><i class="fas fa-pen-square"></i></a>`
+                                }
+                                return ''
+                            }
                         }
-                    },
-                    { data: 'createTime' },
-                    {
-                        data: null,
-                        render(data) {
-                            if (data.chapterId != null) {
+                    ]
+                })
+                const select = $(`<label style="margin:0 15px 0 5px; width: 120px"><select id="displayType" class="form-control form-control-sm" onchange="onTypeChange()">
+                                                                                            <option value='0'>Flat list</option>
+                                                                                            <option value='1'>Tree view</option>
+                                                                                        </select></label>`);
+                $('#datatables_filter').prepend(select);
+                $('#datatables_filter').prepend('<label>Display:</label>');
+                $('#displayType').val(type);
+            }).fail(error => {
+                $('.loader-container').hide();
+                console.error('Error fetching data:', error);
+            });
+        } else {
+            const table = $(`<table id="datatables" class="display table table-head-bg-primary table-hover">
+                                                                                                                    <thead>
+                                                                                                                    <tr>
+                                                                                                                    <th>Chapter</th>
+                                                                                                                    <th>Volume</th>
+                                                                                                                    <th>Story</th>
+                                                                                                                    <th>Created Date</th>
+                                                                                                                    <th></th>
+                                                                                                                    </tr>
+                                                                                                                    </thead>
+                                                                                                                    <tbody>
+                                                                                                                    </tbody>
+                                                                                                                </table>`)
+            $('#table-wrapper').append(table);
+            $('.loader-container').show();
+            $.ajax({
+                url: 'http://localhost:5188/api/v1/reviews/chapter_review?page=1&pageSize=1000',
+                type: 'GET',
+            }).done(data => {
+                $('.loader-container').hide();
+                let list = [];
+                data.dt.list.forEach(i => {
+                    list.push({
+                        tt_key: i.chapterId,
+                        tt_parent: 0,
+                        chapterId: i.chapterId,
+                        chapterNumber: i.chapterNumber,
+                        chapterTitle: i.chapterTitle,
+                        volumeNumber: i.volumeNumber,
+                        volumeTitle: i.volumeTitle,
+                        storyTitle: i.storyTitle,
+                        createTime: i.createTime,
+                    });
+                })
+                $('#datatables').treeTable({
+                    data: list,
+                    pageLength: 10,
+                    columns: [
+                        {
+                            data: null,
+                            render(data) {
+                                return data.chapterNumber + '. ' + data.chapterTitle
+                            }
+                        },
+                        {
+                            data: null,
+                            render(data) {
+                                return data.volumeNumber + '. ' + data.volumeTitle
+                            }
+                        },
+                        {
+                            data: 'storyTitle'
+                        },
+                        {
+                            data: null,
+                            render(data) {
+                                const timestamp = data.createTime;
+                                const date = new Date(timestamp);
+                                return date.toISOString().split('.')[0].replace('T', ' ');
+                            }
+                        },
+                        {
+                            data: null,
+                            render(data) {
                                 return `<a style="cursor: pointer; font-size:20px" class="text-primary" onclick="openReviewModal(${data.chapterId})"><i class="fas fa-pen-square"></i></a>`
                             }
-                            return ''
                         }
-                    }
-                ]
-            })
-        }).fail(error => {
-            $('.loader-container').hide();
-            console.error('Error fetching data:', error);
-        });
+                    ]
+                })
+                const select = $(`<label style="margin:0 15px 0 5px; width: 120px"><select id="displayType" class="form-control form-control-sm" onchange="onTypeChange()">
+                                                                                                <option value='0'>Flat list</option>
+                                                                                                <option value='1'>Tree view</option>
+                                                                                            </select></label>`);
+                $('#datatables_filter').prepend(select);
+                $('#datatables_filter').prepend('<label>Display:</label>');
+                $('#displayType').val(type);
+            }).fail(error => {
+                $('.loader-container').hide();
+                console.error('Error fetching data:', error);
+            });
+        }
     }
 
     async function openReviewModal(id) {
@@ -178,6 +269,11 @@
         });
 
         $('#reviewModal').modal()
+    }
+
+    async function onTypeChange() {
+        $('#displayVal').val($('#displayType').val())
+        await loadData();
     }
 
     async function sendReview() {
