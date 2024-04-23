@@ -338,13 +338,77 @@ namespace app.Controllers
             public string? StoryDescription { get; set; }
             public string? StoryDescriptionMarkdown { get; set; }
             public string? StoryDescriptionHtml { get; set; }
+
+            public string? StoryImage { get; set; }
             public List<int> CategoryIds { get; set; }
         }
 
-        public class StoryImageForm
+        public class GetStoryImageForm
         {
-            public int storyId { get; set; }
             public IFormFile image { get; set; }
+
+            public string? previousImage { get; set; }
+        }
+
+        [HttpPut("upload_image")]
+        public IActionResult GetImage([FromForm] GetStoryImageForm data)
+        {
+            string fileUploaded = "";
+            try
+            {
+                if (data.image.Length > 0)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Assets/images/story");
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    if(data.previousImage != null)
+                    {
+                        string oldFilePath = Path.Combine(path, data.previousImage);
+
+                        // Check if the previous image file exists and delete it
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                        }
+                    }
+
+                    var ext = Path.GetExtension(data.image.FileName);
+                    var name = Path.GetFileNameWithoutExtension(data.image.FileName);
+                    var fileName = name + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ext;
+                    string filePath = Path.Combine(path, fileName);
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        data.image.CopyTo(stream);
+                    }
+                    fileUploaded = fileName;
+                }
+                else
+                {
+                    return new JsonResult(new
+                    {
+                        EC = -1,
+                        EM = "File không tồn tại"
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Hệ thống xảy ra lỗi!"
+                });
+            }
+            return new JsonResult(new
+            {
+                EC = 0,
+                EM = "Upload ảnh thành công",
+                DT = new
+                {
+                    fileUploaded = fileUploaded
+                }
+            });
         }
 
         [HttpPost("save_story")]
@@ -359,6 +423,7 @@ namespace app.Controllers
                     StoryDescription = addStoryForm.StoryDescription,
                     StoryDescriptionHtml = addStoryForm.StoryDescriptionHtml,
                     StoryDescriptionMarkdown = addStoryForm.StoryDescriptionMarkdown,
+                    StoryImage = addStoryForm.StoryImage,
                     CreateTime = DateTime.Now,
                     Status = 0,
                     StoryPrice = 0,
@@ -547,6 +612,11 @@ namespace app.Controllers
                 EC = 0,
                 EM = "Xóa truyện thành công"
             });
+        }
+        public class StoryImageForm
+        {
+            public int storyId { get; set; }
+            public IFormFile image { get; set; }
         }
 
         [HttpPut("update_storyimage")]
