@@ -156,7 +156,7 @@ namespace app.Controllers
             else
             {
                 chapter.Status = 1;
-                if(story.Status == 0)
+                if (story.Status == 0)
                 {
                     story.Status = 1;
                 }
@@ -194,12 +194,13 @@ namespace app.Controllers
             // send mail
             try
             {
+                var link = "https://genesis-easy-publishing.vercel.app/author/review-a-chapter?mode=readOnly&storyId=" + story.StoryId + "&chapterId=" + chapter.ChapterId;
                 mailService.Send(story.Author.Email,
                         "Easy Publishing: Truyện của bạn đã được review",
                         "<p>Xin chào <b>" + story.Author.Username + "</b>,</p>" +
                         "<p>Chương <b>" + chapter.ChapterTitle + "</b> của Truyện <b>" + story.StoryTitle + "</b> của bạn đã được review.</p> " +
                         "<p>Chi tiết vui lòng truy cập:</p> " +
-                        "<a href =\"https://genesis-easy-publishing.vercel.app/\">Xem bản review</a>");
+                        "<a href = " + link + ">Xem kết quả review</a>");
             }
             catch (Exception ex)
             {
