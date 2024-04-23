@@ -605,7 +605,7 @@ namespace app.Controllers
                 _context.Transactions.Add(admin_transaction);
                 await _context.SaveChangesAsync();
 
-                return _msgService.MsgReturn(0, $"Nạp {amount}000 VND thành  {amount} TLT : {user.UserFullname} thành công", new { amount });
+                return _msgService.MsgReturn(0, $"Nạp {amount}000 VND thành  {amount} TLT. Nạp tiền thành công!", new { amount });
             }
             catch (Exception)
             {

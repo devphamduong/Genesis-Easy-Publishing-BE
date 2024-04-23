@@ -203,7 +203,7 @@ namespace app.Controllers
                     VolumeTitle = v.VolumeTitle,
                     StoryId = v.StoryId,
                     CreateTime = v.CreateTime,
-                    Chapters = v.Chapters.Select(c => new
+                    Chapters = v.Chapters.Where(c => c.Status >=0 || c.Status == null).Select(c => new
                     {
                         c.ChapterId,
                         c.ChapterNumber,
@@ -402,6 +402,14 @@ namespace app.Controllers
         public async Task<ActionResult> DeleteChapter(int chapterId)
         {
             var currentChapter = _context.Chapters.FirstOrDefault(c => c.ChapterId == chapterId);
+            if(currentChapter.Status == -1)
+            {
+                return new JsonResult(new
+                {
+                    EC = -1,
+                    EM = "Chương này đã bị xóa!"
+                });
+            }
             int storyId = currentChapter.StoryId;
             try
             {

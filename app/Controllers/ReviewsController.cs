@@ -328,7 +328,7 @@ namespace app.Controllers
 
             if (userId == 0) return msgService.MsgActionReturn(-1, "Yêu cầu đăng nhập");
 
-            var chapters = await _context.Chapters.Where(c => c.Status == 0 && c.Story.AuthorId == userId)
+            var chapters = await _context.Chapters.Where(c => (c.Status == 0 || c.Status == null) && c.Story.AuthorId == userId)
                 .Select(c => new
                 {
                     StoryId = c.StoryId,

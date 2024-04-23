@@ -77,6 +77,8 @@ namespace app.Controllers
                 {
                     ReportId = r.ReportId,
                     UserName = r.User.Username,
+                    StoryId = r.StoryId,
+                    ChapterId = r.ChapterId,
                     ReportTypeContent = r.ReportType.ReportTypeContent,
                     ChapterTitle = r.Chapter.ChapterTitle,
                     Link = FormatLink(r.Story.StoryId, r.Story.StoryTitle != null ? r.Story.StoryTitle : null, r.Chapter != null ? r.Chapter.ChapterNumber : 0),
@@ -143,8 +145,6 @@ namespace app.Controllers
                 .Select(r => new
                 {
                     ReportId = r.ReportId,
-                    StoryId = r.StoryId,
-                    ChapterId = r.ChapterId,
                     UserName = r.User.Username,
                     ReportTypeContent = r.ReportType.ReportTypeContent,
                     ChapterTitle = r.Chapter.ChapterTitle,
