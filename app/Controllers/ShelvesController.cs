@@ -826,8 +826,9 @@ namespace app.Controllers
                         c.StoryInteraction.Read,
                     },
                     StoryStatus = c.Status,
-                    UserPurchaseStory = c.Users.Count,
+                    UserPurchaseStory = c.Users.Count + c.Chapters.SelectMany(c => c.Users).Count(),
                     UserPurchaseChapter = c.Chapters.SelectMany(c => c.Users).Count(),
+                    ChapterNum = c.Chapters.Count,
                 })
                 //.OrderByDescending(c => c.StoryId)
                 .ToListAsync();
